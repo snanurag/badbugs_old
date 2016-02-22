@@ -1,0 +1,8 @@
+Brass
+Bronze
+Copper
+Alumunium
+Silver
+Cast Iron
+Stainless Steal
+Valerian Steal
