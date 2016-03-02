@@ -14,10 +14,11 @@ public class BedBug implements Bug {
   public BedBug(){
     Util.createBugCoords(this);
   }
-  private static float[] pixelDimensions = {200, 256};
-  private static float[] cameraDimensions = {20 * 11 / 14,
-      20};
-  private static float[] pixelOrigin = {100,128};
+  private static float[] pixelDimensions = {BugsCord.BED_BUG_CENTER[0]*2, BugsCord.BED_BUG_CENTER[1]*2};
+
+  private static float[] cameraDimensions = {BugsCord.BED_BUG_SIZE * 11 / 14,
+      BugsCord.BED_BUG_SIZE};
+  private static float[] pixelOrigin = {BugsCord.BED_BUG_CENTER[0], BugsCord.BED_BUG_CENTER[1]};
   private static float[] finalCords;
 
   @Override public float[][] getBugPixelCoords() {

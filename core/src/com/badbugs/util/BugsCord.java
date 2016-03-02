@@ -9,4 +9,5 @@ public class BugsCord {
       { 71, 108 }, { 72, 83 }, { 84, 68 }, { 93, 60 }, { 100, 58 }, { 107, 60 }, { 116, 68 }, { 128, 83 }, { 129, 108 },
       { 142, 120 }, { 152, 140 }, { 159, 167 }, { 150, 206 } };
   public static float[] BED_BUG_CENTER = { 100, 128 };
+  public static float BED_BUG_SIZE = 12;
 }
