@@ -8,11 +8,10 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 
@@ -40,6 +39,8 @@ public class MainClass extends ApplicationAdapter {
   public Polygon bugPolygon;
   public Polygon knifePolygon;
 
+  private ShapeRenderer shapeRenderer;
+
   @Override public void create() {
 
     screenWidth = Gdx.graphics.getWidth();
@@ -54,16 +55,11 @@ public class MainClass extends ApplicationAdapter {
     cam.update();
     batch = new SpriteBatch();
     textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
-    animation = new Animation(1 / 150f, textureAtlas.getRegions());
+    animation = new Animation(1 / 60f, textureAtlas.getRegions());
     Gdx.input.setInputProcessor(new Inputs());
+    shapeRenderer = new ShapeRenderer();
     loadFloor();
     loadKnife();
-  }
-
-  @Override public void dispose() {
-    batch.dispose();
-    textureAtlas.dispose();
-    knifeTexture.dispose();
   }
 
   @Override public void render() {
@@ -79,12 +75,78 @@ public class MainClass extends ApplicationAdapter {
     renderBug();
     renderKnife();
 
-    if(Intersector.intersectPolygons(bugPolygon,knifePolygon,null))
-    {
+    if (Intersector.overlapConvexPolygons(bugPolygon, knifePolygon)) {
       System.out.println("knife hit bug");
+    } else {
+      System.out.println("knife is useless");
+
     }
 
+    shapeRenderer.setProjectionMatrix(cam.combined);
+    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+    shapeRenderer.setColor(1, 1, 0, 1);
+    shapeRenderer.line(0, 0, 100, 100);
+    shapeRenderer.rect(25, 25, 50, 50);
+    shapeRenderer.circle(0, 0, 30);
+    shapeRenderer.polygon(new BedBug().getCameraCoords());
+    shapeRenderer.polygon(bugPolygon.getTransformedVertices());
+    shapeRenderer.polygon(knifePolygon.getTransformedVertices());
+    shapeRenderer.end();
+
     batch.end();
+  }
+
+  private void renderBug() {
+    elapsedTime += Gdx.graphics.getDeltaTime();
+
+    float pos_y = cam_height / 2 - BUG_SPEED * elapsedTime % (cam_height);
+
+    BasicObject basicObject = new BedBug();
+
+    bugPolygon = new Polygon(basicObject.getCameraCoords());
+    bugPolygon.setOrigin(basicObject.getCameraDimensions()[0] / 2, basicObject.getCameraDimensions()[1] / 2);
+
+    //p.setRotation(90);
+    bugPolygon.setPosition(-cam_width / 2, -cam_height / 2);
+
+    batch.draw(animation.getKeyFrame(elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(), bugPolygon.getOriginX(),
+        bugPolygon.getOriginY(), basicObject.getCameraDimensions()[0], basicObject.getCameraDimensions()[1], 1, 1, 180);
+  }
+
+  private void renderKnife() {
+    elapsedTime += Gdx.graphics.getDeltaTime();
+
+    float pos_x = cam_width / 2 - BUG_SPEED * elapsedTime % (cam_width);
+
+    BasicObjectImpl silverKnife = new SilverKnife();
+    TouchInfo touchInfoInstance = Util.getFromTouchEventsQueue();
+    if (touchInfoInstance != null) {
+      System.out.println(touchInfoInstance.touchX + " " + touchInfoInstance.touchY);
+    }
+    knifePolygon = new Polygon(silverKnife.getCameraCoords());
+    knifePolygon.setOrigin(silverKnife.getCameraDimensions()[0] / 2, silverKnife.getCameraDimensions()[1] / 2);
+    knifePolygon.setPosition(-50, -27);
+
+    batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), knifePolygon.getOriginX(),
+        knifePolygon.getOriginY(), silverKnife.getCameraDimensions()[0], silverKnife.getCameraDimensions()[1], 1, 1, 0,
+        0, 0, silverKnife.getPixelDimensions()[0], silverKnife.getPixelDimensions()[1], false, false);
+    //    batch.draw(knifeTexture, -cam_width / 2, -cam_height / 2);
+  }
+
+  private void loadKnife() {
+    knifeTexture = new Texture(Gdx.files.internal("knife.png"));
+    knifeSprite = new Sprite(knifeTexture);
+
+  }
+
+  private void loadFloor() {
+    floorTexture = new Texture(Gdx.files.internal("floor.png"));
+    floorSprite = new Sprite(floorTexture);
+  }
+
+  private void renderFloor() {
+    batch.draw(floorTexture, -cam_width / 2, -cam_height / 2, cam_width * floorTexture.getWidth() / screenWidth,
+        cam_height * floorTexture.getHeight() / screenHeight);
   }
 
   @Override public void resize(int width, int height) {
@@ -96,56 +158,10 @@ public class MainClass extends ApplicationAdapter {
   @Override public void resume() {
   }
 
-  private void renderBug() {
-    elapsedTime += Gdx.graphics.getDeltaTime();
-
-    float pos_y = cam_height / 2 - BUG_SPEED * elapsedTime % (cam_height);
-
-    BasicObject basicObject = new BedBug();
-
-    bugPolygon = new Polygon(basicObject.getCameraCoords());
-    bugPolygon.setOrigin(basicObject.getCameraDimentions()[0] / 2, basicObject.getCameraDimentions()[1] / 2);
-    //p.setRotation(90);
-    bugPolygon.setPosition(-cam_width/2, -pos_y);
-
-    batch.draw(animation.getKeyFrame(elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(), bugPolygon.getOriginX(), bugPolygon.getOriginY(),
-        basicObject.getCameraDimentions()[0], basicObject.getCameraDimentions()[1], 1, 1, 0);
-  }
-
-  private void loadKnife() {
-    knifeTexture = new Texture(Gdx.files.internal("knife.png"));
-    knifeSprite = new Sprite(knifeTexture);
-
-  }
-
-  private void renderKnife() {
-    elapsedTime += Gdx.graphics.getDeltaTime();
-
-    float pos_x = cam_width / 2 - BUG_SPEED * elapsedTime % (cam_width);
-
-    BasicObjectImpl silverKnife = new SilverKnife();
-    TouchInfo touchInfoInstance = Util.getFromTouchEventsQueue();
-    if(touchInfoInstance!= null)
-    {
-      System.out.println(touchInfoInstance.touchX + " "+touchInfoInstance.touchY);
-    }
-    knifePolygon = new Polygon(silverKnife.getCameraCoords());
-    knifePolygon.setOrigin(silverKnife.getCameraDimentions()[0] / 2, silverKnife.getCameraDimentions()[1] / 2);
-    knifePolygon.setPosition(pos_x, 0);
-
-    batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), knifePolygon.getOriginX(), knifePolygon.getOriginY(), silverKnife.getCameraDimentions()[0],silverKnife.getCameraDimentions()[1], 1, 1, 0, 0, 0, silverKnife.getPixelDimensions()[0], silverKnife.getPixelDimensions()[1], false,
-        false);
-//    batch.draw(knifeTexture, -cam_width / 2, -cam_height / 2);
-  }
-
-  private void loadFloor() {
-    floorTexture = new Texture(Gdx.files.internal("floor.png"));
-    floorSprite = new Sprite(floorTexture);
-  }
-
-  private void renderFloor() {
-    batch.draw(floorTexture, -cam_width / 2, -cam_height / 2, cam_width * floorTexture.getWidth() / screenWidth,
-        cam_height * floorTexture.getHeight() / screenHeight);
+  @Override public void dispose() {
+    batch.dispose();
+    textureAtlas.dispose();
+    knifeTexture.dispose();
   }
 
 }

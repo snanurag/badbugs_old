@@ -11,10 +11,14 @@ public interface BasicObject {
 
   public int[] getPixelDimensions();
 
-  public float[] getCameraDimentions();
+  public float[] getCameraDimensions();
+
+  public float[] getScreenPixels();
+
+  public float[] getScreenDimension();
 
   public void setCameraCoords(float[] coords);
 
-  public int[] getPixelOrigin();
+  public void setScreenPixels(float[] coords);
 
 }

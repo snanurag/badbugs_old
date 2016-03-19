@@ -18,21 +18,20 @@ public class Util {
         float[] finalCords = new float[pixelCords.length * 2];
         for (int i = 0; i < finalCords.length; i = i + 2) {
 
-            finalCords[i] = convertXPixelToCameraX(finalCords[i], basicObject);
-            finalCords[i + 1] = convertYPixelToCameraY(finalCords[i + 1], basicObject);
+            finalCords[i] = convertXPixelToCameraX(pixelCords[i/2][0], basicObject);
+            finalCords[i + 1] = convertYPixelToCameraY(pixelCords[i/2][1], basicObject);
 
         }
         basicObject.setCameraCoords(finalCords);
     }
 
     private static float convertXPixelToCameraX(float x, BasicObject basicObject) {
-        return x * ((basicObject.getCameraDimentions()[0]) / (basicObject.getPixelDimensions()[0]));
+        return x * ((basicObject.getCameraDimensions()[0]) / (basicObject.getPixelDimensions()[0]));
     }
 
     private static float convertYPixelToCameraY(float y, BasicObject basicObject) {
-        return y * ((basicObject.getCameraDimentions()[1]) / (basicObject.getPixelDimensions()[1]));
+        return y * ((basicObject.getCameraDimensions()[1]) / (basicObject.getPixelDimensions()[1]));
     }
-
 
     public static void addToTouchEventsQueue(TouchInfo info) {
         touchEventsQueue.add(info);
@@ -42,7 +41,17 @@ public class Util {
         return touchEventsQueue.poll();
     }
 
-    public static float changeXPixeltoCamera(int pixel) {
-        return pixel * MainClass.cam_width / MainClass.screenWidth  ;
+    @Deprecated
+    public static void createScreenCordsFromCameraCords(BasicObject basicObject) {
+
+        float[] cameraCords = basicObject.getCameraCoords();
+        float[] screenCords = new float[cameraCords.length];
+        for(int i=0; i< cameraCords.length; i=i+2)
+        {
+            screenCords[i] = cameraCords[i]*MainClass.screenWidth/MainClass.cam_width;
+            screenCords[i+1] = cameraCords[i+1]*MainClass.screenHeight/MainClass.cam_height;
+        }
+        basicObject.setScreenPixels(screenCords);
     }
+
 }

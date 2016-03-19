@@ -1,5 +1,6 @@
 package com.badbugs.objects.bugs;
 
+import com.badbugs.MainClass;
 import com.badbugs.objects.BasicObjectImpl;
 import com.badbugs.objects.ObjectsCord;
 
@@ -8,15 +9,18 @@ import com.badbugs.objects.ObjectsCord;
  */
 public class BedBug extends BasicObjectImpl {
 
+  public BedBug() {
 
-    public BedBug() {
+    pixelDimensions = new int[] { ObjectsCord.BED_BUG_CENTER[0] * 2, ObjectsCord.BED_BUG_CENTER[1] * 2 };
+    cameraDimensions = new float[] { ObjectsCord.BED_BUG_WIDTH, ObjectsCord.BED_BUG_HEIGHT };
+    screenDimensions = new float[] { cameraDimensions[0] * MainClass.screenWidth / MainClass.cam_width,
+    cameraDimensions[1] * MainClass.screenHeight / MainClass.cam_height };
 
-        pixelDimensions = new int[]{ObjectsCord.BED_BUG_CENTER[0] * 2, ObjectsCord.BED_BUG_CENTER[1] * 2};
+    init();
+  }
 
-        cameraDimensions = new float[]{ObjectsCord.BED_BUG_WIDTH,
-                ObjectsCord.BED_BUG_HEIGHT};
-        pixelOrigin = new int[]{ObjectsCord.BED_BUG_CENTER[0], ObjectsCord.BED_BUG_CENTER[1]};
-    }
-
+  @Override public int[][] getPixelCoords(){
+    return ObjectsCord.BED_BUG_CORDS;
+  }
 
 }
