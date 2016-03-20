@@ -1,6 +1,8 @@
 package com.badbugs.objects;
 
-import com.badbugs.Util;
+import com.badbugs.util.Util;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Polygon;
 
 /**
  * Created by ashrinag on 3/6/2016.
@@ -12,11 +14,22 @@ public abstract class BasicObjectImpl implements BasicObject {
   protected float[] cameraCords;
   protected float[] screenPixels;
   protected  float[] screenDimensions;
+  private Texture texture;
+  protected Polygon polygon;
+
+  public BasicObjectImpl(Texture texture)
+  {
+    this.texture = texture;
+  }
 
   protected void init()
   {
     Util.createCameraCoordsFromPixelCords(this);
-
+    if(this.getCameraCoords() != null)
+    {
+      polygon = new Polygon(this.getCameraCoords());
+      polygon.setOrigin(this.getCameraDimensions()[0] / 2, this.getCameraDimensions()[1] / 2);
+    }
 //    Util.createScreenCordsFromCameraCords(this);
 
   }
@@ -50,4 +63,18 @@ public abstract class BasicObjectImpl implements BasicObject {
     return screenDimensions;
   }
 
+  @Override public Polygon getPolygon() throws Exception{
+    if(polygon == null)
+      throw new Exception("Polygon is created for this object.");
+    else
+      return polygon;
+  }
+
+  @Override public Texture getTexture() {
+    return texture;
+  }
+
+  @Override public void setTexture(Texture texture) {
+    this.texture = texture;
+  }
 }

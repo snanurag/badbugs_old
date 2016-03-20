@@ -1,4 +1,4 @@
-package com.badbugs;
+package com.badbugs.util;
 
 /**
  * Created by ashrinag on 3/6/2016.

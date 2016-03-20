@@ -1,16 +1,18 @@
 package com.badbugs;
 
+import com.badbugs.baseframework.ObjectBuilders;
+import com.badbugs.baseframework.Renderers;
 import com.badbugs.objects.BasicObject;
-import com.badbugs.objects.BasicObjectImpl;
 import com.badbugs.objects.bugs.BedBug;
-import com.badbugs.objects.knives.SilverKnife;
+import com.badbugs.util.Inputs;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
@@ -21,25 +23,22 @@ public class MainClass extends ApplicationAdapter {
   private TextureAtlas textureAtlas;
   private Animation animation;
   private float elapsedTime = 0;
-  private OrthographicCamera cam;
-  private int BUG_SPEED = 25;
+  public static OrthographicCamera cam;
+  public static int BUG_SPEED = 25;
   public static float cam_height = 100;
   public static float cam_width = 100;
   private float HeightVsWidth;
 
-  private Sprite knifeSprite;
   private Texture knifeTexture;
 
-  private Sprite floorSprite;
   private Texture floorTexture;
 
   public static float screenWidth;
   public static float screenHeight;
 
-  public Polygon bugPolygon;
-  public Polygon knifePolygon;
-
   private ShapeRenderer shapeRenderer;
+  private BasicObject silverKnife;
+  private BasicObject bedBug;
 
   @Override public void create() {
 
@@ -59,7 +58,8 @@ public class MainClass extends ApplicationAdapter {
     Gdx.input.setInputProcessor(new Inputs());
     shapeRenderer = new ShapeRenderer();
     loadFloor();
-    loadKnife();
+    silverKnife = ObjectBuilders.loadSilverKnife();
+    bedBug = ObjectBuilders.loadBedBug();
   }
 
   @Override public void render() {
@@ -71,77 +71,35 @@ public class MainClass extends ApplicationAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     batch.begin();
-    renderFloor();
-    renderBug();
-    renderKnife();
+    try
+    {
+      renderFloor();
+      Renderers.renderBug(batch, bedBug);
+      Renderers.renderKnife(batch, silverKnife);
 
-    if (Intersector.overlapConvexPolygons(bugPolygon, knifePolygon)) {
-      System.out.println("knife hit bug");
-    } else {
-      System.out.println("knife is useless");
-
+      if (Intersector.overlapConvexPolygons(bedBug.getPolygon(), silverKnife.getPolygon())) {
+      //  System.out.println("knife hit bug");
+      } else {
+      //  System.out.println("knife is useless");
+      }
     }
-
-    shapeRenderer.setProjectionMatrix(cam.combined);
-    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-    shapeRenderer.setColor(1, 1, 0, 1);
-    shapeRenderer.line(0, 0, 100, 100);
-    shapeRenderer.rect(25, 25, 50, 50);
-    shapeRenderer.circle(0, 0, 30);
-    shapeRenderer.polygon(new BedBug().getCameraCoords());
-    shapeRenderer.polygon(bugPolygon.getTransformedVertices());
-    shapeRenderer.polygon(knifePolygon.getTransformedVertices());
-    shapeRenderer.end();
+    catch(Exception e)
+    {
+      e.printStackTrace();
+    }
 
     batch.end();
   }
 
-  private void renderBug() {
-    elapsedTime += Gdx.graphics.getDeltaTime();
-
-    float pos_y = cam_height / 2 - BUG_SPEED * elapsedTime % (cam_height);
-
-    BasicObject basicObject = new BedBug();
-
-    bugPolygon = new Polygon(basicObject.getCameraCoords());
-    bugPolygon.setOrigin(basicObject.getCameraDimensions()[0] / 2, basicObject.getCameraDimensions()[1] / 2);
-
-    //p.setRotation(90);
-    bugPolygon.setPosition(-cam_width / 2, -cam_height / 2);
-
-    batch.draw(animation.getKeyFrame(elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(), bugPolygon.getOriginX(),
-        bugPolygon.getOriginY(), basicObject.getCameraDimensions()[0], basicObject.getCameraDimensions()[1], 1, 1, 180);
-  }
-
-  private void renderKnife() {
-    elapsedTime += Gdx.graphics.getDeltaTime();
-
-    float pos_x = cam_width / 2 - BUG_SPEED * elapsedTime % (cam_width);
-
-    BasicObjectImpl silverKnife = new SilverKnife();
-    TouchInfo touchInfoInstance = Util.getFromTouchEventsQueue();
-    if (touchInfoInstance != null) {
-      System.out.println(touchInfoInstance.touchX + " " + touchInfoInstance.touchY);
-    }
-    knifePolygon = new Polygon(silverKnife.getCameraCoords());
-    knifePolygon.setOrigin(silverKnife.getCameraDimensions()[0] / 2, silverKnife.getCameraDimensions()[1] / 2);
-    knifePolygon.setPosition(-50, -27);
-
-    batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), knifePolygon.getOriginX(),
-        knifePolygon.getOriginY(), silverKnife.getCameraDimensions()[0], silverKnife.getCameraDimensions()[1], 1, 1, 0,
-        0, 0, silverKnife.getPixelDimensions()[0], silverKnife.getPixelDimensions()[1], false, false);
-    //    batch.draw(knifeTexture, -cam_width / 2, -cam_height / 2);
-  }
-
-  private void loadKnife() {
-    knifeTexture = new Texture(Gdx.files.internal("knife.png"));
-    knifeSprite = new Sprite(knifeTexture);
-
-  }
+//  private void loadKnife() {
+//    knifeTexture = new Texture(Gdx.files.internal("knife.png"));
+////    knifeSprite = new Sprite(knifeTexture);
+//
+//  }
 
   private void loadFloor() {
     floorTexture = new Texture(Gdx.files.internal("floor.png"));
-    floorSprite = new Sprite(floorTexture);
+  //  floorSprite = new Sprite(floorTexture);
   }
 
   private void renderFloor() {

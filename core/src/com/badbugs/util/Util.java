@@ -1,5 +1,6 @@
-package com.badbugs;
+package com.badbugs.util;
 
+import com.badbugs.MainClass;
 import com.badbugs.objects.BasicObject;
 
 import java.util.PriorityQueue;
@@ -15,14 +16,17 @@ public class Util {
     public static void createCameraCoordsFromPixelCords(BasicObject basicObject) {
         int[][] pixelCords = basicObject.getPixelCoords();
 
-        float[] finalCords = new float[pixelCords.length * 2];
-        for (int i = 0; i < finalCords.length; i = i + 2) {
+        if(pixelCords != null)
+        {
+            float[] finalCords = new float[pixelCords.length * 2];
+            for (int i = 0; i < finalCords.length; i = i + 2) {
 
-            finalCords[i] = convertXPixelToCameraX(pixelCords[i/2][0], basicObject);
-            finalCords[i + 1] = convertYPixelToCameraY(pixelCords[i/2][1], basicObject);
+                finalCords[i] = convertXPixelToCameraX(pixelCords[i/2][0], basicObject);
+                finalCords[i + 1] = convertYPixelToCameraY(pixelCords[i/2][1], basicObject);
 
+            }
+            basicObject.setCameraCoords(finalCords);
         }
-        basicObject.setCameraCoords(finalCords);
     }
 
     private static float convertXPixelToCameraX(float x, BasicObject basicObject) {
@@ -48,7 +52,7 @@ public class Util {
         float[] screenCords = new float[cameraCords.length];
         for(int i=0; i< cameraCords.length; i=i+2)
         {
-            screenCords[i] = cameraCords[i]*MainClass.screenWidth/MainClass.cam_width;
+            screenCords[i] = cameraCords[i]* MainClass.screenWidth/MainClass.cam_width;
             screenCords[i+1] = cameraCords[i+1]*MainClass.screenHeight/MainClass.cam_height;
         }
         basicObject.setScreenPixels(screenCords);

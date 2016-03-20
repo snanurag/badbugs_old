@@ -1,5 +1,7 @@
-package com.badbugs;
+package com.badbugs.util;
 
+import com.badbugs.util.TouchInfo;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.InputProcessor;
 
 /**
