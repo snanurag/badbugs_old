@@ -20,29 +20,34 @@ public class Renderers {
 
   // Polygon knifePolygon;
   static float elapsedTime = 0;
-
+  static double angle;
   public static void renderKnife(SpriteBatch batch, BasicObject knife) throws Exception {
     //    elapsedTime += Gdx.graphics.getDeltaTime();
     //
     //    float pos_x = cam_width / 2 - BUG_SPEED * elapsedTime % (cam_width);
 
+    SilverKnife silverKnife = (SilverKnife)knife;
     TouchInfo touchInfoInstance = Util.getFromTouchEventsQueue();
     Vector3 touchPoints;
-    if (touchInfoInstance != null) {
-      touchPoints = MainClass.cam.unproject(new Vector3(touchInfoInstance.touchX, touchInfoInstance.touchY, 0));
-//      System.out.println(vector3.x + " " + vector3.y);
-//      System.out.println(touchInfoInstance.touchX + " " + touchInfoInstance.touchY);
-    }
     Polygon knifePolygon = knife.getPolygon();
 
     knifePolygon.setPosition(-50, -27);
-    Texture knifeTexture = knife.getTexture();
-    knife.getPolygon().setRotation(90);
-    batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), knifePolygon.getOriginX(),
-        knifePolygon.getOriginY(), knife.getCameraDimensions()[0], knife.getCameraDimensions()[1], 1, 1, ((SilverKnife)knife).getInitialAngle(), 0, 0,
-        knife.getPixelDimensions()[0], knife.getPixelDimensions()[1], false, false);
+    ;
+    if (touchInfoInstance != null) {
+      touchPoints = MainClass.cam.unproject(new Vector3(touchInfoInstance.touchX, touchInfoInstance.touchY, 0));
+      //      System.out.println(vector3.x + " " + vector3.y);
+      //      System.out.println(touchInfoInstance.touchX + " " + touchInfoInstance.touchY);
+      angle = Math.atan2(touchPoints.y -(knifePolygon.getY() +knifePolygon.getOriginY()), touchPoints.x - (knifePolygon.getX()+knifePolygon.getOriginX()))*180/Math.PI;
+      System.out.println(angle);
+      System.out.println(knifePolygon.getOriginX()+" "+knifePolygon.getOriginY());
 
-    //drawPolygon(knife);
+    }
+    Texture knifeTexture = knife.getTexture();
+    knife.getPolygon().setRotation((float)(((SilverKnife)knife).getInitialAngle()+angle));
+    batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), knifePolygon.getOriginX(),
+        knifePolygon.getOriginY(), knife.getCameraDimensions()[0], knife.getCameraDimensions()[1], 1, 1, (float)(silverKnife.getInitialAngle()+angle), 0, 0,
+        knife.getPixelDimensions()[0], knife.getPixelDimensions()[1], false, false);
+//    drawPolygon(knife);
 
     //    batch.draw(knifeTexture, -cam_width / 2, -cam_height / 2);
   }
