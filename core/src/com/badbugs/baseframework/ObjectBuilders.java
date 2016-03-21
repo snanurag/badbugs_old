@@ -18,12 +18,12 @@ public class ObjectBuilders {
   static TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
   static Animation bugAnimations = new Animation(1 / 60f, textureAtlas.getRegions());
 
-  public static BasicObject loadSilverKnife() {
+  public static BasicObject loadSilverKnife() throws Exception {
 
     BasicObjectImpl silverKnife = new SilverKnife(knifeTexture);
 
     ObjectsStore.addBug(silverKnife);
-
+    silverKnife.getPolygon().setPosition(0 ,0);
     return silverKnife;
 
     //    knifeSprite = new Sprite(knifeTexture);

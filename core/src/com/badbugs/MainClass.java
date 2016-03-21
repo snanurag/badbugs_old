@@ -4,6 +4,7 @@ import com.badbugs.baseframework.ObjectBuilders;
 import com.badbugs.baseframework.Renderers;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.bugs.BedBug;
+import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Inputs;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -58,8 +59,15 @@ public class MainClass extends ApplicationAdapter {
     Gdx.input.setInputProcessor(new Inputs());
     shapeRenderer = new ShapeRenderer();
     loadFloor();
-    silverKnife = ObjectBuilders.loadSilverKnife();
-    bedBug = ObjectBuilders.loadBedBug();
+    try
+    {
+      silverKnife = ObjectBuilders.loadSilverKnife();
+      bedBug = ObjectBuilders.loadBedBug();
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
   }
 
   @Override public void render() {
@@ -75,7 +83,7 @@ public class MainClass extends ApplicationAdapter {
     {
       renderFloor();
       Renderers.renderBug(batch, bedBug);
-      Renderers.renderKnife(batch, silverKnife);
+      Renderers.renderKnife(batch, (SilverKnife) silverKnife);
 
       if (Intersector.overlapConvexPolygons(bedBug.getPolygon(), silverKnife.getPolygon())) {
       //  System.out.println("knife hit bug");
