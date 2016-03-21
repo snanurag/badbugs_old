@@ -28,7 +28,6 @@ public abstract class BasicObjectImpl implements BasicObject {
     if(this.getCameraCoords() != null)
     {
       polygon = new Polygon(this.getCameraCoords());
-      polygon.setOrigin(this.getCameraDimensions()[0] / 2, this.getCameraDimensions()[1] / 2);
     }
 //    Util.createScreenCordsFromCameraCords(this);
 

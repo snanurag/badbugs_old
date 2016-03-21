@@ -24,18 +24,19 @@ public class ObjectBuilders {
 
     ObjectsStore.addBug(silverKnife);
     silverKnife.getPolygon().setPosition(0 ,0);
+    silverKnife.getPolygon().setOrigin(0,0);
     return silverKnife;
 
     //    knifeSprite = new Sprite(knifeTexture);
 
   }
 
-  public static BasicObject loadBedBug()
-  {
+  public static BasicObject loadBedBug() throws Exception {
 
     BasicObjectImpl bedBug = new BedBug(null);
 
     ObjectsStore.addBug(bedBug);
+    bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
 
     return bedBug;
 

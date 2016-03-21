@@ -16,26 +16,19 @@ import com.badlogic.gdx.math.Polygon;
  */
 public class Renderers {
 
-  // Polygon knifePolygon;
   static float elapsedTime = 0;
-  static double angle;
 
   public static void renderKnife(SpriteBatch batch, SilverKnife knife) throws Exception {
-    //    elapsedTime += Gdx.graphics.getDeltaTime();
-    //
-    //    float pos_x = cam_width / 2 - BUG_SPEED * elapsedTime % (cam_width);
 
     Polygon knifePolygon = knife.getPolygon();
 
     KnifeMovement.updatePolygon(knife);
     Texture knifeTexture = knife.getTexture();
-//    batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), knifePolygon.getOriginX(),
-//        knifePolygon.getOriginY(), knife.getCameraDimensions()[0], knife.getCameraDimensions()[1], 1, 1,
-//        knifePolygon.getRotation(), 0, 0, knife.getPixelDimensions()[0], knife.getPixelDimensions()[1], false, false);
     batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), 0,
         0, knife.getCameraDimensions()[0], knife.getCameraDimensions()[1], 1, 1,
         knifePolygon.getRotation(), 0, 0, knife.getPixelDimensions()[0], knife.getPixelDimensions()[1], false, false);
 
+//    drawPolygon(knife);
   }
 
   public static void renderBug(SpriteBatch batch, BasicObject bedBug) throws Exception {
