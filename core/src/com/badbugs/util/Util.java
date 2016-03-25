@@ -11,51 +11,54 @@ import java.util.Queue;
  */
 public class Util {
 
-    private static Queue<TouchInfo> touchEventsQueue = new PriorityQueue<TouchInfo>();
+  private static Queue<TouchInfo> touchEventsQueue = new PriorityQueue<TouchInfo>();
 
-    public static void createCameraCoordsFromPixelCords(BasicObject basicObject) {
-        int[][] pixelCords = basicObject.getPixelCoords();
+  public static void createCameraCoordsFromPixelCords(BasicObject basicObject) throws Exception {
 
-        if(pixelCords != null)
-        {
-            float[] finalCords = new float[pixelCords.length * 2];
-            for (int i = 0; i < finalCords.length; i = i + 2) {
+    int[][] pixelCords = null;
 
-                finalCords[i] = convertXPixelToCameraX(pixelCords[i/2][0], basicObject);
-                finalCords[i + 1] = convertYPixelToCameraY(pixelCords[i/2][1], basicObject);
-
-            }
-            basicObject.setCameraCoords(finalCords);
-        }
+    try {
+      pixelCords = basicObject.getPixelCoords();
+    } catch (Exception e) {
+      throw new Exception("Conversion from pixel to camera cordinates are not required for this object.", e);
     }
+    if (pixelCords != null) {
+      float[] finalCords = new float[pixelCords.length * 2];
+      for (int i = 0; i < finalCords.length; i = i + 2) {
 
-    private static float convertXPixelToCameraX(float x, BasicObject basicObject) {
-        return x * ((basicObject.getCameraDimensions()[0]) / (basicObject.getPixelDimensions()[0]));
+        finalCords[i] = convertXPixelToCameraX(pixelCords[i / 2][0], basicObject);
+        finalCords[i + 1] = convertYPixelToCameraY(pixelCords[i / 2][1], basicObject);
+
+      }
+      basicObject.setCameraCoords(finalCords);
     }
+  }
 
-    private static float convertYPixelToCameraY(float y, BasicObject basicObject) {
-        return y * ((basicObject.getCameraDimensions()[1]) / (basicObject.getPixelDimensions()[1]));
+  private static float convertXPixelToCameraX(float x, BasicObject basicObject) {
+    return x * ((basicObject.getCameraDimensions()[0]) / (basicObject.getPixelDimensions()[0]));
+  }
+
+  private static float convertYPixelToCameraY(float y, BasicObject basicObject) {
+    return y * ((basicObject.getCameraDimensions()[1]) / (basicObject.getPixelDimensions()[1]));
+  }
+
+  public static void addToTouchEventsQueue(TouchInfo info) {
+    touchEventsQueue.add(info);
+  }
+
+  public static TouchInfo getFromTouchEventsQueue() {
+    return touchEventsQueue.poll();
+  }
+
+  @Deprecated public static void createScreenCordsFromCameraCords(BasicObject basicObject) {
+
+    float[] cameraCords = basicObject.getCameraCoords();
+    float[] screenCords = new float[cameraCords.length];
+    for (int i = 0; i < cameraCords.length; i = i + 2) {
+      screenCords[i] = cameraCords[i] * MainClass.screenWidth / MainClass.cam_width;
+      screenCords[i + 1] = cameraCords[i + 1] * MainClass.screenHeight / MainClass.cam_height;
     }
-
-    public static void addToTouchEventsQueue(TouchInfo info) {
-        touchEventsQueue.add(info);
-    }
-
-    public static TouchInfo getFromTouchEventsQueue() {
-        return touchEventsQueue.poll();
-    }
-
-    @Deprecated
-    public static void createScreenCordsFromCameraCords(BasicObject basicObject) {
-
-        float[] cameraCords = basicObject.getCameraCoords();
-        float[] screenCords = new float[cameraCords.length];
-        for(int i=0; i< cameraCords.length; i=i+2)
-        {
-            screenCords[i] = cameraCords[i]* MainClass.screenWidth/MainClass.cam_width;
-            screenCords[i+1] = cameraCords[i+1]*MainClass.screenHeight/MainClass.cam_height;
-        }
-        basicObject.setScreenPixels(screenCords);
-    }
+    basicObject.setScreenPixels(screenCords);
+  }
 
 }

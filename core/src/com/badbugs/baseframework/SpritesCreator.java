@@ -2,6 +2,7 @@ package com.badbugs.baseframework;
 
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BasicObjectImpl;
+import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badlogic.gdx.Gdx;
@@ -12,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 /**
  * Created by ashrinag on 3/20/2016.
  */
-public class ObjectBuilders {
+public class SpritesCreator {
 
   static Texture knifeTexture = new Texture(Gdx.files.internal("knife.png"));
   static TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
@@ -21,8 +22,7 @@ public class ObjectBuilders {
   public static BasicObject loadSilverKnife() throws Exception {
 
     BasicObjectImpl silverKnife = new SilverKnife(knifeTexture);
-
-    ObjectsStore.addBug(silverKnife);
+//    ObjectsStore.addBug(silverKnife);
     silverKnife.getPolygon().setPosition(0 ,0);
     silverKnife.getPolygon().setOrigin(0,0);
     return silverKnife;
@@ -31,15 +31,23 @@ public class ObjectBuilders {
 
   }
 
-  public static BasicObject loadBedBug() throws Exception {
+  public static BedBug loadBedBug() throws Exception {
 
-    BasicObjectImpl bedBug = new BedBug(null);
+    BedBug bedBug = new BedBug(null);
 
-    ObjectsStore.addBug(bedBug);
+  //  ObjectsStore.addBug(bedBug);
     bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
 
     return bedBug;
 
+  }
+
+  public static BloodSprite loadBloodSpot()
+  {
+    Texture bloodTexture = new Texture(Gdx.files.internal("Bloodspot.png"));
+    BloodSprite bloodSprite = new BloodSprite(bloodTexture);
+
+    return bloodSprite;
   }
 
   public void disposeAll()

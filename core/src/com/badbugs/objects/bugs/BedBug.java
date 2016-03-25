@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by ashrinag on 2/28/2016.
  */
-public class BedBug extends BasicObjectImpl {
+public class BedBug extends BasicObjectImpl implements Bug {
 
   public BedBug(Texture texture) {
     super(texture);

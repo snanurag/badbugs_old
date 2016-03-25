@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Polygon;
 /**
  * Created by ashrinag on 3/6/2016.
  */
-public class SilverKnife extends BasicObjectImpl {
+public class SilverKnife extends BasicObjectImpl implements Knife{
 
   public SilverKnife(Texture texture) {
     super(texture);

@@ -1,11 +1,13 @@
 package com.badbugs;
 
-import com.badbugs.baseframework.ObjectBuilders;
+import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.baseframework.Renderers;
+import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Inputs;
+import com.badbugs.util.ObjectsStore;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,14 +18,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
 
 public class MainClass extends ApplicationAdapter {
 
   private SpriteBatch batch;
   private TextureAtlas textureAtlas;
   private Animation animation;
-  private float elapsedTime = 0;
   public static OrthographicCamera cam;
   public static int BUG_SPEED = 25;
   public static float cam_height = 100;
@@ -39,7 +39,7 @@ public class MainClass extends ApplicationAdapter {
 
   private ShapeRenderer shapeRenderer;
   private BasicObject silverKnife;
-  private BasicObject bedBug;
+  private BedBug bedBug;
 
   @Override public void create() {
 
@@ -59,13 +59,12 @@ public class MainClass extends ApplicationAdapter {
     Gdx.input.setInputProcessor(new Inputs());
     shapeRenderer = new ShapeRenderer();
     loadFloor();
-    try
-    {
-      silverKnife = ObjectBuilders.loadSilverKnife();
-      bedBug = ObjectBuilders.loadBedBug();
-    }
-    catch (Exception e)
-    {
+    try {
+      silverKnife = SpritesCreator.loadSilverKnife();
+      //TODO Use BugGenerator here
+      bedBug = SpritesCreator.loadBedBug();
+ //     ObjectsStore.add(bedBug, new BloodSpot(bedBug, silverKnife.getPolygon().getRotation()));
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
@@ -79,35 +78,36 @@ public class MainClass extends ApplicationAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     batch.begin();
-    try
-    {
+    try {
       renderFloor();
       Renderers.renderBug(batch, bedBug);
       Renderers.renderKnife(batch, (SilverKnife) silverKnife);
 
       if (Intersector.overlapConvexPolygons(bedBug.getPolygon(), silverKnife.getPolygon())) {
-      //  System.out.println("knife hit bug");
-      } else {
-      //  System.out.println("knife is useless");
+        if (ObjectsStore.getBloodSpot(bedBug) == null) {
+          ObjectsStore.add(bedBug, new BloodSpot(bedBug, silverKnife.getPolygon().getRotation()));
+        }
       }
-    }
-    catch(Exception e)
-    {
+        if(ObjectsStore.getBloodSpot(bedBug)!= null)
+        {
+          ObjectsStore.getBloodSpot(bedBug).spill(batch);
+        }
+    } catch (Exception e) {
       e.printStackTrace();
     }
 
     batch.end();
   }
 
-//  private void loadKnife() {
-//    knifeTexture = new Texture(Gdx.files.internal("knife.png"));
-////    knifeSprite = new Sprite(knifeTexture);
-//
-//  }
+  //  private void loadKnife() {
+  //    knifeTexture = new Texture(Gdx.files.internal("knife.png"));
+  ////    knifeSprite = new Sprite(knifeTexture);
+  //
+  //  }
 
   private void loadFloor() {
     floorTexture = new Texture(Gdx.files.internal("floor.png"));
-  //  floorSprite = new Sprite(floorTexture);
+    //  floorSprite = new Sprite(floorTexture);
   }
 
   private void renderFloor() {

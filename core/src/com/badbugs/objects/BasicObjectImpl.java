@@ -24,7 +24,15 @@ public abstract class BasicObjectImpl implements BasicObject {
 
   protected void init()
   {
-    Util.createCameraCoordsFromPixelCords(this);
+    try
+    {
+      Util.createCameraCoordsFromPixelCords(this);
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+
     if(this.getCameraCoords() != null)
     {
       polygon = new Polygon(this.getCameraCoords());
@@ -64,7 +72,7 @@ public abstract class BasicObjectImpl implements BasicObject {
 
   @Override public Polygon getPolygon() throws Exception{
     if(polygon == null)
-      throw new Exception("Polygon is created for this object.");
+      throw new Exception("Polygon is not created for this object.");
     else
       return polygon;
   }
@@ -75,5 +83,10 @@ public abstract class BasicObjectImpl implements BasicObject {
 
   @Override public void setTexture(Texture texture) {
     this.texture = texture;
+  }
+
+  public void setCameraDimensions(float[] cameraDimensions)
+  {
+    this.cameraDimensions = cameraDimensions;
   }
 }

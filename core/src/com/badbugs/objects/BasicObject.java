@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Polygon;
  */
 public interface BasicObject {
 
-  public int[][] getPixelCoords();
+  public int[][] getPixelCoords() throws Exception;
 
   public float[] getCameraCoords();
 
