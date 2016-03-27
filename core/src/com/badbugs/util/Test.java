@@ -5,7 +5,15 @@ package com.badbugs.util;
  */
 public class Test {
   public static void main(String[] args) {
-    System.out.println(-8%5);
+    double z = 1;
+    System.out.println(z);
+    System.out.println(System.currentTimeMillis());
+    for(int i=0; i<1000000; i++)
+    {
+      z = z* 2.4;
+    }
+    System.out.println(z);
+    System.out.println(System.currentTimeMillis());
 
   }
 }

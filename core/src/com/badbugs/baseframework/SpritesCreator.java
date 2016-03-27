@@ -1,5 +1,6 @@
 package com.badbugs.baseframework;
 
+import com.badbugs.MainClass;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BasicObjectImpl;
 import com.badbugs.objects.BloodSprite;
@@ -18,6 +19,7 @@ public class SpritesCreator {
   static Texture knifeTexture = new Texture(Gdx.files.internal("knife.png"));
   static TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
   static Animation bugAnimations = new Animation(1 / 60f, textureAtlas.getRegions());
+  static Texture bloodTexture = new Texture(Gdx.files.internal("Bloodspot.png"));
 
   public static BasicObject loadSilverKnife() throws Exception {
 
@@ -36,6 +38,7 @@ public class SpritesCreator {
     BedBug bedBug = new BedBug(null);
 
   //  ObjectsStore.addBug(bedBug);
+    bedBug.getPolygon().setPosition(-MainClass.cam_width / 2, -MainClass.cam_height / 2);
     bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
 
     return bedBug;
@@ -44,7 +47,7 @@ public class SpritesCreator {
 
   public static BloodSprite loadBloodSpot()
   {
-    Texture bloodTexture = new Texture(Gdx.files.internal("Bloodspot.png"));
+//    Texture bloodTexture = new Texture(Gdx.files.internal("Bloodspot.png"));
     BloodSprite bloodSprite = new BloodSprite(bloodTexture);
 
     return bloodSprite;

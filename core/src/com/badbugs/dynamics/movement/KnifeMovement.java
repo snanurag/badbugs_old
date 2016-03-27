@@ -17,9 +17,9 @@ import com.badlogic.gdx.math.Vector3;
 public class KnifeMovement {
 
   static Vector2 directionVector;
-  static float elapsedTime;
+  static double elapsedTime;
   static float angle;
-
+  static long lastTime;
 
   public static void updatePolygon(SilverKnife basicObject) throws Exception {
     rotatePolygon(basicObject);
@@ -40,6 +40,7 @@ public class KnifeMovement {
       directionVector = new Vector2((float) (dirX / (Math.sqrt(dirX * dirX + dirY * dirY))),
           (float) (dirY / (Math.sqrt(dirX * dirX + dirY * dirY))));
       elapsedTime = 0;
+      lastTime = System.currentTimeMillis();
       float angle = (float) (Math.atan2(directionVector.y, directionVector.x) * 180 / Math.PI);
       polygon.setRotation(silverKnife.getInitialAngle() + angle);
       System.out.println("Angle of Knife " + (silverKnife.getInitialAngle() + angle));
@@ -53,9 +54,17 @@ public class KnifeMovement {
       float xSpeed = directionVector.x * ObjectsCord.SILVER_KNIFE_SPEED;
       float ySpeed = directionVector.y * ObjectsCord.SILVER_KNIFE_SPEED;
 
-      elapsedTime += Gdx.graphics.getDeltaTime();
-      float tipX = polygon.getX() + xSpeed * elapsedTime;
-      float tipY = polygon.getY() + ySpeed * elapsedTime;
+      long thisTime = System.currentTimeMillis();
+      elapsedTime = (double)(thisTime - lastTime) / 1000f;
+      if(elapsedTime == 0)
+      {
+        elapsedTime = 0.001;
+      }
+      //  lastTime = thisTime;
+
+      System.out.println("elapsedTime is -> " + elapsedTime);
+      float tipX = (float) (polygon.getX() + xSpeed * elapsedTime);
+      float tipY = (float) (polygon.getY() + ySpeed * elapsedTime);
 
       if (tipX < MainClass.cam_width / 2 && tipX > -MainClass.cam_width / 2
           && tipY + polygon.getOriginY() < MainClass.cam_height / 2
@@ -72,12 +81,12 @@ public class KnifeMovement {
           polygon.setPosition(tipX, tipY);
           directionVector = null;
         }
-        if (tipY + polygon.getOriginY() >= MainClass.cam_height / 2) {
-          tipY = MainClass.cam_height / 2;
+        if (tipY + polygon.getOriginY() * Math.cos(polygon.getRotation()) >= MainClass.cam_height / 2) {
+          tipY = MainClass.cam_height / 2 - (float) (polygon.getOriginY() * Math.cos(polygon.getRotation()));
           polygon.setPosition(tipX, tipY);
           directionVector = null;
-        } else if (tipY + polygon.getOriginY() <= -MainClass.cam_height / 2) {
-          tipY = -MainClass.cam_height / 2;
+        } else if (tipY + polygon.getOriginY() * Math.cos(polygon.getRotation()) <= -MainClass.cam_height / 2) {
+          tipY = -MainClass.cam_height / 2 - (float) (polygon.getOriginY() * Math.cos(polygon.getRotation()));
           polygon.setPosition(tipX, tipY);
           directionVector = null;
         }
@@ -90,16 +99,15 @@ public class KnifeMovement {
     }
   }
 
-  public float getAngle()
-  {
+  public float getAngle() {
     return angle;
   }
-//  public static Vector3 getKnifeLastDirection() throws Exception
-//  {
-//    if (directionVector != null)
-//      return directionVector;
-//    else
-//      throw new Exception("Knife is not moving.");
-//  }
+  //  public static Vector3 getKnifeLastDirection() throws Exception
+  //  {
+  //    if (directionVector != null)
+  //      return directionVector;
+  //    else
+  //      throw new Exception("Knife is not moving.");
+  //  }
 
 }

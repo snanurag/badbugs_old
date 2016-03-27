@@ -3,6 +3,7 @@ package com.badbugs;
 import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.baseframework.Renderers;
 import com.badbugs.dynamics.BloodSpot;
+import com.badbugs.dynamics.movement.KnifeMovement;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.knives.SilverKnife;
@@ -38,7 +39,7 @@ public class MainClass extends ApplicationAdapter {
   public static float screenHeight;
 
   private ShapeRenderer shapeRenderer;
-  private BasicObject silverKnife;
+  private SilverKnife silverKnife;
   private BedBug bedBug;
 
   @Override public void create() {
@@ -54,23 +55,26 @@ public class MainClass extends ApplicationAdapter {
 
     cam.update();
     batch = new SpriteBatch();
+
     textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
     animation = new Animation(1 / 60f, textureAtlas.getRegions());
     Gdx.input.setInputProcessor(new Inputs());
     shapeRenderer = new ShapeRenderer();
     loadFloor();
     try {
-      silverKnife = SpritesCreator.loadSilverKnife();
+      silverKnife = (SilverKnife) SpritesCreator.loadSilverKnife();
       //TODO Use BugGenerator here
       bedBug = SpritesCreator.loadBedBug();
- //     ObjectsStore.add(bedBug, new BloodSpot(bedBug, silverKnife.getPolygon().getRotation()));
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+    new CalculationThread().start();
   }
 
   @Override public void render() {
 
+  //  System.out.println("fps -> "+Gdx.graphics.getFramesPerSecond());
     cam.update();
     batch.setProjectionMatrix(cam.combined);
 
@@ -78,20 +82,19 @@ public class MainClass extends ApplicationAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     batch.begin();
+
     try {
+
       renderFloor();
+
       Renderers.renderBug(batch, bedBug);
+
+      if (ObjectsStore.getBloodSpot(bedBug) != null) {
+        Renderers.renderBlood(batch, bedBug);
+      }
+
       Renderers.renderKnife(batch, (SilverKnife) silverKnife);
 
-      if (Intersector.overlapConvexPolygons(bedBug.getPolygon(), silverKnife.getPolygon())) {
-        if (ObjectsStore.getBloodSpot(bedBug) == null) {
-          ObjectsStore.add(bedBug, new BloodSpot(bedBug, silverKnife.getPolygon().getRotation()));
-        }
-      }
-        if(ObjectsStore.getBloodSpot(bedBug)!= null)
-        {
-          ObjectsStore.getBloodSpot(bedBug).spill(batch);
-        }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -130,4 +133,31 @@ public class MainClass extends ApplicationAdapter {
     knifeTexture.dispose();
   }
 
+  class CalculationThread extends Thread {
+    public void run() {
+      try {
+
+        while(true)
+        {
+          Thread.sleep(1);
+          KnifeMovement.updatePolygon(silverKnife);
+
+          if (Intersector.overlapConvexPolygons(bedBug.getPolygon(), silverKnife.getPolygon())) {
+            System.out.println("Knife overlapped with bug.");
+            if (ObjectsStore.getBloodSpot(bedBug) == null) {
+              ObjectsStore.add(bedBug, new BloodSpot(bedBug, silverKnife));
+              System.out.println("BloodSpot created for this bug.");
+
+            }
+            ObjectsStore.getBloodSpot(bedBug).updateBloodSpotDimensions();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    }
+  }
+
 }
+
