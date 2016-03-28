@@ -2,6 +2,7 @@ package com.badbugs.util;
 
 import com.badbugs.MainClass;
 import com.badbugs.objects.BasicObject;
+import com.badlogic.gdx.math.Polygon;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -60,5 +61,11 @@ public class Util {
     }
     basicObject.setScreenPixels(screenCords);
   }
+
+  public static float getTipY(float tipY, Polygon polygon)
+  {
+    return tipY + polygon.getOriginY() *(float) Math.cos(Math.toRadians(polygon.getRotation()));
+  }
+
 
 }

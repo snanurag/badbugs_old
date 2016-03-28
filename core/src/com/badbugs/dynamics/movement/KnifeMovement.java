@@ -56,7 +56,7 @@ public class KnifeMovement {
 
       System.out.println("xSpeed : "+xSpeed+" ySpeed : "+ySpeed);
       long thisTime = System.currentTimeMillis();
-      elapsedTime = (double)(thisTime - lastTime) / 1000f;
+      elapsedTime = (float)(thisTime - lastTime) / 1000f;
       lastTime = thisTime;
       if(elapsedTime == 0)
       {
@@ -68,8 +68,8 @@ public class KnifeMovement {
       float tipY = (float) (polygon.getY() + ySpeed * elapsedTime);
 
       if (tipX < MainClass.cam_width / 2 && tipX > -MainClass.cam_width / 2
-          && tipY + polygon.getOriginY() < MainClass.cam_height / 2
-          && tipY + polygon.getOriginY() > -MainClass.cam_height / 2) {
+          && Util.getTipY(tipY , polygon) < MainClass.cam_height / 2
+          && Util.getTipY(tipY , polygon) > -MainClass.cam_height / 2) {
         polygon.setPosition(tipX, tipY);
 
       } else {
@@ -82,11 +82,11 @@ public class KnifeMovement {
           polygon.setPosition(tipX, tipY);
           directionVector = null;
         }
-        if (tipY + polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())) >= MainClass.cam_height / 2) {
+        if (Util.getTipY(tipY , polygon) >= MainClass.cam_height / 2) {
           tipY = MainClass.cam_height / 2 - (float) (polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())));
           polygon.setPosition(tipX, tipY);
           directionVector = null;
-        } else if (tipY + polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())) <= -MainClass.cam_height / 2) {
+        } else if (Util.getTipY(tipY , polygon) <= -MainClass.cam_height / 2) {
           tipY = -MainClass.cam_height / 2 - (float) (polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())));
           polygon.setPosition(tipX, tipY);
           directionVector = null;

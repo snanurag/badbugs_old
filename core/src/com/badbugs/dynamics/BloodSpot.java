@@ -6,6 +6,7 @@ import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.ObjectsStore;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
@@ -48,8 +49,8 @@ public class BloodSpot {
     System.out.println("updateBloodSpotDimensions()");
     if (!isBloodSpotMeasured) {
 
-      bloodSprite.getPolygon().setPosition(knife.getPolygon().getX(), knife.getPolygon().getY()
-          + (float) Math.cos(Math.toRadians(knife.getPolygon().getRotation())) * knife.getCameraDimensions()[1] / 2);
+      bloodSprite.getPolygon()
+          .setPosition(knife.getPolygon().getX(), Util.getTipY(knife.getPolygon().getY(), knife.getPolygon()));
 
       float angle = knife.getPolygon().getRotation() - ((Knife) knife).getInitialAngle();
 
@@ -66,7 +67,8 @@ public class BloodSpot {
       while (Intersector.isPointInPolygon(bugVertices, 0, bugVertices.length - 1, vector2.x, vector2.y)) {
         isBloodSpotMeasured = true;
         System.out.println("Point vector2 " + vector2 + " and angle " + angle + " is inside polygon.");
-        vector2.set((float) (vector2.x + 0.01 * Math.cos(Math.toRadians(angle))), (float) (vector2.y + 0.01 * Math.sin(Math.toRadians(angle))));
+        vector2.set((float) (vector2.x + 0.01 * Math.cos(Math.toRadians(angle))),
+            (float) (vector2.y + 0.01 * Math.sin(Math.toRadians(angle))));
       }
 
       bloodSpotLength = (float) Math.sqrt(Math.pow(bloodSprite.getPolygon().getX() - vector2.x, 2) + Math
