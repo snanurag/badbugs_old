@@ -81,12 +81,12 @@ public class KnifeMovement {
           polygon.setPosition(tipX, tipY);
           directionVector = null;
         }
-        if (tipY + polygon.getOriginY() * Math.cos(polygon.getRotation()) >= MainClass.cam_height / 2) {
-          tipY = MainClass.cam_height / 2 - (float) (polygon.getOriginY() * Math.cos(polygon.getRotation()));
+        if (tipY + polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())) >= MainClass.cam_height / 2) {
+          tipY = MainClass.cam_height / 2 - (float) (polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())));
           polygon.setPosition(tipX, tipY);
           directionVector = null;
-        } else if (tipY + polygon.getOriginY() * Math.cos(polygon.getRotation()) <= -MainClass.cam_height / 2) {
-          tipY = -MainClass.cam_height / 2 - (float) (polygon.getOriginY() * Math.cos(polygon.getRotation()));
+        } else if (tipY + polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())) <= -MainClass.cam_height / 2) {
+          tipY = -MainClass.cam_height / 2 - (float) (polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())));
           polygon.setPosition(tipX, tipY);
           directionVector = null;
         }

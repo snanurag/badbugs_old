@@ -89,7 +89,7 @@ public class MainClass extends ApplicationAdapter {
 
       Renderers.renderBug(batch, bedBug);
 
-      if (ObjectsStore.getBloodSpot(bedBug) != null) {
+      if (ObjectsStore.getBloodSpot(bedBug) != null && ObjectsStore.getBloodSprite(ObjectsStore.getBloodSpot(bedBug)).getCameraDimensions()[0] != 0) {
         Renderers.renderBlood(batch, bedBug);
       }
 

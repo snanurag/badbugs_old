@@ -45,10 +45,11 @@ public class BloodSpot {
 
   public void updateBloodSpotDimensions() throws Exception {
 
+    System.out.println("updateBloodSpotDimensions()");
     if (!isBloodSpotMeasured) {
 
       bloodSprite.getPolygon().setPosition(knife.getPolygon().getX(), knife.getPolygon().getY()
-          + (float) Math.cos((double) knife.getPolygon().getRotation()) * knife.getCameraDimensions()[1] / 2);
+          + (float) Math.cos(Math.toRadians(knife.getPolygon().getRotation())) * knife.getCameraDimensions()[1] / 2);
 
       float angle = knife.getPolygon().getRotation() - ((Knife) knife).getInitialAngle();
 
@@ -60,12 +61,12 @@ public class BloodSpot {
 
       float[] bugVertices = bug.getPolygon().getTransformedVertices();
 
-      while (Intersector.isPointInPolygon(bugVertices, 0, bugVertices.length - 1, vector2.x, vector2.y))
-      {
+      //      while (Intersector.overlapConvexPolygons(bug.getPolygon(), new Polygon(
+      //          new float[] { vector2.x, vector2.y, vector2.x + 0.1f, vector2.y + 0.1f, vector2.x + 0.1f, vector2.y - 0.1f })))
+      while (Intersector.isPointInPolygon(bugVertices, 0, bugVertices.length - 1, vector2.x, vector2.y)) {
         isBloodSpotMeasured = true;
-        System.out.println("Point vector2 " + vector2 + " and angle "+ angle+" is inside polygon.");
-
-        vector2.set((float) (vector2.x + 0.1 * Math.cos(angle)), (float) (vector2.y + 0.1 * Math.sin(angle)));
+        System.out.println("Point vector2 " + vector2 + " and angle " + angle + " is inside polygon.");
+        vector2.set((float) (vector2.x + 0.01 * Math.cos(Math.toRadians(angle))), (float) (vector2.y + 0.01 * Math.sin(Math.toRadians(angle))));
       }
 
       bloodSpotLength = (float) Math.sqrt(Math.pow(bloodSprite.getPolygon().getX() - vector2.x, 2) + Math
