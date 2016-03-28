@@ -44,6 +44,7 @@ public class Renderers {
   public static void renderBug(SpriteBatch batch, BasicObject bedBug) throws Exception {
 
     Polygon bugPolygon = bedBug.getPolygon();
+    elapsedTime += Gdx.graphics.getDeltaTime();
 
     bedBug.setTexture(SpritesCreator.bugAnimations.getKeyFrame(elapsedTime, true).getTexture());
     batch.draw(SpritesCreator.bugAnimations.getKeyFrame(elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(),

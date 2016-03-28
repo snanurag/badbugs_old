@@ -54,13 +54,14 @@ public class KnifeMovement {
       float xSpeed = directionVector.x * ObjectsCord.SILVER_KNIFE_SPEED;
       float ySpeed = directionVector.y * ObjectsCord.SILVER_KNIFE_SPEED;
 
+      System.out.println("xSpeed : "+xSpeed+" ySpeed : "+ySpeed);
       long thisTime = System.currentTimeMillis();
       elapsedTime = (double)(thisTime - lastTime) / 1000f;
+      lastTime = thisTime;
       if(elapsedTime == 0)
       {
-        elapsedTime = 0.001;
+        elapsedTime = 0.0001;
       }
-      //  lastTime = thisTime;
 
       System.out.println("elapsedTime is -> " + elapsedTime);
       float tipX = (float) (polygon.getX() + xSpeed * elapsedTime);

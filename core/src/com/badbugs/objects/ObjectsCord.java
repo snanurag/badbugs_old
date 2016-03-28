@@ -20,5 +20,7 @@ public class ObjectsCord {
   public static int[] SILVER_KNIFE_CENTER = { 515, 50 };
   public static float SILVER_KNIFE_HEIGHT = 2;
   public static float SILVER_KNIFE_WIDTH = 21;
-  public static float SILVER_KNIFE_SPEED = 50;
+  public static float SILVER_KNIFE_SPEED = 400;
+  public static float SILVER_KNIFE_DOUBLE_SPEED = 2*SILVER_KNIFE_SPEED;
+
 }
