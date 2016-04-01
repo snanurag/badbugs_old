@@ -1,10 +1,9 @@
 package com.badbugs;
 
-import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.baseframework.Renderers;
+import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.dynamics.movement.KnifeMovement;
-import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Inputs;
@@ -42,6 +41,8 @@ public class MainClass extends ApplicationAdapter {
   private SilverKnife silverKnife;
   private BedBug bedBug;
 
+  private CalculationThread calculationThread;
+
   @Override public void create() {
 
     screenWidth = Gdx.graphics.getWidth();
@@ -60,21 +61,24 @@ public class MainClass extends ApplicationAdapter {
     animation = new Animation(1 / 60f, textureAtlas.getRegions());
     Gdx.input.setInputProcessor(new Inputs());
     shapeRenderer = new ShapeRenderer();
-    loadFloor();
+
+    SpritesCreator.loadAllTextures();
+
     try {
       silverKnife = (SilverKnife) SpritesCreator.loadSilverKnife();
       //TODO Use BugGenerator here
       bedBug = SpritesCreator.loadBedBug();
+
     } catch (Exception e) {
       e.printStackTrace();
     }
 
-    new CalculationThread().start();
+    calculationThread = new CalculationThread();
   }
 
   @Override public void render() {
 
-  //  System.out.println("fps -> "+Gdx.graphics.getFramesPerSecond());
+    //  System.out.println("fps -> "+Gdx.graphics.getFramesPerSecond());
     cam.update();
     batch.setProjectionMatrix(cam.combined);
 
@@ -85,11 +89,14 @@ public class MainClass extends ApplicationAdapter {
 
     try {
 
-      renderFloor();
+      calculationThread.run();
+
+      Renderers.renderFloor(batch);
 
       Renderers.renderBug(batch, bedBug);
 
-      if (ObjectsStore.getBloodSpot(bedBug) != null && ObjectsStore.getBloodSprite(ObjectsStore.getBloodSpot(bedBug)).getCameraDimensions()[0] != 0) {
+      if (ObjectsStore.getBloodSpot(bedBug) != null
+          && ObjectsStore.getBloodSprite(ObjectsStore.getBloodSpot(bedBug)).getCameraDimensions()[0] != 0) {
         Renderers.renderBlood(batch, bedBug);
       }
 
@@ -100,22 +107,6 @@ public class MainClass extends ApplicationAdapter {
     }
 
     batch.end();
-  }
-
-  //  private void loadKnife() {
-  //    knifeTexture = new Texture(Gdx.files.internal("knife.png"));
-  ////    knifeSprite = new Sprite(knifeTexture);
-  //
-  //  }
-
-  private void loadFloor() {
-    floorTexture = new Texture(Gdx.files.internal("floor.png"));
-    //  floorSprite = new Sprite(floorTexture);
-  }
-
-  private void renderFloor() {
-    batch.draw(floorTexture, -cam_width / 2, -cam_height / 2, cam_width * floorTexture.getWidth() / screenWidth,
-        cam_height * floorTexture.getHeight() / screenHeight);
   }
 
   @Override public void resize(int width, int height) {
@@ -129,16 +120,14 @@ public class MainClass extends ApplicationAdapter {
 
   @Override public void dispose() {
     batch.dispose();
-    textureAtlas.dispose();
-    knifeTexture.dispose();
+    SpritesCreator.disposeAll();
   }
 
   class CalculationThread extends Thread {
     public void run() {
       try {
 
-        while(true)
-        {
+        while (true) {
           Thread.sleep(1);
           KnifeMovement.updatePolygon(silverKnife);
 
@@ -147,10 +136,10 @@ public class MainClass extends ApplicationAdapter {
             if (ObjectsStore.getBloodSpot(bedBug) == null) {
               ObjectsStore.add(bedBug, new BloodSpot(bedBug, silverKnife));
               System.out.println("BloodSpot created for this bug.");
-
             }
             ObjectsStore.getBloodSpot(bedBug).updateBloodSpotDimensions();
           }
+          break;
         }
       } catch (Exception e) {
         e.printStackTrace();

@@ -10,16 +10,30 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Created by ashrinag on 3/20/2016.
  */
 public class SpritesCreator {
 
-  static Texture knifeTexture = new Texture(Gdx.files.internal("knife.png"));
-  static TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
-  static Animation bugAnimations = new Animation(1 / 60f, textureAtlas.getRegions());
-  static Texture bloodTexture = new Texture(Gdx.files.internal("Bloodspot.png"));
+  static Texture knifeTexture;
+  static TextureAtlas textureAtlas;
+  static Animation bugAnimations;
+  static Texture floorTexture;
+  static TextureRegion bloodTextureRegion;
+
+  public static void loadAllTextures()
+  {
+    knifeTexture = new Texture(Gdx.files.internal("knife.png"));
+    textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
+    bugAnimations = new Animation(1 / 60f, textureAtlas.getRegions());
+    floorTexture = new Texture(Gdx.files.internal("floor.png"));
+
+    //TIP : TextureRegion worked for blood not Texture
+    Texture bloodTexture = new Texture(Gdx.files.internal("data/Bloodspot.png"));
+    bloodTextureRegion = new TextureRegion(bloodTexture);
+  }
 
   public static BasicObject loadSilverKnife() throws Exception {
 
@@ -47,15 +61,15 @@ public class SpritesCreator {
 
   public static BloodSprite loadBloodSpot()
   {
-//    Texture bloodTexture = new Texture(Gdx.files.internal("Bloodspot.png"));
-    BloodSprite bloodSprite = new BloodSprite(bloodTexture);
+    BloodSprite bloodSprite = new BloodSprite(bloodTextureRegion.getTexture());
 
     return bloodSprite;
   }
 
-  public void disposeAll()
+  public static void disposeAll()
   {
     textureAtlas.dispose();
     knifeTexture.dispose();
+    bloodTextureRegion.getTexture().dispose();
   }
 }

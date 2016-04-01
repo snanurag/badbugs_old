@@ -33,18 +33,6 @@ public class BloodSpot {
     elapsedTime = 0;
   }
 
-  //  public float spill(SpriteBatch batch) throws Exception {
-  //    elapsedTime += Gdx.graphics.getDeltaTime();
-  //
-  //    Renderers.renderBlood(batch, ObjectsStore.getBloodSprite(this), elapsedTime);
-  //    if (elapsedTime > Constants.BLOOD_SPOT_FADE_TIME) {
-  //      ObjectsStore.removeBloodSprite(this);
-  //      ObjectsStore.removeBlood((Bug) this.bug);
-  //    }
-  //
-  //    return elapsedTime;
-  //  }
-
   public void updateBloodSpotDimensions() throws Exception {
 
     System.out.println("updateBloodSpotDimensions()");
@@ -63,8 +51,6 @@ public class BloodSpot {
 
       float[] bugVertices = bug.getPolygon().getTransformedVertices();
 
-      //      while (Intersector.overlapConvexPolygons(bug.getPolygon(), new Polygon(
-      //          new float[] { vector2.x, vector2.y, vector2.x + 0.1f, vector2.y + 0.1f, vector2.x + 0.1f, vector2.y - 0.1f })))
       while (Intersector.isPointInPolygon(bugVertices, 0, bugVertices.length - 1, vector2.x, vector2.y)) {
         isBloodSpotMeasured = true;
         System.out.println("Point vector2 " + vector2 + " and angle " + angle + " is inside polygon.");
@@ -74,6 +60,7 @@ public class BloodSpot {
 
       bloodSpotLength = (float) Math.sqrt(Math.pow(bloodSprite.getPolygon().getX() - vector2.x, 2) + Math
           .pow(bloodSprite.getPolygon().getY() - vector2.y, 2));
+//      bloodSprite.setCameraDimensions(new float[] { bloodSpotLength, ObjectsCord.BLOOD_SPOT_WIDTH });
       bloodSprite.setCameraDimensions(new float[] { bloodSpotLength, ObjectsCord.BLOOD_SPOT_WIDTH });
     }
   }

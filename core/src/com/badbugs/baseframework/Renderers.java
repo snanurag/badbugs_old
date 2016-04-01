@@ -38,7 +38,7 @@ public class Renderers {
         knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation(), 0, 0, knife.getPixelDimensions()[0],
         knife.getPixelDimensions()[1], false, false);
 
-//    drawPolygon(knife.getPolygon().getTransformedVertices(), false, true);
+    //    drawPolygon(knife.getPolygon().getTransformedVertices(), false, true);
   }
 
   public static void renderBug(SpriteBatch batch, BasicObject bedBug) throws Exception {
@@ -51,7 +51,7 @@ public class Renderers {
         bugPolygon.getOriginX(), bugPolygon.getOriginY(), bedBug.getCameraDimensions()[0],
         bedBug.getCameraDimensions()[1], 1, 1, ((BedBug) bedBug).getInitialAngle());
 
-//    drawPolygon(bedBug.getPolygon().getTransformedVertices(), true, false);
+    //    drawPolygon(bedBug.getPolygon().getTransformedVertices(), true, false);
   }
 
   public static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {
@@ -76,11 +76,23 @@ public class Renderers {
       alpha = 1f;
     }
     //    batch.setColor(1, 1, 1, alpha);
-    batch.draw(texture, polygon.getX(), polygon.getY(), 0, 0, blood.getCameraDimensions()[0],
-        blood.getCameraDimensions()[1], 1, 1, polygon.getRotation(), 0, 0, 0, 0, false, false);
+    batch.draw(SpritesCreator.bloodTextureRegion, polygon.getX(), polygon.getY(),
+        0, 0, blood.getCameraDimensions()[0],
+        blood.getCameraDimensions()[1], 1, 1, polygon.getRotation());
 
-    System.out.println("Position of blood spot x " + polygon.getX() + " and y " + polygon.getY()+" length of blood spot "+blood.getCameraDimensions()[0]);
+//    batch.draw(texture, polygon.getX(), polygon.getY(), 0, 0, blood.getCameraDimensions()[0],
+//        blood.getCameraDimensions()[1], 1, 1, polygon.getRotation(), 0, 0, 0, 0, false, false);
+
+    System.out.println(
+        "Position of blood spot x " + polygon.getX() + " and y " + polygon.getY() + " length of blood spot " + blood
+            .getCameraDimensions()[0]);
     //    batch.setColor(1, 1, 1, alpha);
+  }
+
+  public static void renderFloor(SpriteBatch batch) {
+    batch.draw(SpritesCreator.floorTexture, -MainClass.cam_width / 2, -MainClass.cam_height / 2,
+        MainClass.cam_width * SpritesCreator.floorTexture.getWidth() / MainClass.screenWidth,
+        MainClass.cam_height * SpritesCreator.floorTexture.getHeight() / MainClass.screenHeight);
   }
 
   public static void drawPolygon(float[] vertices, boolean start, boolean end) {
