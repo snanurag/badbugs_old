@@ -3,6 +3,7 @@ package com.badbugs.dynamics;
 import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BloodSprite;
+import com.badbugs.objects.ObjectsCord;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.ObjectsStore;
@@ -73,7 +74,7 @@ public class BloodSpot {
 
       bloodSpotLength = (float) Math.sqrt(Math.pow(bloodSprite.getPolygon().getX() - vector2.x, 2) + Math
           .pow(bloodSprite.getPolygon().getY() - vector2.y, 2));
-      bloodSprite.setCameraDimensions(new float[] { bloodSpotLength, 2 });
+      bloodSprite.setCameraDimensions(new float[] { bloodSpotLength, ObjectsCord.BLOOD_SPOT_WIDTH });
     }
   }
 
