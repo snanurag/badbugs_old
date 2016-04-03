@@ -3,9 +3,17 @@ package com.badbugs.util;
 /**
  * Created by ashrinag on 3/6/2016.
  */
-public class TouchInfo {
+public class TouchInfo implements Comparable {
+  private long time = System.currentTimeMillis();
 
-    public float touchX;
+  @Override public int compareTo(Object another) {
+    if(this.time < ((TouchInfo)another).time)
+      return -1;
+    else
+      return 1;
+  }
 
-    public float touchY;
+  public float touchX;
+
+  public float touchY;
 }

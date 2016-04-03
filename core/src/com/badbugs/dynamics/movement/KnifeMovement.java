@@ -34,8 +34,8 @@ public class KnifeMovement {
       touchPoints = MainClass.cam.unproject(new Vector3(touchInfoInstance.touchX, touchInfoInstance.touchY, 0));
       //      System.out.println(vector3.x + " " + vector3.y);
       //      System.out.println(touchInfoInstance.touchX + " " + touchInfoInstance.touchY);
-      float dirX = touchPoints.x - (polygon.getX() + polygon.getOriginX());
-      float dirY = touchPoints.y - (polygon.getY() + polygon.getOriginY());
+      float dirX = touchPoints.x - polygon.getX();
+      float dirY = touchPoints.y - (Util.getTipY(polygon.getY(), polygon));
 
       directionVector = new Vector2((float) (dirX / (Math.sqrt(dirX * dirX + dirY * dirY))),
           (float) (dirY / (Math.sqrt(dirX * dirX + dirY * dirY))));
@@ -44,6 +44,7 @@ public class KnifeMovement {
       float angle = (float) (Math.atan2(directionVector.y, directionVector.x) * 180 / Math.PI);
       polygon.setRotation(silverKnife.getInitialAngle() + angle);
       System.out.println("Angle of Knife " + (silverKnife.getInitialAngle() + angle));
+      System.out.println("Direction vector "+directionVector);
     }
   }
 
@@ -54,47 +55,46 @@ public class KnifeMovement {
       float xSpeed = directionVector.x * ObjectsCord.SILVER_KNIFE_SPEED;
       float ySpeed = directionVector.y * ObjectsCord.SILVER_KNIFE_SPEED;
 
-      System.out.println("xSpeed : "+xSpeed+" ySpeed : "+ySpeed);
+      System.out.println("xSpeed : " + xSpeed + " ySpeed : " + ySpeed);
       long thisTime = System.currentTimeMillis();
-      elapsedTime = (float)(thisTime - lastTime) / 1000f;
+      elapsedTime = (float) (thisTime - lastTime) / 1000f;
       lastTime = thisTime;
-      if(elapsedTime == 0)
-      {
+      if (elapsedTime == 0) {
         elapsedTime = 0.0001;
       }
 
       System.out.println("elapsedTime is -> " + elapsedTime);
-      float tipX = (float) (polygon.getX() + xSpeed * elapsedTime);
-      float tipY = (float) (polygon.getY() + ySpeed * elapsedTime);
+      float x = (float) (polygon.getX() + xSpeed * elapsedTime);
+      float y = (float) (polygon.getY() + ySpeed * elapsedTime);
 
-      if (tipX < MainClass.cam_width / 2 && tipX > -MainClass.cam_width / 2
-          && Util.getTipY(tipY , polygon) < MainClass.cam_height / 2
-          && Util.getTipY(tipY , polygon) > -MainClass.cam_height / 2) {
-        polygon.setPosition(tipX, tipY);
+      if (x < MainClass.cam_width / 2 && x > -MainClass.cam_width / 2
+          && Util.getTipY(y, polygon) < MainClass.cam_height / 2
+          && Util.getTipY(y, polygon) > -MainClass.cam_height / 2) {
+        polygon.setPosition(x, y);
 
       } else {
-        if (tipX >= MainClass.cam_width / 2) {
-          tipX = MainClass.cam_width / 2;
-          polygon.setPosition(tipX, tipY);
+        if (x >= MainClass.cam_width / 2) {
+          x = MainClass.cam_width / 2;
+          polygon.setPosition(x, y);
           directionVector = null;
-        } else if (tipX <= -MainClass.cam_width / 2) {
-          tipX = -MainClass.cam_width / 2;
-          polygon.setPosition(tipX, tipY);
+        } else if (x <= -MainClass.cam_width / 2) {
+          x = -MainClass.cam_width / 2;
+          polygon.setPosition(x, y);
           directionVector = null;
         }
-        if (Util.getTipY(tipY , polygon) >= MainClass.cam_height / 2) {
-          tipY = MainClass.cam_height / 2 - (float) (polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())));
-          polygon.setPosition(tipX, tipY);
+        if (Util.getTipY(y, polygon) >= MainClass.cam_height / 2) {
+          y = MainClass.cam_height / 2;// - (float) (polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())));
+          polygon.setPosition(x, y);
           directionVector = null;
-        } else if (Util.getTipY(tipY , polygon) <= -MainClass.cam_height / 2) {
-          tipY = -MainClass.cam_height / 2 - (float) (polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())));
-          polygon.setPosition(tipX, tipY);
+        } else if (Util.getTipY(y, polygon) <= -MainClass.cam_height / 2) {
+          y = -MainClass.cam_height / 2;// - (float) (polygon.getOriginY() * Math.cos(Math.toRadians(polygon.getRotation())));
+          polygon.setPosition(x, y);
           directionVector = null;
         }
       }
 
-      System.out.println("Position of Knife tip - x " + tipX + " y " + tipY);
-      Vector3 pixelTip = MainClass.cam.project(new Vector3(tipX, tipY, 0));
+      System.out.println("Position of Knife tip - x " + x + " y " + y);
+      Vector3 pixelTip = MainClass.cam.project(new Vector3(x, y, 0));
       System.out.println("Position of Knife tip in pixels - x " + pixelTip.x + " y " + pixelTip.y);
 
     }

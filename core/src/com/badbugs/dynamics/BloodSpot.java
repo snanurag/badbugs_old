@@ -39,13 +39,14 @@ public class BloodSpot {
     if (!isBloodSpotMeasured) {
 
       bloodSprite.getPolygon()
-          .setPosition(knife.getPolygon().getX(), Util.getTipY(knife.getPolygon().getY(), knife.getPolygon()));
+          .setPosition(knife.getPolygon().getX(), Util.getTipY(knife.getPolygon().getY(),knife.getPolygon()));
 
-      float angle = knife.getPolygon().getRotation() - ((Knife) knife).getInitialAngle();
+      float angle = knife.getPolygon().getRotation();
 
       bloodSprite.getPolygon().setRotation(angle);
 
-      Vector2 vector2 = new Vector2(bloodSprite.getPolygon().getX(), bloodSprite.getPolygon().getY());
+      Vector2 vector2 = new Vector2(bloodSprite.getPolygon().getX(),
+          Util.getTipY(knife.getPolygon().getY(), knife.getPolygon()));
 
       float bloodSpotLength = 0;
 
@@ -56,15 +57,27 @@ public class BloodSpot {
         System.out.println("Point vector2 " + vector2 + " and angle " + angle + " is inside polygon.");
         vector2.set((float) (vector2.x + 0.01 * Math.cos(Math.toRadians(angle))),
             (float) (vector2.y + 0.01 * Math.sin(Math.toRadians(angle))));
+        bloodSpotLength = getBloodLength(bloodSprite, vector2);
+        if(bloodSpotLength > 8)
+          break;
       }
 
-      bloodSpotLength = (float) Math.sqrt(Math.pow(bloodSprite.getPolygon().getX() - vector2.x, 2) + Math
-          .pow(bloodSprite.getPolygon().getY() - vector2.y, 2));
-//      bloodSprite.setCameraDimensions(new float[] { bloodSpotLength, ObjectsCord.BLOOD_SPOT_WIDTH });
+//      bloodSpotLength = (float) Math.sqrt(Math.pow(bloodSprite.getPolygon().getX() - vector2.x, 2) + Math
+//          .pow(bloodSprite.getPolygon().getY() - vector2.y, 2));
+      //      bloodSprite.setCameraDimensions(new float[] { bloodSpotLength, ObjectsCord.BLOOD_SPOT_WIDTH });
       bloodSprite.setCameraDimensions(new float[] { bloodSpotLength, ObjectsCord.BLOOD_SPOT_WIDTH });
+      bloodSprite.getPolygon()
+          .setOrigin(bloodSprite.getCameraDimensions()[0] / 2, bloodSprite.getCameraDimensions()[1] / 2);
     }
   }
 
+  private float getBloodLength(BloodSprite bloodSprite, Vector2 vector2) throws Exception
+  {
+    float bloodSpotLength = (float) Math.sqrt(Math.pow(bloodSprite.getPolygon().getX() - vector2.x, 2) + Math
+        .pow(bloodSprite.getPolygon().getY() - vector2.y, 2));
+    return bloodSpotLength;
+
+  }
   public static void main(String[] args) {
     System.out.println(Math.sin(-116));
   }

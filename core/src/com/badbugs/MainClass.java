@@ -12,7 +12,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -25,14 +24,9 @@ public class MainClass extends ApplicationAdapter {
   private TextureAtlas textureAtlas;
   private Animation animation;
   public static OrthographicCamera cam;
-  public static int BUG_SPEED = 25;
   public static float cam_height = 100;
   public static float cam_width = 100;
   private float HeightVsWidth;
-
-  private Texture knifeTexture;
-
-  private Texture floorTexture;
 
   public static float screenWidth;
   public static float screenHeight;
@@ -74,6 +68,7 @@ public class MainClass extends ApplicationAdapter {
     }
 
     calculationThread = new CalculationThread();
+    calculationThread.start();
   }
 
   @Override public void render() {
@@ -89,18 +84,14 @@ public class MainClass extends ApplicationAdapter {
 
     try {
 
-      calculationThread.run();
-
       Renderers.renderFloor(batch);
 
       Renderers.renderBug(batch, bedBug);
 
-      if (ObjectsStore.getBloodSpot(bedBug) != null
-          && ObjectsStore.getBloodSprite(ObjectsStore.getBloodSpot(bedBug)).getCameraDimensions()[0] != 0) {
-        Renderers.renderBlood(batch, bedBug);
-      }
-
+      KnifeMovement.updatePolygon(silverKnife);
       Renderers.renderKnife(batch, (SilverKnife) silverKnife);
+
+      Renderers.renderBlood(batch, bedBug);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -129,7 +120,6 @@ public class MainClass extends ApplicationAdapter {
 
         while (true) {
           Thread.sleep(1);
-          KnifeMovement.updatePolygon(silverKnife);
 
           if (Intersector.overlapConvexPolygons(bedBug.getPolygon(), silverKnife.getPolygon())) {
             System.out.println("Knife overlapped with bug.");
@@ -139,7 +129,6 @@ public class MainClass extends ApplicationAdapter {
             }
             ObjectsStore.getBloodSpot(bedBug).updateBloodSpotDimensions();
           }
-          break;
         }
       } catch (Exception e) {
         e.printStackTrace();

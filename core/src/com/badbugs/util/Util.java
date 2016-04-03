@@ -67,5 +67,11 @@ public class Util {
     return tipY + polygon.getOriginY() *(float) Math.cos(Math.toRadians(polygon.getRotation()));
   }
 
+//  public static float getTipX(float tipX, Polygon polygon)
+//  {
+//    return tipX + 2*polygon.getOriginX() *(float) Math.cos(Math.toRadians(polygon.getRotation()));
+//  }
+
+
 
 }

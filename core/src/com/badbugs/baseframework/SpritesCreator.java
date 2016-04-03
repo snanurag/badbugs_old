@@ -31,7 +31,7 @@ public class SpritesCreator {
     floorTexture = new Texture(Gdx.files.internal("floor.png"));
 
     //TIP : TextureRegion worked for blood not Texture
-    Texture bloodTexture = new Texture(Gdx.files.internal("data/Bloodspot.png"));
+    Texture bloodTexture = new Texture(Gdx.files.internal("data/Bloodspot3.png"));
     bloodTextureRegion = new TextureRegion(bloodTexture);
   }
 
@@ -39,8 +39,8 @@ public class SpritesCreator {
 
     BasicObjectImpl silverKnife = new SilverKnife(knifeTexture);
 //    ObjectsStore.addBug(silverKnife);
-    silverKnife.getPolygon().setPosition(0 ,0);
-    silverKnife.getPolygon().setOrigin(0,0);
+    silverKnife.getPolygon().setPosition(0 , 0);
+    silverKnife.getPolygon().setOrigin(0,silverKnife.getCameraDimensions()[1]/2);
     return silverKnife;
 
     //    knifeSprite = new Sprite(knifeTexture);
