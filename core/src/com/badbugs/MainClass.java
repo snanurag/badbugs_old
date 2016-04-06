@@ -89,6 +89,7 @@ public class MainClass extends ApplicationAdapter {
       Renderers.renderBug(batch, bedBug);
 
       KnifeMovement.updatePolygon(silverKnife);
+
       Renderers.renderKnife(batch, (SilverKnife) silverKnife);
 
       Renderers.renderBlood(batch, bedBug);

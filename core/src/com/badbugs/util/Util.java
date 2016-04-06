@@ -2,7 +2,9 @@ package com.badbugs.util;
 
 import com.badbugs.MainClass;
 import com.badbugs.objects.BasicObject;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -62,16 +64,16 @@ public class Util {
     basicObject.setScreenPixels(screenCords);
   }
 
-  public static float getTipY(float tipY, Polygon polygon)
-  {
-    return tipY + polygon.getOriginY() *(float) Math.cos(Math.toRadians(polygon.getRotation()));
+
+  public static Vector2 getVectorAfterRotation(float originX, float originY, float rotation) {
+
+    final float cos = MathUtils.cosDeg(rotation);
+    final float sin = MathUtils.sinDeg(rotation);
+
+    float x1 =  cos * originX - sin * originY;
+    float y1 =  sin * originX + cos * originY;
+
+    return new Vector2(x1, y1);
   }
-
-//  public static float getTipX(float tipX, Polygon polygon)
-//  {
-//    return tipX + 2*polygon.getOriginX() *(float) Math.cos(Math.toRadians(polygon.getRotation()));
-//  }
-
-
 
 }

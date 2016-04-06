@@ -35,7 +35,7 @@ public class Renderers {
     Polygon knifePolygon = knife.getPolygon();
 
     Texture knifeTexture = knife.getTexture();
-    batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), 0, knifePolygon.getOriginY(), knife.getCameraDimensions()[0],
+    batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), 0, 0, knife.getCameraDimensions()[0],
         knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation(), 0, 0, knife.getPixelDimensions()[0],
         knife.getPixelDimensions()[1], false, false);
 
