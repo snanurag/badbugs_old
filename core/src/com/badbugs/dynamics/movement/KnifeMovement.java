@@ -7,7 +7,6 @@ import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Constants;
 import com.badbugs.util.TouchInfo;
 import com.badbugs.util.Util;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -21,6 +20,8 @@ public class KnifeMovement {
   static double elapsedTime;
   static float angle;
   static long lastTime;
+  private static float XLimit = MainClass.cam_width / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
+  private static float YLimit = MainClass.cam_height / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
 
   public static void updatePolygon(SilverKnife basicObject) throws Exception {
     rotatePolygon(basicObject);
@@ -61,6 +62,11 @@ public class KnifeMovement {
 
       polygon.setPosition(newX, newY);
 
+      if (!checkIfPointInBoundary(newX, newY)) {
+        Vector2 v = getVectorInBoundary(newX, newY);
+        polygon.setPosition(v.x, v.y);
+      }
+
       System.out.println("Angle of Knife " + (silverKnife.getInitialAngle() + angle));
       System.out.println("Direction vector " + directionVector);
     }
@@ -72,8 +78,8 @@ public class KnifeMovement {
 
       Polygon polygon = basicObject.getPolygon();
 
-      float xSpeed = directionVector.x * ObjectsCord.SILVER_KNIFE_SPEED;
-      float ySpeed = directionVector.y * ObjectsCord.SILVER_KNIFE_SPEED;
+      float xSpeed = directionVector.x * ObjectsCord.SILVER_KNIFE_DOUBLE_SPEED;
+      float ySpeed = directionVector.y * ObjectsCord.SILVER_KNIFE_DOUBLE_SPEED;
 
       System.out.println("xSpeed : " + xSpeed + " ySpeed : " + ySpeed);
 
@@ -89,22 +95,10 @@ public class KnifeMovement {
       float x = (float) ((polygon.getX()) + xSpeed * elapsedTime);
       float y = (float) ((polygon.getY()) + ySpeed * elapsedTime);
 
-      float XLimit = MainClass.cam_width / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
-      float YLimit = MainClass.cam_height / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
-
-      if (x >= XLimit || x <= -XLimit || y >= YLimit || y <= -YLimit) {
-
-        if (x >= XLimit) {
-          x = XLimit;
-        } else if (x <= -XLimit) {
-          x = -XLimit;
-        }
-        if (y >= YLimit) {
-          y = YLimit;
-        } else if (y <= -YLimit) {
-          y = -YLimit;
-        }
-
+      if (!checkIfPointInBoundary(x, y)) {
+        Vector2 v = getVectorInBoundary(x, y);
+        x = v.x;
+        y = v.y;
         directionVector = null;
       }
 
@@ -115,6 +109,34 @@ public class KnifeMovement {
       System.out.println("Position of Knife tip in pixels - x " + pixelTip.x + " y " + pixelTip.y);
 
     }
+  }
+
+  private static Vector2 getVectorInBoundary(float x, float y) {
+
+    if (x >= XLimit || x <= -XLimit || y >= YLimit || y <= -YLimit) {
+      if (x >= XLimit) {
+        y = y - (x - XLimit) * directionVector.y / directionVector.x;
+        x = XLimit;
+      } else if (x <= -XLimit) {
+        y = y - (x + XLimit) * directionVector.y / directionVector.x;
+        x = -XLimit;
+      }
+      if (y >= YLimit) {
+        x = x - (y - YLimit) * directionVector.x / directionVector.y;
+        y = YLimit;
+      } else if (y <= -YLimit) {
+        x = x - (y + YLimit) * directionVector.x / directionVector.y;
+        y = -YLimit;
+      }
+    }
+
+    return new Vector2(x, y);
+  }
+
+  private static boolean checkIfPointInBoundary(float x, float y) {
+    if (x <= XLimit && x >= -XLimit && y <= YLimit && y >= -YLimit)
+      return true;
+    return false;
   }
 
   public float getAngle() {
