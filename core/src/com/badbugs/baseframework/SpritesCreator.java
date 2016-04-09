@@ -1,6 +1,5 @@
 package com.badbugs.baseframework;
 
-import com.badbugs.MainClass;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BasicObjectImpl;
 import com.badbugs.objects.BloodSprite;
@@ -38,25 +37,19 @@ public class SpritesCreator {
   public static BasicObject loadSilverKnife() throws Exception {
 
     BasicObjectImpl silverKnife = new SilverKnife(knifeTexture);
-//    ObjectsStore.addBug(silverKnife);
     silverKnife.getPolygon().setPosition(0 , 0);
     silverKnife.getPolygon().setOrigin(0,silverKnife.getCameraDimensions()[1]/2);
     return silverKnife;
-
-    //    knifeSprite = new Sprite(knifeTexture);
-
   }
 
   public static BedBug loadBedBug() throws Exception {
 
     BedBug bedBug = new BedBug(null);
 
-  //  ObjectsStore.addBug(bedBug);
-    bedBug.getPolygon().setPosition(-MainClass.cam_width / 2, -MainClass.cam_height / 2);
+    bedBug.getPolygon().setPosition(0, 0);
     bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
 
     return bedBug;
-
   }
 
   public static BloodSprite loadBloodSpot()

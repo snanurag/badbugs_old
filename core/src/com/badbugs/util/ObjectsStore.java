@@ -22,6 +22,16 @@ public class ObjectsStore {
   static Map<Bug, BloodSpot> bloodSpillMap = new HashMap<Bug, BloodSpot>();
   static Map<BloodSpot, BloodSprite> bloodSpotBloodSpriteMap = new HashMap<BloodSpot, BloodSprite>();
 
+  public static void add(Bug bug)
+  {
+    bugList.add((BasicObject) bug);
+  }
+
+  public static List<BasicObject> getBugList()
+  {
+    return  bugList;
+  }
+
   public static void add(Bug bug, BloodSpot bloodSpot)
   {
     bloodSpillMap.put(bug, bloodSpot);
@@ -51,26 +61,5 @@ public class ObjectsStore {
   {
     return bloodSpotBloodSpriteMap.get(bloodSpot);
   }
-
-  //  static void addBug(BasicObject bug)
-//  {
-//    bugList.add(bug);
-//  }
-//
-//  static void addKnife(BasicObject knife)
-//  {
-//    knifeList.add(knife);
-//  }
-//
-//  static void removeBug(BasicObject bug)
-//  {
-//    bugList.remove(bug);
-//  }
-//
-//  static void removeKnife(BasicObject knife)
-//  {
-//    knifeList.remove(knife);
-//  }
-
 
 }

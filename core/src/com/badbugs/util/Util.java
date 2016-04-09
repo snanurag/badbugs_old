@@ -2,6 +2,7 @@ package com.badbugs.util;
 
 import com.badbugs.MainClass;
 import com.badbugs.objects.BasicObject;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
@@ -74,6 +75,20 @@ public class Util {
     float y1 =  sin * originX + cos * originY;
 
     return new Vector2(x1, y1);
+  }
+
+  public static Vector2 getKnifeTip(Polygon knifePolygon)
+  {
+    Vector2 tip = Util.getVectorAfterRotation(0, knifePolygon.getOriginY(), knifePolygon.getRotation());
+    float tipY = knifePolygon.getY() + tip.y;
+    float tipX = knifePolygon.getX() + tip.x;
+
+    return new Vector2(tipX, tipY);
+  }
+
+  public static boolean insidePolygon(Polygon polygon, float x, float y)
+  {
+    return Intersector.isPointInPolygon(polygon.getTransformedVertices(), 0, polygon.getTransformedVertices().length, x, y);
   }
 
 }

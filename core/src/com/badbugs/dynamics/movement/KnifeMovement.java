@@ -1,27 +1,28 @@
 package com.badbugs.dynamics.movement;
 
 import com.badbugs.MainClass;
+import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.ObjectsCord;
+import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Constants;
+import com.badbugs.util.ObjectsStore;
 import com.badbugs.util.TouchInfo;
 import com.badbugs.util.Util;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.*;
 
 /**
  * Created by ashrinag on 3/21/2016.
  */
 public class KnifeMovement {
 
-  static Vector2 directionVector;
-  static double elapsedTime;
-  static float angle;
-  static long lastTime;
-  private static float XLimit = MainClass.cam_width / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
-  private static float YLimit = MainClass.cam_height / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
+  private static Vector2 directionVector;
+  private static double elapsedTime;
+  private static float angle;
+  private static long lastTime;
+  private static float XLimit = Constants.XLimit;
+  private static float YLimit = Constants.YLimit;
 
   public static void updatePolygon(SilverKnife basicObject) throws Exception {
     rotatePolygon(basicObject);
@@ -67,6 +68,19 @@ public class KnifeMovement {
         polygon.setPosition(v.x, v.y);
       }
 
+      for(BasicObject bug: ObjectsStore.getBugList())
+      {
+        Vector2 hitPoint = getHitPoint(bug.getPolygon(), silverKnife.getPolygon());
+        if(hitPoint !=null)
+        {
+          if(ObjectsStore.getBloodSpot((Bug)bug) == null)
+          {
+            BloodSpot bloodSpot = new BloodSpot((Bug) bug, silverKnife, hitPoint);
+            ObjectsStore.add((Bug)bug, bloodSpot);
+          }
+        }
+      }
+
       System.out.println("Angle of Knife " + (silverKnife.getInitialAngle() + angle));
       System.out.println("Direction vector " + directionVector);
     }
@@ -78,8 +92,8 @@ public class KnifeMovement {
 
       Polygon polygon = basicObject.getPolygon();
 
-      float xSpeed = directionVector.x * ObjectsCord.SILVER_KNIFE_DOUBLE_SPEED;
-      float ySpeed = directionVector.y * ObjectsCord.SILVER_KNIFE_DOUBLE_SPEED;
+      float xSpeed = directionVector.x * ObjectsCord.SILVER_KNIFE_SPEED;
+      float ySpeed = directionVector.y * ObjectsCord.SILVER_KNIFE_SPEED;
 
       System.out.println("xSpeed : " + xSpeed + " ySpeed : " + ySpeed);
 
@@ -137,6 +151,45 @@ public class KnifeMovement {
     if (x <= XLimit && x >= -XLimit && y <= YLimit && y >= -YLimit)
       return true;
     return false;
+  }
+
+  private static Vector2 getHitPoint(Polygon bugPolygon, Polygon knifePolygon) {
+    Vector2 tip = Util.getKnifeTip(knifePolygon);
+    float a = knifePolygon.getRotation();
+    float x1 = tip.x;
+    float y1 = tip.y;
+
+    float x = x1;
+    float y = getYOnLine(x, x1, y1, a);
+
+    //These boundaries are on left bottom position of knife. Calibrating them here on tip.
+    while (checkIfPointInBoundary(x,y)) {
+      x = x + 0.01f;
+      y = getYOnLine(x, x1, y1, a);
+      if (Util.insidePolygon(bugPolygon,x,y)) {
+        return new Vector2(x, y);
+      }
+    }
+
+    x = x1;
+    y = y1;
+
+    while (checkIfPointInBoundary(x,y)) {
+      x = x - 0.01f;
+      y = getYOnLine(x, x1, y1, a);
+      if (Util.insidePolygon(bugPolygon,x,y)) {
+        return new Vector2(x, y);
+      }
+    }
+
+    return null;
+
+  }
+
+  private static float getYOnLine(float x, float x1, float y1, float a)
+  {
+    float y = MathUtils.sinDeg(a) * (x - x1) / MathUtils.cosDeg(a) + y1;
+    return y;
   }
 
   public float getAngle() {

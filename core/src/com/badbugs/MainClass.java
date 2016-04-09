@@ -35,7 +35,7 @@ public class MainClass extends ApplicationAdapter {
   private SilverKnife silverKnife;
   private BedBug bedBug;
 
-  private CalculationThread calculationThread;
+//  private CalculationThread calculationThread;
 
   @Override public void create() {
 
@@ -49,6 +49,7 @@ public class MainClass extends ApplicationAdapter {
     cam = new OrthographicCamera(cam_width, cam_height);
 
     cam.update();
+
     batch = new SpriteBatch();
 
     textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
@@ -60,15 +61,18 @@ public class MainClass extends ApplicationAdapter {
 
     try {
       silverKnife = (SilverKnife) SpritesCreator.loadSilverKnife();
+
       //TODO Use BugGenerator here
       bedBug = SpritesCreator.loadBedBug();
+
+      ObjectsStore.add(bedBug);
 
     } catch (Exception e) {
       e.printStackTrace();
     }
 
-    calculationThread = new CalculationThread();
-    calculationThread.start();
+//    calculationThread = new CalculationThread();
+//    calculationThread.start();
   }
 
   @Override public void render() {
@@ -115,28 +119,28 @@ public class MainClass extends ApplicationAdapter {
     SpritesCreator.disposeAll();
   }
 
-  class CalculationThread extends Thread {
-    public void run() {
-      try {
-
-        while (true) {
-          Thread.sleep(1);
-
-          if (Intersector.overlapConvexPolygons(bedBug.getPolygon(), silverKnife.getPolygon())) {
-            System.out.println("Knife overlapped with bug.");
-            if (ObjectsStore.getBloodSpot(bedBug) == null) {
-              ObjectsStore.add(bedBug, new BloodSpot(bedBug, silverKnife));
-              System.out.println("BloodSpot created for this bug.");
-            }
-            ObjectsStore.getBloodSpot(bedBug).updateBloodSpotDimensions();
-          }
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-
-    }
-  }
+//  class CalculationThread extends Thread {
+//    public void run() {
+//      try {
+//
+//        while (true) {
+//          Thread.sleep(1);
+//
+//          if (Intersector.overlapConvexPolygons(bedBug.getPolygon(), silverKnife.getPolygon())) {
+//            System.out.println("Knife overlapped with bug.");
+//            if (ObjectsStore.getBloodSpot(bedBug) == null) {
+//              ObjectsStore.add(bedBug, new BloodSpot(bedBug, silverKnife));
+//              System.out.println("BloodSpot created for this bug.");
+//            }
+////            ObjectsStore.getBloodSpot(bedBug).updateBloodSpotDimensions();
+//          }
+//        }
+//      } catch (Exception e) {
+//        e.printStackTrace();
+//      }
+//
+//    }
+//  }
 
 }
 
