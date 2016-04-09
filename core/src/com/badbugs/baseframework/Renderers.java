@@ -89,12 +89,14 @@ public class Renderers {
         Vector2 centerAfterRotation = Util
             .getVectorAfterRotation(0, polygon.getOriginY() * widthScaleFactor, polygon.getRotation());
 
-
+        batch.setColor(1, 1, 1, alpha);
         TextureRegion textureRegion = getRightSizeTextureRegion(blood.getCameraDimensions()[0]);
 
         batch.draw(textureRegion, polygon.getX() - centerAfterRotation.x, polygon.getY() - centerAfterRotation.y, 0, 0,
             blood.getCameraDimensions()[0], blood.getCameraDimensions()[1] * widthScaleFactor, 1, 1,
             polygon.getRotation());
+
+        batch.setColor(1,1,1,1);
 
         System.out.println(
             "Position of blood spot x " + polygon.getX() + " and y " + polygon.getY() + " length of blood spot " + blood
@@ -113,11 +115,10 @@ public class Renderers {
         MainClass.cam_height * SpritesCreator.floorTexture.getHeight() / MainClass.screenHeight);
   }
 
-  private static TextureRegion getRightSizeTextureRegion(float bloodSpotLen)
-  {
-    if(bloodSpotLen < 2)
-      return   SpritesCreator.bloodTextureRegionSmall;
-    else if(bloodSpotLen <6)
+  private static TextureRegion getRightSizeTextureRegion(float bloodSpotLen) {
+    if (bloodSpotLen < 2)
+      return SpritesCreator.bloodTextureRegionSmall;
+    else if (bloodSpotLen < 6)
       return SpritesCreator.bloodTextureRegionMedium;
     else
       return SpritesCreator.bloodTextureRegionLong;
@@ -139,6 +140,5 @@ public class Renderers {
       e.printStackTrace();
     }
   }
-
 
 }
