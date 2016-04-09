@@ -9,12 +9,15 @@ import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsStore;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by ashrinag on 3/20/2016.
@@ -52,7 +55,7 @@ public class Renderers {
         bugPolygon.getOriginX(), bugPolygon.getOriginY(), bedBug.getCameraDimensions()[0],
         bedBug.getCameraDimensions()[1], 1, 1, ((BedBug) bedBug).getInitialAngle());
 
-  //      drawPolygon(bedBug.getPolygon().getTransformedVertices(), true, false);
+    //      drawPolygon(bedBug.getPolygon().getTransformedVertices(), true, false);
   }
 
   public static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {
@@ -61,6 +64,9 @@ public class Renderers {
     if (bloodSpot != null) {
       BloodSprite blood = ObjectsStore.getBloodSprite(bloodSpot);
       if (blood != null) {
+
+        float widthScaleFactor = 2;
+
         Polygon polygon = blood.getPolygon();
 
         bloodSpot.elapsedTime += Gdx.graphics.getDeltaTime();
@@ -79,14 +85,22 @@ public class Renderers {
         System.out.println(
             "degrees " + polygon.getRotation() + " cos " + MathUtils.cosDeg(polygon.getRotation()) + " sin " + MathUtils
                 .sinDeg(polygon.getRotation()));
-        batch.draw(SpritesCreator.bloodTextureRegion, polygon.getX(), polygon.getY(), 0, 0,
-            blood.getCameraDimensions()[0], blood.getCameraDimensions()[1], 1, 1, polygon.getRotation());
+
+        Vector2 centerAfterRotation = Util
+            .getVectorAfterRotation(0, polygon.getOriginY() * widthScaleFactor, polygon.getRotation());
+
+
+        TextureRegion textureRegion = getRightSizeTextureRegion(blood.getCameraDimensions()[0]);
+
+        batch.draw(textureRegion, polygon.getX() - centerAfterRotation.x, polygon.getY() - centerAfterRotation.y, 0, 0,
+            blood.getCameraDimensions()[0], blood.getCameraDimensions()[1] * widthScaleFactor, 1, 1,
+            polygon.getRotation());
 
         System.out.println(
             "Position of blood spot x " + polygon.getX() + " and y " + polygon.getY() + " length of blood spot " + blood
                 .getCameraDimensions()[0]);
 
-//        drawPolygon(blood.getPolygon().getTransformedVertices(), false, true);
+        //        drawPolygon(blood.getPolygon().getTransformedVertices(), false, true);
 
       }
     }
@@ -97,6 +111,16 @@ public class Renderers {
     batch.draw(SpritesCreator.floorTexture, -MainClass.cam_width / 2, -MainClass.cam_height / 2,
         MainClass.cam_width * SpritesCreator.floorTexture.getWidth() / MainClass.screenWidth,
         MainClass.cam_height * SpritesCreator.floorTexture.getHeight() / MainClass.screenHeight);
+  }
+
+  private static TextureRegion getRightSizeTextureRegion(float bloodSpotLen)
+  {
+    if(bloodSpotLen < 2)
+      return   SpritesCreator.bloodTextureRegionSmall;
+    else if(bloodSpotLen <6)
+      return SpritesCreator.bloodTextureRegionMedium;
+    else
+      return SpritesCreator.bloodTextureRegionLong;
   }
 
   public static void drawPolygon(float[] vertices, boolean start, boolean end) {
@@ -115,4 +139,6 @@ public class Renderers {
       e.printStackTrace();
     }
   }
+
+
 }

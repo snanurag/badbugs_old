@@ -183,7 +183,6 @@ public class KnifeMovement {
     }
 
     return null;
-
   }
 
   private static float getYOnLine(float x, float x1, float y1, float a)

@@ -20,7 +20,13 @@ public class SpritesCreator {
   static TextureAtlas textureAtlas;
   static Animation bugAnimations;
   static Texture floorTexture;
-  static TextureRegion bloodTextureRegion;
+  static Texture bloodTextureLong;
+  static Texture bloodTextureMedium;
+  static Texture bloodTextureSmall;
+
+  static TextureRegion bloodTextureRegionLong;
+  static TextureRegion bloodTextureRegionMedium;
+  static TextureRegion bloodTextureRegionSmall;
 
   public static void loadAllTextures()
   {
@@ -30,8 +36,13 @@ public class SpritesCreator {
     floorTexture = new Texture(Gdx.files.internal("floor.png"));
 
     //TIP : TextureRegion worked for blood not Texture
-    Texture bloodTexture = new Texture(Gdx.files.internal("data/Bloodspot3.png"));
-    bloodTextureRegion = new TextureRegion(bloodTexture);
+    bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
+    bloodTextureMedium= new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
+    bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
+
+    bloodTextureRegionLong = new TextureRegion(bloodTextureLong);
+    bloodTextureRegionMedium = new TextureRegion(bloodTextureMedium);
+    bloodTextureRegionSmall = new TextureRegion(bloodTextureSmall);
   }
 
   public static BasicObject loadSilverKnife() throws Exception {
@@ -54,7 +65,7 @@ public class SpritesCreator {
 
   public static BloodSprite loadBloodSpot()
   {
-    BloodSprite bloodSprite = new BloodSprite(bloodTextureRegion.getTexture());
+    BloodSprite bloodSprite = new BloodSprite(null);
 
     return bloodSprite;
   }
@@ -63,6 +74,10 @@ public class SpritesCreator {
   {
     textureAtlas.dispose();
     knifeTexture.dispose();
-    bloodTextureRegion.getTexture().dispose();
+    bloodTextureLong.dispose();
+    bloodTextureMedium.dispose();
+    bloodTextureSmall.dispose();
   }
+
+
 }
