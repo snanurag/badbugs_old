@@ -2,9 +2,13 @@ package com.badbugs;
 
 import com.badbugs.baseframework.Renderers;
 import com.badbugs.baseframework.SpritesCreator;
+import com.badbugs.creators.BugGenerator;
 import com.badbugs.dynamics.BloodSpot;
+import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.dynamics.movement.KnifeMovement;
+import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.bugs.BedBug;
+import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Inputs;
 import com.badbugs.util.ObjectsStore;
@@ -17,6 +21,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class MainClass extends ApplicationAdapter {
 
@@ -35,7 +42,7 @@ public class MainClass extends ApplicationAdapter {
   private SilverKnife silverKnife;
   private BedBug bedBug;
 
-//  private CalculationThread calculationThread;
+  //  private CalculationThread calculationThread;
 
   @Override public void create() {
 
@@ -62,17 +69,17 @@ public class MainClass extends ApplicationAdapter {
     try {
       silverKnife = (SilverKnife) SpritesCreator.loadSilverKnife();
 
-      //TODO Use BugGenerator here
-      bedBug = SpritesCreator.loadBedBug();
-
-      ObjectsStore.add(bedBug);
+      //      //TODO Use BugGenerator here
+      //      bedBug = SpritesCreator.loadBedBug();
+      //
+      //      ObjectsStore.add(bedBug);
 
     } catch (Exception e) {
       e.printStackTrace();
     }
 
-//    calculationThread = new CalculationThread();
-//    calculationThread.start();
+    new BugGenerator().start();
+
   }
 
   @Override public void render() {
@@ -90,13 +97,29 @@ public class MainClass extends ApplicationAdapter {
 
       Renderers.renderFloor(batch);
 
-      Renderers.renderBug(batch, bedBug);
+      List<Bug> bugList = ObjectsStore.getBugList();
+
+      Iterator<Bug> itr = bugList.iterator();
+
+      while (itr.hasNext()) {
+        Bug bedBug = itr.next();
+        System.out.println("Bug position x " + bedBug.getPolygon().getX() + " and y " + bedBug.getPolygon().getY());
+        if (bedBug.dead) {
+          itr.remove();
+          continue;
+        }
+        Renderers.renderBug(batch, bedBug);
+        Renderers.renderBlood(batch, bedBug);
+        if (bedBug.hit) {
+          continue;
+        }
+
+        BugMovement.applyMovement(bedBug);
+      }
 
       KnifeMovement.updatePolygon(silverKnife);
 
       Renderers.renderKnife(batch, (SilverKnife) silverKnife);
-
-      Renderers.renderBlood(batch, bedBug);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -118,29 +141,6 @@ public class MainClass extends ApplicationAdapter {
     batch.dispose();
     SpritesCreator.disposeAll();
   }
-
-//  class CalculationThread extends Thread {
-//    public void run() {
-//      try {
-//
-//        while (true) {
-//          Thread.sleep(1);
-//
-//          if (Intersector.overlapConvexPolygons(bedBug.getPolygon(), silverKnife.getPolygon())) {
-//            System.out.println("Knife overlapped with bug.");
-//            if (ObjectsStore.getBloodSpot(bedBug) == null) {
-//              ObjectsStore.add(bedBug, new BloodSpot(bedBug, silverKnife));
-//              System.out.println("BloodSpot created for this bug.");
-//            }
-////            ObjectsStore.getBloodSpot(bedBug).updateBloodSpotDimensions();
-//          }
-//        }
-//      } catch (Exception e) {
-//        e.printStackTrace();
-//      }
-//
-//    }
-//  }
 
 }
 

@@ -5,6 +5,6 @@ package com.badbugs.objects.knives;
  */
 public interface Knife {
 
-  public int getInitialAngle();
+  public float getInitialAngle();
 
 }

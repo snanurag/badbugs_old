@@ -12,10 +12,13 @@ public abstract class BasicObjectImpl implements BasicObject {
   protected int[] pixelDimensions; // = { ObjectsCord.BED_BUG_CENTER[0] * 2, ObjectsCord.BED_BUG_CENTER[1] * 2 };
   protected float[] cameraDimensions; // = { ObjectsCord.BED_BUG_WIDTH, ObjectsCord.BED_BUG_HEIGHT };
   protected float[] cameraCords;
-  protected float[] screenPixels;
   protected  float[] screenDimensions;
   private Texture texture;
   protected Polygon polygon;
+   public float elapsedTime;
+
+  @Deprecated
+  protected float[] screenPixels;
 
   public BasicObjectImpl(Texture texture)
   {

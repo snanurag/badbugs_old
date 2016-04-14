@@ -24,7 +24,7 @@ public class SilverKnife extends BasicObjectImpl implements Knife{
     return ObjectsCord.SILVER_KNIFE_CORDS;
   }
 
-  public int getInitialAngle()
+  public float getInitialAngle()
   {
     return 180;
   }

@@ -5,6 +5,7 @@ import com.badbugs.objects.BasicObjectImpl;
 import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.knives.SilverKnife;
+import com.badbugs.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -28,16 +29,15 @@ public class SpritesCreator {
   static TextureRegion bloodTextureRegionMedium;
   static TextureRegion bloodTextureRegionSmall;
 
-  public static void loadAllTextures()
-  {
+  public static void loadAllTextures() {
     knifeTexture = new Texture(Gdx.files.internal("knife.png"));
     textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
-    bugAnimations = new Animation(1 / 60f, textureAtlas.getRegions());
+//    bugAnimations = new Animation(1 / 60f, textureAtlas.getRegions());
     floorTexture = new Texture(Gdx.files.internal("floor.png"));
 
     //TIP : TextureRegion worked for blood not Texture
     bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
-    bloodTextureMedium= new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
+    bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
     bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
 
     bloodTextureRegionLong = new TextureRegion(bloodTextureLong);
@@ -48,8 +48,8 @@ public class SpritesCreator {
   public static BasicObject loadSilverKnife() throws Exception {
 
     BasicObjectImpl silverKnife = new SilverKnife(knifeTexture);
-    silverKnife.getPolygon().setPosition(0 , 0);
-    silverKnife.getPolygon().setOrigin(0,silverKnife.getCameraDimensions()[1]/2);
+    silverKnife.getPolygon().setPosition(0, 0);
+    silverKnife.getPolygon().setOrigin(0, silverKnife.getCameraDimensions()[1] / 2);
     return silverKnife;
   }
 
@@ -63,21 +63,32 @@ public class SpritesCreator {
     return bedBug;
   }
 
-  public static BloodSprite loadBloodSpot()
-  {
+  public static BedBug loadBedBug(int level) throws Exception {
+
+//    textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
+    bugAnimations = new Animation(Constants.BUG_FRAME_RATE[level], textureAtlas.getRegions());
+
+    BedBug bedBug = new BedBug(null);
+
+    bedBug.getPolygon().setPosition(0, 0);
+    bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
+
+    return bedBug;
+  }
+
+  public static BloodSprite loadBloodSpot() {
+
     BloodSprite bloodSprite = new BloodSprite(null);
 
     return bloodSprite;
   }
 
-  public static void disposeAll()
-  {
+  public static void disposeAll() {
     textureAtlas.dispose();
     knifeTexture.dispose();
     bloodTextureLong.dispose();
     bloodTextureMedium.dispose();
     bloodTextureSmall.dispose();
   }
-
 
 }

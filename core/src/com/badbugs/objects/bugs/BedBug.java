@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by ashrinag on 2/28/2016.
  */
-public class BedBug extends BasicObjectImpl implements Bug {
+public class BedBug extends Bug {
 
   public BedBug(Texture texture) {
     super(texture);
@@ -24,10 +24,9 @@ public class BedBug extends BasicObjectImpl implements Bug {
     return ObjectsCord.BED_BUG_CORDS;
   }
 
-  public int getInitialAngle()
+  public float getInitialAngle()
   {
-    return 180;
+    return -90;
   }
-
 
 }

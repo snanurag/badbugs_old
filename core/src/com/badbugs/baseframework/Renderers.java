@@ -45,17 +45,33 @@ public class Renderers {
     //    drawPolygon(knife.getPolygon().getTransformedVertices(), false, false);
   }
 
-  public static void renderBug(SpriteBatch batch, BasicObject bedBug) throws Exception {
+  public static void renderBug(SpriteBatch batch, Bug bedBug) throws Exception {
 
     Polygon bugPolygon = bedBug.getPolygon();
-    elapsedTime += Gdx.graphics.getDeltaTime();
+    BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bedBug);
+    float alpha;
+    if(bloodSpot != null)
+    {
+      alpha = getAlpha(bloodSpot);
+      batch.setColor(1, 1, 1, alpha);
+    }
+
+    if(!bedBug.hit)
+      elapsedTime += Gdx.graphics.getDeltaTime();
 
     bedBug.setTexture(SpritesCreator.bugAnimations.getKeyFrame(elapsedTime, true).getTexture());
+
     batch.draw(SpritesCreator.bugAnimations.getKeyFrame(elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(),
         bugPolygon.getOriginX(), bugPolygon.getOriginY(), bedBug.getCameraDimensions()[0],
-        bedBug.getCameraDimensions()[1], 1, 1, ((BedBug) bedBug).getInitialAngle());
+        bedBug.getCameraDimensions()[1], 1, 1, bedBug.getPolygon().getRotation());
 
-    //      drawPolygon(bedBug.getPolygon().getTransformedVertices(), true, false);
+//    batch.draw(SpritesCreator.bugAnimations.getKeyFrame(elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(),
+//        bugPolygon.getOriginX(), bugPolygon.getOriginY(), bedBug.getCameraDimensions()[0],
+//        bedBug.getCameraDimensions()[1], 1, 1, ((BedBug) bedBug).getInitialAngle());
+
+    batch.setColor(1, 1, 1, 1);
+
+//          drawPolygon(bedBug.getPolygon().getTransformedVertices(), true, true);
   }
 
   public static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {
@@ -74,14 +90,9 @@ public class Renderers {
         if (bloodSpot.elapsedTime > Constants.BLOOD_SPOT_FADE_TIME) {
           ObjectsStore.removeBloodSprite(bloodSpot);
           ObjectsStore.removeBlood(bug);
+          bug.dead = true;
         }
 
-        float alpha;
-        if (bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME < 1) {
-          alpha = 1 - bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME;
-        } else {
-          alpha = 1f;
-        }
         System.out.println(
             "degrees " + polygon.getRotation() + " cos " + MathUtils.cosDeg(polygon.getRotation()) + " sin " + MathUtils
                 .sinDeg(polygon.getRotation()));
@@ -89,7 +100,10 @@ public class Renderers {
         Vector2 centerAfterRotation = Util
             .getVectorAfterRotation(0, polygon.getOriginY() * widthScaleFactor, polygon.getRotation());
 
+        float alpha = getAlpha(bloodSpot);
+
         batch.setColor(1, 1, 1, alpha);
+
         TextureRegion textureRegion = getRightSizeTextureRegion(blood.getCameraDimensions()[0]);
 
         batch.draw(textureRegion, polygon.getX() - centerAfterRotation.x, polygon.getY() - centerAfterRotation.y, 0, 0,
@@ -101,9 +115,6 @@ public class Renderers {
         System.out.println(
             "Position of blood spot x " + polygon.getX() + " and y " + polygon.getY() + " length of blood spot " + blood
                 .getCameraDimensions()[0]);
-
-        //        drawPolygon(blood.getPolygon().getTransformedVertices(), false, true);
-
       }
     }
 
@@ -141,4 +152,14 @@ public class Renderers {
     }
   }
 
+  private static float getAlpha(BloodSpot bloodSpot)
+  {
+    float alpha;
+    if (bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME < 1) {
+      alpha = 1 - bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME;
+    } else {
+      alpha = 0f;
+    }
+    return alpha;
+  }
 }

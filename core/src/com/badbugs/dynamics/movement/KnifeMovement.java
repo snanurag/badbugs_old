@@ -68,15 +68,16 @@ public class KnifeMovement {
         polygon.setPosition(v.x, v.y);
       }
 
-      for(BasicObject bug: ObjectsStore.getBugList())
+      for(Bug bug: ObjectsStore.getBugList())
       {
         Vector2 hitPoint = getHitPoint(bug.getPolygon(), silverKnife.getPolygon());
         if(hitPoint !=null)
         {
-          if(ObjectsStore.getBloodSpot((Bug)bug) == null)
+          if(ObjectsStore.getBloodSpot(bug) == null)
           {
-            BloodSpot bloodSpot = new BloodSpot((Bug) bug, silverKnife, hitPoint);
-            ObjectsStore.add((Bug)bug, bloodSpot);
+            BloodSpot bloodSpot = new BloodSpot(bug, silverKnife, hitPoint);
+            bug.hit = true;
+            ObjectsStore.add(bug, bloodSpot);
           }
         }
       }
