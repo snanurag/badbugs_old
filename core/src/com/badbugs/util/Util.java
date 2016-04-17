@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Logger;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -18,6 +19,8 @@ import java.util.Queue;
 public class Util {
 
   private static Queue<TouchInfo> touchEventsQueue = new PriorityQueue<TouchInfo>();
+
+  private static Logger logger = new Logger("com.badbugs", Logger.DEBUG);
 
   public static void createCameraCoordsFromPixelCords(BasicObject basicObject) throws Exception {
 
@@ -88,10 +91,23 @@ public class Util {
     return new Vector2(tipX, tipY);
   }
 
+  public static Vector2 getLeftBottomFromTip(float tipX, float tipY, Polygon knifePolygon)
+  {
+    Vector2 leftBottom = Util.getVectorAfterRotation(0, knifePolygon.getOriginY(), knifePolygon.getRotation());
+    float x = tipX - leftBottom.x;
+    float y = tipY - leftBottom.y;
+
+    return new Vector2(x, y);
+  }
+
   public static boolean insidePolygon(Polygon polygon, float x, float y)
   {
     return Intersector.isPointInPolygon(polygon.getTransformedVertices(), 0, polygon.getTransformedVertices().length, x, y);
   }
 
+  public static Logger globalLogger()
+  {
+    return logger;
+  }
 
 }

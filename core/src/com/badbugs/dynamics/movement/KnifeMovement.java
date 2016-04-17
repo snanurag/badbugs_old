@@ -1,6 +1,7 @@
 package com.badbugs.dynamics.movement;
 
 import com.badbugs.MainClass;
+import com.badbugs.baseframework.Renderers;
 import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.ObjectsCord;
@@ -24,6 +25,8 @@ public class KnifeMovement {
   private static float XLimit = Constants.XLimit;
   private static float YLimit = Constants.YLimit;
 
+  private static int counter;
+
   public static void updatePolygon(SilverKnife basicObject) throws Exception {
     rotatePolygon(basicObject);
     translatePolygon(basicObject);
@@ -36,17 +39,16 @@ public class KnifeMovement {
 
     if (touchInfoInstance != null) {
 
+      Util.globalLogger().info("Touch count " + ++counter);
       Vector3 touchPoints;
 
       touchPoints = MainClass.cam.unproject(new Vector3(touchInfoInstance.touchX, touchInfoInstance.touchY, 0));
 
-      Vector2 tip = Util.getVectorAfterRotation(0, polygon.getOriginY(), polygon.getRotation());
+      Vector2 tip = Util.getKnifeTip(polygon);
+      //Util.getVectorAfterRotation(0, polygon.getOriginY(), polygon.getRotation());
 
-      float tipX = polygon.getX() + tip.x;
-      float tipY = polygon.getY() + tip.y;
-
-      float dirX = touchPoints.x - tipX;
-      float dirY = touchPoints.y - tipY;
+      float dirX = touchPoints.x - tip.x;
+      float dirY = touchPoints.y - tip.y;
 
       directionVector = new Vector2((float) (dirX / (Math.sqrt(dirX * dirX + dirY * dirY))),
           (float) (dirY / (Math.sqrt(dirX * dirX + dirY * dirY))));
@@ -56,34 +58,44 @@ public class KnifeMovement {
 
       polygon.setRotation(silverKnife.getInitialAngle() + angle);
 
-      Vector2 leftBottonInRefToTip = Util.getVectorAfterRotation(0, -polygon.getOriginY(), polygon.getRotation());
+      Vector2 leftBottomFromTip = Util.getLeftBottomFromTip(tip.x, tip.y, polygon);
 
-      float newX = tipX + leftBottonInRefToTip.x;
-      float newY = tipY + leftBottonInRefToTip.y;
+      //    Util.getVectorAfterRotation(0, -polygon.getOriginY(), polygon.getRotation());
 
-      polygon.setPosition(newX, newY);
+      //      float newX = tipX + leftBottonInRefToTip.x;
+      //      float newY = tipY + leftBottonInRefToTip.y;
 
-      if (!checkIfPointInBoundary(newX, newY)) {
-        Vector2 v = getVectorInBoundary(newX, newY);
-        polygon.setPosition(v.x, v.y);
+
+      if (!checkIfPointInBoundary(tip.x, tip.y)) {
+
+        Vector2 v = getVectorInBoundary(tip.x, tip.y);
+
+        leftBottomFromTip = Util.getLeftBottomFromTip(v.x,v.y, polygon);
+
+//        polygon.setPosition(v.x, v.y);
       }
 
-      for(Bug bug: ObjectsStore.getBugList())
-      {
-        Vector2 hitPoint = getHitPoint(bug.getPolygon(), silverKnife.getPolygon());
-        if(hitPoint !=null)
-        {
-          if(ObjectsStore.getBloodSpot(bug) == null)
-          {
-            BloodSpot bloodSpot = new BloodSpot(bug, silverKnife, hitPoint);
-            bug.hit = true;
-            ObjectsStore.add(bug, bloodSpot);
+      polygon.setPosition(leftBottomFromTip.x, leftBottomFromTip.y);
+
+      synchronized (ObjectsStore.getBugList()) {
+        for (Bug bug : ObjectsStore.getBugList()) {
+          if (bug.hit)
+            continue;
+          Util.globalLogger()
+              .info("Bug id " + bug.id + " x " + bug.getPolygon().getX() + " y " + bug.getPolygon().getY());
+          Vector2 hitPoint = getHitPoint(bug.getPolygon(), silverKnife.getPolygon());
+          if (hitPoint != null) {
+            if (ObjectsStore.getBloodSpot(bug) == null) {
+              BloodSpot bloodSpot = new BloodSpot(bug, silverKnife, hitPoint);
+              bug.hit = true;
+              ObjectsStore.add(bug, bloodSpot);
+            }
           }
         }
       }
 
-      System.out.println("Angle of Knife " + (silverKnife.getInitialAngle() + angle));
-      System.out.println("Direction vector " + directionVector);
+      Util.globalLogger().debug("Angle of Knife " + (silverKnife.getInitialAngle() + angle));
+      Util.globalLogger().debug("Direction vector " + directionVector);
     }
   }
 
@@ -96,8 +108,6 @@ public class KnifeMovement {
       float xSpeed = directionVector.x * ObjectsCord.SILVER_KNIFE_SPEED;
       float ySpeed = directionVector.y * ObjectsCord.SILVER_KNIFE_SPEED;
 
-      System.out.println("xSpeed : " + xSpeed + " ySpeed : " + ySpeed);
-
       long thisTime = System.currentTimeMillis();
       elapsedTime = (float) (thisTime - lastTime) / 1000f;
       lastTime = thisTime;
@@ -105,7 +115,8 @@ public class KnifeMovement {
         elapsedTime = 0.001;
       }
 
-      System.out.println("elapsedTime is -> " + elapsedTime);
+      Util.globalLogger()
+          .debug("Speed of knife xSpeed : " + xSpeed + " ySpeed : " + ySpeed + " elapsedTime : " + elapsedTime);
 
       float x = (float) ((polygon.getX()) + xSpeed * elapsedTime);
       float y = (float) ((polygon.getY()) + ySpeed * elapsedTime);
@@ -119,10 +130,7 @@ public class KnifeMovement {
 
       polygon.setPosition(x, y);
 
-      System.out.println("Position of Knife tip - x " + x + " y " + y);
-      Vector3 pixelTip = MainClass.cam.project(new Vector3(x, y, 0));
-      System.out.println("Position of Knife tip in pixels - x " + pixelTip.x + " y " + pixelTip.y);
-
+      Util.globalLogger().debug("Position of Knife tip - x " + x + " y " + y);
     }
   }
 
@@ -160,34 +168,40 @@ public class KnifeMovement {
     float x1 = tip.x;
     float y1 = tip.y;
 
-    float x = x1;
+    float x = x1 + 0.01f;
     float y = getYOnLine(x, x1, y1, a);
 
     //These boundaries are on left bottom position of knife. Calibrating them here on tip.
-    while (checkIfPointInBoundary(x,y)) {
+    while (checkIfPointInBoundary(x, y)) {
       x = x + 0.01f;
       y = getYOnLine(x, x1, y1, a);
-      if (Util.insidePolygon(bugPolygon,x,y)) {
+      if (Util.insidePolygon(bugPolygon, x, y)) {
         return new Vector2(x, y);
       }
     }
 
-    x = x1;
+//    Renderers.drawLine(x, y, x1, y1);
+
+    Util.globalLogger().info("Points to draw forward line : x " + x + " y " + y + " x1 " + x1 + " y1 " + y1);
+
+    x = x1 - 0.01f;
     y = y1;
 
-    while (checkIfPointInBoundary(x,y)) {
+    while (checkIfPointInBoundary(x, y)) {
       x = x - 0.01f;
       y = getYOnLine(x, x1, y1, a);
-      if (Util.insidePolygon(bugPolygon,x,y)) {
+      if (Util.insidePolygon(bugPolygon, x, y)) {
         return new Vector2(x, y);
       }
     }
 
+  //  Renderers.drawLine(x, y, x1, y1);
+
+    Util.globalLogger().info("Failure hit x " + x + " y " + y + " x1 " + x1 + " y1 " + y1);
     return null;
   }
 
-  private static float getYOnLine(float x, float x1, float y1, float a)
-  {
+  private static float getYOnLine(float x, float x1, float y1, float a) {
     float y = MathUtils.sinDeg(a) * (x - x1) / MathUtils.cosDeg(a) + y1;
     return y;
   }
@@ -196,4 +210,7 @@ public class KnifeMovement {
     return angle;
   }
 
+  public static void main(String[] args) {
+    System.out.println(getYOnLine(-0.45287374f, -50.414356f, -21.956242f, 215.85558f));
+  }
 }

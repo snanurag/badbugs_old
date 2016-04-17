@@ -18,13 +18,15 @@ public class ObjectsStore {
 
 //  static List<BasicObject> knifeList = new ArrayList<BasicObject>();
   static List<Bug> bugList = new ArrayList<Bug>();
-  static Map<Bug, BugMovement> bugMovementMap = new HashMap<Bug, BugMovement>();
   static Map<Bug, BloodSpot> bloodSpillMap = new HashMap<Bug, BloodSpot>();
   static Map<BloodSpot, BloodSprite> bloodSpotBloodSpriteMap = new HashMap<BloodSpot, BloodSprite>();
 
   public static void add(Bug bug)
   {
-    bugList.add(bug);
+    synchronized (bugList)
+    {
+      bugList.add(bug);
+    }
   }
 
   public static List<Bug> getBugList()

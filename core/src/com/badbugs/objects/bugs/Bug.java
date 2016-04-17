@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public abstract class Bug extends BasicObjectImpl {
 
+  public int id;
   public float speed;
   public boolean dead;
   public boolean hit;

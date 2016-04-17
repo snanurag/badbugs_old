@@ -25,11 +25,12 @@ import com.badlogic.gdx.math.Vector2;
 public class Renderers {
 
   static float elapsedTime = 0;
-  static ShapeRenderer shapeRenderer;
+  public static ShapeRenderer shapeRenderer;
 
   static {
     shapeRenderer = new ShapeRenderer();
     shapeRenderer.setProjectionMatrix(MainClass.cam.combined);
+    shapeRenderer.setAutoShapeType(true);
 
   }
 
@@ -38,11 +39,12 @@ public class Renderers {
     Polygon knifePolygon = knife.getPolygon();
 
     Texture knifeTexture = knife.getTexture();
-    batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), 0, 0, knife.getCameraDimensions()[0],
-        knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation(), 0, 0, knife.getPixelDimensions()[0],
-        knife.getPixelDimensions()[1], false, false);
 
-    //    drawPolygon(knife.getPolygon().getTransformedVertices(), false, false);
+        batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), 0, 0, knife.getCameraDimensions()[0],
+            knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation(), 0, 0, knife.getPixelDimensions()[0],
+            knife.getPixelDimensions()[1], false, false);
+
+//    drawPolygon(knife.getPolygon().getTransformedVertices(), false, true);
   }
 
   public static void renderBug(SpriteBatch batch, Bug bedBug) throws Exception {
@@ -50,28 +52,23 @@ public class Renderers {
     Polygon bugPolygon = bedBug.getPolygon();
     BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bedBug);
     float alpha;
-    if(bloodSpot != null)
-    {
+    if (bloodSpot != null) {
       alpha = getAlpha(bloodSpot);
       batch.setColor(1, 1, 1, alpha);
     }
 
-    if(!bedBug.hit)
-      elapsedTime += Gdx.graphics.getDeltaTime();
+    if (!bedBug.hit)
+      bedBug.elapsedTime += Gdx.graphics.getDeltaTime();
 
-    bedBug.setTexture(SpritesCreator.bugAnimations.getKeyFrame(elapsedTime, true).getTexture());
+    bedBug.setTexture(SpritesCreator.bugAnimations.getKeyFrame(bedBug.elapsedTime, true).getTexture());
 
-    batch.draw(SpritesCreator.bugAnimations.getKeyFrame(elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(),
-        bugPolygon.getOriginX(), bugPolygon.getOriginY(), bedBug.getCameraDimensions()[0],
-        bedBug.getCameraDimensions()[1], 1, 1, bedBug.getPolygon().getRotation());
-
-//    batch.draw(SpritesCreator.bugAnimations.getKeyFrame(elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(),
-//        bugPolygon.getOriginX(), bugPolygon.getOriginY(), bedBug.getCameraDimensions()[0],
-//        bedBug.getCameraDimensions()[1], 1, 1, ((BedBug) bedBug).getInitialAngle());
+        batch.draw(SpritesCreator.bugAnimations.getKeyFrame(bedBug.elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(),
+            bugPolygon.getOriginX(), bugPolygon.getOriginY(), bedBug.getCameraDimensions()[0],
+            bedBug.getCameraDimensions()[1], 1, 1, bedBug.getPolygon().getRotation()-180);
 
     batch.setColor(1, 1, 1, 1);
 
-//          drawPolygon(bedBug.getPolygon().getTransformedVertices(), true, true);
+//    drawPolygon(bedBug.getPolygon().getTransformedVertices(), true, false);
   }
 
   public static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {
@@ -93,10 +90,6 @@ public class Renderers {
           bug.dead = true;
         }
 
-        System.out.println(
-            "degrees " + polygon.getRotation() + " cos " + MathUtils.cosDeg(polygon.getRotation()) + " sin " + MathUtils
-                .sinDeg(polygon.getRotation()));
-
         Vector2 centerAfterRotation = Util
             .getVectorAfterRotation(0, polygon.getOriginY() * widthScaleFactor, polygon.getRotation());
 
@@ -106,24 +99,20 @@ public class Renderers {
 
         TextureRegion textureRegion = getRightSizeTextureRegion(blood.getCameraDimensions()[0]);
 
-        batch.draw(textureRegion, polygon.getX() - centerAfterRotation.x, polygon.getY() - centerAfterRotation.y, 0, 0,
-            blood.getCameraDimensions()[0], blood.getCameraDimensions()[1] * widthScaleFactor, 1, 1,
-            polygon.getRotation());
+                batch.draw(textureRegion, polygon.getX() - centerAfterRotation.x, polygon.getY() - centerAfterRotation.y, 0, 0,
+                    blood.getCameraDimensions()[0], blood.getCameraDimensions()[1] * widthScaleFactor, 1, 1,
+                    polygon.getRotation());
 
-        batch.setColor(1,1,1,1);
+        batch.setColor(1, 1, 1, 1);
 
-        System.out.println(
-            "Position of blood spot x " + polygon.getX() + " and y " + polygon.getY() + " length of blood spot " + blood
-                .getCameraDimensions()[0]);
       }
     }
-
   }
 
   public static void renderFloor(SpriteBatch batch) {
-    batch.draw(SpritesCreator.floorTexture, -MainClass.cam_width / 2, -MainClass.cam_height / 2,
-        MainClass.cam_width * SpritesCreator.floorTexture.getWidth() / MainClass.screenWidth,
-        MainClass.cam_height * SpritesCreator.floorTexture.getHeight() / MainClass.screenHeight);
+        batch.draw(SpritesCreator.floorTexture, -MainClass.cam_width / 2, -MainClass.cam_height / 2,
+            MainClass.cam_width * SpritesCreator.floorTexture.getWidth() / MainClass.screenWidth,
+            MainClass.cam_height * SpritesCreator.floorTexture.getHeight() / MainClass.screenHeight);
   }
 
   private static TextureRegion getRightSizeTextureRegion(float bloodSpotLen) {
@@ -138,22 +127,25 @@ public class Renderers {
   public static void drawPolygon(float[] vertices, boolean start, boolean end) {
 
     try {
-      if (start)
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+      //      if (start)
       shapeRenderer.setColor(1, 1, 0, 1);
       if (vertices.length >= 6)
         shapeRenderer.polygon(vertices);
       else if (vertices.length == 2)
         shapeRenderer.point(vertices[0], vertices[1], 0);
-      if (end)
-        shapeRenderer.end();
+      //shapeRenderer.line();
+      // if (end)
+      //   shapeRenderer.end();
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  private static float getAlpha(BloodSpot bloodSpot)
-  {
+  public static void drawLine(float x, float y, float x1, float y1) {
+    shapeRenderer.line(x, y, x1, y1);
+  }
+
+  private static float getAlpha(BloodSpot bloodSpot) {
     float alpha;
     if (bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME < 1) {
       alpha = 1 - bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME;

@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Polygon;
 public class BugGenerator extends Thread {
 
   int walls = 4;
+  int bugId = 0;
 
   public void run() {
     try {
@@ -30,6 +31,7 @@ public class BugGenerator extends Thread {
   private void createBug() throws Exception {
     int level = 0; //TODO replace by getLevel
     BedBug bug = SpritesCreator.loadBedBug(level);
+    bug.id = ++bugId;
     setBugsInitializationParams(bug);
     ObjectsStore.add(bug);
 

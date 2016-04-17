@@ -41,8 +41,6 @@ public class BloodSpot {
 
   public void updateBloodSpotDimensions(Vector2 hitPoint) throws Exception {
 
-    System.out.println("updateBloodSpotDimensions()");
-
     if (!isBloodSpotMeasured) {
 
       if (hitPoint == null)
@@ -70,11 +68,12 @@ public class BloodSpot {
 
   private Vector2 getPointAtPolygonExtreme(Polygon polygon, Vector2 startPoint, float angle) {
 
+    if (Util.insidePolygon(polygon, startPoint.x, startPoint.y))
+      Util.globalLogger().debug("Blood spot start point is " + startPoint + " and angle " + angle + " is inside polygon.");
+
     while (Util.insidePolygon(polygon, startPoint.x, startPoint.y)) {
 
       isBloodSpotMeasured = true;
-
-      System.out.println("Point vector2 " + startPoint + " and angle " + angle + " is inside polygon.");
 
       startPoint.set((float) (startPoint.x + 0.01 * MathUtils.cosDeg(angle)),
           (float) (startPoint.y + 0.01 * MathUtils.sinDeg(angle)));

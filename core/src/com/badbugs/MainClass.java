@@ -3,15 +3,14 @@ package com.badbugs;
 import com.badbugs.baseframework.Renderers;
 import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.creators.BugGenerator;
-import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.dynamics.movement.KnifeMovement;
-import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Inputs;
 import com.badbugs.util.ObjectsStore;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -20,7 +19,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.utils.Logger;
 
 import java.util.Iterator;
 import java.util.List;
@@ -45,6 +44,7 @@ public class MainClass extends ApplicationAdapter {
   //  private CalculationThread calculationThread;
 
   @Override public void create() {
+
 
     screenWidth = Gdx.graphics.getWidth();
     screenHeight = Gdx.graphics.getHeight();
@@ -92,6 +92,7 @@ public class MainClass extends ApplicationAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     batch.begin();
+//    Renderers.shapeRenderer.begin();
 
     try {
 
@@ -99,22 +100,30 @@ public class MainClass extends ApplicationAdapter {
 
       List<Bug> bugList = ObjectsStore.getBugList();
 
-      Iterator<Bug> itr = bugList.iterator();
 
-      while (itr.hasNext()) {
-        Bug bedBug = itr.next();
-        System.out.println("Bug position x " + bedBug.getPolygon().getX() + " and y " + bedBug.getPolygon().getY());
-        if (bedBug.dead) {
-          itr.remove();
-          continue;
-        }
-        Renderers.renderBug(batch, bedBug);
-        Renderers.renderBlood(batch, bedBug);
-        if (bedBug.hit) {
-          continue;
+      synchronized (bugList)
+      {
+        Iterator<Bug> itr = bugList.iterator();
+        while (itr.hasNext()) {
+          Bug bedBug = itr.next();
+          Util.globalLogger().debug(
+              "Bug position of bug : " + bedBug.id + " x " + bedBug.getPolygon().getX() + " and y " + bedBug.getPolygon()
+                  .getY());
+
+          if (bedBug.dead) {
+            itr.remove();
+            continue;
+          }
+
+          Renderers.renderBug(batch, bedBug);
+          Renderers.renderBlood(batch, bedBug);
+          if (bedBug.hit) {
+            continue;
+          }
+
+          BugMovement.applyMovement(bedBug);
         }
 
-        BugMovement.applyMovement(bedBug);
       }
 
       KnifeMovement.updatePolygon(silverKnife);
@@ -126,6 +135,7 @@ public class MainClass extends ApplicationAdapter {
     }
 
     batch.end();
+//    Renderers.shapeRenderer.end();
   }
 
   @Override public void resize(int width, int height) {
