@@ -100,6 +100,22 @@ public class Util {
     return new Vector2(x, y);
   }
 
+  public static Vector2 getBugCenter(Polygon bugPolygon)
+  {
+    Vector2 center = Util.getVectorAfterRotation(bugPolygon.getOriginX(), bugPolygon.getOriginY(), bugPolygon.getRotation());
+
+    return new Vector2(bugPolygon.getX()+center.x, bugPolygon.getY()+center.y);
+  }
+
+  public static Vector2 getLeftBottomFromCenter(float centerX, float centerY, Polygon knifePolygon)
+  {
+    Vector2 leftBottom = Util.getVectorAfterRotation(0, knifePolygon.getOriginY(), knifePolygon.getRotation());
+    float x = centerX - leftBottom.x;
+    float y = centerY - leftBottom.y;
+
+    return new Vector2(x, y);
+  }
+
   public static boolean insidePolygon(Polygon polygon, float x, float y)
   {
     return Intersector.isPointInPolygon(polygon.getTransformedVertices(), 0, polygon.getTransformedVertices().length, x, y);

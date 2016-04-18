@@ -26,7 +26,7 @@ public class BedBug extends Bug {
 
   public float getInitialAngle()
   {
-    return 90;
+    return -90;
   }
 
 }

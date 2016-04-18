@@ -64,7 +64,7 @@ public class Renderers {
 
         batch.draw(SpritesCreator.bugAnimations.getKeyFrame(bedBug.elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(),
             bugPolygon.getOriginX(), bugPolygon.getOriginY(), bedBug.getCameraDimensions()[0],
-            bedBug.getCameraDimensions()[1], 1, 1, bedBug.getPolygon().getRotation()-180);
+            bedBug.getCameraDimensions()[1], 1, 1, bedBug.getPolygon().getRotation());
 
     batch.setColor(1, 1, 1, 1);
 
