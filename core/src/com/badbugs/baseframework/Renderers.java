@@ -44,7 +44,7 @@ public class Renderers {
             knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation(), 0, 0, knife.getPixelDimensions()[0],
             knife.getPixelDimensions()[1], false, false);
 
-//    drawPolygon(knife.getPolygon().getTransformedVertices(), false, true);
+//    drawPolygon(knife.getPolygon().getTransformedVertices());
   }
 
   public static void renderBug(SpriteBatch batch, Bug bedBug) throws Exception {
@@ -68,7 +68,14 @@ public class Renderers {
 
     batch.setColor(1, 1, 1, 1);
 
-//    drawPolygon(bedBug.getPolygon().getTransformedVertices(), true, false);
+//    bedBug.getPolygon().setPosition(0,0);
+//    bedBug.getPolygon().setRotation(0);
+//
+//    if(((int)(Math.random()*4))/2 ==0)
+//      bedBug.getPolygon().setOrigin(0,0);
+
+//    drawCircle(0, 0, 0.2f);
+//    drawPolygon(bedBug.getPolygon().getTransformedVertices());
   }
 
   public static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {
@@ -124,7 +131,7 @@ public class Renderers {
       return SpritesCreator.bloodTextureRegionLong;
   }
 
-  public static void drawPolygon(float[] vertices, boolean start, boolean end) {
+  public static void drawPolygon(float[] vertices) {
 
     try {
       //      if (start)
@@ -145,6 +152,10 @@ public class Renderers {
     shapeRenderer.line(x, y, x1, y1);
   }
 
+  public static void drawCircle(float x, float y, float radius)
+  {
+    shapeRenderer.circle(x,y,radius);
+  }
   private static float getAlpha(BloodSpot bloodSpot) {
     float alpha;
     if (bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME < 1) {

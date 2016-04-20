@@ -70,20 +70,18 @@ public class Util {
     basicObject.setScreenPixels(screenCords);
   }
 
-
   public static Vector2 getVectorAfterRotation(float originX, float originY, float rotation) {
 
     final float cos = MathUtils.cosDeg(rotation);
     final float sin = MathUtils.sinDeg(rotation);
 
-    float x1 =  cos * originX - sin * originY;
-    float y1 =  sin * originX + cos * originY;
+    float x1 = cos * originX - sin * originY;
+    float y1 = sin * originX + cos * originY;
 
     return new Vector2(x1, y1);
   }
 
-  public static Vector2 getKnifeTip(Polygon knifePolygon)
-  {
+  public static Vector2 getKnifeTipInWorld(Polygon knifePolygon) {
     Vector2 tip = Util.getVectorAfterRotation(0, knifePolygon.getOriginY(), knifePolygon.getRotation());
     float tipY = knifePolygon.getY() + tip.y;
     float tipX = knifePolygon.getX() + tip.x;
@@ -91,8 +89,7 @@ public class Util {
     return new Vector2(tipX, tipY);
   }
 
-  public static Vector2 getLeftBottomFromTip(float tipX, float tipY, Polygon knifePolygon)
-  {
+  public static Vector2 getLeftBottomFromTipInWorld(float tipX, float tipY, Polygon knifePolygon) {
     Vector2 leftBottom = Util.getVectorAfterRotation(0, knifePolygon.getOriginY(), knifePolygon.getRotation());
     float x = tipX - leftBottom.x;
     float y = tipY - leftBottom.y;
@@ -100,29 +97,24 @@ public class Util {
     return new Vector2(x, y);
   }
 
-  public static Vector2 getBugCenter(Polygon bugPolygon)
-  {
-    Vector2 center = Util.getVectorAfterRotation(bugPolygon.getOriginX(), bugPolygon.getOriginY(), bugPolygon.getRotation());
+  public static void rotateAroundCenter(Polygon polygon, float centerX, float centerY, float angle) {
 
-    return new Vector2(bugPolygon.getX()+center.x, bugPolygon.getY()+center.y);
+    Vector2 newLeftBottom = Util.getVectorAfterRotation(-polygon.getOriginX(), -polygon.getOriginY(), angle);
+    polygon.setPosition(newLeftBottom.x + centerX, newLeftBottom.y + centerY);
   }
 
-  public static Vector2 getLeftBottomFromCenter(float centerX, float centerY, Polygon knifePolygon)
-  {
-    Vector2 leftBottom = Util.getVectorAfterRotation(0, knifePolygon.getOriginY(), knifePolygon.getRotation());
-    float x = centerX - leftBottom.x;
-    float y = centerY - leftBottom.y;
+//  public static Vector2 getCenterInWorld(Polygon polygon)
+//  {
+//    Vector2 newLeftBottom = Util.getVectorAfterRotation(-polygon.getOriginX(), -polygon.getOriginY(), polygon.getRotation());
+//    return new Vector2(polygon.getX()-newLeftBottom.x,polygon.getY()-newLeftBottom.y);
+//  }
 
-    return new Vector2(x, y);
+  public static boolean insidePolygon(Polygon polygon, float x, float y) {
+    return Intersector
+        .isPointInPolygon(polygon.getTransformedVertices(), 0, polygon.getTransformedVertices().length, x, y);
   }
 
-  public static boolean insidePolygon(Polygon polygon, float x, float y)
-  {
-    return Intersector.isPointInPolygon(polygon.getTransformedVertices(), 0, polygon.getTransformedVertices().length, x, y);
-  }
-
-  public static Logger globalLogger()
-  {
+  public static Logger globalLogger() {
     return logger;
   }
 

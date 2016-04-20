@@ -1,7 +1,6 @@
 package com.badbugs.dynamics.movement;
 
 import com.badbugs.MainClass;
-import com.badbugs.baseframework.Renderers;
 import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.ObjectsCord;
@@ -44,7 +43,8 @@ public class KnifeMovement {
 
       touchPoints = MainClass.cam.unproject(new Vector3(touchInfoInstance.touchX, touchInfoInstance.touchY, 0));
 
-      Vector2 tip = Util.getKnifeTip(polygon);
+      //TODO this rotation is w.r.t. left bottom. Convert it w.r.t. tip.
+      Vector2 tip = Util.getKnifeTipInWorld(polygon);
       //Util.getVectorAfterRotation(0, polygon.getOriginY(), polygon.getRotation());
 
       float dirX = touchPoints.x - tip.x;
@@ -58,7 +58,7 @@ public class KnifeMovement {
 
       polygon.setRotation(silverKnife.getInitialAngle() + angle);
 
-      Vector2 leftBottomFromTip = Util.getLeftBottomFromTip(tip.x, tip.y, polygon);
+      Vector2 leftBottomFromTip = Util.getLeftBottomFromTipInWorld(tip.x, tip.y, polygon);
 
       //    Util.getVectorAfterRotation(0, -polygon.getOriginY(), polygon.getRotation());
 
@@ -70,7 +70,7 @@ public class KnifeMovement {
 
         Vector2 v = getVectorInBoundary(tip.x, tip.y);
 
-        leftBottomFromTip = Util.getLeftBottomFromTip(v.x,v.y, polygon);
+        leftBottomFromTip = Util.getLeftBottomFromTipInWorld(v.x,v.y, polygon);
 
 //        polygon.setPosition(v.x, v.y);
       }
@@ -163,7 +163,7 @@ public class KnifeMovement {
   }
 
   private static Vector2 getHitPoint(Polygon bugPolygon, Polygon knifePolygon) {
-    Vector2 tip = Util.getKnifeTip(knifePolygon);
+    Vector2 tip = Util.getKnifeTipInWorld(knifePolygon);
     float a = knifePolygon.getRotation();
     float x1 = tip.x;
     float y1 = tip.y;
