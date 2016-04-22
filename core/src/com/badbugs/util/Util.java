@@ -97,17 +97,45 @@ public class Util {
     return new Vector2(x, y);
   }
 
-  public static void rotateAroundCenter(Polygon polygon, float centerX, float centerY, float angle) {
+  /**
+   * This could be removed, because if polygon and image both are pivoted at center, they will automatically take care of rotation.
+   * This function will actually place bug at some other position this way.
+   *
+   * @param polygon
+   * @param centerX
+   * @param centerY
+   * @param angle
+   */
+  @Deprecated public static void rotateAroundCenter(Polygon polygon, float centerX, float centerY, float angle) {
 
     Vector2 newLeftBottom = Util.getVectorAfterRotation(-polygon.getOriginX(), -polygon.getOriginY(), angle);
     polygon.setPosition(newLeftBottom.x + centerX, newLeftBottom.y + centerY);
   }
 
-//  public static Vector2 getCenterInWorld(Polygon polygon)
-//  {
-//    Vector2 newLeftBottom = Util.getVectorAfterRotation(-polygon.getOriginX(), -polygon.getOriginY(), polygon.getRotation());
-//    return new Vector2(polygon.getX()-newLeftBottom.x,polygon.getY()-newLeftBottom.y);
+//  public static int getBugPos(float x, float y, Polygon knifePolygon) {
+//    Vector2 tip = Util.getKnifeTipInWorld(knifePolygon);
+//    float a = knifePolygon.getRotation();
+//    float value = tip.y - y + (tip.x - x) * MathUtils.cosDeg(a) / MathUtils.sinDeg(a);
+//    if (value < 0)
+//      return -1;
+//    else
+//      return 1;
+//
 //  }
+
+  public static Vector2 getStateOfBugWRTKnife(float x, float y, Polygon knifePolygon)
+  {
+    Vector2 tip = Util.getKnifeTipInWorld(knifePolygon);
+    Vector2 state = new Vector2();
+    state.x = (tip.x - x < 0) ? -1 : 1;
+    state.y = (tip.y - y < 0) ? -1 : 1;
+
+    return state;
+  }
+
+  public static Vector2 getPolygonCenter(Polygon polygon) {
+    return new Vector2(polygon.getX() + polygon.getOriginX(), polygon.getY() + polygon.getOriginY());
+  }
 
   public static boolean insidePolygon(Polygon polygon, float x, float y) {
     return Intersector

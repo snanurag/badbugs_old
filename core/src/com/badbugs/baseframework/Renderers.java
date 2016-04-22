@@ -68,12 +68,6 @@ public class Renderers {
 
     batch.setColor(1, 1, 1, 1);
 
-//    bedBug.getPolygon().setPosition(0,0);
-//    bedBug.getPolygon().setRotation(0);
-//
-//    if(((int)(Math.random()*4))/2 ==0)
-//      bedBug.getPolygon().setOrigin(0,0);
-
 //    drawCircle(0, 0, 0.2f);
 //    drawPolygon(bedBug.getPolygon().getTransformedVertices());
   }

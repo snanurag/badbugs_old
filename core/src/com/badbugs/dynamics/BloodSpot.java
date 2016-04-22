@@ -29,7 +29,6 @@ public class BloodSpot {
   private static float YLimit = MainClass.cam_height / 2;
 
   public BloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
-    ObjectsStore.add(bug, this);
     this.bug = (BasicObject) bug;
     this.knife = (BasicObject) knife;
     this.bloodSprite = SpritesCreator.loadBloodSpot();
@@ -37,6 +36,11 @@ public class BloodSpot {
 
     updateBloodSpotDimensions(hitPoint);
     elapsedTime = 0;
+
+  }
+
+  public static void createBloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws  Exception
+  {  ObjectsStore.add(bug, new BloodSpot(bug,knife,hitPoint));
   }
 
   public void updateBloodSpotDimensions(Vector2 hitPoint) throws Exception {

@@ -88,6 +88,7 @@ public class BugGenerator extends Thread {
 
     }
 
+    //TODO Should be in position to remove this.
     Util.rotateAroundCenter(polygon, x, y, angle + bug.getInitialAngle());
 //    polygon.setPosition(x, y);
     polygon.setRotation(angle + bug.getInitialAngle());

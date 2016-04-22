@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Logger;
 
 import java.util.Iterator;
@@ -44,7 +45,6 @@ public class MainClass extends ApplicationAdapter {
   //  private CalculationThread calculationThread;
 
   @Override public void create() {
-
 
     screenWidth = Gdx.graphics.getWidth();
     screenHeight = Gdx.graphics.getHeight();
@@ -92,7 +92,7 @@ public class MainClass extends ApplicationAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     batch.begin();
-//    Renderers.shapeRenderer.begin();
+    //    Renderers.shapeRenderer.begin();
 
     try {
 
@@ -100,15 +100,13 @@ public class MainClass extends ApplicationAdapter {
 
       List<Bug> bugList = ObjectsStore.getBugList();
 
-
-      synchronized (bugList)
-      {
+      synchronized (bugList) {
         Iterator<Bug> itr = bugList.iterator();
         while (itr.hasNext()) {
           Bug bedBug = itr.next();
           Util.globalLogger().debug(
-              "Bug position of bug : " + bedBug.id + " x " + bedBug.getPolygon().getX() + " and y " + bedBug.getPolygon()
-                  .getY());
+              "Bug position of bug : " + bedBug.id + " x " + bedBug.getPolygon().getX() + " and y " + bedBug
+                  .getPolygon().getY());
 
           if (bedBug.dead) {
             itr.remove();
@@ -116,8 +114,17 @@ public class MainClass extends ApplicationAdapter {
           }
 
           Renderers.renderBug(batch, bedBug);
-          Renderers.renderBlood(batch, bedBug);
+          Vector2 bugCenter = Util.getPolygonCenter(bedBug.getPolygon());
+
+          Vector2 currentState = Util.getStateOfBugWRTKnife(bugCenter.x, bugCenter.y, silverKnife.getPolygon());
+
+          if (!bedBug.hit && bedBug.state != null && !bedBug.compareState((int) currentState.x, (int) currentState.y)) {
+
+            bedBug.hit = true;
+          }
+
           if (bedBug.hit) {
+            Renderers.renderBlood(batch, bedBug);
             continue;
           }
 
@@ -135,7 +142,7 @@ public class MainClass extends ApplicationAdapter {
     }
 
     batch.end();
-//    Renderers.shapeRenderer.end();
+    //    Renderers.shapeRenderer.end();
   }
 
   @Override public void resize(int width, int height) {

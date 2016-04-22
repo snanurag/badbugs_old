@@ -31,6 +31,7 @@ public class BugMovement {
         || bugCenter.x < -MainClass.cam_width / 2 - bug.getCameraDimensions()[0]
         || bugCenter.y > MainClass.cam_height / 2 + bug.getCameraDimensions()[1]
         || bugCenter.y < -MainClass.cam_height / 2 - bug.getCameraDimensions()[1]) {
+
       bug.dead = true;
     }
   }

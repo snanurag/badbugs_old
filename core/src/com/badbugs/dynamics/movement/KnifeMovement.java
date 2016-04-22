@@ -14,6 +14,8 @@ import com.badlogic.gdx.math.*;
 
 /**
  * Created by ashrinag on 3/21/2016.
+ * <p>
+ * Important : In case of knife, polygon is only used for storing cordinates. There is no calculation based on polygon position. And, image of Knife is pivoted at left bottom corner.
  */
 public class KnifeMovement {
 
@@ -45,7 +47,6 @@ public class KnifeMovement {
 
       //TODO this rotation is w.r.t. left bottom. Convert it w.r.t. tip.
       Vector2 tip = Util.getKnifeTipInWorld(polygon);
-      //Util.getVectorAfterRotation(0, polygon.getOriginY(), polygon.getRotation());
 
       float dirX = touchPoints.x - tip.x;
       float dirY = touchPoints.y - tip.y;
@@ -60,19 +61,11 @@ public class KnifeMovement {
 
       Vector2 leftBottomFromTip = Util.getLeftBottomFromTipInWorld(tip.x, tip.y, polygon);
 
-      //    Util.getVectorAfterRotation(0, -polygon.getOriginY(), polygon.getRotation());
-
-      //      float newX = tipX + leftBottonInRefToTip.x;
-      //      float newY = tipY + leftBottonInRefToTip.y;
-
-
       if (!checkIfPointInBoundary(tip.x, tip.y)) {
 
         Vector2 v = getVectorInBoundary(tip.x, tip.y);
 
-        leftBottomFromTip = Util.getLeftBottomFromTipInWorld(v.x,v.y, polygon);
-
-//        polygon.setPosition(v.x, v.y);
+        leftBottomFromTip = Util.getLeftBottomFromTipInWorld(v.x, v.y, polygon);
       }
 
       polygon.setPosition(leftBottomFromTip.x, leftBottomFromTip.y);
@@ -81,16 +74,11 @@ public class KnifeMovement {
         for (Bug bug : ObjectsStore.getBugList()) {
           if (bug.hit)
             continue;
+
           Util.globalLogger()
-              .info("Bug id " + bug.id + " x " + bug.getPolygon().getX() + " y " + bug.getPolygon().getY());
-          Vector2 hitPoint = getHitPoint(bug.getPolygon(), silverKnife.getPolygon());
-          if (hitPoint != null) {
-            if (ObjectsStore.getBloodSpot(bug) == null) {
-              BloodSpot bloodSpot = new BloodSpot(bug, silverKnife, hitPoint);
-              bug.hit = true;
-              ObjectsStore.add(bug, bloodSpot);
-            }
-          }
+              .debug("Bug id " + bug.id + " x " + bug.getPolygon().getX() + " y " + bug.getPolygon().getY());
+
+          createBlood(bug, silverKnife);
         }
       }
 
@@ -162,8 +150,13 @@ public class KnifeMovement {
     return false;
   }
 
-  private static Vector2 getHitPoint(Polygon bugPolygon, Polygon knifePolygon) {
+  private static void createBlood(Bug bug, SilverKnife knife) throws Exception {
+
+    Polygon bugPolygon = bug.getPolygon();
+    Polygon knifePolygon = knife.getPolygon();
+
     Vector2 tip = Util.getKnifeTipInWorld(knifePolygon);
+
     float a = knifePolygon.getRotation();
     float x1 = tip.x;
     float y1 = tip.y;
@@ -171,34 +164,43 @@ public class KnifeMovement {
     float x = x1 + 0.01f;
     float y = getYOnLine(x, x1, y1, a);
 
+    Vector2 hitPoint = null;
+
     //These boundaries are on left bottom position of knife. Calibrating them here on tip.
     while (checkIfPointInBoundary(x, y)) {
       x = x + 0.01f;
       y = getYOnLine(x, x1, y1, a);
       if (Util.insidePolygon(bugPolygon, x, y)) {
-        return new Vector2(x, y);
+        hitPoint = new Vector2(x, y);
+        break;
       }
     }
 
-//    Renderers.drawLine(x, y, x1, y1);
+    //    Renderers.drawLine(x, y, x1, y1);
 
-    Util.globalLogger().info("Points to draw forward line : x " + x + " y " + y + " x1 " + x1 + " y1 " + y1);
+    Util.globalLogger().debug("Points to draw forward line : x " + x + " y " + y + " x1 " + x1 + " y1 " + y1);
 
     x = x1 - 0.01f;
     y = y1;
 
-    while (checkIfPointInBoundary(x, y)) {
+    while (hitPoint == null && checkIfPointInBoundary(x, y)) {
       x = x - 0.01f;
       y = getYOnLine(x, x1, y1, a);
       if (Util.insidePolygon(bugPolygon, x, y)) {
-        return new Vector2(x, y);
+        hitPoint = new Vector2(x, y);
+        break;
       }
     }
 
-  //  Renderers.drawLine(x, y, x1, y1);
+    //  Renderers.drawLine(x, y, x1, y1);
 
-    Util.globalLogger().info("Failure hit x " + x + " y " + y + " x1 " + x1 + " y1 " + y1);
-    return null;
+    if (hitPoint != null) {
+      if (ObjectsStore.getBloodSpot(bug) == null) {
+        BloodSpot.createBloodSpot(bug, knife, hitPoint);
+        Vector2 bugCenter = Util.getPolygonCenter(bugPolygon);
+        bug.state = Util.getStateOfBugWRTKnife(bugCenter.x, bugCenter.y, knifePolygon);
+      }
+    }
   }
 
   private static float getYOnLine(float x, float x1, float y1, float a) {
