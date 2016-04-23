@@ -97,34 +97,7 @@ public class Util {
     return new Vector2(x, y);
   }
 
-  /**
-   * This could be removed, because if polygon and image both are pivoted at center, they will automatically take care of rotation.
-   * This function will actually place bug at some other position this way.
-   *
-   * @param polygon
-   * @param centerX
-   * @param centerY
-   * @param angle
-   */
-  @Deprecated public static void rotateAroundCenter(Polygon polygon, float centerX, float centerY, float angle) {
-
-    Vector2 newLeftBottom = Util.getVectorAfterRotation(-polygon.getOriginX(), -polygon.getOriginY(), angle);
-    polygon.setPosition(newLeftBottom.x + centerX, newLeftBottom.y + centerY);
-  }
-
-//  public static int getBugPos(float x, float y, Polygon knifePolygon) {
-//    Vector2 tip = Util.getKnifeTipInWorld(knifePolygon);
-//    float a = knifePolygon.getRotation();
-//    float value = tip.y - y + (tip.x - x) * MathUtils.cosDeg(a) / MathUtils.sinDeg(a);
-//    if (value < 0)
-//      return -1;
-//    else
-//      return 1;
-//
-//  }
-
-  public static Vector2 getStateOfBugWRTKnife(float x, float y, Polygon knifePolygon)
-  {
+  public static Vector2 getStateOfBugWRTKnife(float x, float y, Polygon knifePolygon) {
     Vector2 tip = Util.getKnifeTipInWorld(knifePolygon);
     Vector2 state = new Vector2();
     state.x = (tip.x - x < 0) ? -1 : 1;
@@ -140,6 +113,11 @@ public class Util {
   public static boolean insidePolygon(Polygon polygon, float x, float y) {
     return Intersector
         .isPointInPolygon(polygon.getTransformedVertices(), 0, polygon.getTransformedVertices().length, x, y);
+  }
+
+  public static float distanceBetweenPoints(Vector2 polygon1, Vector2 polygon2) {
+    return (float) Math
+        .sqrt(Math.pow(polygon1.x - polygon2.x, 2) + Math.pow(polygon1.y - polygon2.y, 2));
   }
 
   public static Logger globalLogger() {

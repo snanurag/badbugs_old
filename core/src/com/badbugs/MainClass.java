@@ -8,6 +8,7 @@ import com.badbugs.dynamics.movement.KnifeMovement;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
+import com.badbugs.util.Constants;
 import com.badbugs.util.Inputs;
 import com.badbugs.util.ObjectsStore;
 import com.badbugs.util.Util;
@@ -128,7 +129,11 @@ public class MainClass extends ApplicationAdapter {
             continue;
           }
 
-          BugMovement.applyMovement(bedBug);
+          if (bedBug.freeze_frame_count < 0 || bedBug.freeze_frame_count > Constants.FREEZE_FRAME_COUNTS) {
+            BugMovement.applyMovement(bedBug);
+            bedBug.freeze_frame_count = -1;
+          } else
+            bedBug.freeze_frame_count++;
         }
 
       }

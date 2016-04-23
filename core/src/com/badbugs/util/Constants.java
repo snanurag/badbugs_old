@@ -1,6 +1,7 @@
 package com.badbugs.util;
 
 import com.badbugs.MainClass;
+import com.badbugs.objects.ObjectsCord;
 
 /**
  * Created by ashrinag on 3/24/2016.
@@ -16,5 +17,12 @@ public class Constants {
   public static int MAX_BUG_LEVEL = 4; //starting from 0
   public static float BUG_SPEED[] = { 10, 40, 50, 60, 70 };
   public static float BUG_FRAME_RATE[] = { 1 / 60f, 1 / 60f, 1 / 60f, 1 / 60f, 1 / 60f };
+
+  public static int FREEZE_FRAME_COUNTS = 20;
+
+  public static float COLLISION_AVOIDING_X = MainClass.cam_width / 2 - ObjectsCord.BED_BUG_WIDTH/2;
+  public static float COLLISION_AVOIDING_Y = MainClass.cam_height / 2 - ObjectsCord.BED_BUG_HEIGHT/2;
+
+
 
 }

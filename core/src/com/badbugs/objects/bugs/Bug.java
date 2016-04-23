@@ -15,7 +15,7 @@ public abstract class Bug extends BasicObjectImpl {
   public float speed;
   public boolean dead;
   public boolean hit;
-//  public int BUG_POS; //-1 OR 1
+  public int freeze_frame_count = -1;
   public Vector2 state;
 
   public abstract float getInitialAngle();
