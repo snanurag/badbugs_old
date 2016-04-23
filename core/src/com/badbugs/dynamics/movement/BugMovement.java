@@ -7,6 +7,7 @@ import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsStore;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
@@ -52,7 +53,6 @@ public class BugMovement {
     if(bug1.hit || bug2.hit || bug1.freeze_frame_count != -1)
       return;
 
-
     float distance = Util.distanceBetweenPoints(bug1Center, bug2Center);
 
     if (bug1Center.x < Constants.COLLISION_AVOIDING_X && bug1Center.x > -Constants.COLLISION_AVOIDING_X
@@ -68,7 +68,8 @@ public class BugMovement {
         boolean comingCloseAlongX = areComingClose(bug1Center.x, bug2Center.x, bug1SpeedX, bug2SpeedX);
         boolean comingCloseAlongY = areComingClose(bug1Center.y, bug2Center.y, bug1SpeedY, bug2SpeedY);
 
-        if (bug2.freeze_frame_count != -1) {
+        if (bug2.freeze_frame_count != -1 && comingCloseAlongX
+            || comingCloseAlongY) {
           bug1.getPolygon().setRotation(bug1.getPolygon().getRotation() + 180);
 
         } else if (bug1SpeedX * bug2SpeedX < 0 && bug1SpeedY * bug2SpeedY < 0 && comingCloseAlongX
@@ -94,6 +95,10 @@ public class BugMovement {
           temp = bug1.getPolygon().getRotation();
           bug1.getPolygon().setRotation(bug2.getPolygon().getRotation());
           bug2.getPolygon().setRotation(temp);
+
+          float frameRate = bug1.animation.getFrameDuration();
+          bug1.animation.setFrameDuration(bug2.animation.getFrameDuration());
+          bug2.animation.setFrameDuration(frameRate);
         }
 
         bug1.freeze_frame_count++;

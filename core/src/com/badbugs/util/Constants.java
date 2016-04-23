@@ -15,8 +15,8 @@ public class Constants {
   public static float YLimit = MainClass.cam_height / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
 
   public static int MAX_BUG_LEVEL = 4; //starting from 0
-  public static float BUG_SPEED[] = { 10, 40, 50, 60, 70 };
-  public static float BUG_FRAME_RATE[] = { 1 / 60f, 1 / 60f, 1 / 60f, 1 / 60f, 1 / 60f };
+  public static float BUG_SPEED[] = { 8,10, 15, 20, 25 };
+  public static float BUG_FRAME_RATE[] = { 1 / 60f, 1 / 85f, 1 / 100f, 1 / 120f, 1 / 150f };
 
   public static int FREEZE_FRAME_COUNTS = 20;
 

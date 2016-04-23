@@ -30,7 +30,7 @@ public class BugGenerator extends Thread {
   }
 
   private void createBug() throws Exception {
-    int level = 0; //TODO replace by getLevel
+    int level = getLevel();
     BedBug bug = SpritesCreator.loadBedBug(level);
     bug.id = ++bugId;
     setBugsInitializationParams(bug);

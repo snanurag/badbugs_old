@@ -19,7 +19,7 @@ public class SpritesCreator {
 
   static Texture knifeTexture;
   static TextureAtlas textureAtlas;
-  static Animation bugAnimations;
+//  static Animation bugAnimations;
   static Texture floorTexture;
   static Texture bloodTextureLong;
   static Texture bloodTextureMedium;
@@ -32,7 +32,6 @@ public class SpritesCreator {
   public static void loadAllTextures() {
     knifeTexture = new Texture(Gdx.files.internal("knife.png"));
     textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
-//    bugAnimations = new Animation(1 / 60f, textureAtlas.getRegions());
     floorTexture = new Texture(Gdx.files.internal("floor.png"));
 
     //TIP : TextureRegion worked for blood not Texture
@@ -65,10 +64,8 @@ public class SpritesCreator {
 
   public static BedBug loadBedBug(int level) throws Exception {
 
-//    textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
-    bugAnimations = new Animation(Constants.BUG_FRAME_RATE[level], textureAtlas.getRegions());
-
     BedBug bedBug = new BedBug(null);
+    bedBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], textureAtlas.getRegions());
 
     bedBug.getPolygon().setPosition(0, 0);
     bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);

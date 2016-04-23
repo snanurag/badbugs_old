@@ -60,9 +60,9 @@ public class Renderers {
     if (!bedBug.hit)
       bedBug.elapsedTime += Gdx.graphics.getDeltaTime();
 
-    bedBug.setTexture(SpritesCreator.bugAnimations.getKeyFrame(bedBug.elapsedTime, true).getTexture());
+    bedBug.setTexture(bedBug.animation.getKeyFrame(bedBug.elapsedTime, true).getTexture());
 
-        batch.draw(SpritesCreator.bugAnimations.getKeyFrame(bedBug.elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(),
+        batch.draw(bedBug.animation.getKeyFrame(bedBug.elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(),
             bugPolygon.getOriginX(), bugPolygon.getOriginY(), bedBug.getCameraDimensions()[0],
             bedBug.getCameraDimensions()[1], 1, 1, bedBug.getPolygon().getRotation());
 

@@ -2,6 +2,7 @@ package com.badbugs.objects.bugs;
 
 import com.badbugs.objects.BasicObjectImpl;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -17,6 +18,7 @@ public abstract class Bug extends BasicObjectImpl {
   public boolean hit;
   public int freeze_frame_count = -1;
   public Vector2 state;
+  public Animation animation;
 
   public abstract float getInitialAngle();
 
