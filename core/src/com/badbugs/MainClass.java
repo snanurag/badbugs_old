@@ -1,5 +1,6 @@
 package com.badbugs;
 
+import com.badbugs.baseframework.Fonts;
 import com.badbugs.baseframework.Renderers;
 import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.creators.BugGenerator;
@@ -14,14 +15,16 @@ import com.badbugs.util.ObjectsStore;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Logger;
 
 import java.util.Iterator;
 import java.util.List;
@@ -35,15 +38,12 @@ public class MainClass extends ApplicationAdapter {
   public static float cam_height = 100;
   public static float cam_width = 100;
   private float HeightVsWidth;
-
   public static float screenWidth;
   public static float screenHeight;
 
   private ShapeRenderer shapeRenderer;
   private SilverKnife silverKnife;
   private BedBug bedBug;
-
-  //  private CalculationThread calculationThread;
 
   @Override public void create() {
 
@@ -52,6 +52,7 @@ public class MainClass extends ApplicationAdapter {
 
     HeightVsWidth = screenHeight / screenWidth;
     cam_height = cam_width * HeightVsWidth;
+
     // Constructs a new OrthographicCamera, using the given viewport width and height
     // Height is multiplied by aspect ratio.
     cam = new OrthographicCamera(cam_width, cam_height);
@@ -60,8 +61,6 @@ public class MainClass extends ApplicationAdapter {
 
     batch = new SpriteBatch();
 
-    textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
-    animation = new Animation(1 / 60f, textureAtlas.getRegions());
     Gdx.input.setInputProcessor(new Inputs());
     shapeRenderer = new ShapeRenderer();
 
@@ -70,14 +69,11 @@ public class MainClass extends ApplicationAdapter {
     try {
       silverKnife = (SilverKnife) SpritesCreator.loadSilverKnife();
 
-      //      //TODO Use BugGenerator here
-      //      bedBug = SpritesCreator.loadBedBug();
-      //
-      //      ObjectsStore.add(bedBug);
-
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+    Fonts.loadAllFonts();
 
     new BugGenerator().start();
 
@@ -99,48 +95,15 @@ public class MainClass extends ApplicationAdapter {
 
       Renderers.renderFloor(batch);
 
-      List<Bug> bugList = ObjectsStore.getBugList();
-
-      synchronized (bugList) {
-        Iterator<Bug> itr = bugList.iterator();
-        while (itr.hasNext()) {
-          Bug bedBug = itr.next();
-          Util.globalLogger().debug(
-              "Bug position of bug : " + bedBug.id + " x " + bedBug.getPolygon().getX() + " and y " + bedBug
-                  .getPolygon().getY());
-
-          if (bedBug.dead) {
-            itr.remove();
-            continue;
-          }
-
-          Renderers.renderBug(batch, bedBug);
-          Vector2 bugCenter = Util.getPolygonCenter(bedBug.getPolygon());
-
-          Vector2 currentState = Util.getStateOfBugWRTKnife(bugCenter.x, bugCenter.y, silverKnife.getPolygon());
-
-          if (!bedBug.hit && bedBug.state != null && !bedBug.compareState((int) currentState.x, (int) currentState.y)) {
-
-            bedBug.hit = true;
-          }
-
-          if (bedBug.hit) {
-            Renderers.renderBlood(batch, bedBug);
-            continue;
-          }
-
-          if (bedBug.freeze_frame_count < 0 || bedBug.freeze_frame_count > Constants.FREEZE_FRAME_COUNTS) {
-            BugMovement.applyMovement(bedBug);
-            bedBug.freeze_frame_count = -1;
-          } else
-            bedBug.freeze_frame_count++;
-        }
-
-      }
+      Renderers.renderBugs(batch, silverKnife);
 
       KnifeMovement.updatePolygon(silverKnife);
 
       Renderers.renderKnife(batch, (SilverKnife) silverKnife);
+
+      Fonts.renderScore(batch, ObjectsStore.score);
+
+      Renderers.renderLives(batch);
 
     } catch (Exception e) {
       e.printStackTrace();

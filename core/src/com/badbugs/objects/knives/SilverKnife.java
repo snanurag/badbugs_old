@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Polygon;
  * <p>
  * Important : In case of knife, polygon is only used for storing cordinates. There is no calculation based on polygon position.
  */
-public class SilverKnife extends BasicObjectImpl implements Knife {
+public class SilverKnife extends Knife {
 
   public SilverKnife(Texture texture) {
     super(texture);

@@ -23,6 +23,18 @@ public class Constants {
   public static float COLLISION_AVOIDING_X = MainClass.cam_width / 2 - ObjectsCord.BED_BUG_WIDTH/2;
   public static float COLLISION_AVOIDING_Y = MainClass.cam_height / 2 - ObjectsCord.BED_BUG_HEIGHT/2;
 
+  public static float SILVER_KNIFE_SPEED = 400;
+  public static float SILVER_KNIFE_DOUBLE_SPEED = 2*SILVER_KNIFE_SPEED;
 
+  public static float SCORE_X_POS = 30;
+
+  public static float LIFE_1_X_POS = 26;
+  public static float LIFE_2_X_POS = 23;
+  public static float LIFE_3_X_POS = 20;
+  public static float LIFE_4_X_POS = 17;
+  public static float LIFE_5_X_POS = 14;
+
+  public static float LIFE_SIZE_Y = 4;
+  public static float LIFE_SIZE_X = LIFE_SIZE_Y*11/14;
 
 }

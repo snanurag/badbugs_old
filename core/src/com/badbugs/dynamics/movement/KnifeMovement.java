@@ -93,8 +93,8 @@ public class KnifeMovement {
 
       Polygon polygon = basicObject.getPolygon();
 
-      float xSpeed = directionVector.x * ObjectsCord.SILVER_KNIFE_SPEED;
-      float ySpeed = directionVector.y * ObjectsCord.SILVER_KNIFE_SPEED;
+      float xSpeed = directionVector.x * Constants.SILVER_KNIFE_SPEED;
+      float ySpeed = directionVector.y * Constants.SILVER_KNIFE_SPEED;
 
       long thisTime = System.currentTimeMillis();
       elapsedTime = (float) (thisTime - lastTime) / 1000f;

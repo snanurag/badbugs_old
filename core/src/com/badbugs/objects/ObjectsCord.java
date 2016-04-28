@@ -10,9 +10,10 @@ public class ObjectsCord {
   //            {142, 120}, {152, 140}, {159, 167}, {150, 206}};
 
   //Pixels
-  public static int[][] BED_BUG_CORDS = { { 142, -120 +256}, { 129, -108 +256},
-      { 128, -83+256 }, { 116, -68+256 }, { 107, -60+256 }, { 100, -58 +256}, { 93, -60+256 }, { 84, -68+256 }, { 72, -83+256 }, { 71, -108 +256}, { 58, -120+256 },
-      { 48, -140 +256}, { 41, -167+256 }, { 50, -206+256 }, { 100, -240+256 }, { 150, -206+256 }, { 159, -167+256 }, { 152, -140+256 } };
+  public static int[][] BED_BUG_CORDS = { { 142, -120 + 256 }, { 129, -108 + 256 }, { 128, -83 + 256 },
+      { 116, -68 + 256 }, { 107, -60 + 256 }, { 100, -58 + 256 }, { 93, -60 + 256 }, { 84, -68 + 256 },
+      { 72, -83 + 256 }, { 71, -108 + 256 }, { 58, -120 + 256 }, { 48, -140 + 256 }, { 41, -167 + 256 },
+      { 50, -206 + 256 }, { 100, -240 + 256 }, { 150, -206 + 256 }, { 159, -167 + 256 }, { 152, -140 + 256 } };
 
   //Pixels
   public static int[] BED_BUG_CENTER = { 100, 128 };
@@ -28,10 +29,7 @@ public class ObjectsCord {
 
   public static float SILVER_KNIFE_HEIGHT = 2;
   public static float SILVER_KNIFE_WIDTH = 21;
-  public static float SILVER_KNIFE_SPEED = 400;
-  public static float SILVER_KNIFE_DOUBLE_SPEED = 2*SILVER_KNIFE_SPEED;
 
   public static float BLOOD_SPOT_WIDTH = 8.4f;
-
 
 }

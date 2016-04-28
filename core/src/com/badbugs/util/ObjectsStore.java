@@ -21,6 +21,9 @@ public class ObjectsStore {
   static Map<Bug, BloodSpot> bloodSpillMap = new HashMap<Bug, BloodSpot>();
   static Map<BloodSpot, BloodSprite> bloodSpotBloodSpriteMap = new HashMap<BloodSpot, BloodSprite>();
 
+  public static int score = 0;
+  public static int bugMissed = 0;
+
   public static void add(Bug bug)
   {
     synchronized (bugList)

@@ -39,8 +39,8 @@ public class BloodSpot {
 
   }
 
-  public static void createBloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws  Exception
-  {  ObjectsStore.add(bug, new BloodSpot(bug,knife,hitPoint));
+  public static void createBloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
+    ObjectsStore.add(bug, new BloodSpot(bug, knife, hitPoint));
   }
 
   public void updateBloodSpotDimensions(Vector2 hitPoint) throws Exception {
@@ -73,7 +73,8 @@ public class BloodSpot {
   private Vector2 getPointAtPolygonExtreme(Polygon polygon, Vector2 startPoint, float angle) {
 
     if (Util.insidePolygon(polygon, startPoint.x, startPoint.y))
-      Util.globalLogger().debug("Blood spot start point is " + startPoint + " and angle " + angle + " is inside polygon.");
+      Util.globalLogger()
+          .debug("Blood spot start point is " + startPoint + " and angle " + angle + " is inside polygon.");
 
     while (Util.insidePolygon(polygon, startPoint.x, startPoint.y)) {
 

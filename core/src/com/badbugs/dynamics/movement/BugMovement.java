@@ -37,6 +37,10 @@ public class BugMovement {
         || bugCenter.y < -MainClass.cam_height / 2 - bug.getCameraDimensions()[1]) {
 
       bug.dead = true;
+      if(!bug.hit)
+        ObjectsStore.bugMissed++;
+
+      Util.globalLogger().info("Bugs missed "+ObjectsStore.bugMissed);
     }
 
     for (Bug bug2 : ObjectsStore.getBugList()) {

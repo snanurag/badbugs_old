@@ -1,14 +1,18 @@
 package com.badbugs.baseframework;
 
+import com.badbugs.MainClass;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BasicObjectImpl;
 import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.bugs.BedBug;
+import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Constants;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -18,12 +22,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class SpritesCreator {
 
   static Texture knifeTexture;
-  static TextureAtlas textureAtlas;
-//  static Animation bugAnimations;
+  public static TextureAtlas textureAtlas;
+  //  static Animation bugAnimations;
   static Texture floorTexture;
   static Texture bloodTextureLong;
   static Texture bloodTextureMedium;
   static Texture bloodTextureSmall;
+  static Texture lifeTexture;
 
   static TextureRegion bloodTextureRegionLong;
   static TextureRegion bloodTextureRegionMedium;
@@ -33,7 +38,7 @@ public class SpritesCreator {
     knifeTexture = new Texture(Gdx.files.internal("knife.png"));
     textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
     floorTexture = new Texture(Gdx.files.internal("floor.png"));
-
+    lifeTexture = new Texture(Gdx.files.internal("life.png"));
     //TIP : TextureRegion worked for blood not Texture
     bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
     bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
@@ -52,16 +57,6 @@ public class SpritesCreator {
     return silverKnife;
   }
 
-  public static BedBug loadBedBug() throws Exception {
-
-    BedBug bedBug = new BedBug(null);
-
-    bedBug.getPolygon().setPosition(0, 0);
-    bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
-
-    return bedBug;
-  }
-
   public static BedBug loadBedBug(int level) throws Exception {
 
     BedBug bedBug = new BedBug(null);
@@ -71,6 +66,14 @@ public class SpritesCreator {
     bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
 
     return bedBug;
+  }
+
+  public static Bug loadLife(float x) throws Exception
+  {
+    Bug bug = new BedBug(lifeTexture);
+    bug.getPolygon().setPosition(x, MainClass.cam_height / 2 - Constants.LIFE_SIZE_Y );
+    bug.setCameraDimensions(new float[]{Constants.LIFE_SIZE_X, Constants.LIFE_SIZE_Y});
+    return bug;
   }
 
   public static BloodSprite loadBloodSpot() {
