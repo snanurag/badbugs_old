@@ -1,9 +1,9 @@
 package com.badbugs.dynamics.movement;
 
-import com.badbugs.MainClass;
+import com.badbugs.Game;
+import com.badbugs.MainGameScreen;
 import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.objects.BasicObject;
-import com.badbugs.objects.ObjectsCord;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Constants;
@@ -43,7 +43,7 @@ public class KnifeMovement {
       Util.globalLogger().info("Touch count " + ++counter);
       Vector3 touchPoints;
 
-      touchPoints = MainClass.cam.unproject(new Vector3(touchInfoInstance.touchX, touchInfoInstance.touchY, 0));
+      touchPoints = Game.cam.unproject(new Vector3(touchInfoInstance.touchX, touchInfoInstance.touchY, 0));
 
       //TODO this rotation is w.r.t. left bottom. Convert it w.r.t. tip.
       Vector2 tip = Util.getKnifeTipInWorld(polygon);

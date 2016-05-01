@@ -1,10 +1,10 @@
 package com.badbugs.baseframework;
 
-import com.badbugs.MainClass;
+import com.badbugs.Game;
+import com.badbugs.MainGameScreen;
 import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.objects.BloodSprite;
-import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.objects.knives.SilverKnife;
@@ -21,7 +21,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by ashrinag on 3/20/2016.
@@ -33,7 +32,7 @@ public class Renderers {
 
   static {
     shapeRenderer = new ShapeRenderer();
-    shapeRenderer.setProjectionMatrix(MainClass.cam.combined);
+    shapeRenderer.setProjectionMatrix(Game.cam.combined);
     shapeRenderer.setAutoShapeType(true);
 
   }
@@ -98,9 +97,15 @@ public class Renderers {
   }
 
   public static void renderFloor(SpriteBatch batch) {
-    batch.draw(SpritesCreator.floorTexture, -MainClass.cam_width / 2, -MainClass.cam_height / 2,
-        MainClass.cam_width * SpritesCreator.floorTexture.getWidth() / MainClass.screenWidth,
-        MainClass.cam_height * SpritesCreator.floorTexture.getHeight() / MainClass.screenHeight);
+    batch.draw(SpritesCreator.floorTexture, -Game.cam_width / 2, -Game.cam_height / 2,
+        Game.cam_width * SpritesCreator.floorTexture.getWidth() / Game.screenWidth,
+        Game.cam_height * SpritesCreator.floorTexture.getHeight() / Game.screenHeight);
+  }
+
+  public static void renderHomePage(SpriteBatch batch) {
+    batch.draw(SpritesCreator.mainMenuTexture, -Game.cam_width / 2, -Game.cam_height / 2,
+        Game.cam_width ,
+        Game.cam_height);
   }
 
   private static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {

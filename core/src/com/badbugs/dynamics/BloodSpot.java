@@ -1,16 +1,15 @@
 package com.badbugs.dynamics;
 
-import com.badbugs.MainClass;
+import com.badbugs.Game;
+import com.badbugs.MainGameScreen;
 import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.ObjectsCord;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
-import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsStore;
 import com.badbugs.util.Util;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
@@ -25,8 +24,8 @@ public class BloodSpot {
   private BasicObject knife;
   private boolean isBloodSpotMeasured;
   private BloodSprite bloodSprite;
-  private static float XLimit = MainClass.cam_width / 2;
-  private static float YLimit = MainClass.cam_height / 2;
+  private static float XLimit = Game.cam_width / 2;
+  private static float YLimit = Game.cam_height / 2;
 
   public BloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
     this.bug = (BasicObject) bug;

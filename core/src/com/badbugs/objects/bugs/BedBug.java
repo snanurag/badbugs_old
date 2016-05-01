@@ -1,7 +1,7 @@
 package com.badbugs.objects.bugs;
 
-import com.badbugs.MainClass;
-import com.badbugs.objects.BasicObjectImpl;
+import com.badbugs.Game;
+import com.badbugs.MainGameScreen;
 import com.badbugs.objects.ObjectsCord;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -14,8 +14,8 @@ public class BedBug extends Bug {
     super(texture);
     pixelDimensions = new int[] { ObjectsCord.BED_BUG_CENTER[0] * 2, ObjectsCord.BED_BUG_CENTER[1] * 2 };
     cameraDimensions = new float[] { ObjectsCord.BED_BUG_WIDTH, ObjectsCord.BED_BUG_HEIGHT };
-    screenDimensions = new float[] { cameraDimensions[0] * MainClass.screenWidth / MainClass.cam_width,
-    cameraDimensions[1] * MainClass.screenHeight / MainClass.cam_height };
+    screenDimensions = new float[] { cameraDimensions[0] * Game.screenWidth / Game.cam_width,
+    cameraDimensions[1] * Game.screenHeight / Game.cam_height };
 
     init();
   }

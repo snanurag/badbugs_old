@@ -1,6 +1,7 @@
 package com.badbugs.baseframework;
 
-import com.badbugs.MainClass;
+import com.badbugs.Game;
+import com.badbugs.MainGameScreen;
 import com.badbugs.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -29,7 +30,7 @@ public class Fonts {
 
   public static void renderScore(Batch batch, int score)
   {
-    font.draw(batch, "Score "+score, Constants.SCORE_X_POS, MainClass.cam_height/2,  10, -1, false);
+    font.draw(batch, "Score "+score, Constants.SCORE_X_POS, Game.cam_height/2,  10, -1, false);
 
   }
 }

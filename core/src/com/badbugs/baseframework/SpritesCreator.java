@@ -1,6 +1,7 @@
 package com.badbugs.baseframework;
 
-import com.badbugs.MainClass;
+import com.badbugs.Game;
+import com.badbugs.MainGameScreen;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BasicObjectImpl;
 import com.badbugs.objects.BloodSprite;
@@ -9,10 +10,8 @@ import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Constants;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -29,6 +28,7 @@ public class SpritesCreator {
   static Texture bloodTextureMedium;
   static Texture bloodTextureSmall;
   static Texture lifeTexture;
+  static Texture mainMenuTexture;
 
   static TextureRegion bloodTextureRegionLong;
   static TextureRegion bloodTextureRegionMedium;
@@ -39,6 +39,8 @@ public class SpritesCreator {
     textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
     floorTexture = new Texture(Gdx.files.internal("floor.png"));
     lifeTexture = new Texture(Gdx.files.internal("life.png"));
+    mainMenuTexture = new Texture(Gdx.files.internal("home_page.png"));
+
     //TIP : TextureRegion worked for blood not Texture
     bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
     bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
@@ -71,7 +73,7 @@ public class SpritesCreator {
   public static Bug loadLife(float x) throws Exception
   {
     Bug bug = new BedBug(lifeTexture);
-    bug.getPolygon().setPosition(x, MainClass.cam_height / 2 - Constants.LIFE_SIZE_Y );
+    bug.getPolygon().setPosition(x, Game.cam_height / 2 - Constants.LIFE_SIZE_Y );
     bug.setCameraDimensions(new float[]{Constants.LIFE_SIZE_X, Constants.LIFE_SIZE_Y});
     return bug;
   }
@@ -89,6 +91,7 @@ public class SpritesCreator {
     bloodTextureLong.dispose();
     bloodTextureMedium.dispose();
     bloodTextureSmall.dispose();
+    mainMenuTexture.dispose();
   }
 
 }

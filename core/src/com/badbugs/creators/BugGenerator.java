@@ -1,12 +1,12 @@
 package com.badbugs.creators;
 
-import com.badbugs.MainClass;
+import com.badbugs.Game;
+import com.badbugs.MainGameScreen;
 import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsStore;
-import com.badbugs.util.Util;
 import com.badlogic.gdx.math.Polygon;
 
 /**
@@ -54,31 +54,31 @@ public class BugGenerator extends Thread {
     float angle;
     if (wall == 0) // bottom wall
     {
-      y = -MainClass.cam_height / 2 - bug.getPolygon().getOriginY();
-      x = getValueOnRandomizationFactor(true, MainClass.cam_width / 2, (float) Math.random());
+      y = -Game.cam_height / 2 - bug.getPolygon().getOriginY();
+      x = getValueOnRandomizationFactor(true, Game.cam_width / 2, (float) Math.random());
       if (x < 0)
         angle = 30 + getValueOnRandomizationFactor(false, 60, (float) Math.random());
       else
         angle = 90 + getValueOnRandomizationFactor(false, 60, (float) Math.random());
     } else if (wall == 1) // left wall
     {
-      x = -MainClass.cam_width / 2 - bug.getPolygon().getOriginX();
-      y = getValueOnRandomizationFactor(true, MainClass.cam_height / 2, (float) Math.random());
+      x = -Game.cam_width / 2 - bug.getPolygon().getOriginX();
+      y = getValueOnRandomizationFactor(true, Game.cam_height / 2, (float) Math.random());
       if (y < 0)
         angle = getValueOnRandomizationFactor(false, 60, (float) Math.random());
       else
         angle = -getValueOnRandomizationFactor(false, 60, (float) Math.random());
     } else if (wall == 2) // top wall
     {
-      y = MainClass.cam_height / 2 + bug.getPolygon().getOriginY();
-      x = getValueOnRandomizationFactor(true, MainClass.cam_width / 2, (float) Math.random());
+      y = Game.cam_height / 2 + bug.getPolygon().getOriginY();
+      x = getValueOnRandomizationFactor(true, Game.cam_width / 2, (float) Math.random());
       if (x < 0)
         angle = -30 - getValueOnRandomizationFactor(false, 60, (float) Math.random());
       else
         angle = -90 - getValueOnRandomizationFactor(false, 60, (float) Math.random());
     } else {
-      x = MainClass.cam_width / 2 + bug.getPolygon().getOriginX();
-      y = getValueOnRandomizationFactor(true, MainClass.cam_height / 2, (float) Math.random());
+      x = Game.cam_width / 2 + bug.getPolygon().getOriginX();
+      y = getValueOnRandomizationFactor(true, Game.cam_height / 2, (float) Math.random());
       if (y < 0)
         angle = 120 + getValueOnRandomizationFactor(false, 60, (float) Math.random());
       else

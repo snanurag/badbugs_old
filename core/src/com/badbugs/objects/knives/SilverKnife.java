@@ -1,10 +1,9 @@
 package com.badbugs.objects.knives;
 
-import com.badbugs.MainClass;
-import com.badbugs.objects.BasicObjectImpl;
+import com.badbugs.Game;
+import com.badbugs.MainGameScreen;
 import com.badbugs.objects.ObjectsCord;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Polygon;
 
 /**
  * Created by ashrinag on 3/6/2016.
@@ -17,8 +16,8 @@ public class SilverKnife extends Knife {
     super(texture);
     pixelDimensions = new int[] { ObjectsCord.SILVER_KNIFE_CENTER[0] * 2, ObjectsCord.SILVER_KNIFE_CENTER[1] * 2 };
     cameraDimensions = new float[] { ObjectsCord.SILVER_KNIFE_WIDTH, ObjectsCord.SILVER_KNIFE_HEIGHT };
-    screenDimensions = new float[] { cameraDimensions[0] * MainClass.screenWidth / MainClass.cam_width,
-        cameraDimensions[1] * MainClass.screenHeight / MainClass.cam_height };
+    screenDimensions = new float[] { cameraDimensions[0] * Game.screenWidth / Game.cam_width,
+        cameraDimensions[1] * Game.screenHeight / Game.cam_height };
     init();
   }
 
