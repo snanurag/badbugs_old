@@ -36,8 +36,8 @@ public class MainMenuScreen extends ScreenAdapter {
         (1235-188) * Game.screenHeight / HOME_SCREEN_H, 480 * Game.screenWidth / HOME_SCREEN_W,
         188 * Game.screenHeight / HOME_SCREEN_H };
 
-    SHOP_BUTTON = new float[] { 1332 * Game.screenWidth / HOME_SCREEN_W,
-        (HOME_SCREEN_H - 1235) * Game.screenHeight / HOME_SCREEN_H, 480 * Game.screenWidth / HOME_SCREEN_W,
+    SHOP_BUTTON = new float[] { 1228 * Game.screenWidth / HOME_SCREEN_W,
+        (1235-188) * Game.screenHeight / HOME_SCREEN_H, 480 * Game.screenWidth / HOME_SCREEN_W,
         188 * Game.screenHeight / HOME_SCREEN_H };
 
     QUIT_BUTTON = new float[] { 2308 * Game.screenWidth / HOME_SCREEN_W,
@@ -55,6 +55,7 @@ public class MainMenuScreen extends ScreenAdapter {
     //    soundBounds = new Rectangle(0, 0, 64, 64);
 
     playBounds = new Rectangle(PLAY_BUTTON[0], PLAY_BUTTON[1], PLAY_BUTTON[2], PLAY_BUTTON[3]);
+    shopBounds = new Rectangle(SHOP_BUTTON[0], SHOP_BUTTON[1], SHOP_BUTTON[2], SHOP_BUTTON[3]);
 
     Vector3 playBoundRectCord =    Game.cam.unproject(new Vector3(PLAY_BUTTON[0], PLAY_BUTTON[1], 0));
     Vector3 playBoundRectDimensions = Game.cam.unproject(new Vector3(PLAY_BUTTON[2], PLAY_BUTTON[3], 0));
@@ -79,6 +80,16 @@ public class MainMenuScreen extends ScreenAdapter {
         game.setScreen(new MainGameScreen());
         return;
       }
+      else if (shopBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
+        //TODO click sound here.
+        game.setScreen(new ShopScreen());
+        return;
+      }
+
     }
+  }
+
+  @Override public void dispose() {
+    super.dispose();
   }
 }

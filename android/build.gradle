@@ -18,6 +18,10 @@ android {
         applicationId "com.badbugs"
         minSdkVersion 8
         targetSdkVersion 21
+        multiDexEnabled true
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 // called every time gradle gets executed, takes the native dependencies of
