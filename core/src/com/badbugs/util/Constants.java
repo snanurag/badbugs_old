@@ -38,4 +38,6 @@ public class Constants {
   public static float LIFE_SIZE_Y = 4;
   public static float LIFE_SIZE_X = LIFE_SIZE_Y*11/14;
 
+  public static String double_speed = "doublespeed";
+
 }

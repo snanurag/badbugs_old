@@ -3,6 +3,7 @@ package com.badbugs;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.payment.PlatformBuilder;
 import com.badbugs.payment.PlatformResolver;
+import com.badbugs.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -25,12 +26,11 @@ public class ShopScreen extends ScreenAdapter {
   static PlatformResolver m_platformResolver;
   public PurchaseManagerConfig purchaseManagerConfig;
 
-  private static String double_speed = "doublespeed";
   public ShopScreen() {
 
     // ---- IAP: define products ---------------------
     purchaseManagerConfig = new PurchaseManagerConfig();
-    purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(double_speed));
+    purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(Constants.double_speed));
     GamePurchaseObserver purchaseObserver = new GamePurchaseObserver();
     PlatformBuilder.setComponents(null, purchaseObserver, purchaseManagerConfig);
     try {
@@ -85,7 +85,7 @@ public class ShopScreen extends ScreenAdapter {
     table.add(iconButton);
     iconButton.addListener(new ClickListener() {
       public void clicked(InputEvent event, float x, float y) {
-        PlatformBuilder.getPlatformResolver().requestPurchase(double_speed);
+        PlatformBuilder.getPlatformResolver().requestPurchase(Constants.double_speed);
       }
     });
 

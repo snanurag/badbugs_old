@@ -6,6 +6,7 @@ import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
+import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsStore;
 import com.badbugs.util.TouchInfo;
@@ -93,8 +94,18 @@ public class KnifeMovement {
 
       Polygon polygon = basicObject.getPolygon();
 
-      float xSpeed = directionVector.x * Constants.SILVER_KNIFE_SPEED;
-      float ySpeed = directionVector.y * Constants.SILVER_KNIFE_SPEED;
+      float speed;
+      if(GamePurchaseObserver.isPurchased(Constants.double_speed))
+      {
+        speed = Constants.SILVER_KNIFE_DOUBLE_SPEED;
+      }
+      else
+      {
+        speed = Constants.SILVER_KNIFE_SPEED;
+
+      }
+      float xSpeed = directionVector.x * speed;
+      float ySpeed = directionVector.y * speed;
 
       long thisTime = System.currentTimeMillis();
       elapsedTime = (float) (thisTime - lastTime) / 1000f;
