@@ -1,31 +1,45 @@
 package com.badbugs;
 
+import com.badbugs.payment.GamePurchaseObserver;
+import com.badbugs.payment.PlatformBuilder;
+import com.badbugs.payment.PlatformResolver;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.pay.Offer;
+import com.badlogic.gdx.pay.OfferType;
+import com.badlogic.gdx.pay.PurchaseManagerConfig;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 /**
  * Created by ashrinag on 5/14/2016.
  */
 public class ShopScreen extends ScreenAdapter {
 
+  static PlatformResolver m_platformResolver;
+  public PurchaseManagerConfig purchaseManagerConfig;
+
+  private static String double_speed = "doublespeed";
   public ShopScreen() {
+
+    // ---- IAP: define products ---------------------
+    purchaseManagerConfig = new PurchaseManagerConfig();
+    purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(double_speed));
+    GamePurchaseObserver purchaseObserver = new GamePurchaseObserver();
+    PlatformBuilder.setComponents(null, purchaseObserver, purchaseManagerConfig);
+    try {
+      PlatformBuilder.build();
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
     create();
   }
 
@@ -71,7 +85,7 @@ public class ShopScreen extends ScreenAdapter {
     table.add(iconButton);
     iconButton.addListener(new ClickListener() {
       public void clicked(InputEvent event, float x, float y) {
-
+        PlatformBuilder.getPlatformResolver().requestPurchase(double_speed);
       }
     });
 

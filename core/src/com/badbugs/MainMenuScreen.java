@@ -70,7 +70,9 @@ public class MainMenuScreen extends ScreenAdapter {
   @Override public void render(float delta) {
 
     Renderers.renderHomePage(Game.batch);
+
     touchInfo = Util.getFromTouchEventsQueue();
+
     if (touchInfo != null) {
       Util.globalLogger().info("touchX and touchY "+touchInfo.touchX+" "+touchInfo.touchY);
             Vector3 touchPoint = Game.cam.unproject(new Vector3(touchInfo.touchX, touchInfo.touchY, 0));

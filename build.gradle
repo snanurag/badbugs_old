@@ -19,7 +19,7 @@ allprojects {
         gdxVersion = '1.9.2'
         roboVMVersion = '1.13.0'
         box2DLightsVersion = '1.4'
-        ashleyVersion = '1.7.0'
+        ashleyVersion = '1.7.1'
         aiVersion = '1.8.0'
         gdxpayVersion = '0.9.2'
     }
@@ -47,6 +47,10 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
         compile "com.badlogicgames.gdxpay:gdx-pay:$gdxpayVersion"
         compile "com.badlogicgames.gdxpay:gdx-pay-android:$gdxpayVersion"
+        compile "com.badlogicgames.gdxpay:gdx-pay-android-googleplay:$gdxpayVersion"
+        compile "com.badlogicgames.gdxpay:gdx-pay-android-openiab:$gdxpayVersion:"
+        compile "com.badlogicgames.gdxpay:gdx-pay-android-ouya:$gdxpayVersion"
+        compile "com.badlogicgames.gdxpay:gdx-pay-android-amazon:$gdxpayVersion"
     }
 }
 

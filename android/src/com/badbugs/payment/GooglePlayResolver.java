@@ -1,19 +1,20 @@
-//package com.badbugs.payment;
-//
-//import com.badlogic.gdx.pay.PurchaseManagerConfig;
-//
-//public class GooglePlayResolver extends PlatformResolver {
-//
-//    private final static String GOOGLEKEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiT5IscqHkWfa5Jss5n77OlNdkSxm3jpAA+WyZOI58/gEqNVkJcF5JJd3wWzSu5SwrFmjKWnwXLgTtaDJkVRzalN/i0HHAvYQJlpsPLGt4PmWRbVgPjbJA/KOGLW0o1Avavb/Doq/dEjbKO7zg839g4xYdiHnWHuYbAG88NQ+kd9sekUVHySL3vRPCnK/lGgbt5Y8SSWLiCUTOTwnR2iIxODpXraRbT/+lAm1t1Ac/WOhskAfYqerPetG2FKHcKBq5xNTd+C1A4Khzd75fkCvd2wXY+qWDtv21uHicmA95OCAPKdnIvM3/5naFnd3Nb5O6n+pUS0OK2z4HQ3rWzEbIQIDAQAB";
-//
-//
-//    static final int RC_REQUEST = 10001;    // (arbitrary) request code for the purchase flow
-//
-//    public GooglePlayResolver(GdxPayExample game) {
-//        super(game);
-//
-//        PurchaseManagerConfig config = game.purchaseManagerConfig;
-//        config.addStoreParam(PurchaseManagerConfig.STORE_NAME_ANDROID_GOOGLE, GOOGLEKEY);
-//        initializeIAP(null, game.purchaseObserver, config);
-//    }
-//}
+package com.badbugs.payment;
+
+import com.badlogic.gdx.pay.PurchaseManager;
+import com.badlogic.gdx.pay.PurchaseManagerConfig;
+import com.badlogic.gdx.pay.PurchaseObserver;
+
+public class GooglePlayResolver extends PlatformResolver {
+
+  private final static String GOOGLEKEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlQtZgFb25FgKMET9jBKeT4ltJA92PDorFzSpRM4Dd/c+V/orhetCD+QF2xvvhgTSokAp269bDB5K8Cr4ASEJplDAbGJPJRc3bep352ZWRiXUHJ9tp/JE8TJUZAxshjxminJ6lyJajHT6XbltHGXO0lQQtZtQ8I+BP1+S9dr8qFDt2q5l47XOpSgRoXvRLGXrNJmfqRFeT2GKXLWgA2FznMYZFo5MVEM1b33r9rNxvd1C59k+G+6Xvr5OQSUmfzSJxuAxPNIY6eNaUloN2hVFrdMKGpfeAHrcGCvfqUvU1QXSiEXgyVA2SMUkLnghdUr2CCBoJqYWs4D8oO1dVdcGbQIDAQAB";
+  static final int RC_REQUEST = 10001;    // (arbitrary) request code for the purchase flow
+
+  public GooglePlayResolver() {
+
+  }
+
+  public void installIAP(PurchaseManager mgr, PurchaseObserver purchaseObserver, PurchaseManagerConfig config) {
+    super.installIAP(mgr, purchaseObserver, config);
+    config.addStoreParam(PurchaseManagerConfig.STORE_NAME_ANDROID_GOOGLE, GOOGLEKEY);
+  }
+}
