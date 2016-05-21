@@ -168,9 +168,7 @@ public class BugMovement
         bug1.freeze_frame_count++;
         bug2.freeze_frame_count++;
       }
-
     }
-
   }
 
   private static boolean areComingClose(float cord1, float cord2, float speed1, float speed2)

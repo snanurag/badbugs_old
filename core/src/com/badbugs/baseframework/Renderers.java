@@ -2,11 +2,9 @@ package com.badbugs.baseframework;
 
 import com.badbugs.Game;
 import com.badbugs.dynamics.BloodSpot;
-import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
-import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsStore;
 import com.badbugs.util.Util;
@@ -17,9 +15,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
-
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by ashrinag on 3/20/2016.
@@ -36,7 +31,7 @@ public class Renderers
     shapeRenderer.setAutoShapeType(true);
   }
 
-  public static void renderKnife(SpriteBatch batch, SilverKnife knife) throws Exception
+  public static void renderKnife(SpriteBatch batch, Knife knife) throws Exception
   {
 
     Polygon knifePolygon = knife.getPolygon();
@@ -47,7 +42,7 @@ public class Renderers
         knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation(), 0, 0, knife.getPixelDimensions()[0],
         knife.getPixelDimensions()[1], false, false);
 
-    //    drawPolygon(knife.getPolygon().getTransformedVertices());
+//        drawPolygon(knife.getPolygon().getTransformedVertices());
   }
 
   public static void renderFloor(SpriteBatch batch)
@@ -87,7 +82,7 @@ public class Renderers
         }
 
         Vector2 centerAfterRotation = Util
-            .getVectorAfterRotation(0, polygon.getOriginY() * widthScaleFactor, polygon.getRotation());
+            .rotateVectorByGivenAngle(0, polygon.getOriginY() * widthScaleFactor, polygon.getRotation());
 
         float alpha = getAlpha(bloodSpot);
 
@@ -148,8 +143,8 @@ public class Renderers
 
     batch.setColor(1, 1, 1, 1);
 
-    //    drawCircle(0, 0, 0.2f);
-    //    drawPolygon(bedBug.getPolygon().getTransformedVertices());
+  //      drawCircle(0, 0, 0.2f);
+  //      drawPolygon(bedBug.getPolygon().getTransformedVertices());
   }
 
   private static TextureRegion getProperBloodTexReg(float bloodSpotLen)
@@ -178,7 +173,6 @@ public class Renderers
   @Deprecated
   public static void drawPolygon(float[] vertices)
   {
-
     try
     {
       //      if (start)

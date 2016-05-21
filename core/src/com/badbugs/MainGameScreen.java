@@ -6,6 +6,7 @@ import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.creators.BugGenerator;
 import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.dynamics.movement.KnifeMovement;
+import com.badbugs.objects.knives.Knife;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Inputs;
 import com.badbugs.util.ObjectsStore;
@@ -17,7 +18,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class MainGameScreen extends ScreenAdapter {
 
   private static ShapeRenderer shapeRenderer;
-  private static SilverKnife silverKnife;
+  private static Knife knife;
 
   public static void load() {
 
@@ -27,7 +28,7 @@ public class MainGameScreen extends ScreenAdapter {
     SpritesCreator.loadAllTextures();
 
     try {
-      silverKnife = (SilverKnife) SpritesCreator.loadSilverKnife();
+      knife = (SilverKnife) SpritesCreator.loadSilverKnife();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -54,9 +55,9 @@ public class MainGameScreen extends ScreenAdapter {
 
       BugMovement.upgradeEveryBugState(Game.batch);
 
-      KnifeMovement.updatePolygon(silverKnife);
+      KnifeMovement.updatePolygon(knife);
 
-      Renderers.renderKnife(Game.batch, silverKnife);
+      Renderers.renderKnife(Game.batch, knife);
 
       Fonts.renderScore(Game.batch, ObjectsStore.score);
 

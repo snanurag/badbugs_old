@@ -28,7 +28,7 @@ public abstract class Bug extends BasicObjectImpl {
 
   public boolean isStateChanged(float x, float y)
   {
-    if(x == state.x && y == state.y)
+    if(state ==null || x == state.x && y == state.y)
     {
       return false;
     }

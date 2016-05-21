@@ -1,11 +1,10 @@
 package com.badbugs.dynamics.movement;
 
 import com.badbugs.Game;
+import com.badbugs.baseframework.Renderers;
 import com.badbugs.dynamics.BloodSpot;
-import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
-import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsStore;
@@ -30,16 +29,16 @@ public class KnifeMovement
 
   private static int counter;
 
-  public static void updatePolygon(SilverKnife basicObject) throws Exception
+  public static void updatePolygon(Knife basicObject) throws Exception
   {
     rotatePolygon(basicObject);
     translatePolygon(basicObject);
   }
 
-  private static void rotatePolygon(SilverKnife silverKnife) throws Exception
+  private static void rotatePolygon(Knife knife) throws Exception
   {
 
-    Polygon polygon = silverKnife.getPolygon();
+    Polygon polygon = knife.getPolygon();
     TouchInfo touchInfoInstance = Util.getFromTouchEventsQueue();
 
     if (touchInfoInstance != null)
@@ -50,7 +49,6 @@ public class KnifeMovement
 
       touchPoints = Game.cam.unproject(new Vector3(touchInfoInstance.touchX, touchInfoInstance.touchY, 0));
 
-      //TODO this rotation is w.r.t. left bottom. Convert it w.r.t. tip.
       Vector2 tip = Util.getKnifeTipInWorld(polygon);
 
       float dirX = touchPoints.x - tip.x;
@@ -62,23 +60,24 @@ public class KnifeMovement
       lastTime = System.currentTimeMillis();
       float angle = (float) (Math.atan2(directionVector.y, directionVector.x) * 180 / Math.PI);
 
-      polygon.setRotation(silverKnife.getInitialAngle() + angle);
+      polygon.setRotation(knife.getInitialAngle() + angle);
 
-      Vector2 leftBottomFromTip = Util.getLeftBottomFromTipInWorld(tip.x, tip.y, polygon);
+      //      Vector2 leftBottomWrtTip = Util.getLeftBottomWrtTip(tip.x, tip.y, polygon);
+
+      tip = Util.getKnifeTipInWorld(polygon);
 
       if (!checkIfPointInBoundary(tip.x, tip.y))
       {
 
-        Vector2 v = getVectorInBoundary(tip.x, tip.y);
+        Vector2 v = moveVectorInBoundary(tip.x, tip.y);
 
-        leftBottomFromTip = Util.getLeftBottomFromTipInWorld(v.x, v.y, polygon);
+        Vector2 leftBottomWrtTip = Util.getLeftBottomWrtTip(v.x - tip.x, v.y - tip.y, polygon);
+        polygon.setPosition(leftBottomWrtTip.x, leftBottomWrtTip.y);
       }
 
-      polygon.setPosition(leftBottomFromTip.x, leftBottomFromTip.y);
+      setAllBugsState(knife);
 
-      setAllBugsState(silverKnife);
-
-      Util.globalLogger().debug("Angle of Knife " + (silverKnife.getInitialAngle() + angle));
+      Util.globalLogger().debug("Angle of Knife " + (knife.getInitialAngle() + angle));
       Util.globalLogger().debug("Direction vector " + directionVector);
     }
   }
@@ -117,15 +116,20 @@ public class KnifeMovement
       float x = (float) ((polygon.getX()) + xSpeed * elapsedTime);
       float y = (float) ((polygon.getY()) + ySpeed * elapsedTime);
 
-      if (!checkIfPointInBoundary(x, y))
-      {
-        Vector2 v = getVectorInBoundary(x, y);
-        x = v.x;
-        y = v.y;
-        directionVector = null;
-      }
-
       polygon.setPosition(x, y);
+
+     Vector2 tip = Util.getKnifeTipInWorld(polygon);
+
+      if (!checkIfPointInBoundary(tip.x, tip.y))
+      {
+
+        Vector2 v = moveVectorInBoundary(tip.x, tip.y);
+
+        Vector2 leftBottomWrtTip = Util.getLeftBottomWrtTip(v.x - tip.x, v.y - tip.y, polygon);
+        polygon.setPosition(leftBottomWrtTip.x, leftBottomWrtTip.y);
+        directionVector = null;
+
+      }
 
       attemptToCutAllBugs(knife);
 
@@ -133,7 +137,7 @@ public class KnifeMovement
     }
   }
 
-  private static Vector2 getVectorInBoundary(float x, float y)
+  private static Vector2 moveVectorInBoundary(float x, float y)
   {
 
     if (x >= XLimit || x <= -XLimit || y >= YLimit || y <= -YLimit)
@@ -180,24 +184,18 @@ public class KnifeMovement
     float x1 = tip.x;
     float y1 = tip.y;
 
-    Vector2 hitPoint = getHiPointInXIncreasing(bugPolygon,x1,y1,a);
+    Vector2 hitPoint = getHiPointInXIncreasing(bugPolygon, x1, y1, a);
 
-    //    Renderers.drawLine(x, y, x1, y1);
-
-    if(hitPoint == null)
+    if (hitPoint == null)
     {
-      hitPoint = getHiPointInXDecreasing(bugPolygon,x1,y1,a);
+      hitPoint = getHiPointInXDecreasing(bugPolygon, x1, y1, a);
     }
-
-    //  Renderers.drawLine(x, y, x1, y1);
 
     if (hitPoint != null)
     {
       if (ObjectsStore.getBloodSpot(bug) == null)
       {
         BloodSpot.createAndStoreBloodSpot(bug, knife, hitPoint);
-//        Vector2 bugCenter = Util.getPolygonCenter(bugPolygon);
-//        bug.state = Util.getStateOfBugWRTKnife(bugCenter.x, bugCenter.y, knifePolygon);
       }
     }
   }
@@ -234,6 +232,7 @@ public class KnifeMovement
     }
 
     Util.globalLogger().debug("Points to draw line : x " + x + " y " + y + " x1 " + x1 + " y1 " + y1);
+  //  Renderers.drawLine(x, y, x1, y1);
 
     return hitPoint;
   }
@@ -271,7 +270,6 @@ public class KnifeMovement
 
       }
     }
-
   }
 
   private static void attemptToCutAllBugs(Knife knife) throws Exception
@@ -284,7 +282,7 @@ public class KnifeMovement
 
         Vector2 currentState = Util.getStateOfBugWRTKnife(bugCenter.x, bugCenter.y, knife.getPolygon());
 
-        if(bug.isStateChanged(currentState.x, currentState.y))
+        if (bug.isStateChanged(currentState.x, currentState.y))
         {
           attemptToCreateBlood(bug, knife);
         }
