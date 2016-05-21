@@ -7,18 +7,18 @@ import com.badlogic.gdx.math.Polygon;
 /**
  * Created by ashrinag on 3/6/2016.
  */
-public abstract class BasicObjectImpl implements BasicObject {
+public abstract class BasicObjectImpl implements BasicObject
+{
 
   protected int[] pixelDimensions; // = { ObjectsCord.BED_BUG_CENTER[0] * 2, ObjectsCord.BED_BUG_CENTER[1] * 2 };
   protected float[] cameraDimensions; // = { ObjectsCord.BED_BUG_WIDTH, ObjectsCord.BED_BUG_HEIGHT };
   protected float[] cameraCords;
-  protected  float[] screenDimensions;
+  protected float[] screenDimensions;
   private Texture texture;
   protected Polygon polygon;
-   public float elapsedTime;
+  public float elapsedTime;
 
-  @Deprecated
-  protected float[] screenPixels;
+  @Deprecated protected float[] screenPixels;
 
   public BasicObjectImpl(Texture texture)
   {
@@ -30,61 +30,79 @@ public abstract class BasicObjectImpl implements BasicObject {
     try
     {
       Util.createCameraCoordsFromPixelCords(this);
-    }
-    catch (Exception e)
+    } catch (Exception e)
     {
       e.printStackTrace();
     }
 
-    if(this.getCameraCoords() != null)
+    if (this.getCameraCoords() != null)
     {
       polygon = new Polygon(this.getCameraCoords());
     }
-//    Util.createScreenCordsFromCameraCords(this);
+    //    Util.createScreenCordsFromCameraCords(this);
 
   }
 
-  @Override public float[] getCameraCoords() {
+  @Override
+  public float[] getCameraCoords()
+  {
     return cameraCords;
   }
 
-  @Override public int[] getPixelDimensions() {
+  @Override
+  public int[] getPixelDimensions()
+  {
     return pixelDimensions;
   }
 
-  @Override public float[] getCameraDimensions() {
+  @Override
+  public float[] getCameraDimensions()
+  {
     return cameraDimensions;
   }
 
-  @Override public void setCameraCoords(float[] coords) {
+  @Override
+  public void setCameraCoords(float[] coords)
+  {
     cameraCords = coords;
   }
 
-
-  @Override public void setScreenPixels(float[] coords) {
+  @Override
+  public void setScreenPixels(float[] coords)
+  {
     this.screenPixels = coords;
   }
 
-  @Override public float[] getScreenPixels() {
+  @Override
+  public float[] getScreenPixels()
+  {
     return screenPixels;
   }
 
-  @Override public float[] getScreenDimension() {
+  @Override
+  public float[] getScreenDimension()
+  {
     return screenDimensions;
   }
 
-  @Override public Polygon getPolygon() throws Exception{
-    if(polygon == null)
+  @Override
+  public Polygon getPolygon() throws Exception
+  {
+    if (polygon == null)
       throw new Exception("Polygon is not created for this object.");
     else
       return polygon;
   }
 
-  @Override public Texture getTexture() {
+  @Override
+  public Texture getTexture()
+  {
     return texture;
   }
 
-  @Override public void setTexture(Texture texture) {
+  @Override
+  public void setTexture(Texture texture)
+  {
     this.texture = texture;
   }
 

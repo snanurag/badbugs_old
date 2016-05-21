@@ -1,7 +1,6 @@
 package com.badbugs.creators;
 
 import com.badbugs.Game;
-import com.badbugs.MainGameScreen;
 import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
@@ -15,8 +14,9 @@ import com.badlogic.gdx.math.Polygon;
 
 public class BugGenerator extends Thread {
 
-  int walls = 4;
+  final int WALLS_COUNT = 4;
   int bugId = 0;
+  int lastWall;
 
   public void run() {
     try {
@@ -33,7 +33,7 @@ public class BugGenerator extends Thread {
     int level = getLevel();
     BedBug bug = SpritesCreator.loadBedBug(level);
     bug.id = ++bugId;
-    setBugsInitializationParams(bug);
+    initialize(bug);
     ObjectsStore.add(bug);
 
     bug.speed = Constants.BUG_SPEED[level];
@@ -45,45 +45,53 @@ public class BugGenerator extends Thread {
     return level;
   }
 
-  private void setBugsInitializationParams(Bug bug) throws Exception {
+  private void initialize(Bug bug) throws Exception {
+
     Polygon polygon = bug.getPolygon();
 
-    int wall = (int) (Math.random() * walls);
+    int wall = 0;
+    while(lastWall == wall)
+    {
+      wall = (int) (Math.random() * WALLS_COUNT);
+    }
+
+    lastWall = wall;
+
     float x;
     float y;
     float angle;
+
     if (wall == 0) // bottom wall
     {
       y = -Game.cam_height / 2 - bug.getPolygon().getOriginY();
-      x = getValueOnRandomizationFactor(true, Game.cam_width / 2, (float) Math.random());
+      x = getValFromNegToPosMax(Game.cam_width / 2);
       if (x < 0)
-        angle = 30 + getValueOnRandomizationFactor(false, 60, (float) Math.random());
+        angle = 30 + getValFromZeroToMax(60);
       else
-        angle = 90 + getValueOnRandomizationFactor(false, 60, (float) Math.random());
+        angle = 90 + getValFromZeroToMax(60);
     } else if (wall == 1) // left wall
     {
       x = -Game.cam_width / 2 - bug.getPolygon().getOriginX();
-      y = getValueOnRandomizationFactor(true, Game.cam_height / 2, (float) Math.random());
+      y = getValFromNegToPosMax(Game.cam_height / 2);
       if (y < 0)
-        angle = getValueOnRandomizationFactor(false, 60, (float) Math.random());
+        angle = getValFromZeroToMax(60);
       else
-        angle = -getValueOnRandomizationFactor(false, 60, (float) Math.random());
+        angle = -getValFromZeroToMax(60);
     } else if (wall == 2) // top wall
     {
       y = Game.cam_height / 2 + bug.getPolygon().getOriginY();
-      x = getValueOnRandomizationFactor(true, Game.cam_width / 2, (float) Math.random());
+      x = getValFromNegToPosMax(Game.cam_width / 2);
       if (x < 0)
-        angle = -30 - getValueOnRandomizationFactor(false, 60, (float) Math.random());
+        angle = -30 - getValFromZeroToMax(60);
       else
-        angle = -90 - getValueOnRandomizationFactor(false, 60, (float) Math.random());
+        angle = -90 - getValFromZeroToMax(60);
     } else {
       x = Game.cam_width / 2 + bug.getPolygon().getOriginX();
-      y = getValueOnRandomizationFactor(true, Game.cam_height / 2, (float) Math.random());
+      y = getValFromNegToPosMax(Game.cam_height / 2);
       if (y < 0)
-        angle = 120 + getValueOnRandomizationFactor(false, 60, (float) Math.random());
+        angle = 120 + getValFromZeroToMax(60);
       else
-        angle = 180 + getValueOnRandomizationFactor(false, 60, (float) Math.random());
-
+        angle = 180 + getValFromZeroToMax(60);
     }
 
     polygon.setPosition(x - polygon.getOriginX(), y - polygon.getOriginY());
@@ -91,11 +99,13 @@ public class BugGenerator extends Thread {
 
   }
 
-  private float getValueOnRandomizationFactor(boolean negativeAllowed, float max, float randomFactor) {
-    if (negativeAllowed) {
-      return (randomFactor * 2 - 1) * max;
-    } else {
-      return randomFactor * max;
-    }
+  private float getValFromZeroToMax(float max) {
+    float randomFactor = (float) Math.random();
+    return randomFactor * max;
+  }
+
+  private float getValFromNegToPosMax(float max) {
+    float randomFactor = (float) Math.random();
+    return (randomFactor * 2 - 1) * max;
   }
 }

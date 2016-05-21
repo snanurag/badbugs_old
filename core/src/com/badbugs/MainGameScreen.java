@@ -4,6 +4,7 @@ import com.badbugs.baseframework.Fonts;
 import com.badbugs.baseframework.Renderers;
 import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.creators.BugGenerator;
+import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.dynamics.movement.KnifeMovement;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Inputs;
@@ -11,7 +12,6 @@ import com.badbugs.util.ObjectsStore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class MainGameScreen extends ScreenAdapter {
@@ -52,11 +52,11 @@ public class MainGameScreen extends ScreenAdapter {
 
       Renderers.renderFloor(Game.batch);
 
-      Renderers.renderBugs(Game.batch, silverKnife);
+      BugMovement.upgradeEveryBugState(Game.batch);
 
       KnifeMovement.updatePolygon(silverKnife);
 
-      Renderers.renderKnife(Game.batch, (SilverKnife) silverKnife);
+      Renderers.renderKnife(Game.batch, silverKnife);
 
       Fonts.renderScore(Game.batch, ObjectsStore.score);
 

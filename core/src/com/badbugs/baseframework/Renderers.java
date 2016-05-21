@@ -1,7 +1,6 @@
 package com.badbugs.baseframework;
 
 import com.badbugs.Game;
-import com.badbugs.MainGameScreen;
 import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.objects.BloodSprite;
@@ -25,19 +24,20 @@ import java.util.List;
 /**
  * Created by ashrinag on 3/20/2016.
  */
-public class Renderers {
+public class Renderers
+{
 
-  static float elapsedTime = 0;
   public static ShapeRenderer shapeRenderer;
 
-  static {
+  static
+  {
     shapeRenderer = new ShapeRenderer();
     shapeRenderer.setProjectionMatrix(Game.cam.combined);
     shapeRenderer.setAutoShapeType(true);
-
   }
 
-  public static void renderKnife(SpriteBatch batch, SilverKnife knife) throws Exception {
+  public static void renderKnife(SpriteBatch batch, SilverKnife knife) throws Exception
+  {
 
     Polygon knifePolygon = knife.getPolygon();
 
@@ -50,70 +50,28 @@ public class Renderers {
     //    drawPolygon(knife.getPolygon().getTransformedVertices());
   }
 
-  public static void renderBugs(SpriteBatch batch, Knife knife) throws Exception {
-    List<Bug> bugList = ObjectsStore.getBugList();
-
-    Util.globalLogger().debug("no of bugs " + bugList.size());
-
-    synchronized (bugList) {
-      Iterator<Bug> itr = bugList.iterator();
-      while (itr.hasNext()) {
-        Bug bedBug = itr.next();
-        Util.globalLogger().debug(
-            "Bug position of bug : " + bedBug.id + " x " + bedBug.getPolygon().getX() + " and y " + bedBug.getPolygon()
-                .getY());
-
-        if (bedBug.dead) {
-          itr.remove();
-          continue;
-        }
-
-        Renderers.renderBug(batch, bedBug);
-
-        Vector2 bugCenter = Util.getPolygonCenter(bedBug.getPolygon());
-
-        Vector2 currentState = Util.getStateOfBugWRTKnife(bugCenter.x, bugCenter.y, knife.getPolygon());
-
-        if (!bedBug.hit && bedBug.state != null && !bedBug.compareState((int) currentState.x, (int) currentState.y)) {
-
-          bedBug.hit = true;
-          ObjectsStore.score++;
-        }
-
-        if (bedBug.hit) {
-          Renderers.renderBlood(batch, bedBug);
-          continue;
-        }
-
-        if (bedBug.freeze_frame_count < 0 || bedBug.freeze_frame_count > Constants.FREEZE_FRAME_COUNTS) {
-          BugMovement.applyMovement(bedBug);
-          bedBug.freeze_frame_count = -1;
-        } else
-          bedBug.freeze_frame_count++;
-      }
-
-    }
-
-  }
-
-  public static void renderFloor(SpriteBatch batch) {
+  public static void renderFloor(SpriteBatch batch)
+  {
     batch.draw(SpritesCreator.floorTexture, -Game.cam_width / 2, -Game.cam_height / 2,
         Game.cam_width * SpritesCreator.floorTexture.getWidth() / Game.screenWidth,
         Game.cam_height * SpritesCreator.floorTexture.getHeight() / Game.screenHeight);
   }
 
-  public static void renderHomePage(SpriteBatch batch) {
-    batch.draw(SpritesCreator.mainMenuTexture, -Game.cam_width / 2, -Game.cam_height / 2,
-        Game.cam_width ,
+  public static void renderHomePage(SpriteBatch batch)
+  {
+    batch.draw(SpritesCreator.mainMenuTexture, -Game.cam_width / 2, -Game.cam_height / 2, Game.cam_width,
         Game.cam_height);
   }
 
-  private static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {
+  public static void renderBlood(SpriteBatch batch, Bug bug) throws Exception
+  {
 
     BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bug);
-    if (bloodSpot != null) {
+    if (bloodSpot != null)
+    {
       BloodSprite blood = ObjectsStore.getBloodSprite(bloodSpot);
-      if (blood != null) {
+      if (blood != null)
+      {
 
         float widthScaleFactor = 2;
 
@@ -121,7 +79,8 @@ public class Renderers {
 
         bloodSpot.elapsedTime += Gdx.graphics.getDeltaTime();
 
-        if (bloodSpot.elapsedTime > Constants.BLOOD_SPOT_FADE_TIME) {
+        if (bloodSpot.elapsedTime > Constants.BLOOD_SPOT_FADE_TIME)
+        {
           ObjectsStore.removeBloodSprite(bloodSpot);
           ObjectsStore.removeBlood(bug);
           bug.dead = true;
@@ -146,7 +105,8 @@ public class Renderers {
     }
   }
 
-  public static void renderLives(SpriteBatch batch) throws Exception {
+  public static void renderLives(SpriteBatch batch) throws Exception
+  {
 
     if (ObjectsStore.bugMissed <= 4)
       renderBug(batch, SpritesCreator.loadLife(Constants.LIFE_1_X_POS));
@@ -161,20 +121,22 @@ public class Renderers {
 
   }
 
-  private static void renderBug(SpriteBatch batch, Bug bedBug) throws Exception {
+  public static void renderBug(SpriteBatch batch, Bug bedBug) throws Exception
+  {
 
     Polygon bugPolygon = bedBug.getPolygon();
+
     BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bedBug);
-    float alpha;
-    if (bloodSpot != null) {
-      alpha = getAlpha(bloodSpot);
+    if (bloodSpot != null)
+    {
+      float alpha = getAlpha(bloodSpot);
       batch.setColor(1, 1, 1, alpha);
+      bedBug.elapsedTime = 0;
     }
-
-    if (!bedBug.hit)
+    else
+    {
       bedBug.elapsedTime += Gdx.graphics.getDeltaTime();
-
-    //    bedBug.setTexture(bedBug.animation.getKeyFrame(bedBug.elapsedTime, true).getTexture());
+    }
 
     if (bedBug.getTexture() == null)
       batch.draw(bedBug.animation.getKeyFrame(bedBug.elapsedTime, true), bugPolygon.getX(), bugPolygon.getY(),
@@ -190,7 +152,8 @@ public class Renderers {
     //    drawPolygon(bedBug.getPolygon().getTransformedVertices());
   }
 
-  private static TextureRegion getProperBloodTexReg(float bloodSpotLen) {
+  private static TextureRegion getProperBloodTexReg(float bloodSpotLen)
+  {
     if (bloodSpotLen < 2)
       return SpritesCreator.bloodTextureRegionSmall;
     else if (bloodSpotLen < 6)
@@ -199,19 +162,25 @@ public class Renderers {
       return SpritesCreator.bloodTextureRegionLong;
   }
 
-  private static float getAlpha(BloodSpot bloodSpot) {
+  private static float getAlpha(BloodSpot bloodSpot)
+  {
     float alpha;
-    if (bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME < 1) {
+    if (bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME < 1)
+    {
       alpha = 1 - bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME;
-    } else {
+    } else
+    {
       alpha = 0f;
     }
     return alpha;
   }
 
-  @Deprecated public static void drawPolygon(float[] vertices) {
+  @Deprecated
+  public static void drawPolygon(float[] vertices)
+  {
 
-    try {
+    try
+    {
       //      if (start)
       shapeRenderer.setColor(1, 1, 0, 1);
       if (vertices.length >= 6)
@@ -221,16 +190,21 @@ public class Renderers {
       //shapeRenderer.line();
       // if (end)
       //   shapeRenderer.end();
-    } catch (Exception e) {
+    } catch (Exception e)
+    {
       e.printStackTrace();
     }
   }
 
-  @Deprecated public static void drawLine(float x, float y, float x1, float y1) {
+  @Deprecated
+  public static void drawLine(float x, float y, float x1, float y1)
+  {
     shapeRenderer.line(x, y, x1, y1);
   }
 
-  @Deprecated public static void drawCircle(float x, float y, float radius) {
+  @Deprecated
+  public static void drawCircle(float x, float y, float radius)
+  {
     shapeRenderer.circle(x, y, radius);
   }
 

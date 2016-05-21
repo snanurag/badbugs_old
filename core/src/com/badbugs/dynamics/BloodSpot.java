@@ -1,7 +1,5 @@
 package com.badbugs.dynamics;
 
-import com.badbugs.Game;
-import com.badbugs.MainGameScreen;
 import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BloodSprite;
@@ -22,14 +20,11 @@ public class BloodSpot {
   private BasicObject bug;
   public float elapsedTime;
   private BasicObject knife;
-  private boolean isBloodSpotMeasured;
   private BloodSprite bloodSprite;
-  private static float XLimit = Game.cam_width / 2;
-  private static float YLimit = Game.cam_height / 2;
 
-  public BloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
-    this.bug = (BasicObject) bug;
-    this.knife = (BasicObject) knife;
+  private BloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
+    this.bug = bug;
+    this.knife = knife;
     this.bloodSprite = SpritesCreator.loadBloodSpot();
     ObjectsStore.add(this, bloodSprite);
 
@@ -38,13 +33,11 @@ public class BloodSpot {
 
   }
 
-  public static void createBloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
+  public static void createAndStoreBloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
     ObjectsStore.add(bug, new BloodSpot(bug, knife, hitPoint));
   }
 
   public void updateBloodSpotDimensions(Vector2 hitPoint) throws Exception {
-
-    if (!isBloodSpotMeasured) {
 
       if (hitPoint == null)
         throw new Exception("Knife did not hit the Bug.");
@@ -53,12 +46,12 @@ public class BloodSpot {
 
       bloodSprite.getPolygon().setRotation(angle);
 
-      Vector2 endPoint = getPointAtPolygonExtreme(bug.getPolygon(), new Vector2(hitPoint.x, hitPoint.y), angle);
-      Vector2 startPoint = getPointAtPolygonExtreme(bug.getPolygon(), new Vector2(hitPoint.x, hitPoint.y), 180 + angle);
+      Vector2 endPoint = getPointAtPolygonBoundary(bug.getPolygon(), new Vector2(hitPoint.x, hitPoint.y), angle);
+      Vector2 startPoint = getPointAtPolygonBoundary(bug.getPolygon(), new Vector2(hitPoint.x, hitPoint.y), 180 + angle);
 
       bloodSprite.getPolygon().setPosition(startPoint.x, startPoint.y);
 
-      float bloodSpotLength = getBloodLength(startPoint, endPoint);
+      float bloodSpotLength = Util.distanceBetweenPoints(startPoint, endPoint);
 
       if (bloodSpotLength > 8)
         bloodSpotLength = 8;
@@ -66,10 +59,9 @@ public class BloodSpot {
       bloodSprite.setCameraDimensions(new float[] { bloodSpotLength, ObjectsCord.BLOOD_SPOT_WIDTH });
       bloodSprite.getPolygon()
           .setOrigin(bloodSprite.getCameraDimensions()[0] / 2, bloodSprite.getCameraDimensions()[1] / 2);
-    }
   }
 
-  private Vector2 getPointAtPolygonExtreme(Polygon polygon, Vector2 startPoint, float angle) {
+  private Vector2 getPointAtPolygonBoundary(Polygon polygon, Vector2 startPoint, float angle) {
 
     if (Util.insidePolygon(polygon, startPoint.x, startPoint.y))
       Util.globalLogger()
@@ -77,21 +69,10 @@ public class BloodSpot {
 
     while (Util.insidePolygon(polygon, startPoint.x, startPoint.y)) {
 
-      isBloodSpotMeasured = true;
-
       startPoint.set((float) (startPoint.x + 0.01 * MathUtils.cosDeg(angle)),
           (float) (startPoint.y + 0.01 * MathUtils.sinDeg(angle)));
     }
     return startPoint;
   }
 
-  private float getBloodLength(Vector2 startPoint, Vector2 endPoint) throws Exception {
-    float bloodSpotLength = (float) Math
-        .sqrt(Math.pow(startPoint.x - endPoint.x, 2) + Math.pow(startPoint.y - endPoint.y, 2));
-    return bloodSpotLength;
-  }
-
-  public static void main(String[] args) {
-    System.out.println(Math.sin(-116));
-  }
 }

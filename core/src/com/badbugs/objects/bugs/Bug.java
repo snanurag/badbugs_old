@@ -26,13 +26,13 @@ public abstract class Bug extends BasicObjectImpl {
     super(texture);
   }
 
-  public boolean compareState(int x, int y)
+  public boolean isStateChanged(float x, float y)
   {
     if(x == state.x && y == state.y)
     {
-      return true;
+      return false;
     }
-    return false;
+    return true;
   }
 
 //  public void setState(int x, int y)
