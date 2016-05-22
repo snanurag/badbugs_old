@@ -38,6 +38,11 @@ public class KnifeMovement
   private static void rotatePolygon(Knife knife) throws Exception
   {
 
+    if(directionVector != null)
+    {
+      return;
+    }
+
     Polygon polygon = knife.getPolygon();
     TouchInfo touchInfoInstance = Util.getFromTouchEventsQueue();
 
@@ -62,13 +67,10 @@ public class KnifeMovement
 
       polygon.setRotation(knife.getInitialAngle() + angle);
 
-      //      Vector2 leftBottomWrtTip = Util.getLeftBottomWrtTip(tip.x, tip.y, polygon);
-
       tip = Util.getKnifeTipInWorld(polygon);
 
       if (!checkIfPointInBoundary(tip.x, tip.y))
       {
-
         Vector2 v = moveVectorInBoundary(tip.x, tip.y);
 
         Vector2 leftBottomWrtTip = Util.getLeftBottomWrtTip(v.x - tip.x, v.y - tip.y, polygon);

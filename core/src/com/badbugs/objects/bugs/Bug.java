@@ -35,9 +35,4 @@ public abstract class Bug extends BasicObjectImpl {
     return true;
   }
 
-//  public void setState(int x, int y)
-//  {
-//    state = new Vector2(x,y);
-//  }
-
 }
