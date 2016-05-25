@@ -22,7 +22,7 @@ import java.util.List;
 public class BugMovement
 {
 
-  public static void upgradeEveryBugState(SpriteBatch batch) throws Exception
+  public static void upgradeEveryBugState() throws Exception
   {
     List<Bug> bugList = ObjectsStore.getBugList();
 
@@ -44,17 +44,14 @@ public class BugMovement
           continue;
         }
 
-        Renderers.renderBug(batch, bedBug);
-
         if (!bedBug.hit && ObjectsStore.getBloodSpot(bedBug) != null)
         {
           bedBug.hit = true;
           ObjectsStore.score++;
         }
 
-        if (bedBug.hit)
+        if(bedBug.hit)
         {
-          Renderers.renderBlood(batch, bedBug);
           continue;
         }
 

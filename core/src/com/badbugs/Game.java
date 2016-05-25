@@ -7,12 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * Created by ashrinag on 4/29/2016.
  */
-public class Game extends com.badlogic.gdx.Game {
+public class Game extends com.badlogic.gdx.Game
+{
 
   public static float cam_height = 100;
   public static float cam_width = 100;
 
-  public static float screenWidth;
+  public static int screenWidth;
   public static float screenHeight;
 
   public static OrthographicCamera cam;
@@ -22,8 +23,9 @@ public class Game extends com.badlogic.gdx.Game {
   /**
    * Called when the {@link Application} is first created.
    */
-  @Override public void create() {
-
+  @Override
+  public void create()
+  {
     batch = new SpriteBatch();
 
     screenWidth = Gdx.graphics.getWidth();
@@ -38,13 +40,14 @@ public class Game extends com.badlogic.gdx.Game {
 
     cam.update();
 
-
     MainGameScreen.load();
 
     setScreen(new MainMenuScreen(this));
   }
 
-  @Override public void render() {
+  @Override
+  public void render()
+  {
     cam.update();
     Game.batch.setProjectionMatrix(Game.cam.combined);
     Game.batch.begin();

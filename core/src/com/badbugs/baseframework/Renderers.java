@@ -10,11 +10,15 @@ import com.badbugs.util.ObjectsStore;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by ashrinag on 3/20/2016.
@@ -42,7 +46,7 @@ public class Renderers
         knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation(), 0, 0, knife.getPixelDimensions()[0],
         knife.getPixelDimensions()[1], false, false);
 
-//        drawPolygon(knife.getPolygon().getTransformedVertices());
+    //        drawPolygon(knife.getPolygon().getTransformedVertices());
   }
 
   public static void renderFloor(SpriteBatch batch)
@@ -58,7 +62,7 @@ public class Renderers
         Game.cam_height);
   }
 
-  public static void renderBlood(SpriteBatch batch, Bug bug) throws Exception
+  private static void renderBlood(SpriteBatch batch, Bug bug) throws Exception
   {
 
     BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bug);
@@ -116,7 +120,34 @@ public class Renderers
 
   }
 
-  public static void renderBug(SpriteBatch batch, Bug bedBug) throws Exception
+  public static void renderBugs(SpriteBatch batch) throws Exception
+  {
+    List<Bug> bugList = ObjectsStore.getBugList();
+    synchronized (bugList)
+    {
+      for (Bug bedBug : bugList)
+      {
+        Renderers.renderBug(batch, bedBug);
+      }
+    }
+  }
+
+  public static void renderBloods(SpriteBatch batch) throws Exception
+  {
+    List<Bug> bugList = ObjectsStore.getBugList();
+    synchronized (bugList)
+    {
+      for (Bug bedBug : bugList)
+      {
+        if (bedBug.hit)
+        {
+          Renderers.renderBlood(batch, bedBug);
+        }
+      }
+    }
+  }
+
+  private static void renderBug(SpriteBatch batch, Bug bedBug) throws Exception
   {
 
     Polygon bugPolygon = bedBug.getPolygon();
@@ -127,8 +158,7 @@ public class Renderers
       float alpha = getAlpha(bloodSpot);
       batch.setColor(1, 1, 1, alpha);
       bedBug.elapsedTime = 0;
-    }
-    else
+    } else
     {
       bedBug.elapsedTime += Gdx.graphics.getDeltaTime();
     }
@@ -143,8 +173,8 @@ public class Renderers
 
     batch.setColor(1, 1, 1, 1);
 
-  //      drawCircle(0, 0, 0.2f);
-  //      drawPolygon(bedBug.getPolygon().getTransformedVertices());
+    //      drawCircle(0, 0, 0.2f);
+    //      drawPolygon(bedBug.getPolygon().getTransformedVertices());
   }
 
   private static TextureRegion getProperBloodTexReg(float bloodSpotLen)
