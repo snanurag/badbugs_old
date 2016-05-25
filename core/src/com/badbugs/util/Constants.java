@@ -11,6 +11,8 @@ import com.badbugs.objects.ObjectsCord;
 public class Constants {
 
   public static final float BLOOD_SPOT_FADE_TIME = 3f;
+  public static final float GAME_OVER_FADE_IN_TIME = 2f;
+
   public static final float KNIFE_BOUNDARY_PENETRATION = 1f;
   public static float XLimit = Game.cam_width / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
   public static float YLimit = Game.cam_height / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
@@ -39,5 +41,12 @@ public class Constants {
   public static float LIFE_SIZE_X = LIFE_SIZE_Y*11/14;
 
   public static String double_speed = "doublespeed";
+
+  public static final float GAME_OVER_BACKGROUND_WIDTH = 50;
+  public static final float GAME_OVER_BACKGROUND_HEIGHT = 30;
+  public static final float GAME_OVER_TEXT_X_POS = -15;
+  public static final float GAME_OVER_TEXT_Y_POS = 7;
+  public static final float SCORE_TEXT_X_POS = -11;
+  public static final float SCORE_TEXT_Y_POS = -5;
 
 }

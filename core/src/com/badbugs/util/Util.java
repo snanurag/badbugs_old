@@ -2,6 +2,7 @@ package com.badbugs.util;
 
 import com.badbugs.Game;
 import com.badbugs.objects.BasicObject;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
@@ -138,6 +139,16 @@ public class Util
   public static Logger globalLogger()
   {
     return logger;
+  }
+
+  public static boolean checkIfGameOverConditionMet()
+  {
+    if(ObjectsStore.bugMissed >= 5)
+    {
+      Gdx.input.setInputProcessor(null);
+      return true;
+    }
+    return false;
   }
 
 }

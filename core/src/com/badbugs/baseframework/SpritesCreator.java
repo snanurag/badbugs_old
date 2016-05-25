@@ -5,6 +5,7 @@ import com.badbugs.MainGameScreen;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BasicObjectImpl;
 import com.badbugs.objects.BloodSprite;
+import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
@@ -18,28 +19,32 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * Created by ashrinag on 3/20/2016.
  */
-public class SpritesCreator {
+public class SpritesCreator
+{
 
-  static Texture knifeTexture;
-  public static TextureAtlas textureAtlas;
+  private static Texture knifeTexture;
+  private static TextureAtlas textureAtlas;
   //  static Animation bugAnimations;
   static Texture floorTexture;
-  static Texture bloodTextureLong;
-  static Texture bloodTextureMedium;
-  static Texture bloodTextureSmall;
-  static Texture lifeTexture;
+  private static Texture bloodTextureLong;
+  private static Texture bloodTextureMedium;
+  private static Texture bloodTextureSmall;
+  private static Texture lifeTexture;
   static Texture mainMenuTexture;
+  private static Texture gameOverBackgroundTexture;
 
   static TextureRegion bloodTextureRegionLong;
   static TextureRegion bloodTextureRegionMedium;
   static TextureRegion bloodTextureRegionSmall;
 
-  public static void loadAllTextures() {
+  public static void loadAllTextures()
+  {
     knifeTexture = new Texture(Gdx.files.internal("knife.png"));
     textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
     floorTexture = new Texture(Gdx.files.internal("floor.png"));
     lifeTexture = new Texture(Gdx.files.internal("life.png"));
     mainMenuTexture = new Texture(Gdx.files.internal("home_page.png"));
+    gameOverBackgroundTexture = new Texture(Gdx.files.internal("game_over_background.png"));
 
     //TIP : TextureRegion worked for blood not Texture
     bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
@@ -51,7 +56,8 @@ public class SpritesCreator {
     bloodTextureRegionSmall = new TextureRegion(bloodTextureSmall);
   }
 
-  public static BasicObject loadSilverKnife() throws Exception {
+  public static BasicObject loadSilverKnife() throws Exception
+  {
 
     BasicObjectImpl silverKnife = new SilverKnife(knifeTexture);
     silverKnife.getPolygon().setPosition(0, 0);
@@ -59,7 +65,8 @@ public class SpritesCreator {
     return silverKnife;
   }
 
-  public static BedBug loadBedBug(int level) throws Exception {
+  public static BedBug loadBedBug(int level) throws Exception
+  {
 
     BedBug bedBug = new BedBug(null);
     bedBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], textureAtlas.getRegions());
@@ -73,19 +80,29 @@ public class SpritesCreator {
   public static Bug loadLife(float x) throws Exception
   {
     Bug bug = new BedBug(lifeTexture);
-    bug.getPolygon().setPosition(x, Game.cam_height / 2 - Constants.LIFE_SIZE_Y );
-    bug.setCameraDimensions(new float[]{Constants.LIFE_SIZE_X, Constants.LIFE_SIZE_Y});
+    bug.getPolygon().setPosition(x, Game.cam_height / 2 - Constants.LIFE_SIZE_Y);
+    bug.setCameraDimensions(new float[] { Constants.LIFE_SIZE_X, Constants.LIFE_SIZE_Y });
     return bug;
   }
 
-  public static BloodSprite loadBloodSpot() {
+  public static GameOver loadGameOverBackground() throws Exception
+  {
+    GameOver gameOver = new GameOver(gameOverBackgroundTexture);
+    gameOver.setCameraDimensions(
+        new float[] { Constants.GAME_OVER_BACKGROUND_WIDTH, Constants.GAME_OVER_BACKGROUND_HEIGHT });
+    return gameOver;
+  }
+
+  public static BloodSprite loadBloodSpot()
+  {
 
     BloodSprite bloodSprite = new BloodSprite(null);
 
     return bloodSprite;
   }
 
-  public static void disposeAll() {
+  public static void disposeAll()
+  {
     textureAtlas.dispose();
     knifeTexture.dispose();
     bloodTextureLong.dispose();

@@ -27,10 +27,8 @@ public class BloodSpot {
     this.knife = knife;
     this.bloodSprite = SpritesCreator.loadBloodSpot();
     ObjectsStore.add(this, bloodSprite);
-
     updateBloodSpotDimensions(hitPoint);
     elapsedTime = 0;
-
   }
 
   public static void createAndStoreBloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {

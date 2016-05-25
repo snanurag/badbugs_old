@@ -3,6 +3,7 @@ package com.badbugs.baseframework;
 import com.badbugs.Game;
 import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.objects.BloodSprite;
+import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;
@@ -37,7 +38,6 @@ public class Renderers
 
   public static void renderKnife(SpriteBatch batch, Knife knife) throws Exception
   {
-
     Polygon knifePolygon = knife.getPolygon();
 
     Texture knifeTexture = knife.getTexture();
@@ -49,35 +49,18 @@ public class Renderers
     //        drawPolygon(knife.getPolygon().getTransformedVertices());
   }
 
-  public static void renderFloor(SpriteBatch batch)
-  {
-    batch.draw(SpritesCreator.floorTexture, -Game.cam_width / 2, -Game.cam_height / 2,
-        Game.cam_width * SpritesCreator.floorTexture.getWidth() / Game.screenWidth,
-        Game.cam_height * SpritesCreator.floorTexture.getHeight() / Game.screenHeight);
-  }
-
-  public static void renderHomePage(SpriteBatch batch)
-  {
-    batch.draw(SpritesCreator.mainMenuTexture, -Game.cam_width / 2, -Game.cam_height / 2, Game.cam_width,
-        Game.cam_height);
-  }
-
   private static void renderBlood(SpriteBatch batch, Bug bug) throws Exception
   {
-
     BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bug);
     if (bloodSpot != null)
     {
       BloodSprite blood = ObjectsStore.getBloodSprite(bloodSpot);
+
       if (blood != null)
       {
-
         float widthScaleFactor = 2;
-
         Polygon polygon = blood.getPolygon();
-
         bloodSpot.elapsedTime += Gdx.graphics.getDeltaTime();
-
         if (bloodSpot.elapsedTime > Constants.BLOOD_SPOT_FADE_TIME)
         {
           ObjectsStore.removeBloodSprite(bloodSpot);
@@ -91,33 +74,27 @@ public class Renderers
         float alpha = getAlpha(bloodSpot);
 
         batch.setColor(1, 1, 1, alpha);
-
         TextureRegion textureRegion = getProperBloodTexReg(blood.getCameraDimensions()[0]);
-
         batch.draw(textureRegion, polygon.getX() - centerAfterRotation.x, polygon.getY() - centerAfterRotation.y, 0, 0,
             blood.getCameraDimensions()[0], blood.getCameraDimensions()[1] * widthScaleFactor, 1, 1,
             polygon.getRotation());
-
         batch.setColor(1, 1, 1, 1);
-
       }
     }
   }
 
-  public static void renderLives(SpriteBatch batch) throws Exception
+  public static void renderLives(SpriteBatch batch, Bug[] lives) throws Exception
   {
-
     if (ObjectsStore.bugMissed <= 4)
-      renderBug(batch, SpritesCreator.loadLife(Constants.LIFE_1_X_POS));
+      renderBug(batch, lives[0]);
     if (ObjectsStore.bugMissed <= 3)
-      renderBug(batch, SpritesCreator.loadLife(Constants.LIFE_2_X_POS));
+      renderBug(batch, lives[1]);
     if (ObjectsStore.bugMissed <= 2)
-      renderBug(batch, SpritesCreator.loadLife(Constants.LIFE_3_X_POS));
+      renderBug(batch, lives[2]);
     if (ObjectsStore.bugMissed <= 1)
-      renderBug(batch, SpritesCreator.loadLife(Constants.LIFE_4_X_POS));
+      renderBug(batch, lives[3]);
     if (ObjectsStore.bugMissed <= 0)
-      renderBug(batch, SpritesCreator.loadLife(Constants.LIFE_5_X_POS));
-
+      renderBug(batch, lives[4]);
   }
 
   public static void renderBugs(SpriteBatch batch) throws Exception
@@ -149,7 +126,6 @@ public class Renderers
 
   private static void renderBug(SpriteBatch batch, Bug bedBug) throws Exception
   {
-
     Polygon bugPolygon = bedBug.getPolygon();
 
     BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bedBug);
@@ -175,6 +151,32 @@ public class Renderers
 
     //      drawCircle(0, 0, 0.2f);
     //      drawPolygon(bedBug.getPolygon().getTransformedVertices());
+  }
+
+  public static void renderFloor(SpriteBatch batch)
+  {
+    batch.draw(SpritesCreator.floorTexture, -Game.cam_width / 2, -Game.cam_height / 2,
+        Game.cam_width * SpritesCreator.floorTexture.getWidth() / Game.screenWidth,
+        Game.cam_height * SpritesCreator.floorTexture.getHeight() / Game.screenHeight);
+  }
+
+  public static void renderHomePage(SpriteBatch batch)
+  {
+    batch.draw(SpritesCreator.mainMenuTexture, -Game.cam_width / 2, -Game.cam_height / 2, Game.cam_width,
+        Game.cam_height);
+  }
+
+  public static void renderGameOverBackground(SpriteBatch batch, GameOver gameOver) throws Exception
+  {
+    gameOver.elapsedTime += Gdx.graphics.getDeltaTime();
+    float alpha = gameOver.elapsedTime / Constants.GAME_OVER_FADE_IN_TIME;
+    if (alpha < 1)
+    {
+      batch.setColor(1, 1, 1, alpha);
+    }
+    batch.draw(gameOver.getTexture(), -gameOver.getCameraDimensions()[0] / 2, -gameOver.getCameraDimensions()[1] / 2,
+        gameOver.getCameraDimensions()[0], gameOver.getCameraDimensions()[1]);
+    batch.setColor(1, 1, 1, 1);
   }
 
   private static TextureRegion getProperBloodTexReg(float bloodSpotLen)
