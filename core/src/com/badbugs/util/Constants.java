@@ -50,4 +50,7 @@ public class Constants {
   public static final float SCORE_TEXT_X_POS = -11;
   public static final float SCORE_TEXT_Y_POS = -5;
 
+  public static final float HOME_SCREEN_W = 2560;
+  public static final float HOME_SCREEN_H = 1440;
+
 }

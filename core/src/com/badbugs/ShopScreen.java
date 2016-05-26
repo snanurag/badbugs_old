@@ -1,14 +1,23 @@
 package com.badbugs;
 
+import com.badbugs.baseframework.Renderers;
+import com.badbugs.baseframework.SpritesCreator;
+import com.badbugs.objects.BasicObject;
+import com.badbugs.objects.Shop;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.payment.PlatformBuilder;
 import com.badbugs.payment.PlatformResolver;
 import com.badbugs.util.Constants;
+import com.badbugs.util.Inputs;
+import com.badbugs.util.TouchInfo;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.pay.Offer;
 import com.badlogic.gdx.pay.OfferType;
 import com.badlogic.gdx.pay.PurchaseManagerConfig;
@@ -21,95 +30,89 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 /**
  * Created by ashrinag on 5/14/2016.
  */
-public class ShopScreen extends ScreenAdapter {
+public class ShopScreen extends ScreenAdapter
+{
+  Rectangle knifeBoosterBounds;
+  Rectangle backButtonBounds;
+  Game game;
+  TouchInfo touchInfo;
+  private static Shop shop;
 
-  static PlatformResolver m_platformResolver;
+  static float[] KNIFE_BOOSTER_BUTTON;
+  static float[] BACK_BUTTON;
+
   public PurchaseManagerConfig purchaseManagerConfig;
 
-  public ShopScreen() {
+  public ShopScreen(Game game)
+  {
+    this.game = game;
+    Gdx.input.setInputProcessor(new Inputs());
+    IAPinit();
+    defineBounds();
+  }
 
+  public static void load()
+  {
+    try
+    {
+      shop = SpritesCreator.loadShop();
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+
+  }
+
+  private void defineBounds()
+  {
+    // Top left coordinates are the pivots
+    KNIFE_BOOSTER_BUTTON = new float[] { 468 * Game.screenWidth / Constants.HOME_SCREEN_W,
+        340 * Game.screenHeight / Constants.HOME_SCREEN_H, 200 * Game.screenWidth / Constants.HOME_SCREEN_W,
+        200 * Game.screenHeight / Constants.HOME_SCREEN_H };
+    BACK_BUTTON = new float[] { 2032 * Game.screenWidth / Constants.HOME_SCREEN_W,
+        1156 * Game.screenHeight / Constants.HOME_SCREEN_H, 270 * Game.screenWidth / Constants.HOME_SCREEN_W,
+        116 * Game.screenHeight / Constants.HOME_SCREEN_H };
+
+    knifeBoosterBounds = new Rectangle(KNIFE_BOOSTER_BUTTON[0], KNIFE_BOOSTER_BUTTON[1], KNIFE_BOOSTER_BUTTON[2],
+        KNIFE_BOOSTER_BUTTON[3]);
+    backButtonBounds = new Rectangle(BACK_BUTTON[0], BACK_BUTTON[1], BACK_BUTTON[2], BACK_BUTTON[3]);
+  }
+
+  private void IAPinit()
+  {
     // ---- IAP: define products ---------------------
     purchaseManagerConfig = new PurchaseManagerConfig();
     purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(Constants.double_speed));
     GamePurchaseObserver purchaseObserver = new GamePurchaseObserver();
     PlatformBuilder.setComponents(null, purchaseObserver, purchaseManagerConfig);
-    try {
+    try
+    {
       PlatformBuilder.build();
-    }
-    catch (Exception e)
+    } catch (Exception e)
     {
       e.printStackTrace();
     }
-    create();
   }
 
-  @Override public void render(float delta) {
-    render();
-  }
-  public void render()
+  @Override
+  public void render(float delta)
   {
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    stage.act(Gdx.graphics.getDeltaTime());
-    stage.draw();
-
-  }
-  private Stage stage;
-  private Table container;
-
-  public void create() {
-    stage = new Stage();
-    Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-    Gdx.input.setInputProcessor(stage);
-
-    // Gdx.graphics.setVSync(false);
-
-    container = new Table();
-    stage.addActor(container);
-    container.setFillParent(true);
-
-    Table table = new Table();
-
-    final ScrollPane scroll = new ScrollPane(table);
-
-    table.row();
-
-    ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle(skin.get(Button.ButtonStyle.class));
-    Texture texture1 = new Texture(Gdx.files.internal("data/badlogic.jpg"));
-    TextureRegion image = new TextureRegion(texture1);
-    style.imageUp = new TextureRegionDrawable(image);
-    TextureRegion imageFlipped = new TextureRegion(image);
-    imageFlipped.flip(true, true);
-    style.imageDown = new TextureRegionDrawable(imageFlipped);
-    ImageButton iconButton = new ImageButton(style);
-
-    table.add(iconButton);
-    iconButton.addListener(new ClickListener() {
-      public void clicked(InputEvent event, float x, float y) {
+    Renderers.renderShopScreen(Game.batch, shop);
+    touchInfo = Util.getFromTouchEventsQueue();
+    if (touchInfo != null)
+    {
+      if (knifeBoosterBounds.contains(touchInfo.touchX, touchInfo.touchY))
+      {
+        //TODO click sound here.
         PlatformBuilder.getPlatformResolver().requestPurchase(Constants.double_speed);
+        return;
+      } else if (backButtonBounds.contains(touchInfo.touchX, touchInfo.touchY))
+      {
+        //TODO click sound here.
+        game.setScreen(new MainMenuScreen(game));
       }
-    });
-
-    Label doubleSpeedStatement = new Label("Increase knife speed to double.", skin);
-    doubleSpeedStatement.setFontScale(3);
-    table.add(doubleSpeedStatement);
-
-    container.add(scroll).expand().fill().colspan(4);
-    container.row().space(10).padBottom(10);
+    }
   }
 
-  public void resize(int width, int height) {
-    stage.getViewport().update(width, height, true);
-
-    // Gdx.gl.glViewport(100, 100, width - 200, height - 200);
-    // stage.setViewport(800, 600, false, 100, 100, width - 200, height - 200);
-  }
-
-  public void dispose() {
-    stage.dispose();
-  }
-
-  public boolean needsGL20() {
-    return false;
-  }
 }
 

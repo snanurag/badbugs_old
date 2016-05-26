@@ -7,6 +7,7 @@ import com.badbugs.creators.BugGenerator;
 import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.dynamics.movement.KnifeMovement;
 import com.badbugs.objects.GameOver;
+import com.badbugs.objects.Shop;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.objects.knives.SilverKnife;
@@ -25,6 +26,7 @@ public class MainGameScreen extends ScreenAdapter
   private static Knife knife;
   private static GameOver gameoverBackground;
   private static Bug[] lives;
+
   private Game game;
 
   MainGameScreen(Game game)

@@ -2,10 +2,8 @@ package com.badbugs.baseframework;
 
 import com.badbugs.Game;
 import com.badbugs.MainGameScreen;
-import com.badbugs.objects.BasicObject;
-import com.badbugs.objects.BasicObjectImpl;
-import com.badbugs.objects.BloodSprite;
-import com.badbugs.objects.GameOver;
+import com.badbugs.ShopScreen;
+import com.badbugs.objects.*;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
@@ -32,6 +30,7 @@ public class SpritesCreator
   private static Texture lifeTexture;
   static Texture mainMenuTexture;
   private static Texture gameOverBackgroundTexture;
+  private static Texture shopScreenTexture;
 
   static TextureRegion bloodTextureRegionLong;
   static TextureRegion bloodTextureRegionMedium;
@@ -45,6 +44,7 @@ public class SpritesCreator
     lifeTexture = new Texture(Gdx.files.internal("life.png"));
     mainMenuTexture = new Texture(Gdx.files.internal("home_page.png"));
     gameOverBackgroundTexture = new Texture(Gdx.files.internal("game_over_background.png"));
+    shopScreenTexture = new Texture(Gdx.files.internal("shop_screen.png"));
 
     //TIP : TextureRegion worked for blood not Texture
     bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
@@ -91,6 +91,13 @@ public class SpritesCreator
     gameOver.setCameraDimensions(
         new float[] { Constants.GAME_OVER_BACKGROUND_WIDTH, Constants.GAME_OVER_BACKGROUND_HEIGHT });
     return gameOver;
+  }
+
+  public static Shop loadShop() throws Exception
+  {
+    Shop shopScreen = new Shop(shopScreenTexture);
+    shopScreen.setCameraDimensions(new float[] { Game.cam_width, Game.cam_height });
+    return shopScreen;
   }
 
   public static BloodSprite loadBloodSpot()

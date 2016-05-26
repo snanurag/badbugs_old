@@ -4,6 +4,7 @@ import com.badbugs.Game;
 import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.GameOver;
+import com.badbugs.objects.Shop;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;
@@ -177,6 +178,12 @@ public class Renderers
     batch.draw(gameOver.getTexture(), -gameOver.getCameraDimensions()[0] / 2, -gameOver.getCameraDimensions()[1] / 2,
         gameOver.getCameraDimensions()[0], gameOver.getCameraDimensions()[1]);
     batch.setColor(1, 1, 1, 1);
+  }
+
+  public static void renderShopScreen(SpriteBatch batch, Shop shop)
+  {
+    batch.draw(shop.getTexture(), -shop.getCameraDimensions()[0] / 2, -shop.getCameraDimensions()[1] / 2,
+        shop.getCameraDimensions()[0], shop.getCameraDimensions()[1]);
   }
 
   private static TextureRegion getProperBloodTexReg(float bloodSpotLen)

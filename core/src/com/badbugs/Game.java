@@ -42,6 +42,7 @@ public class Game extends com.badlogic.gdx.Game
     cam.update();
 
     MainGameScreen.load();
+    ShopScreen.load();
 
     setScreen(new MainMenuScreen(this));
   }
