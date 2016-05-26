@@ -2,6 +2,7 @@ package com.badbugs.baseframework;
 
 import com.badbugs.Game;
 import com.badbugs.dynamics.BloodSpot;
+import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.GameOver;
 import com.badbugs.objects.Shop;
@@ -184,6 +185,13 @@ public class Renderers
   {
     batch.draw(shop.getTexture(), -shop.getCameraDimensions()[0] / 2, -shop.getCameraDimensions()[1] / 2,
         shop.getCameraDimensions()[0], shop.getCameraDimensions()[1]);
+  }
+
+  public static void renderBasicObject(SpriteBatch batch, BasicObject basicObject) throws Exception
+  {
+    batch.draw(basicObject.getTexture(), basicObject.getPolygon().getX(),-basicObject.getPolygon().getY(),
+        basicObject.getCameraDimensions()[0], basicObject.getCameraDimensions()[1]);
+
   }
 
   private static TextureRegion getProperBloodTexReg(float bloodSpotLen)

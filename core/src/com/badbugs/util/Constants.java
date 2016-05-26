@@ -1,14 +1,14 @@
 package com.badbugs.util;
 
 import com.badbugs.Game;
-import com.badbugs.MainGameScreen;
 import com.badbugs.objects.ObjectsCord;
 
 /**
  * Created by ashrinag on 3/24/2016.
  */
 
-public class Constants {
+public class Constants
+{
 
   public static final float BLOOD_SPOT_FADE_TIME = 3f;
   public static final float GAME_OVER_FADE_IN_TIME = 2f;
@@ -19,16 +19,16 @@ public class Constants {
   public static float YLimit = Game.cam_height / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
 
   public static int MAX_BUG_LEVEL = 4; //starting from 0
-  public static float BUG_SPEED[] = { 8,10, 15, 20, 25 };
+  public static float BUG_SPEED[] = { 8, 10, 15, 20, 25 };
   public static float BUG_FRAME_RATE[] = { 1 / 60f, 1 / 85f, 1 / 100f, 1 / 120f, 1 / 150f };
 
   public static int FREEZE_FRAME_COUNTS = 20;
 
-  public static float COLLISION_AVOIDING_X = Game.cam_width / 2 - ObjectsCord.BED_BUG_WIDTH/2;
-  public static float COLLISION_AVOIDING_Y = Game.cam_height / 2 - ObjectsCord.BED_BUG_HEIGHT/2;
+  public static float COLLISION_AVOIDING_X = Game.cam_width / 2 - ObjectsCord.BED_BUG_WIDTH / 2;
+  public static float COLLISION_AVOIDING_Y = Game.cam_height / 2 - ObjectsCord.BED_BUG_HEIGHT / 2;
 
   public static float SILVER_KNIFE_SPEED = 400;
-  public static float SILVER_KNIFE_DOUBLE_SPEED = 2*SILVER_KNIFE_SPEED;
+  public static float SILVER_KNIFE_DOUBLE_SPEED = 2 * SILVER_KNIFE_SPEED;
 
   public static float SCORE_X_POS = 30;
 
@@ -39,7 +39,7 @@ public class Constants {
   public static float LIFE_5_X_POS = 14;
 
   public static float LIFE_SIZE_Y = 4;
-  public static float LIFE_SIZE_X = LIFE_SIZE_Y*11/14;
+  public static float LIFE_SIZE_X = LIFE_SIZE_Y * 11 / 14;
 
   public static String double_speed = "doublespeed";
 
@@ -53,4 +53,15 @@ public class Constants {
   public static final float HOME_SCREEN_W = 2560;
   public static final float HOME_SCREEN_H = 1440;
 
+  public static int QUIT_H, QUIT_W, SOUND_H, SOUND_W, MUSIC_H, MUSIC_W;
+  public static int QUIT_LEFT, QUIT_TOP, SOUND_LEFT, SOUND_TOP, MUSIC_LEFT, MUSIC_TOP;
+
+  static
+  {
+    QUIT_H = QUIT_W = SOUND_W = SOUND_H = MUSIC_H = MUSIC_W = 104;
+    QUIT_LEFT = SOUND_LEFT = MUSIC_LEFT = 2308;
+    QUIT_TOP = 103;
+    SOUND_TOP = 276;
+    MUSIC_TOP = 432;
+  }
 }

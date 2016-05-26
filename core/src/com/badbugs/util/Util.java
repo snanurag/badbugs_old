@@ -39,10 +39,8 @@ public class Util
       float[] finalCords = new float[pixelCords.length * 2];
       for (int i = 0; i < finalCords.length; i = i + 2)
       {
-
         finalCords[i] = convertXPixelToCameraX(pixelCords[i / 2][0], basicObject);
         finalCords[i + 1] = convertYPixelToCameraY(pixelCords[i / 2][1], basicObject);
-
       }
       basicObject.setCameraCoords(finalCords);
     }
@@ -68,19 +66,6 @@ public class Util
     return touchEventsQueue.poll();
   }
 
-  @Deprecated
-  public static void createScreenCordsFromCameraCords(BasicObject basicObject)
-  {
-
-    float[] cameraCords = basicObject.getCameraCoords();
-    float[] screenCords = new float[cameraCords.length];
-    for (int i = 0; i < cameraCords.length; i = i + 2)
-    {
-      screenCords[i] = cameraCords[i] * Game.screenWidth / Game.cam_width;
-      screenCords[i + 1] = cameraCords[i + 1] * Game.screenHeight / Game.cam_height;
-    }
-    basicObject.setScreenPixels(screenCords);
-  }
 
   public static Vector2 rotateVectorByGivenAngle(float originX, float originY, float rotation)
   {
@@ -149,6 +134,20 @@ public class Util
       return true;
     }
     return false;
+  }
+
+  @Deprecated
+  public static void createScreenCordsFromCameraCords(BasicObject basicObject)
+  {
+
+    float[] cameraCords = basicObject.getCameraCoords();
+    float[] screenCords = new float[cameraCords.length];
+    for (int i = 0; i < cameraCords.length; i = i + 2)
+    {
+      screenCords[i] = cameraCords[i] * Game.screenWidth / Game.cam_width;
+      screenCords[i + 1] = cameraCords[i + 1] * Game.screenHeight / Game.cam_height;
+    }
+    basicObject.setScreenPixels(screenCords);
   }
 
 }
