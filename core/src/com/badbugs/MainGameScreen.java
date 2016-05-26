@@ -25,10 +25,25 @@ public class MainGameScreen extends ScreenAdapter
   private static Knife knife;
   private static GameOver gameoverBackground;
   private static Bug[] lives;
+  private Game game;
+
+  MainGameScreen(Game game)
+  {
+    this.game = game;
+    Gdx.input.setInputProcessor(new Inputs());
+    init();
+  }
+
+  private static void init()
+  {
+    ObjectsStore.bugMissed = 0;
+    ObjectsStore.score = 0;
+    ObjectsStore.getBugList().clear();
+    gameoverBackground.elapsedTime = 0;
+  }
 
   public static void load()
   {
-    Gdx.input.setInputProcessor(new Inputs());
     shapeRenderer = new ShapeRenderer();
     SpritesCreator.loadAllTextures();
     try
@@ -79,10 +94,18 @@ public class MainGameScreen extends ScreenAdapter
     Renderers.renderLives(Game.batch, lives);
     if (Util.checkIfGameOverConditionMet())
     {
-      Renderers.renderGameOverBackground(Game.batch, gameoverBackground);
-      Fonts.rendGameOverText(Game.batch, gameoverBackground, ObjectsStore.score);
+      attemptGameOver();
     }
+  }
 
+  private void attemptGameOver() throws Exception
+  {
+    Renderers.renderGameOverBackground(Game.batch, gameoverBackground);
+    Fonts.rendGameOverText(Game.batch, gameoverBackground, ObjectsStore.score);
+    if (gameoverBackground.elapsedTime > Constants.MAIN_MENU_SWITCH_TIME)
+    {
+      game.setScreen(new MainMenuScreen(game));
+    }
   }
 
   @Override

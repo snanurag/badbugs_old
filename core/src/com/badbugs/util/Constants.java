@@ -12,6 +12,7 @@ public class Constants {
 
   public static final float BLOOD_SPOT_FADE_TIME = 3f;
   public static final float GAME_OVER_FADE_IN_TIME = 2f;
+  public static final float MAIN_MENU_SWITCH_TIME = 5f;
 
   public static final float KNIFE_BOUNDARY_PENETRATION = 1f;
   public static float XLimit = Game.cam_width / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
