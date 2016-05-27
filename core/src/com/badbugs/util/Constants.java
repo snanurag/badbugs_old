@@ -53,8 +53,8 @@ public class Constants
   public static final float HOME_SCREEN_W = 2560;
   public static final float HOME_SCREEN_H = 1440;
 
-  public static int QUIT_H, QUIT_W, SOUND_H, SOUND_W, MUSIC_H, MUSIC_W;
-  public static int QUIT_LEFT, QUIT_TOP, SOUND_LEFT, SOUND_TOP, MUSIC_LEFT, MUSIC_TOP;
+  public static int PLAY_H, PLAY_W, SHOP_H, SHOP_W, BACK_H, BACK_W, QUIT_H, QUIT_W, SOUND_H, SOUND_W, MUSIC_H, MUSIC_W;
+  public static int PLAY_LEFT, PLAY_TOP, SHOP_LEFT, SHOP_TOP, BACK_LEFT, BACK_TOP,QUIT_LEFT, QUIT_TOP, SOUND_LEFT, SOUND_TOP, MUSIC_LEFT, MUSIC_TOP;
 
   static
   {
@@ -63,5 +63,9 @@ public class Constants
     QUIT_TOP = 103;
     SOUND_TOP = 276;
     MUSIC_TOP = 432;
+    PLAY_H = SHOP_H = 193;
+    PLAY_W = SHOP_W = 484;
+    PLAY_LEFT = 668;
+    PLAY_TOP = 1048;
   }
 }

@@ -4,19 +4,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
 
 /**
- * Created by ashrinag on 5/26/2016.
+ * Created by ashrinag on 5/28/2016.
  */
-public class Sound extends BasicObjectImpl
+public class Button extends BasicObjectImpl
 {
-  public Sound(Texture texture)
+  public Button(Texture texture)
   {
     super(texture);
     polygon = new Polygon();
+
   }
 
   @Override
   public int[][] getPixelCoords() throws Exception
   {
-    return new int[0][];
+    throw new Exception("Buttons don't need pixel coordinates");
   }
 }

@@ -2,15 +2,13 @@ package com.badbugs;
 
 import com.badbugs.baseframework.Renderers;
 import com.badbugs.baseframework.SpritesCreator;
-import com.badbugs.objects.Music;
-import com.badbugs.objects.Sound;
+import com.badbugs.objects.Button;
 import com.badbugs.util.Constants;
 import com.badbugs.util.Inputs;
 import com.badbugs.util.TouchInfo;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.math.CatmullRomSpline;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
@@ -26,8 +24,9 @@ public class MainMenuScreen extends ScreenAdapter
   Rectangle musicBounds;
   Game game;
   TouchInfo touchInfo;
-  Sound sound;
-  Music music;
+  Button sound;
+  Button music;
+  Button play;
 
   static float[] PLAY_BUTTON;
   static float[] SHOP_BUTTON;
@@ -43,15 +42,17 @@ public class MainMenuScreen extends ScreenAdapter
     {
       sound = SpritesCreator.loadSound();
       music = SpritesCreator.loadMusic();
+      play = SpritesCreator.loadPlay();
     } catch (Exception e)
     {
       e.printStackTrace();
     }
 
     // Top left coordinates are the pivots
-    PLAY_BUTTON = new float[] { 668 * Game.screenWidth / Constants.HOME_SCREEN_W,
-        1048 * Game.screenHeight / Constants.HOME_SCREEN_H, 480 * Game.screenWidth / Constants.HOME_SCREEN_W,
-        188 * Game.screenHeight / Constants.HOME_SCREEN_H };
+    PLAY_BUTTON = new float[] { Constants.PLAY_LEFT * Game.screenWidth / Constants.HOME_SCREEN_W,
+        Constants.PLAY_TOP * Game.screenHeight / Constants.HOME_SCREEN_H,
+        Constants.PLAY_W * Game.screenWidth / Constants.HOME_SCREEN_W,
+        Constants.PLAY_H * Game.screenHeight / Constants.HOME_SCREEN_H };
 
     SHOP_BUTTON = new float[] { 1332 * Game.screenWidth / Constants.HOME_SCREEN_W,
         1048 * Game.screenHeight / Constants.HOME_SCREEN_H, 480 * Game.screenWidth / Constants.HOME_SCREEN_W,
@@ -91,8 +92,8 @@ public class MainMenuScreen extends ScreenAdapter
     {
       Renderers.renderBasicObject(Game.batch, sound);
       Renderers.renderBasicObject(Game.batch, music);
-    }
-    catch (Exception e)
+      Renderers.renderBasicObject(Game.batch, play);
+    } catch (Exception e)
     {
       e.printStackTrace();
     }

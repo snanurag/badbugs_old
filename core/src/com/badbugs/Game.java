@@ -43,8 +43,8 @@ public class Game extends com.badlogic.gdx.Game
 
     MainGameScreen.load();
     ShopScreen.load();
-
     setScreen(new MainMenuScreen(this));
+
   }
 
   @Override

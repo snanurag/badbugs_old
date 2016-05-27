@@ -36,6 +36,8 @@ public class SpritesCreator
   private static Texture soundDisabledTexture;
   private static Texture musicEnabledTexture;
   private static Texture musicDisabledTexture;
+  private static Texture playTexture;
+
 
   static TextureRegion bloodTextureRegionLong;
   static TextureRegion bloodTextureRegionMedium;
@@ -54,7 +56,7 @@ public class SpritesCreator
     soundDisabledTexture = new Texture(Gdx.files.internal("sound_disabled.png"));
     musicEnabledTexture = new Texture(Gdx.files.internal("music_enabled.png"));
     musicDisabledTexture = new Texture(Gdx.files.internal("music_disabled.png"));
-
+    playTexture = new Texture(Gdx.files.internal("play_button.png"));
     //TIP : TextureRegion worked for blood not Texture
     bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
     bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
@@ -108,9 +110,9 @@ public class SpritesCreator
   }
 
   //TODO : Fix it -> On Main Menu, y axis is working from top to bottom
-  public static Sound loadSound() throws Exception
+  public static Button loadSound() throws Exception
   {
-    Sound s = new Sound(soundEnabledTexture);
+    Button s = new Button(soundEnabledTexture);
     s.setCameraDimensions(new float[] { Game.cam_width * Constants.SOUND_W / Constants.HOME_SCREEN_W,
         Game.cam_height * Constants.SOUND_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.SOUND_LEFT) / Constants.HOME_SCREEN_W;
@@ -121,13 +123,26 @@ public class SpritesCreator
   }
 
   //TODO : Fix it -> On Main Menu, y axis is working from top to bottom
-  public static Music loadMusic() throws Exception
+  public static Button loadMusic() throws Exception
   {
-    Music m = new Music(musicEnabledTexture);
+    Button m = new Button(musicEnabledTexture);
     m.setCameraDimensions(new float[] { Game.cam_width * Constants.MUSIC_W / Constants.HOME_SCREEN_W,
         Game.cam_height * Constants.MUSIC_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.MUSIC_LEFT) / Constants.HOME_SCREEN_W;
     float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.MUSIC_TOP + Constants.MUSIC_H))
+        / Constants.HOME_SCREEN_H;
+    m.getPolygon().setPosition(x, y);
+
+    return m;
+  }
+
+  public static Button loadPlay() throws Exception
+  {
+    Button m = new Button(playTexture);
+    m.setCameraDimensions(new float[] { Game.cam_width * Constants.PLAY_W / Constants.HOME_SCREEN_W,
+        Game.cam_height * Constants.PLAY_H / Constants.HOME_SCREEN_H });
+    float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.PLAY_LEFT) / Constants.HOME_SCREEN_W;
+    float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.PLAY_TOP + Constants.PLAY_H))
         / Constants.HOME_SCREEN_H;
     m.getPolygon().setPosition(x, y);
 
@@ -147,10 +162,17 @@ public class SpritesCreator
     bloodTextureLong.dispose();
     bloodTextureMedium.dispose();
     bloodTextureSmall.dispose();
+    lifeTexture.dispose();
     mainMenuTexture.dispose();
+    gameOverBackgroundTexture.dispose();
+    shopScreenTexture.dispose();
+    soundEnabledTexture.dispose();
+    soundDisabledTexture.dispose();
+    musicEnabledTexture.dispose();
+    musicDisabledTexture.dispose();
   }
 
-  public static void switchSoundSprites(Sound sound)
+  public static void switchSoundSprites(Button sound)
   {
     if (sound.getTexture() == soundEnabledTexture)
     {
@@ -161,7 +183,7 @@ public class SpritesCreator
     }
   }
 
-  public static void switchMusicSprites(Music music)
+  public static void switchMusicSprites(Button music)
   {
     if (music.getTexture() == musicEnabledTexture)
     {
