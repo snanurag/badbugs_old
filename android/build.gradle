@@ -16,9 +16,10 @@ android {
     }
     defaultConfig {
         applicationId "com.badbugs"
-        minSdkVersion 8
-        targetSdkVersion 21
-        multiDexEnabled true
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 8
+        versionName "1.5.0.1"
     }
     lintOptions {
         abortOnError false
