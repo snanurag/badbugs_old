@@ -37,7 +37,7 @@ public class SpritesCreator
   private static Texture musicEnabledTexture;
   private static Texture musicDisabledTexture;
   private static Texture playTexture;
-
+  private static Texture knifeBoosterTexture;
 
   static TextureRegion bloodTextureRegionLong;
   static TextureRegion bloodTextureRegionMedium;
@@ -57,6 +57,8 @@ public class SpritesCreator
     musicEnabledTexture = new Texture(Gdx.files.internal("music_enabled.png"));
     musicDisabledTexture = new Texture(Gdx.files.internal("music_disabled.png"));
     playTexture = new Texture(Gdx.files.internal("play_button.png"));
+    knifeBoosterTexture =  new Texture(Gdx.files.internal("knife_booster.png"));
+
     //TIP : TextureRegion worked for blood not Texture
     bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
     bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
@@ -143,6 +145,19 @@ public class SpritesCreator
         Game.cam_height * Constants.PLAY_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.PLAY_LEFT) / Constants.HOME_SCREEN_W;
     float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.PLAY_TOP + Constants.PLAY_H))
+        / Constants.HOME_SCREEN_H;
+    m.getPolygon().setPosition(x, y);
+
+    return m;
+  }
+
+  public static Button loadKnifeBooster() throws Exception
+  {
+    Button m = new Button(knifeBoosterTexture);
+    m.setCameraDimensions(new float[] { Game.cam_width * Constants.KNIFE_BOOSTER_W / Constants.HOME_SCREEN_W,
+        Game.cam_height * Constants.KNIFE_BOOSTER_H / Constants.HOME_SCREEN_H });
+    float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.KNIFE_BOOSTER_LEFT) / Constants.HOME_SCREEN_W;
+    float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.KNIFE_BOOSTER_TOP + Constants.KNIFE_BOOSTER_H))
         / Constants.HOME_SCREEN_H;
     m.getPolygon().setPosition(x, y);
 

@@ -2,30 +2,20 @@ package com.badbugs;
 
 import com.badbugs.baseframework.Renderers;
 import com.badbugs.baseframework.SpritesCreator;
-import com.badbugs.objects.BasicObject;
+import com.badbugs.objects.Button;
 import com.badbugs.objects.Shop;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.payment.PlatformBuilder;
-import com.badbugs.payment.PlatformResolver;
 import com.badbugs.util.Constants;
 import com.badbugs.util.Inputs;
 import com.badbugs.util.TouchInfo;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.pay.Offer;
 import com.badlogic.gdx.pay.OfferType;
 import com.badlogic.gdx.pay.PurchaseManagerConfig;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * Created by ashrinag on 5/14/2016.
@@ -37,6 +27,7 @@ public class ShopScreen extends ScreenAdapter
   Game game;
   TouchInfo touchInfo;
   private static Shop shop;
+  private static Button knifeBooster;
 
   static float[] KNIFE_BOOSTER_BUTTON;
   static float[] BACK_BUTTON;
@@ -56,6 +47,7 @@ public class ShopScreen extends ScreenAdapter
     try
     {
       shop = SpritesCreator.loadShop();
+      knifeBooster = SpritesCreator.loadKnifeBooster();
     } catch (Exception e)
     {
       e.printStackTrace();
@@ -66,9 +58,10 @@ public class ShopScreen extends ScreenAdapter
   private void defineBounds()
   {
     // Top left coordinates are the pivots
-    KNIFE_BOOSTER_BUTTON = new float[] { 468 * Game.screenWidth / Constants.HOME_SCREEN_W,
-        340 * Game.screenHeight / Constants.HOME_SCREEN_H, 200 * Game.screenWidth / Constants.HOME_SCREEN_W,
-        200 * Game.screenHeight / Constants.HOME_SCREEN_H };
+    KNIFE_BOOSTER_BUTTON = new float[] { Constants.KNIFE_BOOSTER_LEFT * Game.screenWidth / Constants.HOME_SCREEN_W,
+        Constants.KNIFE_BOOSTER_TOP * Game.screenHeight / Constants.HOME_SCREEN_H,
+        Constants.KNIFE_BOOSTER_W * Game.screenWidth / Constants.HOME_SCREEN_W,
+        Constants.KNIFE_BOOSTER_H * Game.screenHeight / Constants.HOME_SCREEN_H };
     BACK_BUTTON = new float[] { 2032 * Game.screenWidth / Constants.HOME_SCREEN_W,
         1156 * Game.screenHeight / Constants.HOME_SCREEN_H, 270 * Game.screenWidth / Constants.HOME_SCREEN_W,
         116 * Game.screenHeight / Constants.HOME_SCREEN_H };
@@ -98,6 +91,15 @@ public class ShopScreen extends ScreenAdapter
   public void render(float delta)
   {
     Renderers.renderShopScreen(Game.batch, shop);
+
+    try
+    {
+      Renderers.renderBasicObject(Game.batch, knifeBooster);
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
     touchInfo = Util.getFromTouchEventsQueue();
     if (touchInfo != null)
     {
