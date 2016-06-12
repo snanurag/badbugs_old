@@ -44,7 +44,7 @@ public class KnifeMovement
     }
 
     Polygon polygon = knife.getPolygon();
-    TouchInfo touchInfoInstance = Util.getFromTouchEventsQueue();
+    TouchInfo touchInfoInstance = Util.doTouchEventsQueueEmpty();
 
     if (touchInfoInstance != null)
     {

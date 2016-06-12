@@ -66,6 +66,20 @@ public class Util
     return touchEventsQueue.poll();
   }
 
+  /**
+   * Use of this method helped in avoid synchronous lock.
+   * @return
+     */
+  public static TouchInfo doTouchEventsQueueEmpty()
+  {
+    TouchInfo info = null;
+
+    while(touchEventsQueue.peek() != null)
+    {
+      info = touchEventsQueue.poll();
+    }
+    return info;
+  }
 
   public static Vector2 rotateVectorByGivenAngle(float originX, float originY, float rotation)
   {
