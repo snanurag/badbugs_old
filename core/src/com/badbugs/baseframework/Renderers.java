@@ -158,8 +158,8 @@ public class Renderers
   public static void renderFloor(SpriteBatch batch)
   {
     batch.draw(SpritesCreator.floorTexture, -Game.cam_width / 2, -Game.cam_height / 2,
-        Game.cam_width * SpritesCreator.floorTexture.getWidth() / Game.screenWidth,
-        Game.cam_height * SpritesCreator.floorTexture.getHeight() / Game.screenHeight);
+        Game.cam_width ,
+        Game.cam_height );
   }
 
   public static void renderHomePage(SpriteBatch batch)
