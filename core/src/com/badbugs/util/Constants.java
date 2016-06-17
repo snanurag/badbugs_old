@@ -30,13 +30,16 @@ public class Constants
   public static float SILVER_KNIFE_SPEED = 400;
   public static float SILVER_KNIFE_DOUBLE_SPEED = 2 * SILVER_KNIFE_SPEED;
 
-  public static float SCORE_X_POS = 30;
+  public static float SCORE_X_POS = 25 +2;
 
-  public static float LIFE_1_X_POS = 26;
-  public static float LIFE_2_X_POS = 23;
-  public static float LIFE_3_X_POS = 20;
-  public static float LIFE_4_X_POS = 17;
-  public static float LIFE_5_X_POS = 14;
+  public static float LIFE_1_X_POS = 21+2;
+  public static float LIFE_2_X_POS = 18+2;
+  public static float LIFE_3_X_POS = 15+2;
+  public static float LIFE_4_X_POS = 12+2;
+  public static float LIFE_5_X_POS = 9+2;
+
+  public static float SCORE_SCALE = 0.15f;
+  public static float GAME_OVER_SCALE = 0.2f;
 
   public static float LIFE_SIZE_Y = 4;
   public static float LIFE_SIZE_X = LIFE_SIZE_Y * 11 / 14;
@@ -53,6 +56,9 @@ public class Constants
   public static final float HOME_SCREEN_W = 2560;
   public static final float HOME_SCREEN_H = 1440;
 
+  public static final float KNIFE_BOOSTER_TEXT_X = -7;
+  public static final float KNIFE_BOOSTER_TEXT_Y = 13.5f;
+
   public static int PLAY_H, PLAY_W, SHOP_H, SHOP_W, BACK_H, BACK_W, QUIT_H, QUIT_W, SOUND_H, SOUND_W, MUSIC_H, MUSIC_W, KNIFE_BOOSTER_H, KNIFE_BOOSTER_W;
   public static int PLAY_LEFT, PLAY_TOP, SHOP_LEFT, SHOP_TOP, BACK_LEFT, BACK_TOP, QUIT_LEFT, QUIT_TOP, SOUND_LEFT, SOUND_TOP, MUSIC_LEFT, MUSIC_TOP, KNIFE_BOOSTER_LEFT, KNIFE_BOOSTER_TOP;
 
@@ -67,6 +73,8 @@ public class Constants
     PLAY_W = SHOP_W = 484;
     PLAY_LEFT = 668;
     PLAY_TOP = 1048;
+    SHOP_LEFT= 1332;
+    SHOP_TOP = 1048;
 
     KNIFE_BOOSTER_W = 938;
     KNIFE_BOOSTER_H = 150;

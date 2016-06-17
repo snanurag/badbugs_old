@@ -3,6 +3,7 @@ package com.badbugs.baseframework;
 import com.badbugs.Game;
 import com.badbugs.MainGameScreen;
 import com.badbugs.objects.GameOver;
+import com.badbugs.objects.fonts.Font;
 import com.badbugs.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -24,14 +25,14 @@ public class Fonts
 
   private static void loadScore()
   {
-    font = new BitmapFont(Gdx.files.internal("fonts/narkisim.fnt"), false);
-    font.setColor(Color.YELLOW);
-    font.getData().setScale(0.15f);
+    font = new BitmapFont(Gdx.files.internal("fonts/tahoma.fnt"), false);
+    font.setColor(Color.BLACK);
 
   }
 
   public static void renderScore(Batch batch, int score)
   {
+    font.getData().setScale(Constants.SCORE_SCALE);
     font.draw(batch, "Score " + score, Constants.SCORE_X_POS, Game.cam_height / 2, 10, -1, false);
   }
 
@@ -40,10 +41,18 @@ public class Fonts
     float alpha = gameOver.elapsedTime / Constants.GAME_OVER_FADE_IN_TIME;
     if (alpha <= 1)
     {
-      font.setColor(1, 1, 0, alpha);
+      font.setColor(0, 0, 0, alpha);
     }
-    font.getData().setScale(0.2f);
+    font.getData().setScale(Constants.GAME_OVER_SCALE);
     font.draw(batch, "Game Over", Constants.GAME_OVER_TEXT_X_POS, Constants.GAME_OVER_TEXT_Y_POS, 13, -1, false);
     font.draw(batch, "Score " + score, Constants.SCORE_TEXT_X_POS, Constants.SCORE_TEXT_Y_POS, 13, -1, false);
   }
+
+  public static void renderText(Batch batch, Font f)
+  {
+    font.getData().setScale(f.getScale());
+    font.draw(batch, f.getText(), f.getX(), f.getY(), 65, -1, false);
+
+  }
+
 }

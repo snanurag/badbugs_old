@@ -1,9 +1,11 @@
 package com.badbugs;
 
+import com.badbugs.baseframework.Fonts;
 import com.badbugs.baseframework.Renderers;
 import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.objects.Button;
 import com.badbugs.objects.Shop;
+import com.badbugs.objects.fonts.Font;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.payment.PlatformBuilder;
 import com.badbugs.util.Constants;
@@ -28,6 +30,7 @@ public class ShopScreen extends ScreenAdapter
   TouchInfo touchInfo;
   private static Shop shop;
   private static Button knifeBooster;
+  private static Font knifeBoosterFont;
 
   static float[] KNIFE_BOOSTER_BUTTON;
   static float[] BACK_BUTTON;
@@ -48,6 +51,7 @@ public class ShopScreen extends ScreenAdapter
     {
       shop = SpritesCreator.loadShop();
       knifeBooster = SpritesCreator.loadKnifeBooster();
+      knifeBoosterFont = new Font("Knife booster", Constants.KNIFE_BOOSTER_TEXT_X, Constants.KNIFE_BOOSTER_TEXT_Y, 0.15f);
     } catch (Exception e)
     {
       e.printStackTrace();
@@ -91,7 +95,7 @@ public class ShopScreen extends ScreenAdapter
   public void render(float delta)
   {
     Renderers.renderShopScreen(Game.batch, shop);
-
+    Fonts.renderText(Game.batch, knifeBoosterFont);
     try
     {
       Renderers.renderBasicObject(Game.batch, knifeBooster);
