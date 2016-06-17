@@ -75,6 +75,10 @@ public class Constants
     PLAY_TOP = 1048;
     SHOP_LEFT= 1332;
     SHOP_TOP = 1048;
+    BACK_H  = 116;
+    BACK_W  = 270;
+    BACK_LEFT = 2032;
+    BACK_TOP = 1156;
 
     KNIFE_BOOSTER_W = 938;
     KNIFE_BOOSTER_H = 150;

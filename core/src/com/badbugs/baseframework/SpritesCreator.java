@@ -38,6 +38,7 @@ public class SpritesCreator
   private static Texture musicDisabledTexture;
   private static Texture playTexture;
   private static Texture shopTexture;
+  private static Texture backTexture;
   private static Texture knifeBoosterTexture;
 
   static TextureRegion bloodTextureRegionLong;
@@ -59,6 +60,7 @@ public class SpritesCreator
     musicDisabledTexture = new Texture(Gdx.files.internal("music_disabled.png"));
     playTexture = new Texture(Gdx.files.internal("play_button.png"));
     shopTexture = new Texture(Gdx.files.internal("shop_button.png"));
+    backTexture = new Texture(Gdx.files.internal("back_button.png"));
     knifeBoosterTexture =  new Texture(Gdx.files.internal("knife_booster.png"));
 
     //TIP : TextureRegion worked for blood not Texture
@@ -160,6 +162,19 @@ public class SpritesCreator
             Game.cam_height * Constants.SHOP_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.SHOP_LEFT) / Constants.HOME_SCREEN_W;
     float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.SHOP_TOP + Constants.SHOP_H))
+            / Constants.HOME_SCREEN_H;
+    m.getPolygon().setPosition(x, y);
+
+    return m;
+  }
+
+  public static Button loadBackButton() throws Exception
+  {
+    Button m = new Button(backTexture);
+    m.setCameraDimensions(new float[] { Game.cam_width * Constants.BACK_W / Constants.HOME_SCREEN_W,
+            Game.cam_height * Constants.BACK_H / Constants.HOME_SCREEN_H });
+    float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.BACK_LEFT) / Constants.HOME_SCREEN_W;
+    float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.BACK_TOP + Constants.BACK_H))
             / Constants.HOME_SCREEN_H;
     m.getPolygon().setPosition(x, y);
 
