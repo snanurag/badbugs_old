@@ -23,7 +23,6 @@ public class SpritesCreator
 
   private static Texture knifeTexture;
   private static TextureAtlas textureAtlas;
-  //  static Animation bugAnimations;
   static Texture floorTexture;
   private static Texture bloodTextureLong;
   private static Texture bloodTextureMedium;
@@ -31,7 +30,7 @@ public class SpritesCreator
   private static Texture lifeTexture;
   static Texture mainMenuTexture;
   private static Texture gameOverBackgroundTexture;
-//  private static Texture shopScreenTexture;
+  private static Texture quitTexture;
   private static Texture soundEnabledTexture;
   private static Texture soundDisabledTexture;
   private static Texture musicEnabledTexture;
@@ -53,7 +52,7 @@ public class SpritesCreator
     lifeTexture = new Texture(Gdx.files.internal("life.png"));
     mainMenuTexture = new Texture(Gdx.files.internal("home_page.png"));
     gameOverBackgroundTexture = new Texture(Gdx.files.internal("game_over_background.png"));
-  //  shopScreenTexture = new Texture(Gdx.files.internal("shop_screen.png"));
+    quitTexture = new Texture(Gdx.files.internal("quit.png"));
     soundEnabledTexture = new Texture(Gdx.files.internal("sound_enabled.png"));
     soundDisabledTexture = new Texture(Gdx.files.internal("sound_disabled.png"));
     musicEnabledTexture = new Texture(Gdx.files.internal("music_enabled.png"));
@@ -113,6 +112,19 @@ public class SpritesCreator
     Shop shopScreen = new Shop(floorTexture);
     shopScreen.setCameraDimensions(new float[] { Game.cam_width, Game.cam_height });
     return shopScreen;
+  }
+
+  //TODO : Fix it -> On Main Menu, y axis is working from top to bottom
+  public static Button loadQuit() throws Exception
+  {
+    Button s = new Button(quitTexture);
+    s.setCameraDimensions(new float[] { Game.cam_width * Constants.QUIT_W / Constants.HOME_SCREEN_W,
+            Game.cam_height * Constants.QUIT_H / Constants.HOME_SCREEN_H });
+    float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.QUIT_LEFT) / Constants.HOME_SCREEN_W;
+    float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.QUIT_TOP + Constants.QUIT_H))/ Constants.HOME_SCREEN_H;
+    s.getPolygon().setPosition(x, y);
+
+    return s;
   }
 
   //TODO : Fix it -> On Main Menu, y axis is working from top to bottom

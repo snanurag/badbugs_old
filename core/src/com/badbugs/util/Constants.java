@@ -64,11 +64,11 @@ public class Constants
 
   static
   {
-    QUIT_H = QUIT_W = SOUND_W = SOUND_H = MUSIC_H = MUSIC_W = 104;
+    QUIT_H = QUIT_W = SOUND_W = SOUND_H = MUSIC_H = MUSIC_W = 150;
     QUIT_LEFT = SOUND_LEFT = MUSIC_LEFT = 2308;
     QUIT_TOP = 103;
-    SOUND_TOP = 276;
-    MUSIC_TOP = 432;
+    SOUND_TOP = 306;
+    MUSIC_TOP = 492;
     PLAY_H = SHOP_H = 193;
     PLAY_W = SHOP_W = 484;
     PLAY_LEFT = 668;

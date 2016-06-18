@@ -32,6 +32,7 @@ public class MainMenuScreen extends ScreenAdapter {
     Button music;
     Button play;
     Button shop;
+    Button quit;
 
     MainMenuScreen(Game game) {
         this.game = game;
@@ -41,6 +42,7 @@ public class MainMenuScreen extends ScreenAdapter {
             music = SpritesCreator.loadMusic();
             play = SpritesCreator.loadPlayButton();
             shop = SpritesCreator.loadShopButton();
+            quit = SpritesCreator.loadQuit();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,6 +92,7 @@ public class MainMenuScreen extends ScreenAdapter {
             Renderers.renderBasicObject(Game.batch, music);
             Renderers.renderBasicObject(Game.batch, play);
             Renderers.renderBasicObject(Game.batch, shop);
+            Renderers.renderBasicObject(Game.batch, quit);
         } catch (Exception e) {
             e.printStackTrace();
         }
