@@ -2,12 +2,12 @@ package com.badbugs;
 
 import com.badbugs.baseframework.Fonts;
 import com.badbugs.baseframework.Renderers;
-import com.badbugs.baseframework.SpritesCreator;
+import com.badbugs.creators.SpritesCreator;
 import com.badbugs.creators.BugGenerator;
 import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.dynamics.movement.KnifeMovement;
 import com.badbugs.objects.GameOver;
-import com.badbugs.objects.Shop;
+import com.badbugs.objects.MainGame;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.objects.knives.SilverKnife;
@@ -20,8 +20,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import java.net.InetAddress;
-
 public class MainGameScreen extends ScreenAdapter
 {
   public static boolean isPaused;
@@ -29,6 +27,7 @@ public class MainGameScreen extends ScreenAdapter
   private static Knife knife;
   private static GameOver gameoverBackground;
   private static Bug[] lives;
+  private static MainGame mainGame;
 
   private Game game;
 
@@ -50,7 +49,6 @@ public class MainGameScreen extends ScreenAdapter
   public static void load()
   {
     shapeRenderer = new ShapeRenderer();
-    SpritesCreator.loadAllTextures();
     try
     {
       knife = (SilverKnife) SpritesCreator.loadSilverKnife();
@@ -58,11 +56,11 @@ public class MainGameScreen extends ScreenAdapter
           SpritesCreator.loadLife(Constants.LIFE_2_X_POS), SpritesCreator.loadLife(Constants.LIFE_3_X_POS),
           SpritesCreator.loadLife(Constants.LIFE_4_X_POS), SpritesCreator.loadLife(Constants.LIFE_5_X_POS) };
       gameoverBackground = SpritesCreator.loadGameOverBackground();
+      mainGame = SpritesCreator.loadMainGame();
     } catch (Exception e)
     {
       e.printStackTrace();
     }
-    Fonts.loadAllFonts();
     new BugGenerator().start();
   }
 
@@ -97,7 +95,7 @@ public class MainGameScreen extends ScreenAdapter
 
   private void allRendering() throws Exception
   {
-    Renderers.renderFloor(Game.batch);
+    Renderers.renderBasicObject(Game.batch, mainGame);
     Renderers.renderBugs(Game.batch);
     Renderers.renderBloods(Game.batch);
     Renderers.renderKnife(Game.batch, knife);

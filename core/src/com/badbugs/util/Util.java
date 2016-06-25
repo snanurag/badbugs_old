@@ -22,6 +22,31 @@ public class Util
 
   private static Logger logger = new Logger("com.badbugs", Logger.DEBUG);
 
+  private static boolean musicOn = true;
+  private static boolean soundOn = true;
+
+  public static boolean isMusicOn() {
+    return musicOn;
+  }
+
+  public static void switchMusic() {
+    if(musicOn)
+      musicOn = false;
+    else
+      musicOn = true;
+  }
+
+  public static boolean isSoundOn() {
+    return soundOn;
+  }
+
+  public static void switchSound(){
+    if(soundOn)
+      soundOn = false;
+    else
+      soundOn = true;
+  }
+
   public static void createCameraCoordsFromPixelCords(BasicObject basicObject) throws Exception
   {
 

@@ -1,4 +1,4 @@
-package com.badbugs.baseframework;
+package com.badbugs.creators;
 
 import com.badbugs.Game;
 import com.badbugs.MainGameScreen;
@@ -23,12 +23,12 @@ public class SpritesCreator
 
   private static Texture knifeTexture;
   private static TextureAtlas textureAtlas;
-  static Texture floorTexture;
+  private static Texture floorTexture;
   private static Texture bloodTextureLong;
   private static Texture bloodTextureMedium;
   private static Texture bloodTextureSmall;
   private static Texture lifeTexture;
-  static Texture mainMenuTexture;
+  private static Texture mainMenuTexture;
   private static Texture gameOverBackgroundTexture;
   private static Texture quitTexture;
   private static Texture soundEnabledTexture;
@@ -40,9 +40,9 @@ public class SpritesCreator
   private static Texture backTexture;
   private static Texture knifeBoosterTexture;
 
-  static TextureRegion bloodTextureRegionLong;
-  static TextureRegion bloodTextureRegionMedium;
-  static TextureRegion bloodTextureRegionSmall;
+  public static TextureRegion bloodTextureRegionLong;
+  public static TextureRegion bloodTextureRegionMedium;
+  public static TextureRegion bloodTextureRegionSmall;
 
   public static void loadAllTextures()
   {
@@ -111,7 +111,24 @@ public class SpritesCreator
   {
     Shop shopScreen = new Shop(floorTexture);
     shopScreen.setCameraDimensions(new float[] { Game.cam_width, Game.cam_height });
+    shopScreen.getPolygon().setPosition(-Game.cam_width/2, -Game.cam_height/2);
     return shopScreen;
+  }
+
+  public static MainMenu loadMainMenu() throws Exception
+  {
+    MainMenu mainMenu = new MainMenu(mainMenuTexture);
+    mainMenu.setCameraDimensions(new float[] { Game.cam_width, Game.cam_height });
+    mainMenu.getPolygon().setPosition(-Game.cam_width/2, -Game.cam_height/2);
+    return mainMenu;
+  }
+
+  public static MainGame loadMainGame() throws Exception
+  {
+    MainGame mainGame = new MainGame(floorTexture);
+    mainGame.setCameraDimensions(new float[] { Game.cam_width, Game.cam_height });
+    mainGame.getPolygon().setPosition(-Game.cam_width/2, -Game.cam_height/2);
+    return mainGame;
   }
 
   //TODO : Fix it -> On Main Menu, y axis is working from top to bottom
@@ -121,7 +138,7 @@ public class SpritesCreator
     s.setCameraDimensions(new float[] { Game.cam_width * Constants.QUIT_W / Constants.HOME_SCREEN_W,
             Game.cam_height * Constants.QUIT_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.QUIT_LEFT) / Constants.HOME_SCREEN_W;
-    float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.QUIT_TOP + Constants.QUIT_H))/ Constants.HOME_SCREEN_H;
+    float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.QUIT_TOP + Constants.QUIT_H))/ Constants.HOME_SCREEN_H;
     s.getPolygon().setPosition(x, y);
 
     return s;
@@ -134,7 +151,7 @@ public class SpritesCreator
     s.setCameraDimensions(new float[] { Game.cam_width * Constants.SOUND_W / Constants.HOME_SCREEN_W,
         Game.cam_height * Constants.SOUND_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.SOUND_LEFT) / Constants.HOME_SCREEN_W;
-    float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.SOUND_TOP + Constants.SOUND_H))/ Constants.HOME_SCREEN_H;
+    float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.SOUND_TOP + Constants.SOUND_H))/ Constants.HOME_SCREEN_H;
     s.getPolygon().setPosition(x, y);
 
     return s;
@@ -147,7 +164,7 @@ public class SpritesCreator
     m.setCameraDimensions(new float[] { Game.cam_width * Constants.MUSIC_W / Constants.HOME_SCREEN_W,
         Game.cam_height * Constants.MUSIC_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.MUSIC_LEFT) / Constants.HOME_SCREEN_W;
-    float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.MUSIC_TOP + Constants.MUSIC_H))
+    float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.MUSIC_TOP + Constants.MUSIC_H))
         / Constants.HOME_SCREEN_H;
     m.getPolygon().setPosition(x, y);
 
@@ -160,7 +177,7 @@ public class SpritesCreator
     m.setCameraDimensions(new float[] { Game.cam_width * Constants.PLAY_W / Constants.HOME_SCREEN_W,
         Game.cam_height * Constants.PLAY_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.PLAY_LEFT) / Constants.HOME_SCREEN_W;
-    float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.PLAY_TOP + Constants.PLAY_H))
+    float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.PLAY_TOP + Constants.PLAY_H))
         / Constants.HOME_SCREEN_H;
     m.getPolygon().setPosition(x, y);
 
@@ -173,7 +190,7 @@ public class SpritesCreator
     m.setCameraDimensions(new float[] { Game.cam_width * Constants.SHOP_W / Constants.HOME_SCREEN_W,
             Game.cam_height * Constants.SHOP_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.SHOP_LEFT) / Constants.HOME_SCREEN_W;
-    float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.SHOP_TOP + Constants.SHOP_H))
+    float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.SHOP_TOP + Constants.SHOP_H))
             / Constants.HOME_SCREEN_H;
     m.getPolygon().setPosition(x, y);
 
@@ -186,7 +203,7 @@ public class SpritesCreator
     m.setCameraDimensions(new float[] { Game.cam_width * Constants.BACK_W / Constants.HOME_SCREEN_W,
             Game.cam_height * Constants.BACK_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.BACK_LEFT) / Constants.HOME_SCREEN_W;
-    float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.BACK_TOP + Constants.BACK_H))
+    float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.BACK_TOP + Constants.BACK_H))
             / Constants.HOME_SCREEN_H;
     m.getPolygon().setPosition(x, y);
 
@@ -199,7 +216,7 @@ public class SpritesCreator
     m.setCameraDimensions(new float[] { Game.cam_width * Constants.KNIFE_BOOSTER_W / Constants.HOME_SCREEN_W,
         Game.cam_height * Constants.KNIFE_BOOSTER_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.KNIFE_BOOSTER_LEFT) / Constants.HOME_SCREEN_W;
-    float y = -Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.KNIFE_BOOSTER_TOP + Constants.KNIFE_BOOSTER_H))
+    float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.KNIFE_BOOSTER_TOP + Constants.KNIFE_BOOSTER_H))
         / Constants.HOME_SCREEN_H;
     m.getPolygon().setPosition(x, y);
 

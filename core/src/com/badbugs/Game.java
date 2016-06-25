@@ -1,6 +1,7 @@
 package com.badbugs;
 
-import com.badbugs.baseframework.SpritesCreator;
+import com.badbugs.baseframework.Fonts;
+import com.badbugs.creators.SpritesCreator;
 import com.badbugs.util.Inputs;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
@@ -42,6 +43,9 @@ public class Game extends com.badlogic.gdx.Game
     cam = new OrthographicCamera(cam_width, cam_height);
 
     cam.update();
+    SpritesCreator.loadAllTextures();
+    Fonts.loadAllFonts();
+
     MainGameScreen.load();
     ShopScreen.load();
     Gdx.input.setInputProcessor(new Inputs());

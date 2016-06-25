@@ -1,10 +1,10 @@
 package com.badbugs;
 
 import com.badbugs.baseframework.Renderers;
-import com.badbugs.baseframework.SpritesCreator;
+import com.badbugs.creators.SpritesCreator;
+import com.badbugs.objects.BasicObjectImpl;
 import com.badbugs.objects.Button;
 import com.badbugs.util.Constants;
-import com.badbugs.util.Inputs;
 import com.badbugs.util.TouchInfo;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
@@ -33,6 +33,7 @@ public class MainMenuScreen extends ScreenAdapter {
     Button play;
     Button shop;
     Button quit;
+    BasicObjectImpl mainMenu;
 
     MainMenuScreen(Game game) {
         this.game = game;
@@ -43,6 +44,7 @@ public class MainMenuScreen extends ScreenAdapter {
             play = SpritesCreator.loadPlayButton();
             shop = SpritesCreator.loadShopButton();
             quit = SpritesCreator.loadQuit();
+            mainMenu = SpritesCreator.loadMainMenu();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,8 +88,8 @@ public class MainMenuScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Renderers.renderHomePage(Game.batch);
         try {
+            Renderers.renderBasicObject(Game.batch, mainMenu);
             Renderers.renderBasicObject(Game.batch, sound);
             Renderers.renderBasicObject(Game.batch, music);
             Renderers.renderBasicObject(Game.batch, play);
@@ -115,9 +117,11 @@ public class MainMenuScreen extends ScreenAdapter {
                 Gdx.app.exit();
             } else if (soundBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 //TODO click sound here.
+                Util.switchSound();
                 SpritesCreator.switchSoundSprites(sound);
             } else if (musicBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 //TODO click sound here.
+                Util.switchMusic();
                 SpritesCreator.switchMusicSprites(music);
             }
         }

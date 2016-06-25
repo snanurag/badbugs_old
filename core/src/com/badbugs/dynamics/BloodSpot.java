@@ -1,6 +1,6 @@
 package com.badbugs.dynamics;
 
-import com.badbugs.baseframework.SpritesCreator;
+import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.ObjectsCord;

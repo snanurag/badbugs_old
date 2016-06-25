@@ -2,7 +2,6 @@ package com.badbugs.creators;
 
 import com.badbugs.Game;
 import com.badbugs.MainGameScreen;
-import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.util.Constants;

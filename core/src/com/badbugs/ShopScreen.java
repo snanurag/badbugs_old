@@ -2,7 +2,7 @@ package com.badbugs;
 
 import com.badbugs.baseframework.Fonts;
 import com.badbugs.baseframework.Renderers;
-import com.badbugs.baseframework.SpritesCreator;
+import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.Button;
 import com.badbugs.objects.Shop;
 import com.badbugs.objects.fonts.Font;
@@ -86,14 +86,14 @@ public class ShopScreen extends ScreenAdapter {
             Inputs.backPressed = false;
             game.setScreen(new MainMenuScreen(game));
         }
-        Renderers.renderShopScreen(Game.batch, shop);
-        Fonts.renderText(Game.batch, knifeBoosterFont);
         try {
-            Renderers.renderBasicObject(Game.batch, knifeBooster);
+            Renderers.renderBasicObject(Game.batch, shop);
             Renderers.renderBasicObject(Game.batch, back);
+            Renderers.renderBasicObject(Game.batch, knifeBooster);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Fonts.renderText(Game.batch, knifeBoosterFont);
         touchInfo = Util.getFromTouchEventsQueue();
         if (touchInfo != null) {
             if (knifeBoosterBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
