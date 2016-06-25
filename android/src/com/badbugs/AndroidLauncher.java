@@ -20,6 +20,5 @@ public class AndroidLauncher extends AndroidApplication {
 		initialize(game, config);
 
 		PlatformBuilder.setPlatformResolver(new GooglePlayResolver());
-
 	}
 }

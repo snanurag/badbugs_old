@@ -1,5 +1,7 @@
 package com.badbugs;
 
+import com.badbugs.baseframework.SpritesCreator;
+import com.badbugs.util.Inputs;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -40,9 +42,10 @@ public class Game extends com.badlogic.gdx.Game
     cam = new OrthographicCamera(cam_width, cam_height);
 
     cam.update();
-
     MainGameScreen.load();
     ShopScreen.load();
+    Gdx.input.setInputProcessor(new Inputs());
+    Gdx.input.setCatchBackKey(true);
     setScreen(new MainMenuScreen(this));
 
   }
@@ -56,5 +59,12 @@ public class Game extends com.badlogic.gdx.Game
     super.render();
     Game.batch.end();
 
+  }
+
+  @Override
+  public void dispose() {
+    super.dispose();
+    Game.batch.dispose();
+    SpritesCreator.disposeAll();
   }
 }

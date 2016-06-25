@@ -17,4 +17,5 @@ public class TouchInfo implements Comparable {
   public float touchX;
 
   public float touchY;
+
 }

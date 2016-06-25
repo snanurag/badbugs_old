@@ -1,6 +1,7 @@
 package com.badbugs.creators;
 
 import com.badbugs.Game;
+import com.badbugs.MainGameScreen;
 import com.badbugs.baseframework.SpritesCreator;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
@@ -22,7 +23,8 @@ public class BugGenerator extends Thread {
     try {
       while (true) {
         Thread.sleep(1000);
-        createBug();
+        if(!MainGameScreen.isPaused)
+          createBug();
       }
     } catch (Exception e) {
       e.printStackTrace();

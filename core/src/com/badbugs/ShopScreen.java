@@ -12,7 +12,6 @@ import com.badbugs.util.Constants;
 import com.badbugs.util.Inputs;
 import com.badbugs.util.TouchInfo;
 import com.badbugs.util.Util;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.pay.Offer;
@@ -37,7 +36,6 @@ public class ShopScreen extends ScreenAdapter {
 
     public ShopScreen(Game game) {
         this.game = game;
-        Gdx.input.setInputProcessor(new Inputs());
         IAPinit();
         defineBounds();
     }
@@ -84,6 +82,10 @@ public class ShopScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        if (Inputs.backPressed) {
+            Inputs.backPressed = false;
+            game.setScreen(new MainMenuScreen(game));
+        }
         Renderers.renderShopScreen(Game.batch, shop);
         Fonts.renderText(Game.batch, knifeBoosterFont);
         try {

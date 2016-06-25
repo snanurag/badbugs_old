@@ -36,7 +36,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
     MainMenuScreen(Game game) {
         this.game = game;
-        Gdx.input.setInputProcessor(new Inputs());
+//        Gdx.input.setInputProcessor(new Inputs());
         try {
             sound = SpritesCreator.loadSound();
             music = SpritesCreator.loadMusic();
@@ -111,6 +111,8 @@ public class MainMenuScreen extends ScreenAdapter {
                 game.setScreen(new ShopScreen(game));
             } else if (quitBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 //TODO click sound here.
+                dispose();
+                Gdx.app.exit();
             } else if (soundBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 //TODO click sound here.
                 SpritesCreator.switchSoundSprites(sound);

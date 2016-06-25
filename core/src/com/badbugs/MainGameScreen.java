@@ -20,8 +20,11 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import java.net.InetAddress;
+
 public class MainGameScreen extends ScreenAdapter
 {
+  public static boolean isPaused;
   private static ShapeRenderer shapeRenderer;
   private static Knife knife;
   private static GameOver gameoverBackground;
@@ -32,7 +35,7 @@ public class MainGameScreen extends ScreenAdapter
   MainGameScreen(Game game)
   {
     this.game = game;
-    Gdx.input.setInputProcessor(new Inputs());
+//    Gdx.input.setInputProcessor(new Inputs());
     init();
   }
 
@@ -66,12 +69,18 @@ public class MainGameScreen extends ScreenAdapter
   @Override
   public void render(float delta)
   {
+    if(Inputs.backPressed)
+    {
+      Inputs.backPressed = false;
+      game.setScreen(new MainMenuScreen(game));
+    }
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     //    Renderers.shapeRenderer.begin();
     try
     {
-      allStateUpdate();
+      if(!isPaused)
+        allStateUpdate();
       allRendering();
     } catch (Exception e)
     {
@@ -118,18 +127,18 @@ public class MainGameScreen extends ScreenAdapter
   @Override
   public void pause()
   {
+    isPaused = true;
   }
 
   @Override
   public void resume()
   {
+    isPaused = false;
   }
 
   @Override
   public void dispose()
   {
-    Game.batch.dispose();
-    SpritesCreator.disposeAll();
   }
 
 }

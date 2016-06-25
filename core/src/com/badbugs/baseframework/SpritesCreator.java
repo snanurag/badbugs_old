@@ -222,11 +222,17 @@ public class SpritesCreator
     lifeTexture.dispose();
     mainMenuTexture.dispose();
     gameOverBackgroundTexture.dispose();
- //   shopScreenTexture.dispose();
     soundEnabledTexture.dispose();
     soundDisabledTexture.dispose();
     musicEnabledTexture.dispose();
     musicDisabledTexture.dispose();
+    floorTexture.dispose();
+    lifeTexture.dispose();
+    quitTexture.dispose();
+    shopTexture.dispose();
+    playTexture.dispose();
+    backTexture.dispose();
+    knifeBoosterTexture.dispose();
   }
 
   public static void switchSoundSprites(Button sound)

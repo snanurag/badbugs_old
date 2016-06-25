@@ -1,15 +1,20 @@
 package com.badbugs.util;
 
-import com.badbugs.util.TouchInfo;
-import com.badbugs.util.Util;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
 /**
  * Created by ashrinag on 3/6/2016.
  */
 public class Inputs implements InputProcessor {
+
+    public static boolean backPressed = false;
+
     @Override
     public boolean keyDown(int keycode) {
+        if(keycode == Input.Keys.BACK){
+            backPressed = true;
+        }
         return false;
     }
 
@@ -53,4 +58,5 @@ public class Inputs implements InputProcessor {
     public boolean scrolled(int amount) {
         return false;
     }
+
 }
