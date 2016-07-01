@@ -1,6 +1,7 @@
 package com.badbugs;
 
-import com.badbugs.baseframework.Fonts;
+import com.badbugs.baseframework.FontRenderers;
+import com.badbugs.baseframework.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.util.Inputs;
 import com.badlogic.gdx.Application;
@@ -44,10 +45,11 @@ public class Game extends com.badlogic.gdx.Game
 
     cam.update();
     SpritesCreator.loadAllTextures();
-    Fonts.loadAllFonts();
+    FontRenderers.loadAllFonts();
 
     MainGameScreen.load();
     ShopScreen.load();
+    SoundPlayer.loadAllSounds();
     Gdx.input.setInputProcessor(new Inputs());
     Gdx.input.setCatchBackKey(true);
     setScreen(new MainMenuScreen(this));

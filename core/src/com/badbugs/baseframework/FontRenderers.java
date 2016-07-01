@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 /**
  * Created by ashrinag on 4/28/2016.
  */
-public class Fonts {
+public class FontRenderers {
 
     static BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/tahoma.fnt"), false);
 

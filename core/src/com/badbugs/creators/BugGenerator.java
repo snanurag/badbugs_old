@@ -17,10 +17,16 @@ public class BugGenerator extends Thread {
   final int WALLS_COUNT = 4;
   int bugId = 0;
   int lastWall;
+  boolean running = true;
+
+  public void terminateBugGenerator()
+  {
+    running = false;
+  }
 
   public void run() {
     try {
-      while (true) {
+      while (running) {
         Thread.sleep(1000);
         if(!MainGameScreen.isPaused)
           createBug();

@@ -1,7 +1,7 @@
 package com.badbugs.dynamics.movement;
 
 import com.badbugs.Game;
-import com.badbugs.baseframework.Renderers;
+import com.badbugs.baseframework.SoundPlayer;
 import com.badbugs.dynamics.BloodSpot;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
@@ -49,6 +49,7 @@ public class KnifeMovement
     if (touchInfoInstance != null)
     {
 
+      SoundPlayer.playKnifeSlash();
       Util.globalLogger().info("Touch count " + ++counter);
       Vector3 touchPoints;
 
@@ -129,8 +130,8 @@ public class KnifeMovement
 
         Vector2 leftBottomWrtTip = Util.getLeftBottomWrtTip(v.x - tip.x, v.y - tip.y, polygon);
         polygon.setPosition(leftBottomWrtTip.x, leftBottomWrtTip.y);
+        SoundPlayer.playKnifeWoodImpact();
         directionVector = null;
-
       }
 
       attemptToCutAllBugs(knife);
@@ -191,6 +192,7 @@ public class KnifeMovement
     if (hitPoint == null)
     {
       hitPoint = getHiPointInXDecreasing(bugPolygon, x1, y1, a);
+      SoundPlayer.playKnifeBugImpact();
     }
 
     if (hitPoint != null)
@@ -234,7 +236,7 @@ public class KnifeMovement
     }
 
     Util.globalLogger().debug("Points to draw line : x " + x + " y " + y + " x1 " + x1 + " y1 " + y1);
-  //  Renderers.drawLine(x, y, x1, y1);
+  //  ImageRenderers.drawLine(x, y, x1, y1);
 
     return hitPoint;
   }
@@ -248,11 +250,6 @@ public class KnifeMovement
   public float getAngle()
   {
     return angle;
-  }
-
-  public static void main(String[] args)
-  {
-    System.out.println(getYOnLine(-0.45287374f, -50.414356f, -21.956242f, 215.85558f));
   }
 
   private static void setAllBugsState(Knife knife) throws Exception

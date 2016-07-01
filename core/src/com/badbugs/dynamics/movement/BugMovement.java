@@ -1,15 +1,12 @@
 package com.badbugs.dynamics.movement;
 
 import com.badbugs.Game;
-import com.badbugs.MainGameScreen;
-import com.badbugs.baseframework.Renderers;
 import com.badbugs.objects.ObjectsCord;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsStore;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 

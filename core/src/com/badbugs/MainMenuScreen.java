@@ -1,6 +1,7 @@
 package com.badbugs;
 
-import com.badbugs.baseframework.Renderers;
+import com.badbugs.baseframework.ImageRenderers;
+import com.badbugs.baseframework.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.BasicObjectImpl;
 import com.badbugs.objects.Button;
@@ -34,6 +35,7 @@ public class MainMenuScreen extends ScreenAdapter {
     Button shop;
     Button quit;
     BasicObjectImpl mainMenu;
+    ScreenAdapter mainGameScreen;
 
     MainMenuScreen(Game game) {
         this.game = game;
@@ -89,12 +91,12 @@ public class MainMenuScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         try {
-            Renderers.renderBasicObject(Game.batch, mainMenu);
-            Renderers.renderBasicObject(Game.batch, sound);
-            Renderers.renderBasicObject(Game.batch, music);
-            Renderers.renderBasicObject(Game.batch, play);
-            Renderers.renderBasicObject(Game.batch, shop);
-            Renderers.renderBasicObject(Game.batch, quit);
+            ImageRenderers.renderBasicObject(Game.batch, mainMenu);
+            ImageRenderers.renderBasicObject(Game.batch, sound);
+            ImageRenderers.renderBasicObject(Game.batch, music);
+            ImageRenderers.renderBasicObject(Game.batch, play);
+            ImageRenderers.renderBasicObject(Game.batch, shop);
+            ImageRenderers.renderBasicObject(Game.batch, quit);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,21 +108,22 @@ public class MainMenuScreen extends ScreenAdapter {
             Vector3 touchPoint = Game.cam.unproject(new Vector3(touchInfo.touchX, touchInfo.touchY, 0));
             //           Util.globalLogger().info("touchX and touchY "+touchPoint.x+" "+touchPoint.y);
             if (playBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
-                //TODO click sound here.
-                game.setScreen(new MainGameScreen(game));
+                SoundPlayer.playButtonClick();
+                mainGameScreen = new MainGameScreen(game);
+                game.setScreen(mainGameScreen);
             } else if (shopBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
-                //TODO click sound here.
+                SoundPlayer.playButtonClick();
                 game.setScreen(new ShopScreen(game));
             } else if (quitBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
-                //TODO click sound here.
+                SoundPlayer.playButtonClick();
                 dispose();
                 Gdx.app.exit();
             } else if (soundBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
-                //TODO click sound here.
+                SoundPlayer.playButtonClick();
                 Util.switchSound();
                 SpritesCreator.switchSoundSprites(sound);
             } else if (musicBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
-                //TODO click sound here.
+                SoundPlayer.playButtonClick();
                 Util.switchMusic();
                 SpritesCreator.switchMusicSprites(music);
             }

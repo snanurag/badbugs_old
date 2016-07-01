@@ -1,7 +1,8 @@
 package com.badbugs;
 
-import com.badbugs.baseframework.Fonts;
-import com.badbugs.baseframework.Renderers;
+import com.badbugs.baseframework.FontRenderers;
+import com.badbugs.baseframework.ImageRenderers;
+import com.badbugs.baseframework.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.Button;
 import com.badbugs.objects.Shop;
@@ -87,21 +88,21 @@ public class ShopScreen extends ScreenAdapter {
             game.setScreen(new MainMenuScreen(game));
         }
         try {
-            Renderers.renderBasicObject(Game.batch, shop);
-            Renderers.renderBasicObject(Game.batch, back);
-            Renderers.renderBasicObject(Game.batch, knifeBooster);
+            ImageRenderers.renderBasicObject(Game.batch, shop);
+            ImageRenderers.renderBasicObject(Game.batch, back);
+            ImageRenderers.renderBasicObject(Game.batch, knifeBooster);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Fonts.renderText(Game.batch, knifeBoosterFont);
+        FontRenderers.renderText(Game.batch, knifeBoosterFont);
         touchInfo = Util.getFromTouchEventsQueue();
         if (touchInfo != null) {
             if (knifeBoosterBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
-                //TODO click sound here.
+                SoundPlayer.playButtonClick();
                 PlatformBuilder.getPlatformResolver().requestPurchase(Constants.double_speed);
                 return;
             } else if (backButtonBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
-                //TODO click sound here.
+                SoundPlayer.playButtonClick();
                 game.setScreen(new MainMenuScreen(game));
             }
         }

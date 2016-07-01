@@ -1,7 +1,8 @@
 package com.badbugs;
 
-import com.badbugs.baseframework.Fonts;
-import com.badbugs.baseframework.Renderers;
+import com.badbugs.baseframework.FontRenderers;
+import com.badbugs.baseframework.ImageRenderers;
+import com.badbugs.baseframework.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.creators.BugGenerator;
 import com.badbugs.dynamics.movement.BugMovement;
@@ -28,8 +29,10 @@ public class MainGameScreen extends ScreenAdapter
   private static GameOver gameoverBackground;
   private static Bug[] lives;
   private static MainGame mainGame;
+  private static boolean gameOverSoundPlayed;
 
   private Game game;
+  private BugGenerator bugGenerator;
 
   MainGameScreen(Game game)
   {
@@ -38,12 +41,15 @@ public class MainGameScreen extends ScreenAdapter
     init();
   }
 
-  private static void init()
+  private void init()
   {
     ObjectsStore.bugMissed = 0;
     ObjectsStore.score = 0;
     ObjectsStore.getBugList().clear();
     gameoverBackground.elapsedTime = 0;
+    gameOverSoundPlayed = false;
+    bugGenerator = new BugGenerator();
+    bugGenerator.start();
   }
 
   public static void load()
@@ -61,7 +67,6 @@ public class MainGameScreen extends ScreenAdapter
     {
       e.printStackTrace();
     }
-    new BugGenerator().start();
   }
 
   @Override
@@ -70,11 +75,11 @@ public class MainGameScreen extends ScreenAdapter
     if(Inputs.backPressed)
     {
       Inputs.backPressed = false;
-      game.setScreen(new MainMenuScreen(game));
+      swtichToMainMenu();
     }
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    //    Renderers.shapeRenderer.begin();
+    //    ImageRenderers.shapeRenderer.begin();
     try
     {
       if(!isPaused)
@@ -84,7 +89,7 @@ public class MainGameScreen extends ScreenAdapter
     {
       e.printStackTrace();
     }
-    //    Renderers.shapeRenderer.end();
+    //    ImageRenderers.shapeRenderer.end();
   }
 
   private void allStateUpdate() throws Exception
@@ -95,28 +100,38 @@ public class MainGameScreen extends ScreenAdapter
 
   private void allRendering() throws Exception
   {
-    Renderers.renderBasicObject(Game.batch, mainGame);
-    Renderers.renderBugs(Game.batch);
-    Renderers.renderBloods(Game.batch);
-    Renderers.renderKnife(Game.batch, knife);
-    Fonts.renderScore(Game.batch, ObjectsStore.score);
-    Renderers.renderLives(Game.batch, lives);
+    ImageRenderers.renderBasicObject(Game.batch, mainGame);
+    ImageRenderers.renderBugs(Game.batch);
+    ImageRenderers.renderBloods(Game.batch);
+    ImageRenderers.renderKnife(Game.batch, knife);
+    FontRenderers.renderScore(Game.batch, ObjectsStore.score);
+    ImageRenderers.renderLives(Game.batch, lives);
     if (Util.checkIfGameOverConditionMet())
     {
+      if(!gameOverSoundPlayed)
+      {
+        SoundPlayer.playGameOver();
+        gameOverSoundPlayed = true;
+      }
       attemptGameOver();
     }
   }
 
   private void attemptGameOver() throws Exception
   {
-    Renderers.renderGameOverBackground(Game.batch, gameoverBackground);
-    Fonts.rendGameOverText(Game.batch, gameoverBackground, ObjectsStore.score);
+    ImageRenderers.renderGameOverBackground(Game.batch, gameoverBackground);
+    FontRenderers.rendGameOverText(Game.batch, gameoverBackground, ObjectsStore.score);
     if (gameoverBackground.elapsedTime > Constants.MAIN_MENU_SWITCH_TIME)
     {
-      game.setScreen(new MainMenuScreen(game));
+      swtichToMainMenu();
     }
   }
 
+  private void swtichToMainMenu()
+  {
+    dispose();
+    game.setScreen(new MainMenuScreen(game));
+  }
   @Override
   public void resize(int width, int height)
   {
@@ -126,6 +141,7 @@ public class MainGameScreen extends ScreenAdapter
   public void pause()
   {
     isPaused = true;
+    bugGenerator.terminateBugGenerator();
   }
 
   @Override
@@ -137,6 +153,7 @@ public class MainGameScreen extends ScreenAdapter
   @Override
   public void dispose()
   {
+    bugGenerator.terminateBugGenerator();
   }
 
 }

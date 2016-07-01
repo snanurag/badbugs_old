@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by ashrinag on 3/20/2016.
  */
-public class Renderers {
+public class ImageRenderers {
 
     public static ShapeRenderer shapeRenderer;
 
@@ -94,7 +94,7 @@ public class Renderers {
         List<Bug> bugList = ObjectsStore.getBugList();
         synchronized (bugList) {
             for (Bug bedBug : bugList) {
-                Renderers.renderBug(batch, bedBug);
+                ImageRenderers.renderBug(batch, bedBug);
             }
         }
     }
@@ -104,7 +104,7 @@ public class Renderers {
         synchronized (bugList) {
             for (Bug bedBug : bugList) {
                 if (bedBug.hit) {
-                    Renderers.renderBlood(batch, bedBug);
+                    ImageRenderers.renderBlood(batch, bedBug);
                 }
             }
         }
