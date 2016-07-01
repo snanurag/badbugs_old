@@ -192,7 +192,6 @@ public class KnifeMovement
     if (hitPoint == null)
     {
       hitPoint = getHiPointInXDecreasing(bugPolygon, x1, y1, a);
-      SoundPlayer.playKnifeBugImpact();
     }
 
     if (hitPoint != null)
@@ -200,6 +199,7 @@ public class KnifeMovement
       if (ObjectsStore.getBloodSpot(bug) == null)
       {
         BloodSpot.createAndStoreBloodSpot(bug, knife, hitPoint);
+        SoundPlayer.playKnifeBugImpact();
       }
     }
   }

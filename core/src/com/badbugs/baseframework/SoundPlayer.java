@@ -19,6 +19,7 @@ public class SoundPlayer {
         gameOver = Gdx.audio.newSound(Gdx.files.internal("sounds/game_over.ogg"));
         knifeWoodImpact = Gdx.audio.newSound(Gdx.files.internal("sounds/knife_wood_impact.ogg"));
         knifeSlash = Gdx.audio.newSound(Gdx.files.internal("sounds/knife_slash.ogg"));
+        knifeBugImpact = Gdx.audio.newSound(Gdx.files.internal("sounds/knife_bug_impact.ogg"));
 
     }
 
@@ -39,7 +40,7 @@ public class SoundPlayer {
 
     public static void playKnifeBugImpact()
     {
-  //      knifeBugImpact.play(1.0f);
+        knifeBugImpact.play(2.0f);
     }
     public static void playButtonClick()
     {

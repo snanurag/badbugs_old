@@ -23,7 +23,7 @@ public class FontRenderers {
 
     public static void renderScore(Batch batch, int score) {
         font.getData().setScale(Constants.SCORE_SCALE);
-        font.draw(batch, "Score " + score, Constants.SCORE_X_POS, Game.cam_height / 2, 10, -1, false);
+        font.draw(batch, "Killed " + score, Constants.SCORE_X_POS, Game.cam_height / 2, 10, -1, false);
     }
 
     public static void rendGameOverText(Batch batch, GameOver gameOver, int score) {
@@ -33,7 +33,7 @@ public class FontRenderers {
         }
         font.getData().setScale(Constants.GAME_OVER_SCALE);
         font.draw(batch, "Game Over", Constants.GAME_OVER_TEXT_X_POS, Constants.GAME_OVER_TEXT_Y_POS, 13, -1, false);
-        font.draw(batch, "Score " + score, Constants.SCORE_TEXT_X_POS, Constants.SCORE_TEXT_Y_POS, 13, -1, false);
+        font.draw(batch, "Total Killed " + score, Constants.SCORE_TEXT_X_POS, Constants.SCORE_TEXT_Y_POS, 13, -1, false);
     }
 
     public static void renderText(Batch batch, Font f) {
