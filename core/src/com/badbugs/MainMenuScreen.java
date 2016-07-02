@@ -106,7 +106,7 @@ public class MainMenuScreen extends ScreenAdapter {
         }
 
         TouchInfo touchInfo
-                = Util.getFromTouchEventsQueue();
+                = Util.doTouchEventsQueueEmpty();
 
         if (touchInfo != null) {
             Util.globalLogger().info("touchX and touchY " + touchInfo.touchX + " " + touchInfo.touchY);

@@ -95,7 +95,7 @@ public class ShopScreen extends ScreenAdapter {
             e.printStackTrace();
         }
         FontRenderers.renderText(Game.batch, knifeBoosterFont);
-        touchInfo = Util.getFromTouchEventsQueue();
+        touchInfo = Util.doTouchEventsQueueEmpty();
         if (touchInfo != null) {
             if (knifeBoosterBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 SoundPlayer.playButtonClick();

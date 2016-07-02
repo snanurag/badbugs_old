@@ -1,11 +1,13 @@
 package com.badbugs;
 
 import com.badbugs.baseframework.FontRenderers;
+import com.badbugs.baseframework.MusicPlayer;
 import com.badbugs.baseframework.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.util.Inputs;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -72,5 +74,6 @@ public class Game extends com.badlogic.gdx.Game
     super.dispose();
     Game.batch.dispose();
     SpritesCreator.disposeAll();
+    MusicPlayer.dispose();
   }
 }

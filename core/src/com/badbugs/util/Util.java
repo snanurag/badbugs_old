@@ -86,11 +86,6 @@ public class Util
     touchEventsQueue.add(info);
   }
 
-  public static TouchInfo getFromTouchEventsQueue()
-  {
-    return touchEventsQueue.poll();
-  }
-
   /**
    * Use of this method helped in avoid synchronous lock.
    * @return

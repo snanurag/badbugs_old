@@ -2,6 +2,7 @@ package com.badbugs;
 
 import com.badbugs.baseframework.FontRenderers;
 import com.badbugs.baseframework.ImageRenderers;
+import com.badbugs.baseframework.MusicPlayer;
 import com.badbugs.baseframework.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.creators.BugGenerator;
@@ -50,6 +51,7 @@ public class MainGameScreen extends ScreenAdapter
     gameOverSoundPlayed = false;
     bugGenerator = new BugGenerator();
     bugGenerator.start();
+    MusicPlayer.playNatureMusic();
   }
 
   public static void load()
@@ -141,19 +143,20 @@ public class MainGameScreen extends ScreenAdapter
   public void pause()
   {
     isPaused = true;
-    bugGenerator.terminateBugGenerator();
   }
 
   @Override
   public void resume()
   {
     isPaused = false;
+
   }
 
   @Override
   public void dispose()
   {
     bugGenerator.terminateBugGenerator();
+    MusicPlayer.stopNatureMusic();
   }
 
 }
