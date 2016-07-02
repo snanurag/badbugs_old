@@ -50,7 +50,7 @@ public class Constants
   public static final float GAME_OVER_BACKGROUND_HEIGHT = 30;
   public static final float GAME_OVER_TEXT_X_POS = -15;
   public static final float GAME_OVER_TEXT_Y_POS = 7;
-  public static final float SCORE_TEXT_X_POS = -11;
+  public static final float SCORE_TEXT_X_POS = -17;
   public static final float SCORE_TEXT_Y_POS = -5;
 
   public static final float HOME_SCREEN_W = 2560;

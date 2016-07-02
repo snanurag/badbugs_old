@@ -31,8 +31,11 @@ public class KnifeMovement
 
   public static void updatePolygon(Knife basicObject) throws Exception
   {
-    rotatePolygon(basicObject);
-    translatePolygon(basicObject);
+    if(!Util.checkIfGameOverConditionMet())
+    {
+      rotatePolygon(basicObject);
+      translatePolygon(basicObject);
+    }
   }
 
   private static void rotatePolygon(Knife knife) throws Exception

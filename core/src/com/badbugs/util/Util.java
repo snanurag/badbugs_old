@@ -169,7 +169,7 @@ public class Util
   {
     if(ObjectsStore.bugMissed >= 5)
     {
-      Gdx.input.setInputProcessor(null);
+//      Gdx.input.setInputProcessor(null);
       return true;
     }
     return false;

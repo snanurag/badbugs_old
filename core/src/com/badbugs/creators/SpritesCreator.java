@@ -8,6 +8,7 @@ import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.Constants;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -144,10 +145,14 @@ public class SpritesCreator
     return s;
   }
 
-  //TODO : Fix it -> On Main Menu, y axis is working from top to bottom
   public static Button loadSound() throws Exception
   {
-    Button s = new Button(soundEnabledTexture);
+
+    Button s;
+    if(Util.isSoundOn())
+      s = new Button(soundEnabledTexture);
+    else
+      s = new Button(soundDisabledTexture);
     s.setCameraDimensions(new float[] { Game.cam_width * Constants.SOUND_W / Constants.HOME_SCREEN_W,
         Game.cam_height * Constants.SOUND_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.SOUND_LEFT) / Constants.HOME_SCREEN_W;
@@ -157,10 +162,13 @@ public class SpritesCreator
     return s;
   }
 
-  //TODO : Fix it -> On Main Menu, y axis is working from top to bottom
   public static Button loadMusic() throws Exception
   {
-    Button m = new Button(musicEnabledTexture);
+    Button m;
+    if(Util.isMusicOn())
+      m = new Button(musicEnabledTexture);
+    else
+      m = new Button(musicDisabledTexture);
     m.setCameraDimensions(new float[] { Game.cam_width * Constants.MUSIC_W / Constants.HOME_SCREEN_W,
         Game.cam_height * Constants.MUSIC_H / Constants.HOME_SCREEN_H });
     float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.MUSIC_LEFT) / Constants.HOME_SCREEN_W;

@@ -6,19 +6,19 @@
 -> Acrade mode only
 -> Introduce a bug burning net (intermittent power and paid)
 -> stage burning bombs (intermittent power and paid)
--> Make stages of the game. Keep the bugs preparing parallel stages. User can view what its enemies (bugs) are preparing.
--> Launch this in 2nd Stage -> Kills Record (Best kill per stage). Bugs preparing 4th stage.
--> launch Bronze bug (2 cuts of silver knife)
+-> launch Bronze bug (2 cuts of silver knife). No. of kills should be at some record.
 -> launch Bronze knife (1 cut on Bronze bug) (Intermittent power and paid)
 -> Launch here 3rd stage -> Kills record. Bugs preparing 5th stage.
 -> launch Iron bug (3 cuts of silver knife, 2 cuts of bronze knife)
 -> launch Iron knife (1 cut on Steel bug) (paid)
--> Launch 4th Stage. With minimalistic and escalating spider web.
--> spiders would be building webs and knife will return on colliding the webs.
--> Launch 5th Stage with minimalistic and escalating Ant colonies.
+-> Make stages of the game. Keep the bugs preparing defence in parallel even when user is not playing.
+-> User Gets notifications for bug's level of defence
+-> Launch 2nd Stage at a Kills Record (Best kill per stage). With highest level of defence web and escalating spider web.
+-> spiders would be building webs and knife would bounce back on colliding the webs.
+-> Launch 3rd Stage with highest level of defence and escalating Ant colonies.
 -> Ants would be preparing ant holes and Knife will stuck on hitting it.
--> Launch 6th Stage.
+-> Launch wrath of knife power. It will be a burning knife, killing some bugs around it as well -> Power of Iron knife. (Intermittent and paid on stage subscription basis)
+-> Launch 4th Stage.
 -> Launch Steel bugs ( 2 cuts of Iron knife, 3 cuts of bronze knife and 4 cuts of silver knife. Plus, knife reflects on unsuccessful attempts).
 -> Steel bugs would be guarding ant queen. Knife reflects from steel bugs first time
--> Wrath of knife power will have a burning knife. Killing some bugs around it as well. Power of Iron knife. (Intermittent and paid on stage subscription basis)
 -> On next 3 stages, Steel bugs would be making war formations to protect ant queen.
