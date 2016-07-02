@@ -2,6 +2,7 @@ package com.badbugs;
 
 import com.badbugs.baseframework.FontRenderers;
 import com.badbugs.baseframework.ImageRenderers;
+import com.badbugs.baseframework.MusicPlayer;
 import com.badbugs.baseframework.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.Button;
@@ -23,26 +24,27 @@ import com.badlogic.gdx.pay.PurchaseManagerConfig;
  * Created by ashrinag on 5/14/2016.
  */
 public class ShopScreen extends ScreenAdapter {
-    static float[] KNIFE_BOOSTER_BUTTON;
-    static float[] BACK_BUTTON;
+    private static float[] KNIFE_BOOSTER_BUTTON;
+    private static float[] BACK_BUTTON;
     private static Shop shop;
     private static Button knifeBooster;
     private static Button back;
     private static Font knifeBoosterFont;
+    private static Rectangle knifeBoosterBounds;
+    private static Rectangle backButtonBounds;
     public PurchaseManagerConfig purchaseManagerConfig;
-    Rectangle knifeBoosterBounds;
-    Rectangle backButtonBounds;
     Game game;
     TouchInfo touchInfo;
 
     public ShopScreen(Game game) {
         this.game = game;
         IAPinit();
-        defineBounds();
+        MusicPlayer.playNatureMusic();
     }
 
     public static void load() {
         try {
+            defineBounds();
             shop = SpritesCreator.loadShop();
             back = SpritesCreator.loadBackButton();
             knifeBooster = SpritesCreator.loadKnifeBooster();
@@ -53,7 +55,7 @@ public class ShopScreen extends ScreenAdapter {
 
     }
 
-    private void defineBounds() {
+    private static void defineBounds() {
         // Top left coordinates are the pivots
         KNIFE_BOOSTER_BUTTON = new float[]{Constants.KNIFE_BOOSTER_LEFT * Game.screenWidth / Constants.HOME_SCREEN_W,
                 Constants.KNIFE_BOOSTER_TOP * Game.screenHeight / Constants.HOME_SCREEN_H,
@@ -83,10 +85,14 @@ public class ShopScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
         if (Inputs.backPressed) {
             Inputs.backPressed = false;
+            SoundPlayer.playButtonClick();
+            MusicPlayer.stopNatureMusic();
             game.setScreen(new MainMenuScreen(game));
         }
+
         try {
             ImageRenderers.renderBasicObject(Game.batch, shop);
             ImageRenderers.renderBasicObject(Game.batch, back);
@@ -94,8 +100,10 @@ public class ShopScreen extends ScreenAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         FontRenderers.renderText(Game.batch, knifeBoosterFont);
         touchInfo = Util.doTouchEventsQueueEmpty();
+
         if (touchInfo != null) {
             if (knifeBoosterBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 SoundPlayer.playButtonClick();
@@ -103,6 +111,7 @@ public class ShopScreen extends ScreenAdapter {
                 return;
             } else if (backButtonBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 SoundPlayer.playButtonClick();
+                MusicPlayer.stopNatureMusic();
                 game.setScreen(new MainMenuScreen(game));
             }
         }

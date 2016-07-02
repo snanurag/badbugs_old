@@ -48,4 +48,13 @@ public class SoundPlayer {
         if (Util.isSoundOn())
             buttonClick.play(1.0f);
     }
+
+    public static void disposeAll() {
+        gameOver.dispose();
+        knifeWoodImpact.dispose();
+        knifeSlash.dispose();
+        knifeBugImpact.dispose();
+        buttonClick.dispose();
+
+    }
 }

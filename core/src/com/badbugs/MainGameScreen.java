@@ -77,6 +77,7 @@ public class MainGameScreen extends ScreenAdapter
     if(Inputs.backPressed)
     {
       Inputs.backPressed = false;
+      SoundPlayer.playButtonClick();
       swtichToMainMenu();
     }
     Gdx.gl.glClearColor(0, 0, 0, 1);

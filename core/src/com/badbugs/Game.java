@@ -75,5 +75,6 @@ public class Game extends com.badlogic.gdx.Game
     Game.batch.dispose();
     SpritesCreator.disposeAll();
     MusicPlayer.dispose();
+    SoundPlayer.disposeAll();
   }
 }

@@ -1,6 +1,7 @@
 package com.badbugs;
 
 import com.badbugs.baseframework.ImageRenderers;
+import com.badbugs.baseframework.MusicPlayer;
 import com.badbugs.baseframework.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.BasicObjectImpl;
@@ -87,6 +88,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
     MainMenuScreen(Game game) {
         this.game = game;
+        MusicPlayer.playIntroMusic();
 //        Gdx.input.setInputProcessor(new Inputs());
 
         //    Util.globalLogger().info("Print cords "+playBoundRectCord.x +" "+playBoundRectCord.y +" "+ playBoundRectDimensions.x+ " "+playBoundRectDimensions.y);
@@ -114,13 +116,16 @@ public class MainMenuScreen extends ScreenAdapter {
                        Util.globalLogger().info("touchX and touchY "+touchPoint.x+" "+touchPoint.y);
             if (playBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 SoundPlayer.playButtonClick();
+                MusicPlayer.stopIntroMusic();
                 mainGameScreen = new MainGameScreen(game);
                 game.setScreen(mainGameScreen);
             } else if (shopBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 SoundPlayer.playButtonClick();
+                MusicPlayer.stopIntroMusic();
                 game.setScreen(new ShopScreen(game));
             } else if (quitBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 SoundPlayer.playButtonClick();
+                MusicPlayer.stopIntroMusic();
                 dispose();
                 Gdx.app.exit();
             } else if (soundBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
@@ -131,6 +136,10 @@ public class MainMenuScreen extends ScreenAdapter {
                 SoundPlayer.playButtonClick();
                 Util.switchMusic();
                 SpritesCreator.switchMusicSprites(music);
+                if(Util.isMusicOn())
+                    MusicPlayer.playIntroMusic();
+                else
+                    MusicPlayer.pauseIntroMusic();
             }
         }
     }
