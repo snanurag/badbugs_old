@@ -6,7 +6,7 @@ import com.badlogic.gdx.pay.PurchaseObserver;
 
 public class GooglePlayResolver extends PlatformResolver {
 
-  private final static String GOOGLEKEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlQtZgFb25FgKMET9jBKeT4ltJA92PDorFzSpRM4Dd/c+V/orhetCD+QF2xvvhgTSokAp269bDB5K8Cr4ASEJplDAbGJPJRc3bep352ZWRiXUHJ9tp/JE8TJUZAxshjxminJ6lyJajHT6XbltHGXO0lQQtZtQ8I+BP1+S9dr8qFDt2q5l47XOpSgRoXvRLGXrNJmfqRFeT2GKXLWgA2FznMYZFo5MVEM1b33r9rNxvd1C59k+G+6Xvr5OQSUmfzSJxuAxPNIY6eNaUloN2hVFrdMKGpfeAHrcGCvfqUvU1QXSiEXgyVA2SMUkLnghdUr2CCBoJqYWs4D8oO1dVdcGbQIDAQAB";
+  private final static String GOOGLEKEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApjmuxFG+BIi2+1vSHExK0V4VqFCG+eB6Pq06WhWZXB7kBMJIZbezPDdS2Rj2OfKMc7WKvaooKNJFdZWf+cElxl6HJzychwWfOdrDCJ2HvzFDyGGg7I5ty5yzZCuHLU1a3Z9Mk3/b1RGCtQX8ioDAoeDyiU7czbv7iEX0juFD+OPlU7YoEIk3crmc6JP5B0tqkDQUSuoZxV+ymIZmdGkATd8GauBNJ3NLGFxSFwHqVY+JOpXAKx+U3wmNESy8Hn+uxyx3ImentD3jxyc1MwOdl54IHAbNfW8Lx6We1u0yhc6di3mhs/011ydtWKU5gXQuOoeKaPU1xbh/UvgPCmP2OQIDAQAB";
   static final int RC_REQUEST = 10001;    // (arbitrary) request code for the purchase flow
 
   public GooglePlayResolver() {
