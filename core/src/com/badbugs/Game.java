@@ -4,6 +4,8 @@ import com.badbugs.baseframework.FontRenderers;
 import com.badbugs.baseframework.MusicPlayer;
 import com.badbugs.baseframework.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
+import com.badbugs.payment.PlatformBuilder;
+import com.badbugs.payment.PlatformResolver;
 import com.badbugs.util.Inputs;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
@@ -56,6 +58,7 @@ public class Game extends com.badlogic.gdx.Game
     Gdx.input.setCatchBackKey(true);
     setScreen(new MainMenuScreen(this));
 
+    PlatformBuilder.getPlatformResolver().requestPurchaseRestore();
   }
 
   @Override

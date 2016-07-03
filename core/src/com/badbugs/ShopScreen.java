@@ -32,17 +32,16 @@ public class ShopScreen extends ScreenAdapter {
     private static Font knifeBoosterFont;
     private static Rectangle knifeBoosterBounds;
     private static Rectangle backButtonBounds;
-    public PurchaseManagerConfig purchaseManagerConfig;
     Game game;
     TouchInfo touchInfo;
 
     public ShopScreen(Game game) {
         this.game = game;
-        IAPinit();
         MusicPlayer.playNatureMusic();
     }
 
     public static void load() {
+        IAPinit();
         try {
             defineBounds();
             shop = SpritesCreator.loadShop();
@@ -70,9 +69,9 @@ public class ShopScreen extends ScreenAdapter {
         backButtonBounds = new Rectangle(BACK_BUTTON[0], BACK_BUTTON[1], BACK_BUTTON[2], BACK_BUTTON[3]);
     }
 
-    private void IAPinit() {
+    private static void IAPinit() {
         // ---- IAP: define products ---------------------
-        purchaseManagerConfig = new PurchaseManagerConfig();
+        PurchaseManagerConfig purchaseManagerConfig = new PurchaseManagerConfig();
         purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(Constants.double_speed));
         GamePurchaseObserver purchaseObserver = new GamePurchaseObserver();
         PlatformBuilder.setComponents(null, purchaseObserver, purchaseManagerConfig);
@@ -105,7 +104,7 @@ public class ShopScreen extends ScreenAdapter {
         touchInfo = Util.doTouchEventsQueueEmpty();
 
         if (touchInfo != null) {
-            if (knifeBoosterBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
+            if (knifeBoosterBounds.contains(touchInfo.touchX, touchInfo.touchY) && !Constants.availabaleIdentifiers.contains(Constants.double_speed)) {
                 SoundPlayer.playButtonClick();
                 PlatformBuilder.getPlatformResolver().requestPurchase(Constants.double_speed);
                 return;

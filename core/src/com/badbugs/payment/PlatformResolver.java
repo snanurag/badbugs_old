@@ -23,14 +23,14 @@ public abstract class PlatformResolver {
     if (mgr != null) {
       PurchaseSystem.setManager(mgr);
       mgr.install(purchaseObserver, config, false);  // dont call PurchaseSystem.install() because it may bind openIAB!
-      Gdx.app.log("gdx-pay", "calls purchasemanager.install() manually");
+      Gdx.app.log("badbugs-pay", "calls purchasemanager.install() manually");
     } else {
-      Gdx.app.log("gdx-pay", "initializeIAP(): purchaseManager == null => call PurchaseSystem.hasManager()");
+      Gdx.app.log("badbugs-pay", "initializeIAP(): purchaseManager == null => call PurchaseSystem.hasManager()");
       if (PurchaseSystem.hasManager()) { // install and get the manager automatically via reflection
         this.mgr = PurchaseSystem.getManager();
-        Gdx.app.log("gdx-pay", "calls PurchaseSystem.install() via reflection");
+        Gdx.app.log("badbugs-pay", "calls PurchaseSystem.install() via reflection");
         PurchaseSystem.install(purchaseObserver, config); // install the observer
-        Gdx.app.log("gdx-pay", "installed manager: " + this.mgr.toString());
+        Gdx.app.log("badbugs-pay", "installed manager: " + this.mgr.toString());
       }
     }
   }
@@ -38,18 +38,18 @@ public abstract class PlatformResolver {
   public void requestPurchase(String productString) {
     if (mgr != null) {
       mgr.purchase(productString);  // dont call PurchaseSystem... because it may bind openIAB!
-      Gdx.app.log("gdx-pay", "calls purchasemanager.purchase()");
+      Gdx.app.log("badbugs-pay", "calls purchasemanager.purchase()");
     } else {
-      Gdx.app.log("gdx-pay", "ERROR: requestPurchase(): purchaseManager == null");
+      Gdx.app.log("badbugs-pay", "ERROR: requestPurchase(): purchaseManager == null");
     }
   }
 
   public void requestPurchaseRestore() {
     if (mgr != null) {
       mgr.purchaseRestore();  // dont call PurchaseSystem.purchaseRestore(); because it may bind openIAB!
-      Gdx.app.log("gdx-pay", "calls purchasemanager.purchaseRestore()");
+      Gdx.app.log("badbugs-pay", "calls purchasemanager.purchaseRestore()");
     } else {
-      Gdx.app.log("gdx-pay", "ERROR: requestPurchaseRestore(): purchaseManager == null");
+      Gdx.app.log("badbugs-pay", "ERROR: requestPurchaseRestore(): purchaseManager == null");
     }
   }
 
@@ -59,7 +59,7 @@ public abstract class PlatformResolver {
 
   public void dispose() {
     if (mgr != null) {
-      Gdx.app.log("gdx-pay", "calls purchasemanager.dispose()");
+      Gdx.app.log("badbugs-pay", "calls purchasemanager.dispose()");
       mgr.dispose();    // dont call PurchaseSystem... because it may bind openIAB!
       mgr = null;
     }

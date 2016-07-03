@@ -3,6 +3,9 @@ package com.badbugs.util;
 import com.badbugs.Game;
 import com.badbugs.objects.ObjectsCord;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by ashrinag on 3/24/2016.
  */
@@ -71,4 +74,7 @@ public class Constants {
         KNIFE_BOOSTER_TOP = 390;
 
     }
+
+    public static final Set<String> availabaleIdentifiers = new HashSet<String>();
+
 }
