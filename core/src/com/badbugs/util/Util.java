@@ -164,6 +164,9 @@ public class Util
 
   public static boolean checkIfGameOverConditionMet()
   {
+    if(Constants.DEMO)
+      return false;
+
     if(ObjectsStore.bugMissed >= 5)
     {
 //      Gdx.input.setInputProcessor(null);

@@ -15,6 +15,7 @@ public class Constants {
     //Demo settings
     public static final boolean DEMO = true;
     public static final int DEMO_BUGS = 10;
+    public static final String google_play_uri = "https://play.google.com/store/apps/details?id=com.badbugs2";
 
     //In-app products
    public static String double_speed = "doublespeed";
@@ -37,11 +38,18 @@ public class Constants {
     public static float BUG_FRAME_RATE[] = {1 / 60f, 1 / 85f, 1 / 100f, 1 / 120f, 1 / 150f};
     public static int FREEZE_FRAME_COUNTS = 20;
 
+    //Text
+    public static String BUY_FULL_VERSION = "BUY FULL VERSION";
+    public static float SCORE_SCALE = 0.15f;
+    public static float GAME_OVER_SCALE = 0.2f;
+
     // ALL X-Y and Width-Height
     public static final float GAME_OVER_BACKGROUND_WIDTH = 50;
     public static final float GAME_OVER_BACKGROUND_HEIGHT = 30;
     public static final float GAME_OVER_TEXT_X_POS = -15;
     public static final float GAME_OVER_TEXT_Y_POS = 7;
+    public static final float FULL_VER_TEXT_X_POS = -23;
+    public static final float FULL_VER_TEXT_Y_POS = 7;
     public static final float SCORE_TEXT_X_POS = -10;
     public static final float SCORE_TEXT_Y_POS = -5;
     public static final float HOME_SCREEN_W = 2560;
@@ -56,12 +64,13 @@ public class Constants {
     public static float LIFE_3_X_POS = 15 + 5;
     public static float LIFE_4_X_POS = 12 + 5;
     public static float LIFE_5_X_POS = 9 + 5;
-    public static float SCORE_SCALE = 0.15f;
-    public static float GAME_OVER_SCALE = 0.2f;
     public static float LIFE_SIZE_Y = 4;
     public static float LIFE_SIZE_X = LIFE_SIZE_Y * 11 / 14;
-    public static int PLAY_H, PLAY_W, SHOP_H, SHOP_W, BACK_H, BACK_W, QUIT_H, QUIT_W, SOUND_H, SOUND_W, MUSIC_H, MUSIC_W, KNIFE_BOOSTER_H, KNIFE_BOOSTER_W;
-    public static int PLAY_LEFT, PLAY_TOP, SHOP_LEFT, SHOP_TOP, BACK_LEFT, BACK_TOP, QUIT_LEFT, QUIT_TOP, SOUND_LEFT, SOUND_TOP, MUSIC_LEFT, MUSIC_TOP, KNIFE_BOOSTER_LEFT, KNIFE_BOOSTER_TOP;
+    public static int PLAY_H, PLAY_W, SHOP_H, SHOP_W, BACK_H, BACK_W, QUIT_H, QUIT_W, SOUND_H, SOUND_W, MUSIC_H, MUSIC_W,
+            KNIFE_BOOSTER_H, KNIFE_BOOSTER_W, GOOGLE_PLAY_W, GOOGLE_PLAY_H;
+    public static int PLAY_LEFT, PLAY_TOP, SHOP_LEFT, SHOP_TOP, BACK_LEFT, BACK_TOP, QUIT_LEFT, QUIT_TOP, SOUND_LEFT,
+            SOUND_TOP, MUSIC_LEFT, MUSIC_TOP, KNIFE_BOOSTER_LEFT, KNIFE_BOOSTER_TOP, GOOGLE_PLAY_LEFT, GOOGLE_PLAY_TOP;
+
     static {
         QUIT_H = QUIT_W = SOUND_W = SOUND_H = MUSIC_H = MUSIC_W = 150;
         QUIT_LEFT = SOUND_LEFT = MUSIC_LEFT = 2308;
@@ -83,5 +92,10 @@ public class Constants {
         KNIFE_BOOSTER_H = 150;
         KNIFE_BOOSTER_LEFT = 0;
         KNIFE_BOOSTER_TOP = 390;
+
+        GOOGLE_PLAY_W = 566;
+        GOOGLE_PLAY_H = 170;
+        GOOGLE_PLAY_LEFT = 1240;
+        GOOGLE_PLAY_TOP = 760;
     }
 }

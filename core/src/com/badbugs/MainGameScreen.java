@@ -4,76 +4,77 @@ import com.badbugs.baseframework.FontRenderers;
 import com.badbugs.baseframework.ImageRenderers;
 import com.badbugs.baseframework.MusicPlayer;
 import com.badbugs.baseframework.SoundPlayer;
-import com.badbugs.creators.SpritesCreator;
 import com.badbugs.creators.BugGenerator;
+import com.badbugs.creators.SpritesCreator;
 import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.dynamics.movement.KnifeMovement;
+import com.badbugs.objects.Button;
 import com.badbugs.objects.GameOver;
 import com.badbugs.objects.MainGame;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.objects.knives.SilverKnife;
-import com.badbugs.util.Constants;
-import com.badbugs.util.Inputs;
-import com.badbugs.util.ObjectsStore;
-import com.badbugs.util.Util;
+import com.badbugs.util.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
 public class MainGameScreen extends ScreenAdapter
 {
+  private Game game;
+  private BugGenerator bugGenerator;
+
   public static boolean isPaused;
+  private static boolean gameOverSoundPlayed;
+  private static float[] GOOGLE_PLAY_BUTTON = new float[]{Constants.GOOGLE_PLAY_LEFT * Game.screenWidth / Constants.HOME_SCREEN_W,
+          Constants.GOOGLE_PLAY_TOP * Game.screenHeight / Constants.HOME_SCREEN_H,
+          Constants.GOOGLE_PLAY_W * Game.screenWidth / Constants.HOME_SCREEN_W,
+          Constants.GOOGLE_PLAY_H * Game.screenHeight / Constants.HOME_SCREEN_H};
+
   private static ShapeRenderer shapeRenderer;
   private static Knife knife;
   private static GameOver gameoverBackground;
   private static Bug[] lives;
   private static MainGame mainGame;
-  private static boolean gameOverSoundPlayed;
-
-  private Game game;
-  private BugGenerator bugGenerator;
+  private static Button googlePlay;
 
   MainGameScreen(Game game)
   {
     this.game = game;
-//    Gdx.input.setInputProcessor(new Inputs());
     init();
   }
 
-  private void init()
-  {
-    ObjectsStore.bugMissed = 0;
-    ObjectsStore.score = 0;
-    ObjectsStore.getBugList().clear();
-    gameoverBackground.elapsedTime = 0;
-    gameOverSoundPlayed = false;
-    if(Constants.DEMO)
-      Util.startDemo();
-    bugGenerator = new BugGenerator();
-    bugGenerator.start();
-    MusicPlayer.playNatureMusic();
-  }
-
-  public static void load()
-  {
-    shapeRenderer = new ShapeRenderer();
-    try
-    {
-      knife = (SilverKnife) SpritesCreator.loadSilverKnife();
-      lives = new Bug[] { SpritesCreator.loadLife(Constants.LIFE_1_X_POS),
-          SpritesCreator.loadLife(Constants.LIFE_2_X_POS), SpritesCreator.loadLife(Constants.LIFE_3_X_POS),
-          SpritesCreator.loadLife(Constants.LIFE_4_X_POS), SpritesCreator.loadLife(Constants.LIFE_5_X_POS) };
-      gameoverBackground = SpritesCreator.loadGameOverBackground();
-      mainGame = SpritesCreator.loadMainGame();
-    } catch (Exception e)
-    {
-      e.printStackTrace();
+    private void init() {
+        ObjectsStore.bugMissed = 0;
+        ObjectsStore.score = 0;
+        ObjectsStore.getBugList().clear();
+        gameoverBackground.elapsedTime = 0;
+        gameOverSoundPlayed = false;
+        if (Constants.DEMO)
+            Util.startDemo();
+        bugGenerator = new BugGenerator();
+        bugGenerator.start();
+        MusicPlayer.playNatureMusic();
     }
-  }
 
-  @Override
+    public static void load() {
+        shapeRenderer = new ShapeRenderer();
+        try {
+            knife = (SilverKnife) SpritesCreator.loadSilverKnife();
+            lives = new Bug[]{SpritesCreator.loadLife(Constants.LIFE_1_X_POS),
+                    SpritesCreator.loadLife(Constants.LIFE_2_X_POS), SpritesCreator.loadLife(Constants.LIFE_3_X_POS),
+                    SpritesCreator.loadLife(Constants.LIFE_4_X_POS), SpritesCreator.loadLife(Constants.LIFE_5_X_POS)};
+            gameoverBackground = SpritesCreator.loadGameOverBackground();
+            mainGame = SpritesCreator.loadMainGame();
+            googlePlay = SpritesCreator.loadGooglePlay();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
   public void render(float delta)
   {
     if(Inputs.backPressed)
@@ -85,11 +86,14 @@ public class MainGameScreen extends ScreenAdapter
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     //    ImageRenderers.shapeRenderer.begin();
+
+    TouchInfo threadsTouchEvent = threadTouchEvent();
+
     try
     {
       if(!isPaused)
-        allStateUpdate();
-      allRendering();
+        allStateUpdate(threadsTouchEvent);
+      allRendering(threadsTouchEvent);
     } catch (Exception e)
     {
       e.printStackTrace();
@@ -97,30 +101,29 @@ public class MainGameScreen extends ScreenAdapter
     //    ImageRenderers.shapeRenderer.end();
   }
 
-  private void allStateUpdate() throws Exception
+  private void allStateUpdate(TouchInfo touchInfo) throws Exception
   {
-    KnifeMovement.updatePolygon(knife);
+    KnifeMovement.updatePolygon(knife, touchInfo);
     BugMovement.upgradeEveryBugState();
   }
 
-  private void allRendering() throws Exception
-  {
+  private void allRendering(TouchInfo touchInfo) throws Exception {
     ImageRenderers.renderBasicObject(Game.batch, mainGame);
     ImageRenderers.renderBugs(Game.batch);
     ImageRenderers.renderBloods(Game.batch);
     ImageRenderers.renderKnife(Game.batch, knife);
     FontRenderers.renderScore(Game.batch, ObjectsStore.score);
     ImageRenderers.renderLives(Game.batch, lives);
-    if (Util.checkIfGameOverConditionMet())
-    {
-      if(!gameOverSoundPlayed)
-      {
+    if (Util.checkIfGameOverConditionMet()) {
+      if (!gameOverSoundPlayed) {
         SoundPlayer.playGameOver();
         gameOverSoundPlayed = true;
       }
       attemptGameOver();
     }
-
+    if (Util.checkIfDemoOver()) {
+      popupBuyOption(touchInfo);
+    }
   }
 
   private void attemptGameOver() throws Exception
@@ -133,11 +136,28 @@ public class MainGameScreen extends ScreenAdapter
     }
   }
 
+  private void popupBuyOption(TouchInfo touchInfo) throws Exception {
+    ImageRenderers.renderGameOverBackground(Game.batch, gameoverBackground);
+    FontRenderers.renderBuyOptionText(Game.batch, gameoverBackground);
+    ImageRenderers.renderBasicObject(Game.batch, googlePlay);
+    Rectangle googlePlayBounds = new Rectangle(GOOGLE_PLAY_BUTTON[0], GOOGLE_PLAY_BUTTON[1], GOOGLE_PLAY_BUTTON[2], GOOGLE_PLAY_BUTTON[3]);
+    if(touchInfo != null && googlePlayBounds.contains(touchInfo.touchX, touchInfo.touchY))
+    {
+      Gdx.net.openURI(Constants.google_play_uri);
+    }
+  }
+
   private void swtichToMainMenu()
   {
     dispose();
     game.setScreen(new MainMenuScreen(game));
   }
+
+  private TouchInfo threadTouchEvent()
+  {
+    return Util.doTouchEventsQueueEmpty();
+  }
+
   @Override
   public void resize(int width, int height)
   {

@@ -119,7 +119,7 @@ public class MainMenuScreen extends ScreenAdapter {
                 MusicPlayer.stopIntroMusic();
                 mainGameScreen = new MainGameScreen(game);
                 game.setScreen(mainGameScreen);
-            } else if (shopBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
+            } else if (!Constants.DEMO && shopBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 SoundPlayer.playButtonClick();
                 MusicPlayer.stopIntroMusic();
                 game.setScreen(new ShopScreen(game));

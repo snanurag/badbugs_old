@@ -15,110 +15,108 @@ import com.badlogic.gdx.math.Polygon;
 
 public class BugGenerator extends Thread {
 
-  final int WALLS_COUNT = 4;
-  int bugId = 0;
-  int lastWall;
-  boolean running = true;
+    final int WALLS_COUNT = 4;
+    int bugId = 0;
+    int lastWall;
+    boolean running = true;
 
-  public void terminateBugGenerator()
-  {
-    running = false;
-  }
-
-  public void run() {
-    try {
-
-      if(Constants.DEMO && bugId == 10)
-      {
-        Util.endDemo();
-      }
-      while (running) {
-        Thread.sleep(1000);
-        if(!MainGameScreen.isPaused)
-          createBug();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  private void createBug() throws Exception {
-    int level = getLevel();
-    BedBug bug = SpritesCreator.loadBedBug(level);
-    bug.id = ++bugId;
-    initialize(bug);
-    ObjectsStore.add(bug);
-
-    bug.speed = Constants.BUG_SPEED[level];
-  }
-
-  private int getLevel() {
-    double randomFactor = Math.random();
-    int level = (int) (randomFactor * Constants.MAX_BUG_LEVEL);
-    return level;
-  }
-
-  private void initialize(Bug bug) throws Exception {
-
-    Polygon polygon = bug.getPolygon();
-
-    int wall = 0;
-    while(lastWall == wall)
-    {
-      wall = (int) (Math.random() * WALLS_COUNT);
+    public void terminateBugGenerator() {
+        running = false;
     }
 
-    lastWall = wall;
+    public void run() {
+        try {
 
-    float x;
-    float y;
-    float angle;
-
-    if (wall == 0) // bottom wall
-    {
-      y = -Game.cam_height / 2 - bug.getPolygon().getOriginY();
-      x = getValFromNegToPosMax(Game.cam_width / 2);
-      if (x < 0)
-        angle = 30 + getValFromZeroToMax(60);
-      else
-        angle = 90 + getValFromZeroToMax(60);
-    } else if (wall == 1) // left wall
-    {
-      x = -Game.cam_width / 2 - bug.getPolygon().getOriginX();
-      y = getValFromNegToPosMax(Game.cam_height / 2);
-      if (y < 0)
-        angle = getValFromZeroToMax(60);
-      else
-        angle = -getValFromZeroToMax(60);
-    } else if (wall == 2) // top wall
-    {
-      y = Game.cam_height / 2 + bug.getPolygon().getOriginY();
-      x = getValFromNegToPosMax(Game.cam_width / 2);
-      if (x < 0)
-        angle = -30 - getValFromZeroToMax(60);
-      else
-        angle = -90 - getValFromZeroToMax(60);
-    } else {
-      x = Game.cam_width / 2 + bug.getPolygon().getOriginX();
-      y = getValFromNegToPosMax(Game.cam_height / 2);
-      if (y < 0)
-        angle = 120 + getValFromZeroToMax(60);
-      else
-        angle = 180 + getValFromZeroToMax(60);
+            while (running) {
+                if (Constants.DEMO && bugId == Constants.DEMO_BUGS) {
+                    Util.endDemo();
+                    running = false;
+                }
+                Thread.sleep(1000);
+                if (!MainGameScreen.isPaused)
+                    createBug();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    polygon.setPosition(x - polygon.getOriginX(), y - polygon.getOriginY());
-    polygon.setRotation(angle + bug.getInitialAngle());
+    private void createBug() throws Exception {
+        int level = getLevel();
+        BedBug bug = SpritesCreator.loadBedBug(level);
+        bug.id = ++bugId;
+        initialize(bug);
+        ObjectsStore.add(bug);
 
-  }
+        bug.speed = Constants.BUG_SPEED[level];
+    }
 
-  private float getValFromZeroToMax(float max) {
-    float randomFactor = (float) Math.random();
-    return randomFactor * max;
-  }
+    private int getLevel() {
+        double randomFactor = Math.random();
+        int level = (int) (randomFactor * Constants.MAX_BUG_LEVEL);
+        return level;
+    }
 
-  private float getValFromNegToPosMax(float max) {
-    float randomFactor = (float) Math.random();
-    return (randomFactor * 2 - 1) * max;
-  }
+    private void initialize(Bug bug) throws Exception {
+
+        Polygon polygon = bug.getPolygon();
+
+        int wall = 0;
+        while (lastWall == wall) {
+            wall = (int) (Math.random() * WALLS_COUNT);
+        }
+
+        lastWall = wall;
+
+        float x;
+        float y;
+        float angle;
+
+        if (wall == 0) // bottom wall
+        {
+            y = -Game.cam_height / 2 - bug.getPolygon().getOriginY();
+            x = getValFromNegToPosMax(Game.cam_width / 2);
+            if (x < 0)
+                angle = 30 + getValFromZeroToMax(60);
+            else
+                angle = 90 + getValFromZeroToMax(60);
+        } else if (wall == 1) // left wall
+        {
+            x = -Game.cam_width / 2 - bug.getPolygon().getOriginX();
+            y = getValFromNegToPosMax(Game.cam_height / 2);
+            if (y < 0)
+                angle = getValFromZeroToMax(60);
+            else
+                angle = -getValFromZeroToMax(60);
+        } else if (wall == 2) // top wall
+        {
+            y = Game.cam_height / 2 + bug.getPolygon().getOriginY();
+            x = getValFromNegToPosMax(Game.cam_width / 2);
+            if (x < 0)
+                angle = -30 - getValFromZeroToMax(60);
+            else
+                angle = -90 - getValFromZeroToMax(60);
+        } else {
+            x = Game.cam_width / 2 + bug.getPolygon().getOriginX();
+            y = getValFromNegToPosMax(Game.cam_height / 2);
+            if (y < 0)
+                angle = 120 + getValFromZeroToMax(60);
+            else
+                angle = 180 + getValFromZeroToMax(60);
+        }
+
+        polygon.setPosition(x - polygon.getOriginX(), y - polygon.getOriginY());
+        polygon.setRotation(angle + bug.getInitialAngle());
+
+    }
+
+    private float getValFromZeroToMax(float max) {
+        float randomFactor = (float) Math.random();
+        return randomFactor * max;
+    }
+
+    private float getValFromNegToPosMax(float max) {
+        float randomFactor = (float) Math.random();
+        return (randomFactor * 2 - 1) * max;
+    }
 }

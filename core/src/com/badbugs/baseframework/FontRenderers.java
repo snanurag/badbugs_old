@@ -36,6 +36,16 @@ public class FontRenderers {
         font.draw(batch, "Bugs " + score, Constants.SCORE_TEXT_X_POS, Constants.SCORE_TEXT_Y_POS, 13, -1, false);
     }
 
+    public static void renderBuyOptionText(Batch batch, GameOver buyOption) {
+        float alpha = buyOption.elapsedTime / Constants.GAME_OVER_FADE_IN_TIME;
+        if (alpha <= 1) {
+            font.setColor(0, 0, 0, alpha);
+        }
+        font.getData().setScale(Constants.GAME_OVER_SCALE);
+        font.draw(batch, Constants.BUY_FULL_VERSION, Constants.FULL_VER_TEXT_X_POS, Constants.FULL_VER_TEXT_Y_POS, 13, -1, false);
+
+    }
+
     public static void renderText(Batch batch, Font f) {
         font.getData().setScale(f.getScale());
         font.draw(batch, f.getText(), f.getX(), f.getY(), 65, -1, false);
