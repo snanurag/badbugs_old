@@ -13,7 +13,7 @@ import java.util.Set;
 public class Constants {
 
     //Demo settings
-    public static final boolean DEMO = true;
+    public static final boolean DEMO = false;
     public static final int DEMO_BUGS = 10;
     public static final String google_play_uri = "https://play.google.com/store/apps/details?id=com.badbugs2";
 
