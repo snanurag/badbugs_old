@@ -1,0 +1,20 @@
+- Make animation of blood spill. -  6 and 13 aug weekend
+- Passport
+- Make black small bug - pretty high pace - 23 jul weekend
+- Make red bug with black dots - medium pace - 30 Jul weekend
+- Convert Stage background to dark colored wood - 20 Aug weekend
+- Change current but to light brown bed bug - slow pace -27 Aug weekend
+- Launch Demo version of bad bugs if it is still not being downloaded (tentative)
+- Make Grass hopper - Jumping - 3rd and 10th Sep weekend
+- Burning nets - 17th, 24th Sep and 1st Oct weekends
+- Bombs - 8th and 15th Oct
+- Make animation of knife hit.
+- Change knife hit sound to arrow hit sound
+-Change the knife booster logo
+-Game not starting on click icon after pause
+- Disable Game booster icon after purchase.
+Make loading screen. - 10 days
+Make wooden edges in stage. - 4 days
+Knife doesn't hit the point of touch.
+On back button click in MainGame, give option of exit or play.
+Make Chungi Nepalese game - Acrade mode
