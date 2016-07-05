@@ -8,6 +8,9 @@
 - Make Grass hopper - Jumping - 3rd and 10th Sep weekend
 - Burning nets - 17th, 24th Sep and 1st Oct weekends
 - Bombs - 8th and 15th Oct
+- Launch site greystudios.in
+- Make leager board.
+- Make 5 minute game and push bugs on their kill basis.
 - Make animation of knife hit.
 - Change knife hit sound to arrow hit sound
 -Change the knife booster logo

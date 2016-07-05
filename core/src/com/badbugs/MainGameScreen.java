@@ -49,6 +49,8 @@ public class MainGameScreen extends ScreenAdapter
     ObjectsStore.getBugList().clear();
     gameoverBackground.elapsedTime = 0;
     gameOverSoundPlayed = false;
+    if(Constants.DEMO)
+      Util.startDemo();
     bugGenerator = new BugGenerator();
     bugGenerator.start();
     MusicPlayer.playNatureMusic();
@@ -118,6 +120,7 @@ public class MainGameScreen extends ScreenAdapter
       }
       attemptGameOver();
     }
+
   }
 
   private void attemptGameOver() throws Exception

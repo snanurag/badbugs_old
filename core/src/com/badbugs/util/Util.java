@@ -25,6 +25,8 @@ public class Util
   private static boolean musicOn = true;
   private static boolean soundOn = true;
 
+  private static boolean demoOver = false;
+
   public static boolean isMusicOn() {
     return musicOn;
   }
@@ -168,6 +170,21 @@ public class Util
       return true;
     }
     return false;
+  }
+
+  public static void startDemo()
+  {
+    demoOver = false;
+  }
+
+  public static void endDemo()
+  {
+    demoOver = true;
+  }
+
+  public static boolean checkIfDemoOver()
+  {
+    return demoOver;
   }
 
   @Deprecated

@@ -6,6 +6,7 @@ import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsStore;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.math.Polygon;
 
 /**
@@ -26,6 +27,11 @@ public class BugGenerator extends Thread {
 
   public void run() {
     try {
+
+      if(Constants.DEMO && bugId == 10)
+      {
+        Util.endDemo();
+      }
       while (running) {
         Thread.sleep(1000);
         if(!MainGameScreen.isPaused)
