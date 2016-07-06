@@ -53,32 +53,21 @@ public class KnifeMovement {
             Vector3 touchPoints;
 
             touchPoints = Game.cam.unproject(new Vector3(touchInfo.touchX, touchInfo.touchY, 0));
-
-            Vector2 tip = Util.getKnifeTipInWorld(polygon);
-
-            float dirX = touchPoints.x - tip.x;
-            float dirY = touchPoints.y - tip.y;
+            Util.moveTouchPtUpByKnifeYOrig(knife.getPolygon(), touchPoints);
+            float dirX = touchPoints.x - polygon.getX();
+            float dirY = touchPoints.y - polygon.getY();
 
             directionVector = new Vector2((float) (dirX / (Math.sqrt(dirX * dirX + dirY * dirY))),
                     (float) (dirY / (Math.sqrt(dirX * dirX + dirY * dirY))));
             elapsedTime = 0;
             lastTime = System.currentTimeMillis();
-            float angle = (float) (Math.atan2(directionVector.y, directionVector.x) * 180 / Math.PI) + 180;
-
-            polygon.setRotation(angle);
-
-            tip = Util.getKnifeTipInWorld(polygon);
-
-            if (!checkIfPointInBoundary(tip.x, tip.y)) {
-                Vector2 v = moveVectorInBoundary(tip.x, tip.y);
-
-                Vector2 leftBottomWrtTip = Util.getLeftBottomWrtTip(v.x - tip.x, v.y - tip.y, polygon);
-                polygon.setPosition(leftBottomWrtTip.x, leftBottomWrtTip.y);
-            }
+            float angle = (float) (Math.atan2(directionVector.y, directionVector.x) * 180 / Math.PI);
 
             setAllBugsState(knife);
 
-            Util.globalLogger().debug("Angle of Knife " +  angle);
+            polygon.setRotation(knife.getInitialAngle() + angle);
+
+            Util.globalLogger().debug("Angle of Knife " + angle);
             Util.globalLogger().debug("Direction vector " + directionVector);
         }
     }
@@ -114,14 +103,10 @@ public class KnifeMovement {
 
             polygon.setPosition(x, y);
 
-            Vector2 tip = Util.getKnifeTipInWorld(polygon);
+            if (!checkIfPointInBoundary(polygon.getX(), polygon.getY())) {
 
-            if (!checkIfPointInBoundary(tip.x, tip.y)) {
-
-                Vector2 v = moveVectorInBoundary(tip.x, tip.y);
-
-                Vector2 leftBottomWrtTip = Util.getLeftBottomWrtTip(v.x - tip.x, v.y - tip.y, polygon);
-                polygon.setPosition(leftBottomWrtTip.x, leftBottomWrtTip.y);
+                Vector2 v = moveVectorInBoundary(polygon.getX(), polygon.getY());
+                polygon.setPosition(v.x, v.y);
                 SoundPlayer.playKnifeWoodImpact();
                 directionVector = null;
             }

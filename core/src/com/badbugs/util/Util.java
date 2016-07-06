@@ -1,12 +1,7 @@
 package com.badbugs.util;
 
-import com.badbugs.Game;
 import com.badbugs.objects.BasicObject;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.Logger;
 
 import java.util.PriorityQueue;
@@ -123,12 +118,13 @@ public class Util
     return new Vector2(tipX, tipY);
   }
 
-  public static Vector2 getLeftBottomWrtTip(float diffX, float diffY, Polygon knifePolygon)
+  //Moving the touch point up because knife's initial angle is 180 degree.
+  public static void moveTouchPtUpByKnifeYOrig(Polygon knifePolygon, Vector3 touchPoint)
   {
-    float x = knifePolygon.getX()  + diffX;
-    float y = knifePolygon.getY() + diffY;
+    Vector2 shift = Util.rotateVectorByGivenAngle(0, knifePolygon.getOriginY(), knifePolygon.getRotation());
+    touchPoint.x = touchPoint.x + shift.x;
+    touchPoint.y = touchPoint.y + shift.y;
 
-    return new Vector2(x, y);
   }
 
   public static Vector2 getStateOfBugWRTKnife(float x, float y, Polygon knifePolygon)

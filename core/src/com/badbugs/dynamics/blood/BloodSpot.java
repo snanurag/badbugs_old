@@ -55,6 +55,8 @@ public class BloodSpot {
         bloodSpotLength = 8;
 
       bloodSprite.setCameraDimensions(new float[] { bloodSpotLength, ObjectsCord.BLOOD_SPOT_WIDTH });
+
+      // Setting it only for store. Polygon is not used anywhere for calculation.
       bloodSprite.getPolygon()
           .setOrigin(bloodSprite.getCameraDimensions()[0] / 2, bloodSprite.getCameraDimensions()[1] / 2);
   }
