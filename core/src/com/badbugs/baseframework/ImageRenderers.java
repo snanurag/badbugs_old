@@ -36,8 +36,8 @@ public class ImageRenderers {
     }
 
     public static void renderKnife(SpriteBatch batch, Knife knife) throws Exception {
-        Polygon knifePolygon = knife.getPolygon();
 
+        Polygon knifePolygon = knife.getPolygon();
         Texture knifeTexture = knife.getTexture();
 
         batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), 0, 0, knife.getCameraDimensions()[0],
@@ -48,16 +48,16 @@ public class ImageRenderers {
     }
 
     private static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {
+
         BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bug);
         if (bloodSpot != null) {
-            BloodSprite blood = ObjectsStore.getBloodSprite(bloodSpot);
+            BloodSprite blood = bloodSpot.getBloodSprite();
 
             if (blood != null) {
                 float widthScaleFactor = 2;
                 Polygon polygon = blood.getPolygon();
                 bloodSpot.elapsedTime += Gdx.graphics.getDeltaTime();
                 if (bloodSpot.elapsedTime > Constants.BLOOD_SPOT_FADE_TIME) {
-                    ObjectsStore.removeBloodSprite(bloodSpot);
                     ObjectsStore.removeBlood(bug);
                     bug.dead = true;
                 }
@@ -68,10 +68,13 @@ public class ImageRenderers {
                 float alpha = getAlpha(bloodSpot);
 
                 batch.setColor(1, 1, 1, alpha);
-                TextureRegion textureRegion = getProperBloodTexReg(blood.getCameraDimensions()[0]);
-                batch.draw(textureRegion, polygon.getX() - centerAfterRotation.x, polygon.getY() - centerAfterRotation.y, 0, 0,
+
+                Texture bloodTexture = blood.getTexture();
+                batch.draw(bloodTexture, polygon.getX() - centerAfterRotation.x, polygon.getY() - centerAfterRotation.y, 0, 0,
                         blood.getCameraDimensions()[0], blood.getCameraDimensions()[1] * widthScaleFactor, 1, 1,
-                        polygon.getRotation());
+                        polygon.getRotation(), 0, 0, bloodTexture.getWidth() ,
+                        bloodTexture.getHeight(), false, false);
+
                 batch.setColor(1, 1, 1, 1);
             }
         }
@@ -147,24 +150,10 @@ public class ImageRenderers {
         batch.setColor(1, 1, 1, 1);
     }
 
-    public static void renderShopScreen(SpriteBatch batch, Shop shop) {
-        batch.draw(shop.getTexture(), -shop.getCameraDimensions()[0] / 2, -shop.getCameraDimensions()[1] / 2,
-                shop.getCameraDimensions()[0], shop.getCameraDimensions()[1]);
-    }
-
     public static void renderBasicObject(SpriteBatch batch, BasicObject basicObject) throws Exception {
         batch.draw(basicObject.getTexture(), basicObject.getPolygon().getX(), basicObject.getPolygon().getY(),
                 basicObject.getCameraDimensions()[0], basicObject.getCameraDimensions()[1]);
 
-    }
-
-    private static TextureRegion getProperBloodTexReg(float bloodSpotLen) {
-        if (bloodSpotLen < 2)
-            return SpritesCreator.bloodTextureRegionSmall;
-        else if (bloodSpotLen < 6)
-            return SpritesCreator.bloodTextureRegionMedium;
-        else
-            return SpritesCreator.bloodTextureRegionLong;
     }
 
     private static float getAlpha(BloodSpot bloodSpot) {

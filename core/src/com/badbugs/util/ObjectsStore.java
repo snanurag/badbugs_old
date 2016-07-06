@@ -1,7 +1,7 @@
 package com.badbugs.util;
 
+import com.badbugs.dynamics.blood.BloodSplash;
 import com.badbugs.dynamics.blood.BloodSpot;
-import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.bugs.Bug;
 
 import java.util.ArrayList;
@@ -15,9 +15,9 @@ import java.util.Map;
 public class ObjectsStore {
 
 //  static List<BasicObject> knifeList = new ArrayList<BasicObject>();
-  static List<Bug> bugList = new ArrayList<Bug>();
-  static Map<Bug, BloodSpot> bloodSpillMap = new HashMap<Bug, BloodSpot>();
-  static Map<BloodSpot, BloodSprite> bloodSpotBloodSpriteMap = new HashMap<BloodSpot, BloodSprite>();
+  private static List<Bug> bugList = new ArrayList<Bug>();
+  private static Map<Bug, BloodSpot> bloodSpotMap = new HashMap<Bug, BloodSpot>();
+  private static Map<Bug, BloodSplash> bloodSplashMap = new HashMap<Bug, BloodSplash>();
 
   public static int score = 0;
   public static int bugMissed = 0;
@@ -37,32 +37,30 @@ public class ObjectsStore {
 
   public static void add(Bug bug, BloodSpot bloodSpot)
   {
-    bloodSpillMap.put(bug, bloodSpot);
-  }
-
-  public static void removeBlood(Bug bug)
-  {
-    bloodSpillMap.remove(bug);
+    bloodSpotMap.put(bug, bloodSpot);
   }
 
   public static BloodSpot getBloodSpot(Bug bug)
   {
-    return  bloodSpillMap.get(bug);
+    return  bloodSpotMap.get(bug);
   }
 
-  public static void add(BloodSpot bloodSpot, BloodSprite bloodSprite)
+  public static void add(Bug bug, BloodSplash bloodSplash)
   {
-    bloodSpotBloodSpriteMap.put(bloodSpot, bloodSprite);
+    bloodSplashMap.put(bug, bloodSplash);
   }
 
-  public static void removeBloodSprite(BloodSpot bloodSpot)
+  public static BloodSplash getBloodSplash(Bug bug)
   {
-    bloodSpotBloodSpriteMap.remove(bloodSpot);
+    return  bloodSplashMap.get(bug);
   }
 
-  public static BloodSprite getBloodSprite(BloodSpot bloodSpot)
+  public static void removeBlood(Bug bug)
   {
-    return bloodSpotBloodSpriteMap.get(bloodSpot);
+    bloodSpotMap.remove(bug);
+    bloodSplashMap.remove(bug);
   }
+
+
 
 }

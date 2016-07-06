@@ -25,8 +25,7 @@ public class BloodSpot {
   private BloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
     this.bug = bug;
     this.knife = knife;
-    this.bloodSprite = SpritesCreator.loadBloodSpot();
-    ObjectsStore.add(this, bloodSprite);
+    //ObjectsStore.add(this, bloodSprite);
     updateBloodSpotDimensions(hitPoint);
     elapsedTime = 0;
   }
@@ -42,18 +41,19 @@ public class BloodSpot {
 
       float angle = knife.getPolygon().getRotation();
 
-      bloodSprite.getPolygon().setRotation(angle);
 
       Vector2 endPoint = getPointAtPolygonBoundary(bug.getPolygon(), new Vector2(hitPoint.x, hitPoint.y), angle);
       Vector2 startPoint = getPointAtPolygonBoundary(bug.getPolygon(), new Vector2(hitPoint.x, hitPoint.y), 180 + angle);
 
-      bloodSprite.getPolygon().setPosition(startPoint.x, startPoint.y);
 
       float bloodSpotLength = Util.distanceBetweenPoints(startPoint, endPoint);
 
       if (bloodSpotLength > 8)
         bloodSpotLength = 8;
 
+      this.bloodSprite = SpritesCreator.loadBloodSpot(bloodSpotLength);
+      bloodSprite.getPolygon().setRotation(angle);
+      bloodSprite.getPolygon().setPosition(startPoint.x, startPoint.y);
       bloodSprite.setCameraDimensions(new float[] { bloodSpotLength, ObjectsCord.BLOOD_SPOT_WIDTH });
 
       // Setting it only for store. Polygon is not used anywhere for calculation.
@@ -75,4 +75,8 @@ public class BloodSpot {
     return startPoint;
   }
 
+    public BloodSprite getBloodSprite()
+    {
+        return bloodSprite;
+    }
 }

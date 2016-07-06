@@ -12,21 +12,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.w3c.dom.Text;
 
 /**
  * Created by ashrinag on 3/20/2016.
  */
 public class SpritesCreator {
 
-    public static TextureRegion bloodTextureRegionLong;
-    public static TextureRegion bloodTextureRegionMedium;
-    public static TextureRegion bloodTextureRegionSmall;
     private static Texture knifeTexture;
     private static TextureAtlas textureAtlas;
     private static Texture floorTexture;
     private static Texture bloodTextureLong;
     private static Texture bloodTextureMedium;
     private static Texture bloodTextureSmall;
+    private static Texture bloodDotTexture;
     private static Texture lifeTexture;
     private static Texture mainMenuTexture;
     private static Texture gameOverBackgroundTexture;
@@ -59,15 +58,13 @@ public class SpritesCreator {
         backTexture = new Texture(Gdx.files.internal("back_button.png"));
         knifeBoosterTexture = new Texture(Gdx.files.internal("knife_booster.png"));
         googlePlayTexture = new Texture(Gdx.files.internal("google_play.png"));
+        bloodDotTexture  = new Texture(Gdx.files.internal("google_play.png"));
 
         //TIP : TextureRegion worked for blood not Texture
         bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
         bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
         bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
 
-        bloodTextureRegionLong = new TextureRegion(bloodTextureLong);
-        bloodTextureRegionMedium = new TextureRegion(bloodTextureMedium);
-        bloodTextureRegionSmall = new TextureRegion(bloodTextureSmall);
     }
 
     public static BasicObject loadSilverKnife() throws Exception {
@@ -226,9 +223,40 @@ public class SpritesCreator {
         return googlePlay;
     }
 
-    public static BloodSprite loadBloodSpot() {
-        BloodSprite bloodSprite = new BloodSprite(null);
+    public static BloodSprite loadBloodSpot(float len) {
+        BloodSprite bloodSprite = new BloodSprite(getProperBloodTex(len));
         return bloodSprite;
+    }
+
+    private static Texture getProperBloodTex(float bloodSpotLen) {
+        if (bloodSpotLen < 2)
+            return SpritesCreator.bloodTextureSmall;
+        else if (bloodSpotLen < 6)
+            return SpritesCreator.bloodTextureMedium;
+        else
+            return SpritesCreator.bloodTextureLong;
+    }
+
+    public static BloodSprite loadBloodDot()
+    {
+        BloodSprite bloodSprite = new BloodSprite(bloodDotTexture);
+        return bloodSprite;
+    }
+
+    public static void switchSoundSprites(Button sound) {
+        if (sound.getTexture() == soundEnabledTexture) {
+            sound.setTexture(soundDisabledTexture);
+        } else {
+            sound.setTexture(soundEnabledTexture);
+        }
+    }
+
+    public static void switchMusicSprites(Button music) {
+        if (music.getTexture() == musicEnabledTexture) {
+            music.setTexture(musicDisabledTexture);
+        } else {
+            music.setTexture(musicEnabledTexture);
+        }
     }
 
     public static void disposeAll() {
@@ -251,22 +279,8 @@ public class SpritesCreator {
         playTexture.dispose();
         backTexture.dispose();
         knifeBoosterTexture.dispose();
-    }
-
-    public static void switchSoundSprites(Button sound) {
-        if (sound.getTexture() == soundEnabledTexture) {
-            sound.setTexture(soundDisabledTexture);
-        } else {
-            sound.setTexture(soundEnabledTexture);
-        }
-    }
-
-    public static void switchMusicSprites(Button music) {
-        if (music.getTexture() == musicEnabledTexture) {
-            music.setTexture(musicDisabledTexture);
-        } else {
-            music.setTexture(musicEnabledTexture);
-        }
+        googlePlayTexture.dispose();
+        bloodDotTexture.dispose();
     }
 
 }
