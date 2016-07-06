@@ -6,6 +6,7 @@ import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.ObjectsCord;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
+import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsStore;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.math.MathUtils;
@@ -25,7 +26,6 @@ public class BloodSpot {
   private BloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
     this.bug = bug;
     this.knife = knife;
-    //ObjectsStore.add(this, bloodSprite);
     updateBloodSpotDimensions(hitPoint);
     elapsedTime = 0;
   }
@@ -48,8 +48,8 @@ public class BloodSpot {
 
       float bloodSpotLength = Util.distanceBetweenPoints(startPoint, endPoint);
 
-      if (bloodSpotLength > 8)
-        bloodSpotLength = 8;
+      if (bloodSpotLength > Constants.MAX_BLOOD_LENGTH)
+        bloodSpotLength = Constants.MAX_BLOOD_LENGTH;
 
       this.bloodSprite = SpritesCreator.loadBloodSpot(bloodSpotLength);
       bloodSprite.getPolygon().setRotation(angle);

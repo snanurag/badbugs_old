@@ -2,6 +2,7 @@ package com.badbugs.dynamics.movement;
 
 import com.badbugs.Game;
 import com.badbugs.baseframework.SoundPlayer;
+import com.badbugs.dynamics.blood.BloodSplash;
 import com.badbugs.dynamics.blood.BloodSpot;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
@@ -165,6 +166,8 @@ public class KnifeMovement {
         if (hitPoint != null) {
             if (ObjectsStore.getBloodSpot(bug) == null) {
                 BloodSpot.createAndStoreBloodSpot(bug, knife, hitPoint);
+                BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bug);
+                ObjectsStore.add(bug, new BloodSplash(hitPoint,bloodSpot.getBloodSprite().getCameraDimensions()[0]));
                 SoundPlayer.playKnifeBugImpact();
             }
         }

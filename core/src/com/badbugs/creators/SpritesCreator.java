@@ -58,9 +58,7 @@ public class SpritesCreator {
         backTexture = new Texture(Gdx.files.internal("back_button.png"));
         knifeBoosterTexture = new Texture(Gdx.files.internal("knife_booster.png"));
         googlePlayTexture = new Texture(Gdx.files.internal("google_play.png"));
-        bloodDotTexture  = new Texture(Gdx.files.internal("google_play.png"));
-
-        //TIP : TextureRegion worked for blood not Texture
+        bloodDotTexture  = new Texture(Gdx.files.internal("blood_dot.png"));
         bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
         bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
         bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));

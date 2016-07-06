@@ -44,6 +44,8 @@ public class Constants {
     public static float GAME_OVER_SCALE = 0.2f;
 
     // ALL X-Y and Width-Height
+    public static final float MAX_BLOOD_LENGTH = 8;
+    public static final float BLOOD_DOT_RADIUS = .25f;
     public static final float GAME_OVER_BACKGROUND_WIDTH = 50;
     public static final float GAME_OVER_BACKGROUND_HEIGHT = 30;
     public static final float GAME_OVER_TEXT_X_POS = -15;

@@ -1,7 +1,78 @@
 package com.badbugs.dynamics.blood;
 
+import com.badbugs.creators.SpritesCreator;
+import com.badbugs.objects.BloodSprite;
+import com.badbugs.util.Constants;
+import com.badbugs.util.Util;
+import com.badlogic.gdx.math.Vector2;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ashrinag on 7/6/2016.
  */
 public class BloodSplash {
+
+    private static final float MAX_RADIUS = 5;
+    private static final int MAX_BLOOD_STRIPES = 15;
+    private static final int BLOOD_DOTS_PER_STRIPE = 10;
+
+    private int bloodStrips;
+    private float splashRadius;
+    private Vector2 bloodSpotCenter;
+    private float bloodLength;
+    private List<List<BloodSprite>> listOfBloodSprites = new ArrayList<List<BloodSprite>>();
+
+    {
+        //bloodStrips should be from 3 to 15
+    }
+
+    public BloodSplash(Vector2 bloodSpotCenter, float bloodLength) throws Exception {
+        this.bloodSpotCenter = bloodSpotCenter;
+        this.bloodLength = bloodLength;
+        init();
+    }
+
+    public List<List<BloodSprite>> getListOfBloodSprites()
+    {
+        return listOfBloodSprites;
+    }
+
+    private void init() throws Exception {
+
+        bloodStrips = (int) (bloodLength * MAX_BLOOD_STRIPES / Constants.MAX_BLOOD_LENGTH);
+        if (bloodStrips < 3)
+            bloodStrips = 3;
+
+        splashRadius = (int) (bloodLength * MAX_RADIUS / Constants.MAX_BLOOD_LENGTH);
+        if (splashRadius < 3)
+            splashRadius = 3;
+
+        for (int i = 0; i < bloodStrips; i++) {
+            List<BloodSprite> bloodSpriteList = new ArrayList<BloodSprite>();
+            listOfBloodSprites.add(bloodSpriteList);
+            createBloodSprites(bloodSpriteList);
+        }
+    }
+
+    private void createBloodSprites(List<BloodSprite> bloodSpriteList) throws Exception {
+        float angle = (float) Math.random() * 360;
+        for (int i = 0; i < BLOOD_DOTS_PER_STRIPE; i++) {
+            Vector2 v = Util.rotateVectorByGivenAngle(splashRadius * logDistributionFactor(), 0, angle);
+            BloodSprite bloodDot = SpritesCreator.loadBloodDot();
+            bloodDot.getPolygon().setPosition(bloodSpotCenter.x + v.x - Constants.BLOOD_DOT_RADIUS, bloodSpotCenter.y + v.y - Constants.BLOOD_DOT_RADIUS);
+            bloodDot.setCameraDimensions(new float[]{2 * Constants.BLOOD_DOT_RADIUS, 2 * Constants.BLOOD_DOT_RADIUS});
+            bloodSpriteList.add(bloodDot);
+        }
+    }
+
+    private float logDistributionFactor() {
+        double x = Math.random();
+        double randomN = -x * Math.log(1 - x) / 2;
+        if (randomN > 1)
+            return 1;
+        return (float) randomN;
+    }
+
 }

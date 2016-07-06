@@ -2,6 +2,7 @@ package com.badbugs.baseframework;
 
 import com.badbugs.Game;
 import com.badbugs.creators.SpritesCreator;
+import com.badbugs.dynamics.blood.BloodSplash;
 import com.badbugs.dynamics.blood.BloodSpot;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BloodSprite;
@@ -75,9 +76,25 @@ public class ImageRenderers {
                         polygon.getRotation(), 0, 0, bloodTexture.getWidth() ,
                         bloodTexture.getHeight(), false, false);
 
-                batch.setColor(1, 1, 1, 1);
             }
         }
+
+        BloodSplash bloodSplash = ObjectsStore.getBloodSplash(bug);
+        if(bloodSplash != null)
+        {
+            List<List<BloodSprite>> listList = bloodSplash.getListOfBloodSprites();
+            for(List<BloodSprite> list : listList)
+            {
+                for(BloodSprite bloodSprite: list)
+                {
+                    batch.draw(bloodSprite.getTexture(), bloodSprite.getPolygon().getX(), bloodSprite.getPolygon().getY(),
+                            bloodSprite.getCameraDimensions()[0], bloodSprite.getCameraDimensions()[1]);
+
+                }
+            }
+        }
+        batch.setColor(1, 1, 1, 1);
+
     }
 
     public static void renderLives(SpriteBatch batch, Bug[] lives) throws Exception {
