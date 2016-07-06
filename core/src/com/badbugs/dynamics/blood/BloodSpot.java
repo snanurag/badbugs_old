@@ -1,4 +1,4 @@
-package com.badbugs.dynamics;
+package com.badbugs.dynamics.blood;
 
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.BasicObject;

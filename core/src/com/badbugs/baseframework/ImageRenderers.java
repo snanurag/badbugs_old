@@ -2,7 +2,7 @@ package com.badbugs.baseframework;
 
 import com.badbugs.Game;
 import com.badbugs.creators.SpritesCreator;
-import com.badbugs.dynamics.BloodSpot;
+import com.badbugs.dynamics.blood.BloodSpot;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.GameOver;

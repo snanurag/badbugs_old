@@ -1,8 +1,6 @@
 package com.badbugs.util;
 
-import com.badbugs.dynamics.BloodSpot;
-import com.badbugs.dynamics.movement.BugMovement;
-import com.badbugs.objects.BasicObject;
+import com.badbugs.dynamics.blood.BloodSpot;
 import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.bugs.Bug;
 

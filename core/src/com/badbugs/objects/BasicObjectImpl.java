@@ -2,6 +2,7 @@ package com.badbugs.objects;
 
 import com.badbugs.util.Util;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;
 
 /**
@@ -17,8 +18,6 @@ public abstract class BasicObjectImpl implements BasicObject
   private Texture texture;
   protected Polygon polygon;
   public float elapsedTime;
-
-  @Deprecated protected float[] screenPixels;
 
   public BasicObjectImpl(Texture texture)
   {
@@ -65,24 +64,6 @@ public abstract class BasicObjectImpl implements BasicObject
   public void setCameraCoords(float[] coords)
   {
     cameraCords = coords;
-  }
-
-  @Override
-  public void setScreenPixels(float[] coords)
-  {
-    this.screenPixels = coords;
-  }
-
-  @Override
-  public float[] getScreenPixels()
-  {
-    return screenPixels;
-  }
-
-  @Override
-  public float[] getScreenDimension()
-  {
-    return screenDimensions;
   }
 
   @Override

@@ -24,14 +24,4 @@ public interface BasicObject {
 
   public Polygon getPolygon() throws Exception;
 
-
-
-  @Deprecated
-  public float[] getScreenDimension();
-
-  @Deprecated
-  public void setScreenPixels(float[] coords);
-
-  @Deprecated
-  public float[] getScreenPixels();
 }

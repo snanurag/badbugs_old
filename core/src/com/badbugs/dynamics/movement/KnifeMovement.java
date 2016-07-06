@@ -2,7 +2,7 @@ package com.badbugs.dynamics.movement;
 
 import com.badbugs.Game;
 import com.badbugs.baseframework.SoundPlayer;
-import com.badbugs.dynamics.BloodSpot;
+import com.badbugs.dynamics.blood.BloodSpot;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.payment.GamePurchaseObserver;

@@ -190,18 +190,4 @@ public class Util
     return demoOver;
   }
 
-  @Deprecated
-  public static void createScreenCordsFromCameraCords(BasicObject basicObject)
-  {
-
-    float[] cameraCords = basicObject.getCameraCoords();
-    float[] screenCords = new float[cameraCords.length];
-    for (int i = 0; i < cameraCords.length; i = i + 2)
-    {
-      screenCords[i] = cameraCords[i] * Game.screenWidth / Game.cam_width;
-      screenCords[i + 1] = cameraCords[i + 1] * Game.screenHeight / Game.cam_height;
-    }
-    basicObject.setScreenPixels(screenCords);
-  }
-
 }
