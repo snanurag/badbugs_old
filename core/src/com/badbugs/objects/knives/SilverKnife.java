@@ -25,8 +25,4 @@ public class SilverKnife extends Knife {
     return ObjectsCord.SILVER_KNIFE_CORDS;
   }
 
-  public float getInitialAngle() {
-    return 180;
-  }
-
 }

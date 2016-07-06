@@ -63,9 +63,9 @@ public class KnifeMovement {
                     (float) (dirY / (Math.sqrt(dirX * dirX + dirY * dirY))));
             elapsedTime = 0;
             lastTime = System.currentTimeMillis();
-            float angle = (float) (Math.atan2(directionVector.y, directionVector.x) * 180 / Math.PI);
+            float angle = (float) (Math.atan2(directionVector.y, directionVector.x) * 180 / Math.PI) + 180;
 
-            polygon.setRotation(knife.getInitialAngle() + angle);
+            polygon.setRotation(angle);
 
             tip = Util.getKnifeTipInWorld(polygon);
 
@@ -78,7 +78,7 @@ public class KnifeMovement {
 
             setAllBugsState(knife);
 
-            Util.globalLogger().debug("Angle of Knife " + (knife.getInitialAngle() + angle));
+            Util.globalLogger().debug("Angle of Knife " +  angle);
             Util.globalLogger().debug("Direction vector " + directionVector);
         }
     }

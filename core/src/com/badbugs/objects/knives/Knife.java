@@ -12,6 +12,4 @@ public abstract class Knife extends BasicObjectImpl {
     super(texture);
   }
 
-  public abstract float getInitialAngle();
-
 }
