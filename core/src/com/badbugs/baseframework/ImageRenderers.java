@@ -1,25 +1,20 @@
 package com.badbugs.baseframework;
 
 import com.badbugs.Game;
-import com.badbugs.creators.SpritesCreator;
 import com.badbugs.dynamics.blood.BloodSplash;
 import com.badbugs.dynamics.blood.BloodSpot;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.GameOver;
-import com.badbugs.objects.Shop;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsStore;
-import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
@@ -51,49 +46,41 @@ public class ImageRenderers {
     private static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {
 
         BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bug);
+        BloodSplash bloodSplash = ObjectsStore.getBloodSplash(bug);
+        float alpha = 1f;
         if (bloodSpot != null) {
+
+            alpha = getAlpha(bloodSpot);
+            bloodSpot.elapsedTime += Gdx.graphics.getDeltaTime();
+            if (bloodSpot.elapsedTime > Constants.BLOOD_SPOT_FADE_TIME) {
+                ObjectsStore.removeAllBlood(bug);
+                bug.dead = true;
+            }
+
             BloodSprite blood = bloodSpot.getBloodSprite();
-
             if (blood != null) {
-                float widthScaleFactor = 2;
                 Polygon polygon = blood.getPolygon();
-                bloodSpot.elapsedTime += Gdx.graphics.getDeltaTime();
-                if (bloodSpot.elapsedTime > Constants.BLOOD_SPOT_FADE_TIME) {
-                    ObjectsStore.removeBlood(bug);
-                    bug.dead = true;
-                }
-
-                Vector2 centerAfterRotation = Util
-                        .rotateVectorByGivenAngle(0, polygon.getOriginY() * widthScaleFactor, polygon.getRotation());
-
-                float alpha = getAlpha(bloodSpot);
 
                 batch.setColor(1, 1, 1, alpha);
-
-                Texture bloodTexture = blood.getTexture();
-                batch.draw(bloodTexture, polygon.getX() - centerAfterRotation.x, polygon.getY() - centerAfterRotation.y, 0, 0,
-                        blood.getCameraDimensions()[0], blood.getCameraDimensions()[1] * widthScaleFactor, 1, 1,
-                        polygon.getRotation(), 0, 0, bloodTexture.getWidth() ,
-                        bloodTexture.getHeight(), false, false);
-
+                batch.draw(blood.getTexture(), polygon.getX(), polygon.getY(), 0, 0,
+                        blood.getCameraDimensions()[0], blood.getCameraDimensions()[1], 1, 1,
+                        polygon.getRotation(), 0, 0, blood.getTexture().getWidth(),
+                        blood.getTexture().getHeight(), false, false);
+                batch.setColor(1, 1, 1, 1);
             }
         }
 
-        BloodSplash bloodSplash = ObjectsStore.getBloodSplash(bug);
-        if(bloodSplash != null)
-        {
+        if (bloodSplash != null) {
             List<List<BloodSprite>> listList = bloodSplash.getListOfBloodSprites();
-            for(List<BloodSprite> list : listList)
-            {
-                for(BloodSprite bloodSprite: list)
-                {
+            for (List<BloodSprite> list : listList) {
+                for (BloodSprite bloodSprite : list) {
+                    batch.setColor(1, 1, 1, alpha);
                     batch.draw(bloodSprite.getTexture(), bloodSprite.getPolygon().getX(), bloodSprite.getPolygon().getY(),
                             bloodSprite.getCameraDimensions()[0], bloodSprite.getCameraDimensions()[1]);
-
+                    batch.setColor(1, 1, 1, 1);
                 }
             }
         }
-        batch.setColor(1, 1, 1, 1);
 
     }
 

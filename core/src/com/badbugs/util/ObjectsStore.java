@@ -55,7 +55,7 @@ public class ObjectsStore {
     return  bloodSplashMap.get(bug);
   }
 
-  public static void removeBlood(Bug bug)
+  public static void removeAllBlood(Bug bug)
   {
     bloodSpotMap.remove(bug);
     bloodSplashMap.remove(bug);

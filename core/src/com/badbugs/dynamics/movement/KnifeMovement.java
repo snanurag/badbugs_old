@@ -165,9 +165,11 @@ public class KnifeMovement {
 
         if (hitPoint != null) {
             if (ObjectsStore.getBloodSpot(bug) == null) {
-                BloodSpot.createAndStoreBloodSpot(bug, knife, hitPoint);
+                ObjectsStore.add(bug, new BloodSpot(bug, knife, hitPoint));
                 BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bug);
-                ObjectsStore.add(bug, new BloodSplash(hitPoint,bloodSpot.getBloodSprite().getCameraDimensions()[0]));
+                ObjectsStore.add(bug, new BloodSplash(new Vector2((bloodSpot.startPoint.x + bloodSpot.endPoint.x) / 2,
+                        (bloodSpot.startPoint.y + bloodSpot.endPoint.y) / 2),
+                        bloodSpot.getBloodSprite().getCameraDimensions()[0], knife));
                 SoundPlayer.playKnifeBugImpact();
             }
         }
