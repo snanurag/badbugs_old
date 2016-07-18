@@ -8,7 +8,7 @@
 - When people start downloding. Do 2 things
 	1. Launch it in classic and arcade mode
 	2. Increase difficulty level gradually. Very important for classic mode.
-- Make Grass hopper - Jumping - 3rd and 10th Sep weekend
+- Make Grass hopper - Jumping - 3rd and 10th Sep weekend.
 - Launch site greystudios.in
 - Make leager board.
 - Make 5 minute game and push bugs on their kill basis.
