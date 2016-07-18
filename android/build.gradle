@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "com.badbugs2"
+        applicationId "com.badbugs2.demo"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 3

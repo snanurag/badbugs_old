@@ -1,13 +1,14 @@
-- Make animation of blood spill. -  6 and 13 aug weekend
-- Passport
 - Make black small bug - pretty high pace - 23 jul weekend
 - Make red bug with black dots - medium pace - 30 Jul weekend
-- Convert Stage background to dark colored wood - 20 Aug weekend
-- Change current but to light brown bed bug - slow pace -27 Aug weekend
-- Launch Demo version of bad bugs if it is still not being downloaded (tentative)
-- Make Grass hopper - Jumping - 3rd and 10th Sep weekend
+- Change current but to dark brown bed bug - slow pace -20 Aug weekend
+- Correct blood splash good.
+- Think on promotion stuff - change text font, images, Make demo to free.
 - Burning nets - 17th, 24th Sep and 1st Oct weekends
-- Bombs - 8th and 15th Oct
+- Bombs - 6th and 13th Aug
+- When people start downloding. Do 2 things
+	1. Launch it in classic and arcade mode
+	2. Increase difficulty level gradually. Very important for classic mode.
+- Make Grass hopper - Jumping - 3rd and 10th Sep weekend
 - Launch site greystudios.in
 - Make leager board.
 - Make 5 minute game and push bugs on their kill basis.
