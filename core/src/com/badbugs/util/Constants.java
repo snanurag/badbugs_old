@@ -13,7 +13,7 @@ import java.util.Set;
 public class Constants {
 
     //Demo settings
-    public static final boolean DEMO = true;
+    public static final boolean DEMO = false;
     public static final int DEMO_BUGS = 30;
     public static final String google_play_uri = "https://play.google.com/store/apps/details?id=com.badbugs2";
 
@@ -39,11 +39,13 @@ public class Constants {
     public static int FREEZE_FRAME_COUNTS = 20;
 
     //Text
-    public static String BUY_FULL_VERSION = "BUY FULL VERSION";
-    public static float SCORE_SCALE = 0.15f;
-    public static float GAME_OVER_SCALE = 0.2f;
+    public static String BUY_FULL_VERSION = "Buy full version";
+    public static float GLOBAL_SCALE = 1f;
+   // public static float GAME_OVER_SCALE = 0.2f;
 
     // ALL X-Y and Width-Height
+    public static final float HOME_SCREEN_W = 2560;
+    public static final float HOME_SCREEN_H = 1440;
     public static final float MAX_BLOOD_LENGTH = 8;
     public static final float BLOOD_DOT_RADIUS = .25f;
     public static final float GAME_OVER_BACKGROUND_WIDTH = 50;
@@ -54,18 +56,17 @@ public class Constants {
     public static final float FULL_VER_TEXT_Y_POS = 7;
     public static final float SCORE_TEXT_X_POS = -10;
     public static final float SCORE_TEXT_Y_POS = -5;
-    public static final float HOME_SCREEN_W = 2560;
-    public static final float HOME_SCREEN_H = 1440;
     public static final float KNIFE_BOOSTER_TEXT_X = -7;
     public static final float KNIFE_BOOSTER_TEXT_Y = 13.5f;
     public static float COLLISION_AVOIDING_X = Game.cam_width / 2 - ObjectsCord.BED_BUG_WIDTH / 2;
     public static float COLLISION_AVOIDING_Y = Game.cam_height / 2 - ObjectsCord.BED_BUG_HEIGHT / 2;
-    public static float SCORE_X_POS = 25 + 5;
-    public static float LIFE_1_X_POS = 21 + 5;
-    public static float LIFE_2_X_POS = 18 + 5;
-    public static float LIFE_3_X_POS = 15 + 5;
-    public static float LIFE_4_X_POS = 12 + 5;
-    public static float LIFE_5_X_POS = 9 + 5;
+    public static float SCORE_X_POS = 725;
+    public static float SCORE_Y_POS = 700;
+    public static float LIFE_1_X_POS = 21 + 3;
+    public static float LIFE_2_X_POS = 18 + 3;
+    public static float LIFE_3_X_POS = 15 + 3;
+    public static float LIFE_4_X_POS = 12 + 3;
+    public static float LIFE_5_X_POS = 9 + 3;
     public static float LIFE_SIZE_Y = 4;
     public static float LIFE_SIZE_X = LIFE_SIZE_Y * 11 / 14;
     public static int PLAY_H, PLAY_W, SHOP_H, SHOP_W, BACK_H, BACK_W, QUIT_H, QUIT_W, SOUND_H, SOUND_W, MUSIC_H, MUSIC_W,
