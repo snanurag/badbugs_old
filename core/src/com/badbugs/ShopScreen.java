@@ -47,7 +47,7 @@ public class ShopScreen extends ScreenAdapter {
             shop = SpritesCreator.loadShop();
             back = SpritesCreator.loadBackButton();
             knifeBooster = SpritesCreator.loadKnifeBooster();
-            knifeBoosterFont = new Font("Knife booster", Constants.KNIFE_BOOSTER_TEXT_X, Constants.KNIFE_BOOSTER_TEXT_Y, Constants.GLOBAL_SCALE);
+            knifeBoosterFont = new Font("Knife booster", Constants.KNIFE_BOOSTER_TEXT_X, Constants.KNIFE_BOOSTER_TEXT_Y);
         } catch (Exception e) {
             e.printStackTrace();
         }

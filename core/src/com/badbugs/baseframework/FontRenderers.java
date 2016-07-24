@@ -10,37 +10,37 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Vector3;
 
 /**
  * Created by ashrinag on 4/28/2016.
  */
 public class FontRenderers {
 
-    static BitmapFont font_40;// = new BitmapFont(Gdx.files.internal("fonts/tahoma.fnt"), false);
-    static BitmapFont font_30;// = new BitmapFont(Gdx.files.internal("fonts/tahoma.fnt"), false);
-
+    static BitmapFont font_48;// = new BitmapFont(Gdx.files.internal("fonts/tahoma.fnt"), false);
+    static BitmapFont font_60;// = new BitmapFont(Gdx.files.internal("fonts/tahoma.fnt"), false);
+    static BitmapFont font_72;
     static OrthographicCamera fontsCam;
 
     public static void loadAllFonts() {
 
         fontsCam = new OrthographicCamera(Game.screenWidth, Game.screenHeight);
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/coiny-regular.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/GoodDog.otf"));
 
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.color = Color.BLACK;
         parameter.size = 48;
-        font_40 = generator.generateFont(parameter); // font size 12 pixels
-//        parameter.size = 10;
-        font_30 = font_40; //tgenerator.generateFont(parameter); // font size 12 pixels
+        font_48 = generator.generateFont(parameter); // font size 12 pixels
+        parameter.size = 60;
+        font_60 = generator.generateFont(parameter); // font size 12 pixels
+        parameter.size = 72;
+        font_72 = generator.generateFont(parameter); // font size 12 pixels
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
 
     }
 
     public static void renderScore(Batch batch, int score) {
-        font_40.getData().setScale(Constants.GLOBAL_SCALE);
         batch.setProjectionMatrix(fontsCam.combined);
-        font_40.draw(batch, "Bugs " + score, Constants.SCORE_X_POS * Game.screenWidth / Constants.HOME_SCREEN_W, Constants.SCORE_Y_POS * Game.screenHeight / Constants.HOME_SCREEN_H);//, 10, -1, false);
+        font_48.draw(batch, "Bugs " + score, Constants.SCORE_X_POS * Game.screenWidth / Constants.HOME_SCREEN_W, Constants.SCORE_Y_POS * Game.screenHeight / Constants.HOME_SCREEN_H);//, 10, -1, false);
         batch.setProjectionMatrix(Game.cam.combined);
 
     }
@@ -48,29 +48,27 @@ public class FontRenderers {
     public static void rendGameOverText(Batch batch, GameOver gameOver, int score) {
         float alpha = gameOver.elapsedTime / Constants.GAME_OVER_FADE_IN_TIME;
         if (alpha <= 1) {
-            font_30.setColor(0, 0, 0, alpha);
+            font_72.setColor(0, 0, 0, alpha);
         }
-        font_30.getData().setScale(Constants.GLOBAL_SCALE);
-        font_30.draw(batch, "Game Over", Constants.GAME_OVER_TEXT_X_POS, Constants.GAME_OVER_TEXT_Y_POS, 13, -1, false);
-        font_30.draw(batch, "Bugs " + score, Constants.SCORE_TEXT_X_POS, Constants.SCORE_TEXT_Y_POS, 13, -1, false);
+        batch.setProjectionMatrix(fontsCam.combined);
+        font_72.draw(batch, "Game Over", Constants.GAME_OVER_TEXT_X_POS * Game.screenWidth / Constants.HOME_SCREEN_W, Constants.GAME_OVER_TEXT_Y_POS * Game.screenHeight / Constants.HOME_SCREEN_H);//, 13, -1, false);
+        font_72.draw(batch, "Bugs " + score, Constants.SCORE_TEXT_X_POS * Game.screenWidth / Constants.HOME_SCREEN_W, Constants.SCORE_TEXT_Y_POS * Game.screenHeight / Constants.HOME_SCREEN_H);//, 13, -1, false);
+        batch.setProjectionMatrix(Game.cam.combined);
     }
 
     public static void renderBuyOptionText(Batch batch, GameOver buyOption) {
         float alpha = buyOption.elapsedTime / Constants.GAME_OVER_FADE_IN_TIME;
-        if (alpha <= 1) {
-            font_30.setColor(0, 0, 0, alpha);
-        }
-        font_30.getData().setScale(Constants.GLOBAL_SCALE);
 
-        font_30.draw(batch, Constants.BUY_FULL_VERSION, Constants.FULL_VER_TEXT_X_POS, Constants.FULL_VER_TEXT_Y_POS, 13, -1, false);
+        if (alpha <= 1) {
+            font_60.setColor(0, 0, 0, alpha);
+        }
+        font_60.draw(batch, Constants.BUY_FULL_VERSION, Constants.FULL_VER_TEXT_X_POS, Constants.FULL_VER_TEXT_Y_POS);
 
     }
 
     public static void renderText(Batch batch, Font f) {
-        font_30.getData().setScale(f.getScale());
-        Vector3 v = Game.cam.unproject(new Vector3(f.getX(), f.getY(), 0));
         batch.setProjectionMatrix(fontsCam.combined);
-        font_30.draw(batch, f.getText(), v.x, v.y);
+        font_60.draw(batch, f.getText(), f.getX() * Game.screenWidth / Constants.HOME_SCREEN_W, f.getY() * Game.screenHeight / Constants.HOME_SCREEN_H);
         batch.setProjectionMatrix(Game.cam.combined);
 
     }

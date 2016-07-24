@@ -5,10 +5,10 @@ package com.badbugs.objects.fonts;
  */
 public class Font {
 
-    public Font(String text, float x, float y, float scale)
+    public Font(String text, float x, float y)
     {
         this.text = text;
-        this.scale = scale;
+//        this.scale = scale;
         this.x = x;
         this.y = y;
     }
@@ -16,11 +16,11 @@ public class Font {
     private String text;
     private float x;
     private float y;
-    private float scale;
+//    private float scale;
 
-    public float getScale() {
-        return scale;
-    }
+//    public float getScale() {
+//        return scale;
+//    }
 
     public float getY() {
         return y;
