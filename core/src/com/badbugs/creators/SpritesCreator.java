@@ -39,7 +39,7 @@ public class SpritesCreator {
     private static Texture backTexture;
     private static Texture knifeBoosterTexture;
     private static Texture googlePlayTexture;
-
+    private static Texture bugNoMovementTexture;
 
     public static void loadAllTextures() {
         knifeTexture = new Texture(Gdx.files.internal("knife.png"));
@@ -62,7 +62,7 @@ public class SpritesCreator {
         bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
         bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
         bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
-
+        bugNoMovementTexture = new Texture(Gdx.files.internal("black_bug.png"));
     }
 
     public static BasicObject loadSilverKnife() throws Exception {
@@ -75,6 +75,25 @@ public class SpritesCreator {
     public static BedBug loadBedBug(int level) throws Exception {
         BedBug bedBug = new BedBug(null);
         bedBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], textureAtlas.getRegions());
+
+        bedBug.getPolygon().setPosition(0, 0);
+        bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
+
+        return bedBug;
+    }
+
+    /**
+     * This function is for testing. In production, it doesn't have any use.
+     * @param level
+     * @return
+     * @throws Exception
+     */
+    public static BedBug loadBugNoLegMovement(int level) throws Exception {
+        BedBug bedBug = new BedBug(bugNoMovementTexture);
+//        bedBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], textureAtlas.getRegions());
+ObjectsCord.BED_BUG_HEIGHT = 10;
+        ObjectsCord.BED_BUG_WIDTH =  9;
+
 
         bedBug.getPolygon().setPosition(0, 0);
         bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
