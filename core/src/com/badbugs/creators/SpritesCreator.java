@@ -89,9 +89,11 @@ public class SpritesCreator {
      * @throws Exception
      */
     public static BedBug loadBugNoLegMovement(int level) throws Exception {
+
         BedBug bedBug = new BedBug(bugNoMovementTexture);
-//        bedBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], textureAtlas.getRegions());
-ObjectsCord.BED_BUG_HEIGHT = 10;
+
+        //black bug
+        ObjectsCord.BED_BUG_HEIGHT = 10;
         ObjectsCord.BED_BUG_WIDTH =  9;
 
 
