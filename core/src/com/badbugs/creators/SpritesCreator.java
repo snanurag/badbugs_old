@@ -62,7 +62,7 @@ public class SpritesCreator {
         bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
         bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
         bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
-        bugNoMovementTexture = new Texture(Gdx.files.internal("bronze_bug.png"));
+        bugNoMovementTexture = new Texture(Gdx.files.internal("steel_bug.png"));
     }
 
     public static BasicObject loadSilverKnife() throws Exception {
@@ -97,7 +97,11 @@ public class SpritesCreator {
 //        ObjectsCord.BED_BUG_WIDTH =  9;
 
         //lady bug
-        ObjectsCord.BED_BUG_HEIGHT = 10;
+//        ObjectsCord.BED_BUG_HEIGHT = 10;
+//        ObjectsCord.BED_BUG_WIDTH =  8;
+
+        //iron bug
+        ObjectsCord.BED_BUG_HEIGHT = 12;
         ObjectsCord.BED_BUG_WIDTH =  8;
 
         bedBug.getPolygon().setPosition(0, 0);
