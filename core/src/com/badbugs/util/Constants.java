@@ -70,7 +70,7 @@ public class Constants {
     public static float LIFE_SIZE_Y = 4;
     public static float LIFE_SIZE_X = LIFE_SIZE_Y * 11 / 14;
 
-      public static float STEEL_KNIFE_HEIGHT = 2;
+      public static float STEEL_KNIFE_HEIGHT = 4;
   public static float STEEL_KNIFE_WIDTH = 21;
 //    public static float STEEL_KNIFE_HEIGHT = 4;
 //    public static float STEEL_KNIFE_WIDTH = 42;

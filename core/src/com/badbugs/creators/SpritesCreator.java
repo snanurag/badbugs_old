@@ -42,9 +42,9 @@ public class SpritesCreator {
     private static Texture bugNoMovementTexture;
 
     public static void loadAllTextures() {
-//        knifeTexture = new Texture(Gdx.files.internal("knife.png"));
-        // knifeTexture = new Texture(Gdx.files.internal("bronze_knife.png"));
-        knifeTexture = new Texture(Gdx.files.internal("stone_knife.png"));
+//        knifeTexture = new Texture(Gdx.files.internal("steel_knife.png"));
+         knifeTexture = new Texture(Gdx.files.internal("bronze_knife.png"));
+//        knifeTexture = new Texture(Gdx.files.internal("stone_knife.png"));
         textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
         floorTexture = new Texture(Gdx.files.internal("floor.png"));
         lifeTexture = new Texture(Gdx.files.internal("life.png"));
