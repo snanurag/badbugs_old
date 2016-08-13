@@ -27,11 +27,6 @@ public class ObjectsCord {
   //Pixels
   public static int[] SILVER_KNIFE_CENTER = { 515, 50 };
 
-//  public static float SILVER_KNIFE_HEIGHT = 2;
-//  public static float SILVER_KNIFE_WIDTH = 21;
-  public static float SILVER_KNIFE_HEIGHT = 3;
-  public static float SILVER_KNIFE_WIDTH = 32;
-
   public static float BLOOD_SPOT_WIDTH = 8.4f;
 
 }

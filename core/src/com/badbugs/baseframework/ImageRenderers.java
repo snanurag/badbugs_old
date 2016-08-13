@@ -13,6 +13,7 @@ import com.badbugs.util.ObjectsStore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 
@@ -36,9 +37,8 @@ public class ImageRenderers {
         Polygon knifePolygon = knife.getPolygon();
         Texture knifeTexture = knife.getTexture();
 
-        batch.draw(knifeTexture, knifePolygon.getX(), knifePolygon.getY(), 0, 0, knife.getCameraDimensions()[0],
-                knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation(), 0, 0, knife.getPixelDimensions()[0],
-                knife.getPixelDimensions()[1], false, false);
+        batch.draw(new TextureRegion(knifeTexture), knifePolygon.getX(), knifePolygon.getY(), 0, 0, knife.getCameraDimensions()[0],
+                knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation());
 
         //        drawPolygon(knife.getPolygon().getTransformedVertices());
     }

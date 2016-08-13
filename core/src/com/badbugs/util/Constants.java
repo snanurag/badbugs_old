@@ -69,6 +69,12 @@ public class Constants {
     public static float LIFE_5_X_POS = 9 + 3;
     public static float LIFE_SIZE_Y = 4;
     public static float LIFE_SIZE_X = LIFE_SIZE_Y * 11 / 14;
+
+      public static float STEEL_KNIFE_HEIGHT = 2;
+  public static float STEEL_KNIFE_WIDTH = 21;
+//    public static float STEEL_KNIFE_HEIGHT = 4;
+//    public static float STEEL_KNIFE_WIDTH = 42;
+
     public static int PLAY_H, PLAY_W, SHOP_H, SHOP_W, BACK_H, BACK_W, QUIT_H, QUIT_W, SOUND_H, SOUND_W, MUSIC_H, MUSIC_W,
             KNIFE_BOOSTER_H, KNIFE_BOOSTER_W, GOOGLE_PLAY_W, GOOGLE_PLAY_H;
     public static int PLAY_LEFT, PLAY_TOP, SHOP_LEFT, SHOP_TOP, BACK_LEFT, BACK_TOP, QUIT_LEFT, QUIT_TOP, SOUND_LEFT,
