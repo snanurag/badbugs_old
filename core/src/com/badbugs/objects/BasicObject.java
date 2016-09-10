@@ -24,4 +24,5 @@ public interface BasicObject {
 
   public Polygon getPolygon() throws Exception;
 
+  public void setCameraDimensions(float[] cameraDimensions);
 }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by ashrinag on 5/25/2016.
  */
-public class GameOver extends BasicObjectImpl
+public class GameOver extends AbstractBasicObject
 {
   public GameOver(Texture texture)
   {

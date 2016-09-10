@@ -37,6 +37,7 @@ public class Constants {
     public static float BUG_SPEED[] = {8, 10, 15, 20, 25};
     public static float BUG_FRAME_RATE[] = {1 / 60f, 1 / 85f, 1 / 100f, 1 / 120f, 1 / 150f};
     public static int FREEZE_FRAME_COUNTS = 20;
+    public static int PANEL_SPEED = 50;
 
     //Text
     public static String BUY_FULL_VERSION = "Buy full version";
@@ -69,9 +70,11 @@ public class Constants {
     public static float LIFE_5_X_POS = 9 + 3;
     public static float LIFE_SIZE_Y = 4;
     public static float LIFE_SIZE_X = LIFE_SIZE_Y * 11 / 14;
+    public static float PANEL_WIDTH = 12;
+    public static float PANEL_ARROW_WIDTH = 3;
 
-      public static float STEEL_KNIFE_HEIGHT = 4;
-  public static float STEEL_KNIFE_WIDTH = 21;
+    public static float STEEL_KNIFE_HEIGHT = 4;
+    public static float STEEL_KNIFE_WIDTH = 21;
 //    public static float STEEL_KNIFE_HEIGHT = 4;
 //    public static float STEEL_KNIFE_WIDTH = 42;
 

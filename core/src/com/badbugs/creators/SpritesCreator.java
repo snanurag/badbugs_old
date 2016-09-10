@@ -11,8 +11,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import org.w3c.dom.Text;
 
 /**
  * Created by ashrinag on 3/20/2016.
@@ -68,7 +66,7 @@ public class SpritesCreator {
     }
 
     public static BasicObject loadSilverKnife() throws Exception {
-        BasicObjectImpl silverKnife = new SilverKnife(knifeTexture);
+        AbstractBasicObject silverKnife = new SilverKnife(knifeTexture);
         silverKnife.getPolygon().setPosition(0, 0);
         silverKnife.getPolygon().setOrigin(0, silverKnife.getCameraDimensions()[1] / 2);
         return silverKnife;
@@ -130,30 +128,30 @@ public class SpritesCreator {
         return gameOver;
     }
 
-    public static Shop loadShop() throws Exception {
-        Shop shopScreen = new Shop(floorTexture);
+    public static BasicObject loadShop() throws Exception {
+        AbstractBasicObject shopScreen = new BasicObjectImpl(floorTexture);
         shopScreen.setCameraDimensions(new float[]{Game.cam_width, Game.cam_height});
         shopScreen.getPolygon().setPosition(-Game.cam_width / 2, -Game.cam_height / 2);
         return shopScreen;
     }
 
-    public static MainMenu loadMainMenu() throws Exception {
-        MainMenu mainMenu = new MainMenu(mainMenuTexture);
+    public static BasicObject loadMainMenu() throws Exception {
+        AbstractBasicObject mainMenu = new BasicObjectImpl(mainMenuTexture);
         mainMenu.setCameraDimensions(new float[]{Game.cam_width, Game.cam_height});
         mainMenu.getPolygon().setPosition(-Game.cam_width / 2, -Game.cam_height / 2);
         return mainMenu;
     }
 
-    public static MainGame loadMainGame() throws Exception {
-        MainGame mainGame = new MainGame(floorTexture);
+    public static BasicObject loadMainGame() throws Exception {
+        AbstractBasicObject mainGame = new BasicObjectImpl(floorTexture);
         mainGame.setCameraDimensions(new float[]{Game.cam_width, Game.cam_height});
         mainGame.getPolygon().setPosition(-Game.cam_width / 2, -Game.cam_height / 2);
         return mainGame;
     }
 
     //TODO : Fix it -> On Main Menu, y axis is working from top to bottom
-    public static Button loadQuit() throws Exception {
-        Button s = new Button(quitTexture);
+    public static BasicObject loadQuit() throws Exception {
+        AbstractBasicObject s = new BasicObjectImpl(quitTexture);
         s.setCameraDimensions(new float[]{Game.cam_width * Constants.QUIT_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.QUIT_H / Constants.HOME_SCREEN_H});
         float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.QUIT_LEFT) / Constants.HOME_SCREEN_W;
@@ -163,13 +161,13 @@ public class SpritesCreator {
         return s;
     }
 
-    public static Button loadSound() throws Exception {
+    public static BasicObject loadSound() throws Exception {
 
-        Button s;
+        AbstractBasicObject s;
         if (Util.isSoundOn())
-            s = new Button(soundEnabledTexture);
+            s = new BasicObjectImpl(soundEnabledTexture);
         else
-            s = new Button(soundDisabledTexture);
+            s = new BasicObjectImpl(soundDisabledTexture);
         s.setCameraDimensions(new float[]{Game.cam_width * Constants.SOUND_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.SOUND_H / Constants.HOME_SCREEN_H});
         float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.SOUND_LEFT) / Constants.HOME_SCREEN_W;
@@ -179,12 +177,12 @@ public class SpritesCreator {
         return s;
     }
 
-    public static Button loadMusic() throws Exception {
-        Button m;
+    public static BasicObject loadMusic() throws Exception {
+        AbstractBasicObject m;
         if (Util.isMusicOn())
-            m = new Button(musicEnabledTexture);
+            m = new BasicObjectImpl(musicEnabledTexture);
         else
-            m = new Button(musicDisabledTexture);
+            m = new BasicObjectImpl(musicDisabledTexture);
         m.setCameraDimensions(new float[]{Game.cam_width * Constants.MUSIC_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.MUSIC_H / Constants.HOME_SCREEN_H});
         float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.MUSIC_LEFT) / Constants.HOME_SCREEN_W;
@@ -195,8 +193,8 @@ public class SpritesCreator {
         return m;
     }
 
-    public static Button loadPlayButton() throws Exception {
-        Button m = new Button(playTexture);
+    public static BasicObject loadPlayButton() throws Exception {
+        AbstractBasicObject m = new BasicObjectImpl(playTexture);
         m.setCameraDimensions(new float[]{Game.cam_width * Constants.PLAY_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.PLAY_H / Constants.HOME_SCREEN_H});
         float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.PLAY_LEFT) / Constants.HOME_SCREEN_W;
@@ -207,8 +205,8 @@ public class SpritesCreator {
         return m;
     }
 
-    public static Button loadShopButton() throws Exception {
-        Button m = new Button(shopTexture);
+    public static BasicObject loadShopButton() throws Exception {
+        AbstractBasicObject m = new BasicObjectImpl(shopTexture);
         m.setCameraDimensions(new float[]{Game.cam_width * Constants.SHOP_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.SHOP_H / Constants.HOME_SCREEN_H});
         float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.SHOP_LEFT) / Constants.HOME_SCREEN_W;
@@ -219,8 +217,8 @@ public class SpritesCreator {
         return m;
     }
 
-    public static Button loadBackButton() throws Exception {
-        Button m = new Button(backTexture);
+    public static BasicObject loadBackButton() throws Exception {
+        AbstractBasicObject m = new BasicObjectImpl(backTexture);
         m.setCameraDimensions(new float[]{Game.cam_width * Constants.BACK_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.BACK_H / Constants.HOME_SCREEN_H});
         float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.BACK_LEFT) / Constants.HOME_SCREEN_W;
@@ -231,8 +229,8 @@ public class SpritesCreator {
         return m;
     }
 
-    public static Button loadKnifeBooster() throws Exception {
-        Button m = new Button(knifeBoosterTexture);
+    public static BasicObject loadKnifeBooster() throws Exception {
+        AbstractBasicObject m = new BasicObjectImpl(knifeBoosterTexture);
         m.setCameraDimensions(new float[]{Game.cam_width * Constants.KNIFE_BOOSTER_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.KNIFE_BOOSTER_H / Constants.HOME_SCREEN_H});
         float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.KNIFE_BOOSTER_LEFT) / Constants.HOME_SCREEN_W;
@@ -243,8 +241,8 @@ public class SpritesCreator {
         return m;
     }
 
-    public static Button loadGooglePlay() throws Exception {
-        Button googlePlay = new Button(googlePlayTexture);
+    public static BasicObject loadGooglePlay() throws Exception {
+        AbstractBasicObject googlePlay = new BasicObjectImpl(googlePlayTexture);
         googlePlay.setCameraDimensions(new float[]{Game.cam_width * Constants.GOOGLE_PLAY_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.GOOGLE_PLAY_H / Constants.HOME_SCREEN_H});
         float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.GOOGLE_PLAY_LEFT) / Constants.HOME_SCREEN_W;
@@ -255,8 +253,8 @@ public class SpritesCreator {
         return googlePlay;
     }
 
-    public static BloodSprite loadBloodSpot(float len) {
-        BloodSprite bloodSprite = new BloodSprite(getProperBloodTex(len));
+    public static BasicObject loadBloodSpot(float len) {
+        AbstractBasicObject bloodSprite = new BasicObjectImpl(getProperBloodTex(len));
         return bloodSprite;
     }
 
@@ -269,13 +267,13 @@ public class SpritesCreator {
             return SpritesCreator.bloodTextureLong;
     }
 
-    public static BloodSprite loadBloodDot()
+    public static BasicObject loadBloodDot()
     {
-        BloodSprite bloodSprite = new BloodSprite(bloodDotTexture);
+        AbstractBasicObject bloodSprite = new BasicObjectImpl(bloodDotTexture);
         return bloodSprite;
     }
 
-    public static void switchSoundSprites(Button sound) {
+    public static void switchSoundSprites(BasicObject sound) {
         if (sound.getTexture() == soundEnabledTexture) {
             sound.setTexture(soundDisabledTexture);
         } else {
@@ -283,7 +281,7 @@ public class SpritesCreator {
         }
     }
 
-    public static void switchMusicSprites(Button music) {
+    public static void switchMusicSprites(BasicObject music) {
         if (music.getTexture() == musicEnabledTexture) {
             music.setTexture(musicDisabledTexture);
         } else {

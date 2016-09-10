@@ -1,7 +1,7 @@
 package com.badbugs.dynamics.blood;
 
 import com.badbugs.creators.SpritesCreator;
-import com.badbugs.objects.BloodSprite;
+import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;
 import com.badbugs.util.Util;
@@ -26,7 +26,7 @@ public class BloodSplash {
     private Vector2 bloodSpotCenter;
     private float bloodLength;
     private float angle;
-    private List<List<BloodSprite>> listOfBloodSprites = new ArrayList<List<BloodSprite>>();
+    private List<List<BasicObject>> listOfBloodSprites = new ArrayList<List<BasicObject>>();
 
     public BloodSplash(Vector2 bloodSpotCenter, float bloodLength, Knife knife) throws Exception {
         this.bloodSpotCenter = bloodSpotCenter;
@@ -35,7 +35,7 @@ public class BloodSplash {
         init();
     }
 
-    public List<List<BloodSprite>> getListOfBloodSprites() {
+    public List<List<BasicObject>> getListOfBloodSprites() {
         return listOfBloodSprites;
     }
 
@@ -54,17 +54,17 @@ public class BloodSplash {
             splashRadius = MIN_RADIUS;
 
         for (int i = 0; i < bloodStrips; i++) {
-            List<BloodSprite> bloodSpriteList = new ArrayList<BloodSprite>();
+            List<BasicObject> bloodSpriteList = new ArrayList<BasicObject>();
             listOfBloodSprites.add(bloodSpriteList);
             createBloodSprites(bloodSpriteList);
         }
     }
 
-    private void createBloodSprites(List<BloodSprite> bloodSpriteList) throws Exception {
+    private void createBloodSprites(List<BasicObject> bloodSpriteList) throws Exception {
         float angle = (float) Math.random() * 360;
         for (int i = 0; i < BLOOD_DOTS_PER_STRIPE; i++) {
             Vector2 v = Util.rotateVectorByGivenAngle(splashRadius * logDistributionFactor(), 0, angle);
-            BloodSprite bloodDot = SpritesCreator.loadBloodDot();
+            BasicObject bloodDot = SpritesCreator.loadBloodDot();
             bloodDot.getPolygon().setPosition(bloodSpotCenter.x + v.x - Constants.BLOOD_DOT_RADIUS, bloodSpotCenter.y + v.y - Constants.BLOOD_DOT_RADIUS);
             bloodDot.setCameraDimensions(new float[]{2 * Constants.BLOOD_DOT_RADIUS, 2 * Constants.BLOOD_DOT_RADIUS});
             bloodSpriteList.add(bloodDot);

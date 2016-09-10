@@ -4,7 +4,6 @@ import com.badbugs.Game;
 import com.badbugs.dynamics.blood.BloodSplash;
 import com.badbugs.dynamics.blood.BloodSpot;
 import com.badbugs.objects.BasicObject;
-import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
@@ -57,7 +56,7 @@ public class ImageRenderers {
                 bug.dead = true;
             }
 
-            BloodSprite blood = bloodSpot.getBloodSprite();
+            BasicObject blood = bloodSpot.getBloodSprite();
             if (blood != null) {
                 Polygon polygon = blood.getPolygon();
 
@@ -71,9 +70,9 @@ public class ImageRenderers {
         }
 
         if (bloodSplash != null) {
-            List<List<BloodSprite>> listList = bloodSplash.getListOfBloodSprites();
-            for (List<BloodSprite> list : listList) {
-                for (BloodSprite bloodSprite : list) {
+            List<List<BasicObject>> listList = bloodSplash.getListOfBloodSprites();
+            for (List<BasicObject> list : listList) {
+                for (BasicObject bloodSprite : list) {
                     batch.setColor(1, 1, 1, alpha);
                     batch.draw(bloodSprite.getTexture(), bloodSprite.getPolygon().getX(), bloodSprite.getPolygon().getY(),
                             bloodSprite.getCameraDimensions()[0], bloodSprite.getCameraDimensions()[1]);

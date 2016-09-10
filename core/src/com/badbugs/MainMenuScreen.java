@@ -4,8 +4,8 @@ import com.badbugs.baseframework.ImageRenderers;
 import com.badbugs.baseframework.MusicPlayer;
 import com.badbugs.baseframework.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
-import com.badbugs.objects.BasicObjectImpl;
-import com.badbugs.objects.Button;
+import com.badbugs.objects.AbstractBasicObject;
+import com.badbugs.objects.BasicObject;
 import com.badbugs.util.Constants;
 import com.badbugs.util.TouchInfo;
 import com.badbugs.util.Util;
@@ -28,12 +28,12 @@ public class MainMenuScreen extends ScreenAdapter {
     static Rectangle quitBounds;
     static Rectangle shopBounds;
     static Rectangle musicBounds;
-    static Button sound;
-    static Button music;
-    static Button play;
-    static Button shop;
-    static Button quit;
-    static BasicObjectImpl mainMenu;
+    static BasicObject sound;
+    static BasicObject music;
+    static BasicObject play;
+    static BasicObject shop;
+    static BasicObject quit;
+    static BasicObject mainMenu;
     static ScreenAdapter mainGameScreen;
 
     static {

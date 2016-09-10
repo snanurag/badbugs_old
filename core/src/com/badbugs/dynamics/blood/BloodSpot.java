@@ -2,7 +2,6 @@ package com.badbugs.dynamics.blood;
 
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.BasicObject;
-import com.badbugs.objects.BloodSprite;
 import com.badbugs.objects.ObjectsCord;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
@@ -20,7 +19,7 @@ public class BloodSpot {
     public float elapsedTime;
     private BasicObject bug;
     private BasicObject knife;
-    private BloodSprite bloodSprite;
+    private BasicObject bloodSprite;
     public Vector2 startPoint;
     public Vector2 endPoint;
 
@@ -73,7 +72,7 @@ public class BloodSpot {
         return startPoint;
     }
 
-    public BloodSprite getBloodSprite() {
+    public BasicObject getBloodSprite() {
         return bloodSprite;
     }
 }

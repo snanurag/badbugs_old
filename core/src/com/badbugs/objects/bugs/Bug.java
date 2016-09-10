@@ -1,6 +1,6 @@
 package com.badbugs.objects.bugs;
 
-import com.badbugs.objects.BasicObjectImpl;
+import com.badbugs.objects.AbstractBasicObject;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
  * Marker Interface
  */
 
-public abstract class Bug extends BasicObjectImpl {
+public abstract class Bug extends AbstractBasicObject {
 
   public int id;
   public float speed;
