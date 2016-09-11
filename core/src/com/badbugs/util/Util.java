@@ -1,5 +1,6 @@
 package com.badbugs.util;
 
+import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.objects.BasicObject;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.Logger;
@@ -16,33 +17,6 @@ public class Util
   private static Queue<TouchInfo> touchEventsQueue = new PriorityQueue<TouchInfo>();
 
   private static Logger logger = new Logger("com.badbugs", Logger.DEBUG);
-
-  private static boolean musicOn = true;
-  private static boolean soundOn = true;
-
-  private static boolean demoOver = false;
-
-  public static boolean isMusicOn() {
-    return musicOn;
-  }
-
-  public static void switchMusic() {
-    if(musicOn)
-      musicOn = false;
-    else
-      musicOn = true;
-  }
-
-  public static boolean isSoundOn() {
-    return soundOn;
-  }
-
-  public static void switchSound(){
-    if(soundOn)
-      soundOn = false;
-    else
-      soundOn = true;
-  }
 
   public static void createCameraCoordsFromPixelCords(BasicObject basicObject) throws Exception
   {
@@ -169,21 +143,6 @@ public class Util
       return true;
     }
     return false;
-  }
-
-  public static void startDemo()
-  {
-    demoOver = false;
-  }
-
-  public static void endDemo()
-  {
-    demoOver = true;
-  }
-
-  public static boolean checkIfDemoOver()
-  {
-    return demoOver;
   }
 
 }

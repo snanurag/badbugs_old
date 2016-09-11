@@ -1,9 +1,9 @@
 package com.badbugs;
 
-import com.badbugs.baseframework.FontRenderers;
-import com.badbugs.baseframework.ImageRenderers;
-import com.badbugs.baseframework.MusicPlayer;
-import com.badbugs.baseframework.SoundPlayer;
+import com.badbugs.baseframework.renderers.FontRenderers;
+import com.badbugs.baseframework.renderers.ImageRenderers;
+import com.badbugs.baseframework.sounds.MusicPlayer;
+import com.badbugs.baseframework.sounds.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.fonts.Font;

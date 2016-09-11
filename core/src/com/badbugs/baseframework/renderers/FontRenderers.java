@@ -1,4 +1,4 @@
-package com.badbugs.baseframework;
+package com.badbugs.baseframework.renderers;
 
 import com.badbugs.Game;
 import com.badbugs.objects.GameOver;

@@ -2,7 +2,7 @@ package com.badbugs.dynamics.blood;
 
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.BasicObject;
-import com.badbugs.objects.ObjectsCord;
+import com.badbugs.util.ObjectsCord;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;

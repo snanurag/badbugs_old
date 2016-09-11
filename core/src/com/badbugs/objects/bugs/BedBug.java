@@ -1,8 +1,7 @@
 package com.badbugs.objects.bugs;
 
 import com.badbugs.Game;
-import com.badbugs.MainGameScreen;
-import com.badbugs.objects.ObjectsCord;
+import com.badbugs.util.ObjectsCord;
 import com.badlogic.gdx.graphics.Texture;
 
 /**

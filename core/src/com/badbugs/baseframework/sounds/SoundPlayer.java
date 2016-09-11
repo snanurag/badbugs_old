@@ -1,6 +1,6 @@
-package com.badbugs.baseframework;
+package com.badbugs.baseframework.sounds;
 
-import com.badbugs.util.Util;
+import com.badbugs.baseframework.elements.GameStates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
@@ -25,27 +25,27 @@ public class SoundPlayer {
     }
 
     public static void playGameOver() {
-        if (Util.isSoundOn())
+        if (GameStates.isSoundOn())
             gameOver.play(1.0f);
     }
 
     public static void playKnifeWoodImpact() {
-        if (Util.isSoundOn())
+        if (GameStates.isSoundOn())
             knifeWoodImpact.play(0.5f);
     }
 
     public static void playKnifeSlash() {
-        if (Util.isSoundOn())
+        if (GameStates.isSoundOn())
             knifeSlash.play(1.5f);
     }
 
     public static void playKnifeBugImpact() {
-        if (Util.isSoundOn())
+        if (GameStates.isSoundOn())
             knifeBugImpact.play(2.0f);
     }
 
     public static void playButtonClick() {
-        if (Util.isSoundOn())
+        if (GameStates.isSoundOn())
             buttonClick.play(1.0f);
     }
 

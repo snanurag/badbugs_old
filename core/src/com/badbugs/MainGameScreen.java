@@ -1,18 +1,19 @@
 package com.badbugs;
 
-import com.badbugs.baseframework.FontRenderers;
-import com.badbugs.baseframework.ImageRenderers;
-import com.badbugs.baseframework.MusicPlayer;
-import com.badbugs.baseframework.SoundPlayer;
+import com.badbugs.baseframework.elements.GameStates;
+import com.badbugs.baseframework.elements.ObjectsStore;
+import com.badbugs.baseframework.renderers.FontRenderers;
+import com.badbugs.baseframework.renderers.ImageRenderers;
+import com.badbugs.baseframework.sounds.MusicPlayer;
+import com.badbugs.baseframework.sounds.SoundPlayer;
 import com.badbugs.creators.BugGenerator;
 import com.badbugs.creators.SpritesCreator;
 import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.dynamics.movement.KnifeMovement;
+import com.badbugs.dynamics.panel.PanelMotion;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.Bug;
-import com.badbugs.objects.knives.Knife;
-import com.badbugs.objects.knives.SilverKnife;
 import com.badbugs.util.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -33,11 +34,11 @@ public class MainGameScreen extends ScreenAdapter
           Constants.GOOGLE_PLAY_H * Game.screenHeight / Constants.HOME_SCREEN_H};
 
   private static ShapeRenderer shapeRenderer;
-  private static Knife knife;
   private static GameOver gameoverBackground;
   private static Bug[] lives;
   private static BasicObject mainGame;
   private static BasicObject googlePlay;
+  private static BasicObject panel;
 
   MainGameScreen(Game game)
   {
@@ -52,7 +53,7 @@ public class MainGameScreen extends ScreenAdapter
         gameoverBackground.elapsedTime = 0;
         gameOverSoundPlayed = false;
         if (Constants.DEMO)
-            Util.startDemo();
+            GameStates.startDemo();
         bugGenerator = new BugGenerator();
         bugGenerator.start();
         MusicPlayer.playNatureMusic();
@@ -61,13 +62,15 @@ public class MainGameScreen extends ScreenAdapter
     public static void load() {
         shapeRenderer = new ShapeRenderer();
         try {
-            knife = (SilverKnife) SpritesCreator.loadSilverKnife();
+            SpritesCreator.loadKnives();
+            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STONE));
             lives = new Bug[]{SpritesCreator.loadLife(Constants.LIFE_1_X_POS),
                     SpritesCreator.loadLife(Constants.LIFE_2_X_POS), SpritesCreator.loadLife(Constants.LIFE_3_X_POS),
                     SpritesCreator.loadLife(Constants.LIFE_4_X_POS), SpritesCreator.loadLife(Constants.LIFE_5_X_POS)};
             gameoverBackground = SpritesCreator.loadGameOverBackground();
             mainGame = SpritesCreator.loadMainGame();
             googlePlay = SpritesCreator.loadGooglePlay();
+            panel = SpritesCreator.loadPanel();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,19 +108,20 @@ public class MainGameScreen extends ScreenAdapter
 
   private void allStateUpdate(TouchInfo touchInfo) throws Exception
   {
-    KnifeMovement.updatePolygon(knife, touchInfo);
+    KnifeMovement.updatePolygon(GameStates.getSelectedKnife(), touchInfo);
     BugMovement.upgradeEveryBugState();
   }
 
-  private void panel(TouchInfo touchInfo){
-
+  private void panel(TouchInfo touchInfo) throws Exception{
+      PanelMotion.updatePanelPosition(panel, touchInfo);
   }
 
   private void allRendering(TouchInfo touchInfo) throws Exception {
     ImageRenderers.renderBasicObject(Game.batch, mainGame);
     ImageRenderers.renderBugs(Game.batch);
     ImageRenderers.renderBloods(Game.batch);
-    ImageRenderers.renderKnife(Game.batch, knife);
+    ImageRenderers.renderKnife(Game.batch, GameStates.getSelectedKnife());
+      ImageRenderers.renderBasicObject(Game.batch, panel);
     FontRenderers.renderScore(Game.batch, ObjectsStore.score);
     ImageRenderers.renderLives(Game.batch, lives);
     if (Util.checkIfGameOverConditionMet()) {
@@ -127,7 +131,7 @@ public class MainGameScreen extends ScreenAdapter
       }
       attemptGameOver();
     }
-    if (Util.checkIfDemoOver()) {
+    if (GameStates.checkIfDemoOver()) {
       popupBuyOption(touchInfo);
     }
   }

@@ -1,12 +1,14 @@
 package com.badbugs.creators;
 
 import com.badbugs.Game;
+import com.badbugs.baseframework.elements.GameStates;
 import com.badbugs.objects.*;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
-import com.badbugs.objects.knives.SilverKnife;
+import com.badbugs.objects.knives.StoneKnife;
 import com.badbugs.util.Constants;
-import com.badbugs.util.Util;
+import com.badbugs.util.ObjectsCord;
+import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -17,7 +19,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  */
 public class SpritesCreator {
 
-    private static Texture knifeTexture;
+    private static Texture[] knifeTextures;
     private static TextureAtlas textureAtlas;
     private static Texture floorTexture;
     private static Texture bloodTextureLong;
@@ -38,11 +40,11 @@ public class SpritesCreator {
     private static Texture knifeBoosterTexture;
     private static Texture googlePlayTexture;
     private static Texture bugNoMovementTexture;
+    private static Texture panelTexture;
 
     public static void loadAllTextures() {
-//        knifeTexture = new Texture(Gdx.files.internal("steel_knife.png"));
-         knifeTexture = new Texture(Gdx.files.internal("bronze_knife.png"));
-//        knifeTexture = new Texture(Gdx.files.internal("stone_knife.png"));
+        knifeTextures = new Texture[]{new Texture(Gdx.files.internal("stone_knife.png")), new Texture(Gdx.files
+                .internal("bronze_knife.png")), new Texture(Gdx.files.internal("steel_knife.png"))};
         textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
         floorTexture = new Texture(Gdx.files.internal("floor.png"));
         lifeTexture = new Texture(Gdx.files.internal("life.png"));
@@ -63,13 +65,13 @@ public class SpritesCreator {
         bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
         bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
         bugNoMovementTexture = new Texture(Gdx.files.internal("bronze_bug.png"));
+        panelTexture = new Texture(Gdx.files.internal("panel.png"));
     }
 
-    public static BasicObject loadSilverKnife() throws Exception {
-        AbstractBasicObject silverKnife = new SilverKnife(knifeTexture);
-        silverKnife.getPolygon().setPosition(0, 0);
-        silverKnife.getPolygon().setOrigin(0, silverKnife.getCameraDimensions()[1] / 2);
-        return silverKnife;
+    public static void loadKnives() throws Exception {
+        ObjectsStore.add(Constants.KNIFE_TYPE.STONE, new StoneKnife(knifeTextures[0]));
+        ObjectsStore.add(Constants.KNIFE_TYPE.BRONZE, new StoneKnife(knifeTextures[1]));
+        ObjectsStore.add(Constants.KNIFE_TYPE.STEEL, new StoneKnife(knifeTextures[2]));
     }
 
     public static BedBug loadBedBug(int level) throws Exception {
@@ -164,7 +166,7 @@ public class SpritesCreator {
     public static BasicObject loadSound() throws Exception {
 
         AbstractBasicObject s;
-        if (Util.isSoundOn())
+        if (GameStates.isSoundOn())
             s = new BasicObjectImpl(soundEnabledTexture);
         else
             s = new BasicObjectImpl(soundDisabledTexture);
@@ -179,7 +181,7 @@ public class SpritesCreator {
 
     public static BasicObject loadMusic() throws Exception {
         AbstractBasicObject m;
-        if (Util.isMusicOn())
+        if (GameStates.isMusicOn())
             m = new BasicObjectImpl(musicEnabledTexture);
         else
             m = new BasicObjectImpl(musicDisabledTexture);
@@ -258,19 +260,16 @@ public class SpritesCreator {
         return bloodSprite;
     }
 
-    private static Texture getProperBloodTex(float bloodSpotLen) {
-        if (bloodSpotLen < 2)
-            return SpritesCreator.bloodTextureSmall;
-        else if (bloodSpotLen < 6)
-            return SpritesCreator.bloodTextureMedium;
-        else
-            return SpritesCreator.bloodTextureLong;
-    }
-
     public static BasicObject loadBloodDot()
     {
         AbstractBasicObject bloodSprite = new BasicObjectImpl(bloodDotTexture);
         return bloodSprite;
+    }
+
+    public static BasicObject loadPanel()
+    {
+        BasicObject panel = new BasicObjectImpl(panelTexture);
+        return panel;
     }
 
     public static void switchSoundSprites(BasicObject sound) {
@@ -291,7 +290,7 @@ public class SpritesCreator {
 
     public static void disposeAll() {
         textureAtlas.dispose();
-        knifeTexture.dispose();
+        for(Texture t : knifeTextures) textureAtlas.dispose();
         bloodTextureLong.dispose();
         bloodTextureMedium.dispose();
         bloodTextureSmall.dispose();
@@ -311,6 +310,15 @@ public class SpritesCreator {
         knifeBoosterTexture.dispose();
         googlePlayTexture.dispose();
         bloodDotTexture.dispose();
+    }
+
+    private static Texture getProperBloodTex(float bloodSpotLen) {
+        if (bloodSpotLen < 2)
+            return SpritesCreator.bloodTextureSmall;
+        else if (bloodSpotLen < 6)
+            return SpritesCreator.bloodTextureMedium;
+        else
+            return SpritesCreator.bloodTextureLong;
     }
 
 }

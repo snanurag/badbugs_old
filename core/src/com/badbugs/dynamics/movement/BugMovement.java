@@ -1,10 +1,10 @@
 package com.badbugs.dynamics.movement;
 
 import com.badbugs.Game;
-import com.badbugs.objects.ObjectsCord;
+import com.badbugs.util.ObjectsCord;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.util.Constants;
-import com.badbugs.util.ObjectsStore;
+import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;

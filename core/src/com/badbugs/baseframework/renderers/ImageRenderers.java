@@ -1,4 +1,4 @@
-package com.badbugs.baseframework;
+package com.badbugs.baseframework.renderers;
 
 import com.badbugs.Game;
 import com.badbugs.dynamics.blood.BloodSplash;
@@ -8,7 +8,7 @@ import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;
-import com.badbugs.util.ObjectsStore;
+import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

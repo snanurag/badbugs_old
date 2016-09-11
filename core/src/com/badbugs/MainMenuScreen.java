@@ -1,10 +1,10 @@
 package com.badbugs;
 
-import com.badbugs.baseframework.ImageRenderers;
-import com.badbugs.baseframework.MusicPlayer;
-import com.badbugs.baseframework.SoundPlayer;
+import com.badbugs.baseframework.elements.GameStates;
+import com.badbugs.baseframework.renderers.ImageRenderers;
+import com.badbugs.baseframework.sounds.MusicPlayer;
+import com.badbugs.baseframework.sounds.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
-import com.badbugs.objects.AbstractBasicObject;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.util.Constants;
 import com.badbugs.util.TouchInfo;
@@ -130,13 +130,13 @@ public class MainMenuScreen extends ScreenAdapter {
                 Gdx.app.exit();
             } else if (soundBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 SoundPlayer.playButtonClick();
-                Util.switchSound();
+                GameStates.switchSound();
                 SpritesCreator.switchSoundSprites(sound);
             } else if (musicBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 SoundPlayer.playButtonClick();
-                Util.switchMusic();
+                GameStates.switchMusic();
                 SpritesCreator.switchMusicSprites(music);
-                if(Util.isMusicOn())
+                if(GameStates.isMusicOn())
                     MusicPlayer.playIntroMusic();
                 else
                     MusicPlayer.pauseIntroMusic();

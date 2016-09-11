@@ -1,6 +1,6 @@
-package com.badbugs.baseframework;
+package com.badbugs.baseframework.sounds;
 
-import com.badbugs.util.Util;
+import com.badbugs.baseframework.elements.GameStates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
@@ -20,7 +20,7 @@ public class MusicPlayer {
     }
 
     public static void playNatureMusic() {
-        if (Util.isMusicOn())
+        if (GameStates.isMusicOn())
             nature_music.play();
     }
 
@@ -31,7 +31,7 @@ public class MusicPlayer {
 
     public static void playIntroMusic()
     {
-        if (Util.isMusicOn())
+        if (GameStates.isMusicOn())
             intro_music.play();
     }
 

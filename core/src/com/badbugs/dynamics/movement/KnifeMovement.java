@@ -1,14 +1,14 @@
 package com.badbugs.dynamics.movement;
 
 import com.badbugs.Game;
-import com.badbugs.baseframework.SoundPlayer;
+import com.badbugs.baseframework.sounds.SoundPlayer;
 import com.badbugs.dynamics.blood.BloodSplash;
 import com.badbugs.dynamics.blood.BloodSpot;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.util.Constants;
-import com.badbugs.util.ObjectsStore;
+import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.util.TouchInfo;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.math.MathUtils;

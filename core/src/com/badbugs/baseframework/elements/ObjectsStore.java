@@ -1,8 +1,10 @@
-package com.badbugs.util;
+package com.badbugs.baseframework.elements;
 
 import com.badbugs.dynamics.blood.BloodSplash;
 import com.badbugs.dynamics.blood.BloodSpot;
 import com.badbugs.objects.bugs.Bug;
+import com.badbugs.objects.knives.Knife;
+import com.badbugs.util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +20,7 @@ public class ObjectsStore {
   private static List<Bug> bugList = new ArrayList<Bug>();
   private static Map<Bug, BloodSpot> bloodSpotMap = new HashMap<Bug, BloodSpot>();
   private static Map<Bug, BloodSplash> bloodSplashMap = new HashMap<Bug, BloodSplash>();
+  private static Map<Constants.KNIFE_TYPE, Knife> knifeMap = new HashMap<Constants.KNIFE_TYPE, Knife>();
 
   public static int score = 0;
   public static int bugMissed = 0;
@@ -61,6 +64,16 @@ public class ObjectsStore {
     bloodSplashMap.remove(bug);
   }
 
+  public static void add(Constants.KNIFE_TYPE t, Knife k) throws Exception
+  {
+    knifeMap.put(t,k);
+    k.getPolygon().setPosition(0, 0);
+    k.getPolygon().setOrigin(0, k.getCameraDimensions()[1]/2);
+  }
 
+  public static Knife getKnife(Constants.KNIFE_TYPE t)
+  {
+    return knifeMap.get(t);
+  }
 
 }

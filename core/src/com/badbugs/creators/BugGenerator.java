@@ -2,11 +2,11 @@ package com.badbugs.creators;
 
 import com.badbugs.Game;
 import com.badbugs.MainGameScreen;
+import com.badbugs.baseframework.elements.GameStates;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.util.Constants;
-import com.badbugs.util.ObjectsStore;
-import com.badbugs.util.Util;
+import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badlogic.gdx.math.Polygon;
 
 /**
@@ -29,7 +29,7 @@ public class BugGenerator extends Thread {
 
             while (running) {
                 if (Constants.DEMO && bugId == Constants.DEMO_BUGS) {
-                    Util.endDemo();
+                    GameStates.endDemo();
                     running = false;
                 }
                 Thread.sleep(1000);

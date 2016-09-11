@@ -1,4 +1,4 @@
-package com.badbugs.objects;
+package com.badbugs.util;
 
 /**
  * Created by ashrinag on 2/28/2016.
@@ -22,10 +22,22 @@ public class ObjectsCord {
   public static float BED_BUG_WIDTH = 12 * 11 / 14;
 
   //Pixels
-  public static int[][] SILVER_KNIFE_CORDS = { { 0, 50 }, { 1030, 31 }, { 1030, 67 } };
+  public static int[][] STEEL_KNIFE_CORDS = { { 0, 50 }, { 1030, 31 }, { 1030, 67 } };
 
   //Pixels
-  public static int[] SILVER_KNIFE_CENTER = { 515, 50 };
+  public static int[] STEEL_KNIFE_CENTER = { 515, 50 };
+
+  //Pixels
+  public static int[][] BRONZE_KNIFE_CORDS = null;
+
+  //Pixels
+  public static int[] BRONZE_KNIFE_CENTER = null;
+
+  //Pixels
+  public static int[][] STONE_KNIFE_CORDS = null;
+
+  //Pixels
+  public static int[] STONE_KNIFE_CENTER = null;
 
   public static float BLOOD_SPOT_WIDTH = 8.4f;
 
