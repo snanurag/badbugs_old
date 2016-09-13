@@ -266,9 +266,11 @@ public class SpritesCreator {
         return bloodSprite;
     }
 
-    public static BasicObject loadPanel()
+    public static BasicObject loadPanel() throws Exception
     {
         BasicObject panel = new BasicObjectImpl(panelTexture);
+        panel.setCameraDimensions(new float[]{Constants.PANEL_WIDTH, Game.cam_height});
+        panel.getPolygon().setPosition(Game.cam_width/2 - Constants.PANEL_ARROW_WIDTH,-Game.cam_height/2);
         return panel;
     }
 

@@ -28,16 +28,16 @@ public class ObjectsCord {
   public static int[] STEEL_KNIFE_CENTER = { 515, 50 };
 
   //Pixels
-  public static int[][] BRONZE_KNIFE_CORDS = null;
+  public static int[][] BRONZE_KNIFE_CORDS = { { 0, 50 }, { 515, 30 }, { 515, 70 } };
 
   //Pixels
-  public static int[] BRONZE_KNIFE_CENTER = null;
+  public static int[] BRONZE_KNIFE_CENTER = { 257, 50 };
 
   //Pixels
-  public static int[][] STONE_KNIFE_CORDS = null;
+  public static int[][] STONE_KNIFE_CORDS = { { 0, 35 }, { 500, 10 }, { 500, 60 } };
 
   //Pixels
-  public static int[] STONE_KNIFE_CENTER = null;
+  public static int[] STONE_KNIFE_CENTER = {250, 35};
 
   public static float BLOOD_SPOT_WIDTH = 8.4f;
 

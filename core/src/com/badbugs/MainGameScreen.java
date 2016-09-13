@@ -121,7 +121,7 @@ public class MainGameScreen extends ScreenAdapter
     ImageRenderers.renderBugs(Game.batch);
     ImageRenderers.renderBloods(Game.batch);
     ImageRenderers.renderKnife(Game.batch, GameStates.getSelectedKnife());
-      ImageRenderers.renderBasicObject(Game.batch, panel);
+    ImageRenderers.renderBasicObject(Game.batch, panel);
     FontRenderers.renderScore(Game.batch, ObjectsStore.score);
     ImageRenderers.renderLives(Game.batch, lives);
     if (Util.checkIfGameOverConditionMet()) {
