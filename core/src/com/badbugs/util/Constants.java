@@ -69,7 +69,8 @@ public class Constants {
     public static float LIFE_SIZE_Y = 4;
     public static float LIFE_SIZE_X = LIFE_SIZE_Y * 11 / 14;
     public static float PANEL_WIDTH = 12;
-    public static float PANEL_ARROW_WIDTH = 4;
+    public static float PANEL_ARROW_WIDTH = 4F;
+    public static float PANEL_ARROW_HEIGHT = 5F;
     public static float[] PANEL_STONE_KNIFE = null;
     public static float[] PANEL_BRONZE_KNIFE = null;
     public static float[] PANEL_STEEL_KNIFE = null;

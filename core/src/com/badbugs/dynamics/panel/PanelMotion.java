@@ -20,37 +20,49 @@ public class PanelMotion {
     private static boolean isOpen = false;
     private static float panelSpeed = 0;
 
-    public static void updatePanelPosition(BasicObject panel, TouchInfo touchInfo) throws Exception {
+    public static boolean panelTriggered(BasicObject panel, TouchInfo touchInfo) throws Exception {
 
-        if(touchInfo == null) return;
-
-        Vector3 touchPoints = Game.cam.unproject(new Vector3(touchInfo.touchX, touchInfo.touchY, 0));
-        if (!isOpen && isPanelArrowTouched(touchPoints)) {
-            isOpen = true;
-            panelSpeed = - Constants.PANEL_SPEED;
-        } else if (isOpen && (isPanelArrowTouched(touchPoints) || isStoneKnifeTouched(touchPoints) ||
-                isBronzeKnifeTouched(touchPoints) || isSteelKnifeTouched(touchPoints))) {
-            if (isStoneKnifeTouched(touchPoints)) {
-                GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STONE));
-            } else if (isBronzeKnifeTouched(touchPoints)) {
-                GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.BRONZE));
-            } else if (isSteelKnifeTouched(touchPoints)) {
-                GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STEEL));
+        boolean triggered = false;
+        if(touchInfo != null){
+            Vector3 touchPoints = Game.cam.unproject(new Vector3(touchInfo.touchX, touchInfo.touchY, 0));
+            if (!isOpen && isPanelArrowTouched(touchPoints)) {
+                isOpen = true;
+                triggered = true;
+                panelSpeed = - Constants.PANEL_SPEED;
+            } else if (isOpen && (isPanelArrowTouched(touchPoints) || isStoneKnifeTouched(touchPoints) ||
+                    isBronzeKnifeTouched(touchPoints) || isSteelKnifeTouched(touchPoints))) {
+                if (isStoneKnifeTouched(touchPoints)) {
+                    GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STONE));
+                } else if (isBronzeKnifeTouched(touchPoints)) {
+                    GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.BRONZE));
+                } else if (isSteelKnifeTouched(touchPoints)) {
+                    GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STEEL));
+                }
+                isOpen = false;
+                panelSpeed = Constants.PANEL_SPEED;
+                triggered = true;
             }
-            isOpen = false;
-            panelSpeed = Constants.PANEL_SPEED;
         }
 
-        if (panelSpeed == 0) return;
+        if (panelSpeed == 0) return triggered;
         else {
-            if(panelPosition[0] < Game.cam_width - Constants.PANEL_WIDTH)
-            {
-                panelPosition[0] = Game.cam_width - Constants.PANEL_WIDTH;
+            float x = panel.getPolygon().getX();
+            float y = panel.getPolygon().getY();
+            if (panelPosition[0] < Game.cam_width / 2 - Constants.PANEL_WIDTH + Constants.PANEL_ARROW_WIDTH) {
+                panelPosition[0] = Game.cam_width / 2 - Constants.PANEL_WIDTH + Constants.PANEL_ARROW_WIDTH;
+                x = Game.cam_width / 2 - Constants.PANEL_WIDTH;
                 panelSpeed = 0;
             }
-                panelPosition[0] = panelPosition[0] + panelSpeed * Gdx.graphics.getDeltaTime();
-                panel.getPolygon().setPosition(panelPosition[0], panelPosition[1]);
+            if(panelPosition[0] > Game.cam_width/2) {
+                panelPosition[0] = Game.cam_width / 2;
+                x = Game.cam_width / 2 - Constants.PANEL_ARROW_WIDTH;
+                panelSpeed = 0;
+            }
+            panelPosition[0] = panelPosition[0] + panelSpeed * Gdx.graphics.getDeltaTime();
+            x = x + panelSpeed * Gdx.graphics.getDeltaTime();
+            panel.getPolygon().setPosition(x, y);
         }
+        return triggered;
     }
 
     private static boolean isStoneKnifeTouched(Vector3 touchPoints) {
@@ -90,8 +102,8 @@ public class PanelMotion {
     }
 
     private static boolean isPanelArrowTouched(Vector3 touchPoints) {
-        return touchPoints.x > panelPosition[0] - Constants.PANEL_ARROW_WIDTH && touchPoints.x <
+        return touchPoints.x >= panelPosition[0] - Constants.PANEL_ARROW_WIDTH - .5F && touchPoints.x <=
                 panelPosition[0] &&
-                touchPoints.y < panelPosition[1] && touchPoints.y > panelPosition[1] - Constants.PANEL_ARROW_WIDTH;
+                touchPoints.y <= panelPosition[1] && touchPoints.y >= panelPosition[1] - Constants.PANEL_ARROW_HEIGHT - .5F;
     }
 }
