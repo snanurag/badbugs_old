@@ -5,6 +5,8 @@ import com.badbugs.baseframework.elements.GameStates;
 import com.badbugs.objects.*;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
+import com.badbugs.objects.knives.BronzeKnife;
+import com.badbugs.objects.knives.SteelKnife;
 import com.badbugs.objects.knives.StoneKnife;
 import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsCord;
@@ -70,8 +72,8 @@ public class SpritesCreator {
 
     public static void loadKnives() throws Exception {
         ObjectsStore.add(Constants.KNIFE_TYPE.STONE, new StoneKnife(knifeTextures[0]));
-        ObjectsStore.add(Constants.KNIFE_TYPE.BRONZE, new StoneKnife(knifeTextures[1]));
-        ObjectsStore.add(Constants.KNIFE_TYPE.STEEL, new StoneKnife(knifeTextures[2]));
+        ObjectsStore.add(Constants.KNIFE_TYPE.BRONZE, new BronzeKnife(knifeTextures[1]));
+        ObjectsStore.add(Constants.KNIFE_TYPE.STEEL, new SteelKnife(knifeTextures[2]));
     }
 
     public static BedBug loadBedBug(int level) throws Exception {

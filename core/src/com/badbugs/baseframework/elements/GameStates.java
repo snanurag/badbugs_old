@@ -10,8 +10,8 @@ public class GameStates {
     private static boolean soundOn = true;
     public static Knife selectedKnife = null;
     private static boolean demoOver = false;
-    private static boolean isBronzeKnifeAvailable = false;
-    private static boolean isSteelKnifeAvailable = false;
+    private static boolean isBronzeKnifeAvailable = true;
+    private static boolean isSteelKnifeAvailable = true;
 
     public static boolean isMusicOn() {
       return musicOn;

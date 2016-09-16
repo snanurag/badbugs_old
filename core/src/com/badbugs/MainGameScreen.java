@@ -95,8 +95,7 @@ public class MainGameScreen extends ScreenAdapter
     {
       if(!isPaused)
       {
-        if(!PanelMotion.panelTriggered(panel, threadsTouchEvent))
-          allStateUpdate(threadsTouchEvent);
+        allStateUpdate(threadsTouchEvent);
       }
       allRendering(threadsTouchEvent);
     } catch (Exception e)
@@ -108,8 +107,10 @@ public class MainGameScreen extends ScreenAdapter
 
   private void allStateUpdate(TouchInfo touchInfo) throws Exception
   {
-    KnifeMovement.updatePolygon(GameStates.getSelectedKnife(), touchInfo);
+    if(!PanelMotion.panelTriggered(panel, touchInfo))
+      KnifeMovement.updatePolygon(GameStates.getSelectedKnife(), touchInfo);
     BugMovement.upgradeEveryBugState();
+    PanelMotion.updatePanelState(panel, touchInfo);
   }
 
   private void allRendering(TouchInfo touchInfo) throws Exception {

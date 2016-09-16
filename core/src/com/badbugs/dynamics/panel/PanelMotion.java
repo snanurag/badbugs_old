@@ -44,7 +44,12 @@ public class PanelMotion {
             }
         }
 
-        if (panelSpeed == 0) return triggered;
+        return triggered;
+    }
+
+    public static void updatePanelState(BasicObject panel, TouchInfo touchInfo) throws Exception
+    {
+        if (panelSpeed == 0) return;
         else {
             float x = panel.getPolygon().getX();
             float y = panel.getPolygon().getY();
@@ -62,43 +67,46 @@ public class PanelMotion {
             x = x + panelSpeed * Gdx.graphics.getDeltaTime();
             panel.getPolygon().setPosition(x, y);
         }
-        return triggered;
     }
 
     private static boolean isStoneKnifeTouched(Vector3 touchPoints) {
-        return GameStates.isBronzeKnifeAvailable() && touchPoints.x > panelPosition[0] + Constants
-                .PANEL_STONE_KNIFE[0] && touchPoints.x < panelPosition[0] + Constants
-                .PANEL_STONE_KNIFE[0] + Constants.STONE_KNIFE_WIDTH && touchPoints.y <
-                panelPosition[1] +
-                        Constants
-                                .PANEL_STONE_KNIFE[1] && touchPoints.y > panelPosition[1] +
-                Constants
-                        .PANEL_STONE_KNIFE[1] - Constants.STONE_KNIFE_HEIGHT;
 
+        boolean isTouched = touchPoints.x > panelPosition[0] + Constants
+                .PANEL_STONE_KNIFE[0] && touchPoints.x < panelPosition[0] + Constants
+                .PANEL_STONE_KNIFE[0] + Constants.STONE_KNIFE_HEIGHT && touchPoints.y <
+                panelPosition[1] - Constants.PANEL_STONE_KNIFE[1] && touchPoints.y > panelPosition[1] -
+                Constants.PANEL_STONE_KNIFE[1] - Constants.STONE_KNIFE_WIDTH;
+        if(isTouched){
+            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STONE));
+            return true;
+        }
+        return false;
     }
 
     private static boolean isBronzeKnifeTouched(Vector3 touchPoints) {
-        return GameStates.isBronzeKnifeAvailable() && touchPoints.x > panelPosition[0] + Constants
+        boolean isTouched = GameStates.isBronzeKnifeAvailable() && touchPoints.x > panelPosition[0] + Constants
                 .PANEL_BRONZE_KNIFE[0] && touchPoints.x < panelPosition[0] + Constants
-                .PANEL_BRONZE_KNIFE[0] + Constants.BRONZE_KNIFE_WIDTH && touchPoints.y <
-                panelPosition[1] +
-                        Constants
-                                .PANEL_BRONZE_KNIFE[1] && touchPoints.y > panelPosition[1] +
-                Constants
-                        .PANEL_BRONZE_KNIFE[1] - Constants.BRONZE_KNIFE_HEIGHT
-                ;
+                .PANEL_BRONZE_KNIFE[0] + Constants.BRONZE_KNIFE_HEIGHT && touchPoints.y <
+                panelPosition[1] - Constants.PANEL_BRONZE_KNIFE[1] && touchPoints.y > panelPosition[1] - Constants
+                .PANEL_BRONZE_KNIFE[1] - Constants.BRONZE_KNIFE_WIDTH;
+        if(isTouched){
+            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.BRONZE));
+            return true;
+        }
+        return false;
     }
 
     private static boolean isSteelKnifeTouched(Vector3 touchPoints) {
-        return GameStates.isSteelKnifeAvailable() && touchPoints.x > panelPosition[0] + Constants
+        boolean isTouched = GameStates.isSteelKnifeAvailable() && touchPoints.x > panelPosition[0] + Constants
                 .PANEL_STEEL_KNIFE[0] && touchPoints.x < panelPosition[0] + Constants
-                .PANEL_STEEL_KNIFE[0] + Constants.STEEL_KNIFE_WIDTH && touchPoints.y <
-                panelPosition[1] +
-                        Constants
-                                .PANEL_STEEL_KNIFE[1] && touchPoints.y > panelPosition[1] +
-                Constants
-                        .PANEL_STEEL_KNIFE[1] - Constants.STEEL_KNIFE_HEIGHT
-                ;
+                .PANEL_STEEL_KNIFE[0] + Constants.STEEL_KNIFE_HEIGHT + 1 && touchPoints.y <
+                panelPosition[1] - Constants.PANEL_STEEL_KNIFE[1] && touchPoints.y > panelPosition[1] - Constants
+                .PANEL_STEEL_KNIFE[1] - Constants.STEEL_KNIFE_WIDTH - 4;
+        if(isTouched){
+            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STEEL));
+            return true;
+        }
+        return false;
     }
 
     private static boolean isPanelArrowTouched(Vector3 touchPoints) {

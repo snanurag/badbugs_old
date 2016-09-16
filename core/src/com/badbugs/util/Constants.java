@@ -71,16 +71,16 @@ public class Constants {
     public static float PANEL_WIDTH = 12;
     public static float PANEL_ARROW_WIDTH = 4F;
     public static float PANEL_ARROW_HEIGHT = 5F;
-    public static float[] PANEL_STONE_KNIFE = null;
-    public static float[] PANEL_BRONZE_KNIFE = null;
-    public static float[] PANEL_STEEL_KNIFE = null;
+    public static float[] PANEL_STONE_KNIFE = {2.5f, 2.5f};
+    public static float[] PANEL_BRONZE_KNIFE = {2.5f, 21.5f};
+    public static float[] PANEL_STEEL_KNIFE = {2.5f, 40.5f};
 
     public static float STEEL_KNIFE_HEIGHT = 2;
     public static float STEEL_KNIFE_WIDTH = 21;
-    public static float BRONZE_KNIFE_HEIGHT = 2;
-    public static float BRONZE_KNIFE_WIDTH = 21;
-    public static float STONE_KNIFE_HEIGHT = 2;
-    public static float STONE_KNIFE_WIDTH = 21;
+    public static float BRONZE_KNIFE_HEIGHT = 3;
+    public static float BRONZE_KNIFE_WIDTH = 17;
+    public static float STONE_KNIFE_HEIGHT = 3;
+    public static float STONE_KNIFE_WIDTH = 17;
 
     public static int PLAY_H, PLAY_W, SHOP_H, SHOP_W, BACK_H, BACK_W, QUIT_H, QUIT_W, SOUND_H, SOUND_W, MUSIC_H, MUSIC_W,
             KNIFE_BOOSTER_H, KNIFE_BOOSTER_W, GOOGLE_PLAY_W, GOOGLE_PLAY_H;
