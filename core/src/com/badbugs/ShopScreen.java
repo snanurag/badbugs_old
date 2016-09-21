@@ -10,7 +10,7 @@ import com.badbugs.objects.fonts.Font;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.payment.PlatformBuilder;
 import com.badbugs.util.Constants;
-import com.badbugs.util.Inputs;
+import com.badbugs.listers.Inputs;
 import com.badbugs.util.TouchInfo;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.ScreenAdapter;

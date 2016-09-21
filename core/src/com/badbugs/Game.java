@@ -4,12 +4,15 @@ import com.badbugs.baseframework.renderers.FontRenderers;
 import com.badbugs.baseframework.sounds.MusicPlayer;
 import com.badbugs.baseframework.sounds.SoundPlayer;
 import com.badbugs.creators.SpritesCreator;
+
 import com.badbugs.payment.PlatformBuilder;
-import com.badbugs.util.Inputs;
+import com.badbugs.listers.Inputs;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.input.GestureDetector;
 
 /**
  * Created by ashrinag on 4/29/2016.
@@ -52,6 +55,10 @@ public class Game extends com.badlogic.gdx.Game
     MainGameScreen.load();
     ShopScreen.load();
     SoundPlayer.loadAllSounds();
+//    InputMultiplexer im = new InputMultiplexer();
+//    im.addProcessor(new Inputs());
+//    im.addProcessor(new GestureDetector(new SwipeListener()));
+//    Gdx.input.setInputProcessor(im);
     Gdx.input.setInputProcessor(new Inputs());
     Gdx.input.setCatchBackKey(true);
     setScreen(new MainMenuScreen(this));

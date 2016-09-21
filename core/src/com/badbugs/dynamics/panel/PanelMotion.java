@@ -5,6 +5,7 @@ import com.badbugs.baseframework.elements.GameStates;
 import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.util.Constants;
+import com.badbugs.listers.Inputs;
 import com.badbugs.util.TouchInfo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
@@ -20,15 +21,16 @@ public class PanelMotion {
     private static boolean isOpen = false;
     private static float panelSpeed = 0;
 
-    public static boolean panelTriggered(BasicObject panel, TouchInfo touchInfo) throws Exception {
+    public static boolean panelTriggered(TouchInfo touchInfo) throws Exception {
 
         boolean triggered = false;
         if(touchInfo != null){
             Vector3 touchPoints = Game.cam.unproject(new Vector3(touchInfo.touchX, touchInfo.touchY, 0));
-            if (!isOpen && isPanelArrowTouched(touchPoints)) {
+            if (!isOpen && (isPanelArrowTouched(touchPoints)|| Inputs.leftSwipe)) {
                 isOpen = true;
                 triggered = true;
                 panelSpeed = - Constants.PANEL_SPEED;
+                Inputs.leftSwipe = false;
             } else if (isOpen && (isPanelArrowTouched(touchPoints) || isStoneKnifeTouched(touchPoints) ||
                     isBronzeKnifeTouched(touchPoints) || isSteelKnifeTouched(touchPoints))) {
                 if (isStoneKnifeTouched(touchPoints)) {
@@ -41,6 +43,7 @@ public class PanelMotion {
                 isOpen = false;
                 panelSpeed = Constants.PANEL_SPEED;
                 triggered = true;
+                Inputs.leftSwipe = false;
             }
         }
 
@@ -73,7 +76,7 @@ public class PanelMotion {
 
         boolean isTouched = touchPoints.x > panelPosition[0] + Constants
                 .PANEL_STONE_KNIFE[0] && touchPoints.x < panelPosition[0] + Constants
-                .PANEL_STONE_KNIFE[0] + Constants.STONE_KNIFE_HEIGHT && touchPoints.y <
+                .PANEL_STONE_KNIFE[0] + (Constants.PANEL_WIDTH - Constants.PANEL_ARROW_WIDTH) && touchPoints.y <
                 panelPosition[1] - Constants.PANEL_STONE_KNIFE[1] && touchPoints.y > panelPosition[1] -
                 Constants.PANEL_STONE_KNIFE[1] - Constants.STONE_KNIFE_WIDTH;
         if(isTouched){
@@ -86,7 +89,7 @@ public class PanelMotion {
     private static boolean isBronzeKnifeTouched(Vector3 touchPoints) {
         boolean isTouched = GameStates.isBronzeKnifeAvailable() && touchPoints.x > panelPosition[0] + Constants
                 .PANEL_BRONZE_KNIFE[0] && touchPoints.x < panelPosition[0] + Constants
-                .PANEL_BRONZE_KNIFE[0] + Constants.BRONZE_KNIFE_HEIGHT && touchPoints.y <
+                .PANEL_BRONZE_KNIFE[0] + (Constants.PANEL_WIDTH - Constants.PANEL_ARROW_WIDTH) && touchPoints.y <
                 panelPosition[1] - Constants.PANEL_BRONZE_KNIFE[1] && touchPoints.y > panelPosition[1] - Constants
                 .PANEL_BRONZE_KNIFE[1] - Constants.BRONZE_KNIFE_WIDTH;
         if(isTouched){
@@ -99,7 +102,7 @@ public class PanelMotion {
     private static boolean isSteelKnifeTouched(Vector3 touchPoints) {
         boolean isTouched = GameStates.isSteelKnifeAvailable() && touchPoints.x > panelPosition[0] + Constants
                 .PANEL_STEEL_KNIFE[0] && touchPoints.x < panelPosition[0] + Constants
-                .PANEL_STEEL_KNIFE[0] + Constants.STEEL_KNIFE_HEIGHT + 1 && touchPoints.y <
+                .PANEL_STEEL_KNIFE[0] + (Constants.PANEL_WIDTH - Constants.PANEL_ARROW_WIDTH) && touchPoints.y <
                 panelPosition[1] - Constants.PANEL_STEEL_KNIFE[1] && touchPoints.y > panelPosition[1] - Constants
                 .PANEL_STEEL_KNIFE[1] - Constants.STEEL_KNIFE_WIDTH - 4;
         if(isTouched){

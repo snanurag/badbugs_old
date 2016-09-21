@@ -11,6 +11,7 @@ import com.badbugs.creators.SpritesCreator;
 import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.dynamics.movement.KnifeMovement;
 import com.badbugs.dynamics.panel.PanelMotion;
+import com.badbugs.listers.Inputs;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.Bug;
@@ -57,6 +58,7 @@ public class MainGameScreen extends ScreenAdapter
         bugGenerator = new BugGenerator();
         bugGenerator.start();
         MusicPlayer.playNatureMusic();
+        Inputs.leftSwipe = false;
     }
 
     public static void load() {
@@ -107,7 +109,7 @@ public class MainGameScreen extends ScreenAdapter
 
   private void allStateUpdate(TouchInfo touchInfo) throws Exception
   {
-    if(!PanelMotion.panelTriggered(panel, touchInfo))
+    if(!PanelMotion.panelTriggered(touchInfo))
       KnifeMovement.updatePolygon(GameStates.getSelectedKnife(), touchInfo);
     BugMovement.upgradeEveryBugState();
     PanelMotion.updatePanelState(panel, touchInfo);

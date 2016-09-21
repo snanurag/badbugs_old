@@ -71,9 +71,9 @@ public class Constants {
     public static float PANEL_WIDTH = 12;
     public static float PANEL_ARROW_WIDTH = 4F;
     public static float PANEL_ARROW_HEIGHT = 5F;
-    public static float[] PANEL_STONE_KNIFE = {2.5f, 2.5f};
-    public static float[] PANEL_BRONZE_KNIFE = {2.5f, 21.5f};
-    public static float[] PANEL_STEEL_KNIFE = {2.5f, 40.5f};
+    public static float[] PANEL_STONE_KNIFE = {0f, 2.5f};
+    public static float[] PANEL_BRONZE_KNIFE = {0f, 21.5f};
+    public static float[] PANEL_STEEL_KNIFE = {0f, 40.5f};
 
     public static float STEEL_KNIFE_HEIGHT = 2;
     public static float STEEL_KNIFE_WIDTH = 21;

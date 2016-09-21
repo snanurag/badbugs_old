@@ -1,7 +1,11 @@
-package com.badbugs.util;
+package com.badbugs.listers;
 
+import com.badbugs.util.TouchInfo;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by ashrinag on 3/6/2016.
@@ -9,6 +13,34 @@ import com.badlogic.gdx.InputProcessor;
 public class Inputs implements InputProcessor {
 
     public static boolean backPressed = false;
+
+    public static boolean leftSwipe = false;
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        TouchInfo touchInfo = new TouchInfo();
+        touchInfo.touchX = screenX;
+        touchInfo.touchY = screenY;
+        Util.addToTouchEventsQueue(touchInfo);
+
+        return true;
+    }
+//    public Inputs()
+//    {
+//        this(new SwipeListener());
+//    }
+//
+//    /**
+//     * Creates a new GestureDetector with default values: halfTapSquareSize=20, tapCountInterval=0.4f,
+//     * longPressDuration=1.1f,
+//     * maxFlingDelay=0.15f.
+//     *
+//     * @param listener
+//     */
+//    public Inputs(GestureListener listener) {
+//        super(listener);
+//    }
 
     @Override
     public boolean keyDown(int keycode) {
@@ -28,16 +60,6 @@ public class Inputs implements InputProcessor {
         return false;
     }
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
-        TouchInfo touchInfo = new TouchInfo();
-        touchInfo.touchX = screenX;
-        touchInfo.touchY = screenY;
-        Util.addToTouchEventsQueue(touchInfo);
-
-        return true;
-    }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
@@ -58,5 +80,4 @@ public class Inputs implements InputProcessor {
     public boolean scrolled(int amount) {
         return false;
     }
-
 }
