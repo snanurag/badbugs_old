@@ -4,6 +4,7 @@ import com.badbugs.Game;
 import com.badbugs.dynamics.blood.BloodSplash;
 import com.badbugs.dynamics.blood.BloodSpot;
 import com.badbugs.objects.BasicObject;
+import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;
@@ -24,7 +25,10 @@ public class ObjectsStore {
   private static Map<Bug, BloodSplash> bloodSplashMap = new HashMap<Bug, BloodSplash>();
   private static Map<Constants.KNIFE_TYPE, Knife> knifeMap = new HashMap<Constants.KNIFE_TYPE, Knife>();
   private static Map<Constants.PANEL, BasicObject> panelMap = new HashMap<Constants.PANEL, BasicObject>();
-
+  private static GameOver gameoverBackground;
+  private static Bug[] lives;
+  private static BasicObject floor;
+  private static BasicObject googlePlay;
   public static int score = 0;
   public static int bugMissed = 0;
 
@@ -101,5 +105,37 @@ public class ObjectsStore {
             ) {
       t.getTexture().dispose();
     }
+  }
+
+  public static GameOver getGameoverBackground() {
+    return gameoverBackground;
+  }
+
+  public static void setGameoverBackground(GameOver gameoverBackground) {
+    ObjectsStore.gameoverBackground = gameoverBackground;
+  }
+
+  public static Bug[] getLives() {
+    return lives;
+  }
+
+  public static void setLives(Bug[] lives) {
+    ObjectsStore.lives = lives;
+  }
+
+  public static BasicObject getFloor() {
+    return floor;
+  }
+
+  public static void setFloor(BasicObject floor) {
+    ObjectsStore.floor = floor;
+  }
+
+  public static BasicObject getGooglePlay() {
+    return googlePlay;
+  }
+
+  public static void setGooglePlay(BasicObject googlePlay) {
+    ObjectsStore.googlePlay = googlePlay;
   }
 }

@@ -52,7 +52,6 @@ public class Game extends com.badlogic.gdx.Game
     SpritesCreator.loadAllTextures();
     FontRenderers.loadAllFonts();
 
-    MainGameScreen.load();
     ShopScreen.load();
     SoundPlayer.loadAllSounds();
 //    InputMultiplexer im = new InputMultiplexer();
@@ -74,7 +73,6 @@ public class Game extends com.badlogic.gdx.Game
     Game.batch.begin();
     super.render();
     Game.batch.end();
-
   }
 
   @Override

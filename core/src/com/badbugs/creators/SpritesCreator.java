@@ -14,6 +14,7 @@ import com.badbugs.objects.knives.SteelKnife;
 import com.badbugs.objects.knives.StoneKnife;
 import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsCord;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -44,7 +45,6 @@ public class SpritesCreator {
     private static Texture knifeBoosterTexture;
     private static Texture googlePlayTexture;
     private static Texture bugNoMovementTexture;
-//    private
 
     public static void loadAllTextures() {
         textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
@@ -67,7 +67,6 @@ public class SpritesCreator {
         bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
         bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
         bugNoMovementTexture = new Texture(Gdx.files.internal("bronze_bug.png"));
-//        panelTexture = new Texture(Gdx.files.internal("panels/stone.png"));
 
         try{
             loadKnives(new Texture(Gdx.files.internal("stone_knife.png")), new Texture(Gdx.files
@@ -77,15 +76,13 @@ public class SpritesCreator {
                     .internal("panels/steel.png")), new Texture(Gdx.files.internal("panels/stone_bronze.png")), new
                     Texture(Gdx.files.internal("panels/bronze_steel.png")), new Texture(Gdx.files.internal
                     ("panels/stone_steel.png")));
+            loadLivesArray();
+            loadGameOverBackground();
+            loadFloor();
+            loadGooglePlay();
         }
         catch (Exception e){
             e.printStackTrace();
-        }
-
-        try{
-        }
-        catch (Exception e){
-
         }
     }
 
@@ -105,7 +102,7 @@ public class SpritesCreator {
         ObjectsStore.add(Constants.PANEL.STONE_BRONZE, new SteelKnife(panelTextures[4]));
         ObjectsStore.add(Constants.PANEL.BRONZE_STEEL, new SteelKnife(panelTextures[5]));
         ObjectsStore.add(Constants.PANEL.STONE_STEEL, new SteelKnife(panelTextures[6]));
-        GameStates.setPanel(Constants.PANEL.EMPTY);
+        Util.setPanelForStoneKnifeSelection();
     }
 
     public static BedBug loadBedBug(int level) throws Exception {
@@ -150,18 +147,24 @@ public class SpritesCreator {
         return bedBug;
     }
 
-    public static Bug loadLife(float x) throws Exception {
+    private static void loadLivesArray() throws Exception {
+        ObjectsStore.setLives(new Bug[]{SpritesCreator.loadLife(Constants.LIFE_1_X_POS),
+                SpritesCreator.loadLife(Constants.LIFE_2_X_POS), SpritesCreator.loadLife(Constants.LIFE_3_X_POS),
+                SpritesCreator.loadLife(Constants.LIFE_4_X_POS), SpritesCreator.loadLife(Constants.LIFE_5_X_POS)});
+    }
+
+    private static Bug loadLife(float x) throws Exception {
         Bug bug = new BedBug(lifeTexture);
         bug.getPolygon().setPosition(x, Game.cam_height / 2 - Constants.LIFE_SIZE_Y);
         bug.setCameraDimensions(new float[]{Constants.LIFE_SIZE_X, Constants.LIFE_SIZE_Y});
         return bug;
     }
 
-    public static GameOver loadGameOverBackground() throws Exception {
+    private static void loadGameOverBackground() throws Exception {
         GameOver gameOver = new GameOver(gameOverBackgroundTexture);
         gameOver.setCameraDimensions(
                 new float[]{Constants.GAME_OVER_BACKGROUND_WIDTH, Constants.GAME_OVER_BACKGROUND_HEIGHT});
-        return gameOver;
+        ObjectsStore.setGameoverBackground(gameOver);
     }
 
     public static BasicObject loadShop() throws Exception {
@@ -178,11 +181,12 @@ public class SpritesCreator {
         return mainMenu;
     }
 
-    public static BasicObject loadMainGame() throws Exception {
-        AbstractBasicObject mainGame = new BasicObjectImpl(floorTexture);
-        mainGame.setCameraDimensions(new float[]{Game.cam_width, Game.cam_height});
-        mainGame.getPolygon().setPosition(-Game.cam_width / 2, -Game.cam_height / 2);
-        return mainGame;
+    public static void loadFloor() throws Exception {
+        AbstractBasicObject floor = new BasicObjectImpl(floorTexture);
+        floor.setCameraDimensions(new float[]{Game.cam_width, Game.cam_height});
+        floor.getPolygon().setPosition(-Game.cam_width / 2, -Game.cam_height / 2);
+        ObjectsStore.setFloor(floor);
+
     }
 
     //TODO : Fix it -> On Main Menu, y axis is working from top to bottom
@@ -277,7 +281,7 @@ public class SpritesCreator {
         return m;
     }
 
-    public static BasicObject loadGooglePlay() throws Exception {
+    private static void loadGooglePlay() throws Exception {
         AbstractBasicObject googlePlay = new BasicObjectImpl(googlePlayTexture);
         googlePlay.setCameraDimensions(new float[]{Game.cam_width * Constants.GOOGLE_PLAY_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.GOOGLE_PLAY_H / Constants.HOME_SCREEN_H});
@@ -285,8 +289,7 @@ public class SpritesCreator {
         float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.GOOGLE_PLAY_TOP + Constants.GOOGLE_PLAY_H))
                 / Constants.HOME_SCREEN_H;
         googlePlay.getPolygon().setPosition(x, y);
-
-        return googlePlay;
+        ObjectsStore.setGooglePlay(googlePlay);
     }
 
     public static BasicObject loadBloodSpot(float len) {

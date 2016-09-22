@@ -1,5 +1,6 @@
 package com.badbugs.util;
 
+import com.badbugs.baseframework.elements.GameStates;
 import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.objects.BasicObject;
 import com.badlogic.gdx.math.*;
@@ -145,4 +146,12 @@ public class Util
     return false;
   }
 
+  public static void setPanelForStoneKnifeSelection(){
+    if (GameStates.isBronzeKnifeAvailable() && GameStates.isSteelKnifeAvailable())
+      GameStates.setPanel(Constants.PANEL.BRONZE_STEEL);
+    else if (GameStates.isBronzeKnifeAvailable()) GameStates.setPanel(Constants.PANEL.BRONZE);
+    else if (GameStates.isSteelKnifeAvailable()) GameStates.setPanel(Constants.PANEL.STEEL);
+    else GameStates.setPanel(Constants.PANEL.EMPTY);
+
+  }
 }

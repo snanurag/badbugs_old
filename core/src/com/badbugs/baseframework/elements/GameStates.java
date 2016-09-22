@@ -10,8 +10,8 @@ import com.badbugs.util.Constants;
 public class GameStates {
     private static boolean musicOn = true;
     private static boolean soundOn = true;
-    public static Knife selectedKnife = null;
-    public static BasicObject panel = null;
+    private static Knife selectedKnife = null;
+    private static BasicObject panel = null;
     private static boolean demoOver = false;
     private static boolean isBronzeKnifeAvailable = true;
     private static boolean isSteelKnifeAvailable = true;

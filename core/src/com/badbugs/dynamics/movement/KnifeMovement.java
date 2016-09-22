@@ -1,6 +1,7 @@
 package com.badbugs.dynamics.movement;
 
 import com.badbugs.Game;
+import com.badbugs.baseframework.elements.GameStates;
 import com.badbugs.baseframework.sounds.SoundPlayer;
 import com.badbugs.dynamics.blood.BloodSplash;
 import com.badbugs.dynamics.blood.BloodSpot;
@@ -32,7 +33,8 @@ public class KnifeMovement {
 
     private static int counter;
 
-    public static void updatePolygon(Knife basicObject, TouchInfo touchInfo) throws Exception {
+    public static void updatePolygon( TouchInfo touchInfo) throws Exception {
+        Knife basicObject = GameStates.getSelectedKnife();
         if (!Util.checkIfGameOverConditionMet()) {
             rotatePolygon(basicObject, touchInfo);
             translatePolygon(basicObject);

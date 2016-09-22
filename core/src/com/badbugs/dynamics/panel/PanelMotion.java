@@ -7,6 +7,7 @@ import com.badbugs.listers.Inputs;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.util.Constants;
 import com.badbugs.util.TouchInfo;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 
@@ -39,12 +40,12 @@ public class PanelMotion {
                 Inputs.leftSwipe = false;
             }
         }
-
         return triggered;
     }
 
-    public static void updatePanelState(BasicObject panel, TouchInfo touchInfo) throws Exception
+    public static void updatePanelState() throws Exception
     {
+        BasicObject panel = GameStates.getPanel();
         if (panelSpeed == 0) return;
         else {
             float x = panel.getPolygon().getX();
@@ -74,12 +75,7 @@ public class PanelMotion {
                 Constants.PANEL_STONE_KNIFE[1] - Constants.STONE_KNIFE_WIDTH;
         if(isTouched){
             GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STONE);
-            if (GameStates.isBronzeKnifeAvailable() && GameStates.isSteelKnifeAvailable())
-                GameStates.setPanel(Constants.PANEL.BRONZE_STEEL);
-            else if (GameStates.isBronzeKnifeAvailable()) GameStates.setPanel(Constants.PANEL.BRONZE);
-            else if (GameStates.isSteelKnifeAvailable()) GameStates.setPanel(Constants.PANEL.STEEL);
-            else GameStates.setPanel(Constants.PANEL.EMPTY);
-//            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STONE));
+            Util.setPanelForStoneKnifeSelection();
             return true;
         }
         return false;
@@ -95,7 +91,6 @@ public class PanelMotion {
             GameStates.setSelectedKnife(Constants.KNIFE_TYPE.BRONZE);
             if (GameStates.isSteelKnifeAvailable()) GameStates.setPanel(Constants.PANEL.STONE_STEEL);
             else GameStates.setPanel(Constants.PANEL.STONE);
-//            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.BRONZE));
             return true;
         }
         return false;
@@ -111,7 +106,6 @@ public class PanelMotion {
             GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STEEL);
             if(GameStates.isBronzeKnifeAvailable()) GameStates.setPanel(Constants.PANEL.STONE_BRONZE);
             else GameStates.setPanel(Constants.PANEL.STONE);
-//            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STEEL));
             return true;
         }
         return false;
