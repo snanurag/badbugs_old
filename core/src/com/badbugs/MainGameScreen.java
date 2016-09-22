@@ -15,7 +15,9 @@ import com.badbugs.listers.Inputs;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.Bug;
-import com.badbugs.util.*;
+import com.badbugs.util.Constants;
+import com.badbugs.util.TouchInfo;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -39,7 +41,6 @@ public class MainGameScreen extends ScreenAdapter
   private static Bug[] lives;
   private static BasicObject mainGame;
   private static BasicObject googlePlay;
-  private static BasicObject panel;
 
   MainGameScreen(Game game)
   {
@@ -61,24 +62,24 @@ public class MainGameScreen extends ScreenAdapter
         Inputs.leftSwipe = false;
     }
 
-    public static void load() {
-        shapeRenderer = new ShapeRenderer();
-        try {
-            SpritesCreator.loadKnives();
-            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STONE));
-            lives = new Bug[]{SpritesCreator.loadLife(Constants.LIFE_1_X_POS),
-                    SpritesCreator.loadLife(Constants.LIFE_2_X_POS), SpritesCreator.loadLife(Constants.LIFE_3_X_POS),
-                    SpritesCreator.loadLife(Constants.LIFE_4_X_POS), SpritesCreator.loadLife(Constants.LIFE_5_X_POS)};
-            gameoverBackground = SpritesCreator.loadGameOverBackground();
-            mainGame = SpritesCreator.loadMainGame();
-            googlePlay = SpritesCreator.loadGooglePlay();
-            panel = SpritesCreator.loadPanel();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+  public static void load() {
+    shapeRenderer = new ShapeRenderer();
+    try {
+//            SpritesCreator.loadKnives();
+//            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STONE));
+      lives = new Bug[]{SpritesCreator.loadLife(Constants.LIFE_1_X_POS),
+              SpritesCreator.loadLife(Constants.LIFE_2_X_POS), SpritesCreator.loadLife(Constants.LIFE_3_X_POS),
+              SpritesCreator.loadLife(Constants.LIFE_4_X_POS), SpritesCreator.loadLife(Constants.LIFE_5_X_POS)};
+      gameoverBackground = SpritesCreator.loadGameOverBackground();
+      mainGame = SpritesCreator.loadMainGame();
+      googlePlay = SpritesCreator.loadGooglePlay();
 
-    @Override
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
   public void render(float delta)
   {
     if(Inputs.backPressed)
@@ -112,7 +113,7 @@ public class MainGameScreen extends ScreenAdapter
     if(!PanelMotion.panelTriggered(touchInfo))
       KnifeMovement.updatePolygon(GameStates.getSelectedKnife(), touchInfo);
     BugMovement.upgradeEveryBugState();
-    PanelMotion.updatePanelState(panel, touchInfo);
+    PanelMotion.updatePanelState(GameStates.getPanel(), touchInfo);
   }
 
   private void allRendering(TouchInfo touchInfo) throws Exception {
@@ -120,7 +121,7 @@ public class MainGameScreen extends ScreenAdapter
     ImageRenderers.renderBugs(Game.batch);
     ImageRenderers.renderBloods(Game.batch);
     ImageRenderers.renderKnife(Game.batch, GameStates.getSelectedKnife());
-    ImageRenderers.renderBasicObject(Game.batch, panel);
+    ImageRenderers.renderBasicObject(Game.batch, GameStates.getPanel());
     FontRenderers.renderScore(Game.batch, ObjectsStore.score);
     ImageRenderers.renderLives(Game.batch, lives);
     if (Util.checkIfGameOverConditionMet()) {

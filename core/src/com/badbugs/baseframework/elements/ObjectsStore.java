@@ -1,7 +1,9 @@
 package com.badbugs.baseframework.elements;
 
+import com.badbugs.Game;
 import com.badbugs.dynamics.blood.BloodSplash;
 import com.badbugs.dynamics.blood.BloodSpot;
+import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;
@@ -21,6 +23,7 @@ public class ObjectsStore {
   private static Map<Bug, BloodSpot> bloodSpotMap = new HashMap<Bug, BloodSpot>();
   private static Map<Bug, BloodSplash> bloodSplashMap = new HashMap<Bug, BloodSplash>();
   private static Map<Constants.KNIFE_TYPE, Knife> knifeMap = new HashMap<Constants.KNIFE_TYPE, Knife>();
+  private static Map<Constants.PANEL, BasicObject> panelMap = new HashMap<Constants.PANEL, BasicObject>();
 
   public static int score = 0;
   public static int bugMissed = 0;
@@ -76,4 +79,27 @@ public class ObjectsStore {
     return knifeMap.get(t);
   }
 
+  public static void add(Constants.PANEL t, BasicObject k) throws Exception
+  {
+    panelMap.put(t, k);
+    k.setCameraDimensions(new float[]{Constants.PANEL_WIDTH, Game.cam_height});
+    k.getPolygon().setPosition(Game.cam_width/2 - Constants.PANEL_ARROW_WIDTH,-Game.cam_height/2);
+
+  }
+
+  public static BasicObject getPanel(Constants.PANEL t)
+  {
+    return panelMap.get(t);
+  }
+
+  public static void dispose() {
+    for (BasicObject t : knifeMap.values()
+            ) {
+      t.getTexture().dispose();
+    }
+    for (BasicObject t : panelMap.values()
+            ) {
+      t.getTexture().dispose();
+    }
+  }
 }

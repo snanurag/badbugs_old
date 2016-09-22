@@ -3,9 +3,9 @@ package com.badbugs.dynamics.panel;
 import com.badbugs.Game;
 import com.badbugs.baseframework.elements.GameStates;
 import com.badbugs.baseframework.elements.ObjectsStore;
+import com.badbugs.listers.Inputs;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.util.Constants;
-import com.badbugs.listers.Inputs;
 import com.badbugs.util.TouchInfo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
@@ -33,13 +33,6 @@ public class PanelMotion {
                 Inputs.leftSwipe = false;
             } else if (isOpen && (isPanelArrowTouched(touchPoints) || isStoneKnifeTouched(touchPoints) ||
                     isBronzeKnifeTouched(touchPoints) || isSteelKnifeTouched(touchPoints))) {
-                if (isStoneKnifeTouched(touchPoints)) {
-                    GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STONE));
-                } else if (isBronzeKnifeTouched(touchPoints)) {
-                    GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.BRONZE));
-                } else if (isSteelKnifeTouched(touchPoints)) {
-                    GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STEEL));
-                }
                 isOpen = false;
                 panelSpeed = Constants.PANEL_SPEED;
                 triggered = true;
@@ -80,7 +73,13 @@ public class PanelMotion {
                 panelPosition[1] - Constants.PANEL_STONE_KNIFE[1] && touchPoints.y > panelPosition[1] -
                 Constants.PANEL_STONE_KNIFE[1] - Constants.STONE_KNIFE_WIDTH;
         if(isTouched){
-            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STONE));
+            GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STONE);
+            if (GameStates.isBronzeKnifeAvailable() && GameStates.isSteelKnifeAvailable())
+                GameStates.setPanel(Constants.PANEL.BRONZE_STEEL);
+            else if (GameStates.isBronzeKnifeAvailable()) GameStates.setPanel(Constants.PANEL.BRONZE);
+            else if (GameStates.isSteelKnifeAvailable()) GameStates.setPanel(Constants.PANEL.STEEL);
+            else GameStates.setPanel(Constants.PANEL.EMPTY);
+//            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STONE));
             return true;
         }
         return false;
@@ -93,7 +92,10 @@ public class PanelMotion {
                 panelPosition[1] - Constants.PANEL_BRONZE_KNIFE[1] && touchPoints.y > panelPosition[1] - Constants
                 .PANEL_BRONZE_KNIFE[1] - Constants.BRONZE_KNIFE_WIDTH;
         if(isTouched){
-            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.BRONZE));
+            GameStates.setSelectedKnife(Constants.KNIFE_TYPE.BRONZE);
+            if (GameStates.isSteelKnifeAvailable()) GameStates.setPanel(Constants.PANEL.STONE_STEEL);
+            else GameStates.setPanel(Constants.PANEL.STONE);
+//            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.BRONZE));
             return true;
         }
         return false;
@@ -106,7 +108,10 @@ public class PanelMotion {
                 panelPosition[1] - Constants.PANEL_STEEL_KNIFE[1] && touchPoints.y > panelPosition[1] - Constants
                 .PANEL_STEEL_KNIFE[1] - Constants.STEEL_KNIFE_WIDTH - 4;
         if(isTouched){
-            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STEEL));
+            GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STEEL);
+            if(GameStates.isBronzeKnifeAvailable()) GameStates.setPanel(Constants.PANEL.STONE_BRONZE);
+            else GameStates.setPanel(Constants.PANEL.STONE);
+//            GameStates.setSelectedKnife(ObjectsStore.getKnife(Constants.KNIFE_TYPE.STEEL));
             return true;
         }
         return false;

@@ -41,6 +41,9 @@ public class Constants {
     //Text
     public static String BUY_FULL_VERSION = "Buy full version";
     public static enum KNIFE_TYPE{STONE, BRONZE, STEEL}
+    public static enum PANEL {
+        EMPTY, STONE, BRONZE, STEEL, STONE_BRONZE, BRONZE_STEEL, STONE_STEEL, STONE_BRONZE_STEEL
+    }
 
     // ALL X-Y and Width-Height
     public static final float HOME_SCREEN_W = 2560;
@@ -69,7 +72,7 @@ public class Constants {
     public static float LIFE_SIZE_Y = 4;
     public static float LIFE_SIZE_X = LIFE_SIZE_Y * 11 / 14;
     public static float PANEL_WIDTH = 12;
-    public static float PANEL_ARROW_WIDTH = 4F;
+    public static float PANEL_ARROW_WIDTH = 5f;
     public static float PANEL_ARROW_HEIGHT = 5F;
     public static float[] PANEL_STONE_KNIFE = {0f, 2.5f};
     public static float[] PANEL_BRONZE_KNIFE = {0f, 21.5f};

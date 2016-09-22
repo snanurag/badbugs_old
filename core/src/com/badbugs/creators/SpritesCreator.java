@@ -2,7 +2,11 @@ package com.badbugs.creators;
 
 import com.badbugs.Game;
 import com.badbugs.baseframework.elements.GameStates;
-import com.badbugs.objects.*;
+import com.badbugs.baseframework.elements.ObjectsStore;
+import com.badbugs.objects.AbstractBasicObject;
+import com.badbugs.objects.BasicObject;
+import com.badbugs.objects.BasicObjectImpl;
+import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.BronzeKnife;
@@ -10,7 +14,6 @@ import com.badbugs.objects.knives.SteelKnife;
 import com.badbugs.objects.knives.StoneKnife;
 import com.badbugs.util.Constants;
 import com.badbugs.util.ObjectsCord;
-import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -21,7 +24,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  */
 public class SpritesCreator {
 
-    private static Texture[] knifeTextures;
     private static TextureAtlas textureAtlas;
     private static Texture floorTexture;
     private static Texture bloodTextureLong;
@@ -42,11 +44,9 @@ public class SpritesCreator {
     private static Texture knifeBoosterTexture;
     private static Texture googlePlayTexture;
     private static Texture bugNoMovementTexture;
-    private static Texture panelTexture;
+//    private
 
     public static void loadAllTextures() {
-        knifeTextures = new Texture[]{new Texture(Gdx.files.internal("stone_knife.png")), new Texture(Gdx.files
-                .internal("bronze_knife.png")), new Texture(Gdx.files.internal("steel_knife.png"))};
         textureAtlas = new TextureAtlas(Gdx.files.internal("sprite.atlas"));
         floorTexture = new Texture(Gdx.files.internal("floor.png"));
         lifeTexture = new Texture(Gdx.files.internal("life.png"));
@@ -67,13 +67,45 @@ public class SpritesCreator {
         bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
         bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
         bugNoMovementTexture = new Texture(Gdx.files.internal("bronze_bug.png"));
-        panelTexture = new Texture(Gdx.files.internal("panel.png"));
+//        panelTexture = new Texture(Gdx.files.internal("panels/stone.png"));
+
+        try{
+            loadKnives(new Texture(Gdx.files.internal("stone_knife.png")), new Texture(Gdx.files
+                    .internal("bronze_knife.png")), new Texture(Gdx.files.internal("steel_knife.png")));
+            loadPanels(new Texture(Gdx.files.internal("panels/empty.png")), new Texture(Gdx.files.internal
+                    ("panels/stone.png")), new Texture(Gdx.files.internal("panels/bronze.png")), new Texture(Gdx.files
+                    .internal("panels/steel.png")), new Texture(Gdx.files.internal("panels/stone_bronze.png")), new
+                    Texture(Gdx.files.internal("panels/bronze_steel.png")), new Texture(Gdx.files.internal
+                    ("panels/stone_steel.png")));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+        }
+        catch (Exception e){
+
+        }
     }
 
-    public static void loadKnives() throws Exception {
+    private static void loadKnives(Texture... knifeTextures) throws Exception {
         ObjectsStore.add(Constants.KNIFE_TYPE.STONE, new StoneKnife(knifeTextures[0]));
         ObjectsStore.add(Constants.KNIFE_TYPE.BRONZE, new BronzeKnife(knifeTextures[1]));
         ObjectsStore.add(Constants.KNIFE_TYPE.STEEL, new SteelKnife(knifeTextures[2]));
+        GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STONE);
+    }
+
+    private static void loadPanels(Texture... panelTextures) throws Exception
+    {
+        ObjectsStore.add(Constants.PANEL.EMPTY, new StoneKnife(panelTextures[0]));
+        ObjectsStore.add(Constants.PANEL.STONE, new BronzeKnife(panelTextures[1]));
+        ObjectsStore.add(Constants.PANEL.BRONZE, new SteelKnife(panelTextures[2]));
+        ObjectsStore.add(Constants.PANEL.STEEL, new SteelKnife(panelTextures[3]));
+        ObjectsStore.add(Constants.PANEL.STONE_BRONZE, new SteelKnife(panelTextures[4]));
+        ObjectsStore.add(Constants.PANEL.BRONZE_STEEL, new SteelKnife(panelTextures[5]));
+        ObjectsStore.add(Constants.PANEL.STONE_STEEL, new SteelKnife(panelTextures[6]));
+        GameStates.setPanel(Constants.PANEL.EMPTY);
     }
 
     public static BedBug loadBedBug(int level) throws Exception {
@@ -268,14 +300,6 @@ public class SpritesCreator {
         return bloodSprite;
     }
 
-    public static BasicObject loadPanel() throws Exception
-    {
-        BasicObject panel = new BasicObjectImpl(panelTexture);
-        panel.setCameraDimensions(new float[]{Constants.PANEL_WIDTH, Game.cam_height});
-        panel.getPolygon().setPosition(Game.cam_width/2 - Constants.PANEL_ARROW_WIDTH,-Game.cam_height/2);
-        return panel;
-    }
-
     public static void switchSoundSprites(BasicObject sound) {
         if (sound.getTexture() == soundEnabledTexture) {
             sound.setTexture(soundDisabledTexture);
@@ -294,7 +318,7 @@ public class SpritesCreator {
 
     public static void disposeAll() {
         textureAtlas.dispose();
-        for(Texture t : knifeTextures) textureAtlas.dispose();
+        ObjectsStore.dispose();
         bloodTextureLong.dispose();
         bloodTextureMedium.dispose();
         bloodTextureSmall.dispose();
