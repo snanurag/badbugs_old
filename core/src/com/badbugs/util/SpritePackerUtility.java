@@ -7,13 +7,13 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
  */
 public class SpritePackerUtility {
   public static void main(String[] args) throws Exception {
-    String[] arg = {"D:\\Workspace\\badbugs2\\resources\\images\\bed_bug2", "D:\\Workspace\\badbugs2\\resources\\images\\bed_bug2", "sprite"};
+//    String[] arg = {"D:\\Workspace\\badbugs2\\resources\\images\\bed_bug2", "D:\\Workspace\\badbugs2\\resources\\images\\bed_bug2", "sprite"};
     TexturePacker.Settings s = new TexturePacker.Settings();
 
     s.maxHeight = 2048;
     s.maxWidth = 2048;
     s.paddingY = 0;
     s.paddingX = 0;
-    TexturePacker.process(s, "D:\\Workspace\\badbugs2\\resources\\images\\bed_bug2", "D:\\Workspace\\badbugs2\\resources\\images\\bed_bug2", "sprite");
+    TexturePacker.process(s, "D:\\Workspace\\badbugs2\\resources\\images\\steel_bug_anim", "D:\\Workspace\\badbugs2\\resources\\images\\steel_bug_anim", "steel_bug");
   }
 }
