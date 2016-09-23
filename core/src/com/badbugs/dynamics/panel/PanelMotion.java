@@ -3,6 +3,7 @@ package com.badbugs.dynamics.panel;
 import com.badbugs.Game;
 import com.badbugs.baseframework.elements.GameStates;
 import com.badbugs.baseframework.elements.ObjectsStore;
+import com.badbugs.baseframework.sounds.SoundPlayer;
 import com.badbugs.listers.Inputs;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.util.Constants;
@@ -32,12 +33,14 @@ public class PanelMotion {
                 triggered = true;
                 panelSpeed = - Constants.PANEL_SPEED;
                 Inputs.leftSwipe = false;
+                SoundPlayer.playButtonClick();
             } else if (isOpen && (isPanelArrowTouched(touchPoints) || isStoneKnifeTouched(touchPoints) ||
                     isBronzeKnifeTouched(touchPoints) || isSteelKnifeTouched(touchPoints))) {
                 isOpen = false;
                 panelSpeed = Constants.PANEL_SPEED;
                 triggered = true;
                 Inputs.leftSwipe = false;
+                SoundPlayer.playButtonClick();
             }
         }
         return triggered;

@@ -19,7 +19,6 @@ import java.util.Map;
  */
 public class ObjectsStore {
 
-//  static List<BasicObject> knifeList = new ArrayList<BasicObject>();
   private static List<Bug> bugList = new ArrayList<Bug>();
   private static Map<Bug, BloodSpot> bloodSpotMap = new HashMap<Bug, BloodSpot>();
   private static Map<Bug, BloodSplash> bloodSplashMap = new HashMap<Bug, BloodSplash>();
@@ -29,6 +28,16 @@ public class ObjectsStore {
   private static Bug[] lives;
   private static BasicObject floor;
   private static BasicObject googlePlay;
+  private static BasicObject shop;
+  private static BasicObject knifeBooster;
+  private static BasicObject back;
+  private static BasicObject soundButton;
+  private static BasicObject musicButton;
+  private static BasicObject playButton;
+  private static BasicObject shopButton;
+  private static BasicObject quitButton;
+  private static BasicObject mainMenuBackGround;
+
   public static int score = 0;
   public static int bugMissed = 0;
 
@@ -65,17 +74,15 @@ public class ObjectsStore {
     return  bloodSplashMap.get(bug);
   }
 
-  public static void removeAllBlood(Bug bug)
-  {
+  public static void removeAllBlood(Bug bug) {
     bloodSpotMap.remove(bug);
     bloodSplashMap.remove(bug);
   }
 
-  public static void add(Constants.KNIFE_TYPE t, Knife k) throws Exception
-  {
-    knifeMap.put(t,k);
+  public static void add(Constants.KNIFE_TYPE t, Knife k) throws Exception {
+    knifeMap.put(t, k);
     k.getPolygon().setPosition(0, 0);
-    k.getPolygon().setOrigin(0, k.getCameraDimensions()[1]/2);
+    k.getPolygon().setOrigin(0, k.getCameraDimensions()[1] / 2);
   }
 
   public static Knife getKnife(Constants.KNIFE_TYPE t)
@@ -83,12 +90,10 @@ public class ObjectsStore {
     return knifeMap.get(t);
   }
 
-  public static void add(Constants.PANEL t, BasicObject k) throws Exception
-  {
+  public static void add(Constants.PANEL t, BasicObject k) throws Exception {
     panelMap.put(t, k);
     k.setCameraDimensions(new float[]{Constants.PANEL_WIDTH, Game.cam_height});
-    k.getPolygon().setPosition(Game.cam_width/2 - Constants.PANEL_ARROW_WIDTH,-Game.cam_height/2);
-
+    k.getPolygon().setPosition(Game.cam_width / 2 - Constants.PANEL_ARROW_WIDTH, -Game.cam_height / 2);
   }
 
   public static BasicObject getPanel(Constants.PANEL t)
@@ -137,5 +142,77 @@ public class ObjectsStore {
 
   public static void setGooglePlay(BasicObject googlePlay) {
     ObjectsStore.googlePlay = googlePlay;
+  }
+
+  public static BasicObject getShop() {
+    return shop;
+  }
+
+  public static void setShop(BasicObject shop) {
+    ObjectsStore.shop = shop;
+  }
+
+  public static BasicObject getKnifeBooster() {
+    return knifeBooster;
+  }
+
+  public static void setKnifeBooster(BasicObject knifeBooster) {
+    ObjectsStore.knifeBooster = knifeBooster;
+  }
+
+  public static BasicObject getBack() {
+    return back;
+  }
+
+  public static void setBack(BasicObject back) {
+    ObjectsStore.back = back;
+  }
+
+  public static BasicObject getSoundButton() {
+    return soundButton;
+  }
+
+  public static void setSoundButton(BasicObject soundButton) {
+    ObjectsStore.soundButton = soundButton;
+  }
+
+  public static BasicObject getMusicButton() {
+    return musicButton;
+  }
+
+  public static void setMusicButton(BasicObject musicButton) {
+    ObjectsStore.musicButton = musicButton;
+  }
+
+  public static BasicObject getPlayButton() {
+    return playButton;
+  }
+
+  public static void setPlayButton(BasicObject playButton) {
+    ObjectsStore.playButton = playButton;
+  }
+
+  public static BasicObject getShopButton() {
+    return shopButton;
+  }
+
+  public static void setShopButton(BasicObject shopButton) {
+    ObjectsStore.shopButton = shopButton;
+  }
+
+  public static BasicObject getQuitButton() {
+    return quitButton;
+  }
+
+  public static void setQuitButton(BasicObject quitButton) {
+    ObjectsStore.quitButton = quitButton;
+  }
+
+  public static BasicObject getMainMenuBackGround() {
+    return mainMenuBackGround;
+  }
+
+  public static void setMainMenuBackGround(BasicObject mainMenuBackGround) {
+    ObjectsStore.mainMenuBackGround = mainMenuBackGround;
   }
 }

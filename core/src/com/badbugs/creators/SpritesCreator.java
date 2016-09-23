@@ -69,31 +69,40 @@ public class SpritesCreator {
         bugNoMovementTexture = new Texture(Gdx.files.internal("bronze_bug.png"));
 
         try{
-            loadKnives(new Texture(Gdx.files.internal("stone_knife.png")), new Texture(Gdx.files
+            createKnives(new Texture(Gdx.files.internal("stone_knife.png")), new Texture(Gdx.files
                     .internal("bronze_knife.png")), new Texture(Gdx.files.internal("steel_knife.png")));
-            loadPanels(new Texture(Gdx.files.internal("panels/empty.png")), new Texture(Gdx.files.internal
+            createSidePanels(new Texture(Gdx.files.internal("panels/empty.png")), new Texture(Gdx.files.internal
                     ("panels/stone.png")), new Texture(Gdx.files.internal("panels/bronze.png")), new Texture(Gdx.files
                     .internal("panels/steel.png")), new Texture(Gdx.files.internal("panels/stone_bronze.png")), new
                     Texture(Gdx.files.internal("panels/bronze_steel.png")), new Texture(Gdx.files.internal
                     ("panels/stone_steel.png")));
-            loadLivesArray();
-            loadGameOverBackground();
-            loadFloor();
-            loadGooglePlay();
+            createLives();
+            createGameOverBackground();
+            createGameFloor();
+            createGooglePlayIcon();
+            createShop();
+            createShopBackButton();
+            createKnifeBooster();
+            createSoundButton();
+            createMainMenuBackground();
+            createQuitButton();
+            createMusicButton();
+            createPlayButton();
+            createShopButton();
         }
         catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private static void loadKnives(Texture... knifeTextures) throws Exception {
+    private static void createKnives(Texture... knifeTextures) throws Exception {
         ObjectsStore.add(Constants.KNIFE_TYPE.STONE, new StoneKnife(knifeTextures[0]));
         ObjectsStore.add(Constants.KNIFE_TYPE.BRONZE, new BronzeKnife(knifeTextures[1]));
         ObjectsStore.add(Constants.KNIFE_TYPE.STEEL, new SteelKnife(knifeTextures[2]));
         GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STONE);
     }
 
-    private static void loadPanels(Texture... panelTextures) throws Exception
+    private static void createSidePanels(Texture... panelTextures) throws Exception
     {
         ObjectsStore.add(Constants.PANEL.EMPTY, new StoneKnife(panelTextures[0]));
         ObjectsStore.add(Constants.PANEL.STONE, new BronzeKnife(panelTextures[1]));
@@ -147,7 +156,7 @@ public class SpritesCreator {
         return bedBug;
     }
 
-    private static void loadLivesArray() throws Exception {
+    private static void createLives() throws Exception {
         ObjectsStore.setLives(new Bug[]{SpritesCreator.loadLife(Constants.LIFE_1_X_POS),
                 SpritesCreator.loadLife(Constants.LIFE_2_X_POS), SpritesCreator.loadLife(Constants.LIFE_3_X_POS),
                 SpritesCreator.loadLife(Constants.LIFE_4_X_POS), SpritesCreator.loadLife(Constants.LIFE_5_X_POS)});
@@ -160,48 +169,46 @@ public class SpritesCreator {
         return bug;
     }
 
-    private static void loadGameOverBackground() throws Exception {
+    private static void createGameOverBackground() throws Exception {
         GameOver gameOver = new GameOver(gameOverBackgroundTexture);
         gameOver.setCameraDimensions(
                 new float[]{Constants.GAME_OVER_BACKGROUND_WIDTH, Constants.GAME_OVER_BACKGROUND_HEIGHT});
         ObjectsStore.setGameoverBackground(gameOver);
     }
 
-    public static BasicObject loadShop() throws Exception {
+    public static void createShop() throws Exception {
         AbstractBasicObject shopScreen = new BasicObjectImpl(floorTexture);
         shopScreen.setCameraDimensions(new float[]{Game.cam_width, Game.cam_height});
         shopScreen.getPolygon().setPosition(-Game.cam_width / 2, -Game.cam_height / 2);
-        return shopScreen;
+        ObjectsStore.setShop(shopScreen);
     }
 
-    public static BasicObject loadMainMenu() throws Exception {
+    public static  void createMainMenuBackground() throws Exception {
         AbstractBasicObject mainMenu = new BasicObjectImpl(mainMenuTexture);
         mainMenu.setCameraDimensions(new float[]{Game.cam_width, Game.cam_height});
         mainMenu.getPolygon().setPosition(-Game.cam_width / 2, -Game.cam_height / 2);
-        return mainMenu;
+        ObjectsStore.setMainMenuBackGround(mainMenu);
     }
 
-    public static void loadFloor() throws Exception {
+    public static void createGameFloor() throws Exception {
         AbstractBasicObject floor = new BasicObjectImpl(floorTexture);
         floor.setCameraDimensions(new float[]{Game.cam_width, Game.cam_height});
         floor.getPolygon().setPosition(-Game.cam_width / 2, -Game.cam_height / 2);
         ObjectsStore.setFloor(floor);
-
     }
 
     //TODO : Fix it -> On Main Menu, y axis is working from top to bottom
-    public static BasicObject loadQuit() throws Exception {
+    public static void createQuitButton() throws Exception {
         AbstractBasicObject s = new BasicObjectImpl(quitTexture);
         s.setCameraDimensions(new float[]{Game.cam_width * Constants.QUIT_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.QUIT_H / Constants.HOME_SCREEN_H});
         float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.QUIT_LEFT) / Constants.HOME_SCREEN_W;
         float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.QUIT_TOP + Constants.QUIT_H)) / Constants.HOME_SCREEN_H;
         s.getPolygon().setPosition(x, y);
-
-        return s;
+        ObjectsStore.setQuitButton(s);
     }
 
-    public static BasicObject loadSound() throws Exception {
+    public static void createSoundButton() throws Exception {
 
         AbstractBasicObject s;
         if (GameStates.isSoundOn())
@@ -213,11 +220,10 @@ public class SpritesCreator {
         float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.SOUND_LEFT) / Constants.HOME_SCREEN_W;
         float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.SOUND_TOP + Constants.SOUND_H)) / Constants.HOME_SCREEN_H;
         s.getPolygon().setPosition(x, y);
-
-        return s;
+        ObjectsStore.setSoundButton(s);
     }
 
-    public static BasicObject loadMusic() throws Exception {
+    public static void createMusicButton() throws Exception {
         AbstractBasicObject m;
         if (GameStates.isMusicOn())
             m = new BasicObjectImpl(musicEnabledTexture);
@@ -229,11 +235,10 @@ public class SpritesCreator {
         float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.MUSIC_TOP + Constants.MUSIC_H))
                 / Constants.HOME_SCREEN_H;
         m.getPolygon().setPosition(x, y);
-
-        return m;
+        ObjectsStore.setMusicButton(m);
     }
 
-    public static BasicObject loadPlayButton() throws Exception {
+    public static void createPlayButton() throws Exception {
         AbstractBasicObject m = new BasicObjectImpl(playTexture);
         m.setCameraDimensions(new float[]{Game.cam_width * Constants.PLAY_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.PLAY_H / Constants.HOME_SCREEN_H});
@@ -241,11 +246,10 @@ public class SpritesCreator {
         float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.PLAY_TOP + Constants.PLAY_H))
                 / Constants.HOME_SCREEN_H;
         m.getPolygon().setPosition(x, y);
-
-        return m;
+        ObjectsStore.setPlayButton(m);
     }
 
-    public static BasicObject loadShopButton() throws Exception {
+    public static void createShopButton() throws Exception {
         AbstractBasicObject m = new BasicObjectImpl(shopTexture);
         m.setCameraDimensions(new float[]{Game.cam_width * Constants.SHOP_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.SHOP_H / Constants.HOME_SCREEN_H});
@@ -253,11 +257,10 @@ public class SpritesCreator {
         float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.SHOP_TOP + Constants.SHOP_H))
                 / Constants.HOME_SCREEN_H;
         m.getPolygon().setPosition(x, y);
-
-        return m;
+        ObjectsStore.setShopButton(m);
     }
 
-    public static BasicObject loadBackButton() throws Exception {
+    public static void createShopBackButton() throws Exception {
         AbstractBasicObject m = new BasicObjectImpl(backTexture);
         m.setCameraDimensions(new float[]{Game.cam_width * Constants.BACK_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.BACK_H / Constants.HOME_SCREEN_H});
@@ -265,11 +268,10 @@ public class SpritesCreator {
         float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.BACK_TOP + Constants.BACK_H))
                 / Constants.HOME_SCREEN_H;
         m.getPolygon().setPosition(x, y);
-
-        return m;
+        ObjectsStore.setBack(m);
     }
 
-    public static BasicObject loadKnifeBooster() throws Exception {
+    public static void createKnifeBooster() throws Exception {
         AbstractBasicObject m = new BasicObjectImpl(knifeBoosterTexture);
         m.setCameraDimensions(new float[]{Game.cam_width * Constants.KNIFE_BOOSTER_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.KNIFE_BOOSTER_H / Constants.HOME_SCREEN_H});
@@ -277,11 +279,10 @@ public class SpritesCreator {
         float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.KNIFE_BOOSTER_TOP + Constants.KNIFE_BOOSTER_H))
                 / Constants.HOME_SCREEN_H;
         m.getPolygon().setPosition(x, y);
-
-        return m;
+        ObjectsStore.setKnifeBooster(m);
     }
 
-    private static void loadGooglePlay() throws Exception {
+    private static void createGooglePlayIcon() throws Exception {
         AbstractBasicObject googlePlay = new BasicObjectImpl(googlePlayTexture);
         googlePlay.setCameraDimensions(new float[]{Game.cam_width * Constants.GOOGLE_PLAY_W / Constants.HOME_SCREEN_W,
                 Game.cam_height * Constants.GOOGLE_PLAY_H / Constants.HOME_SCREEN_H});

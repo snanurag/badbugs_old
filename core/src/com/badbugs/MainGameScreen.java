@@ -29,17 +29,17 @@ public class MainGameScreen extends ScreenAdapter
   private BugGenerator bugGenerator;
 
   public static boolean isPaused;
-  private static boolean gameOverSoundPlayed;
-  private static float[] GOOGLE_PLAY_BUTTON = new float[]{Constants.GOOGLE_PLAY_LEFT * Game.screenWidth / Constants.HOME_SCREEN_W,
+  private boolean gameOverSoundPlayed;
+  private float[] GOOGLE_PLAY_BUTTON = new float[]{Constants.GOOGLE_PLAY_LEFT * Game.screenWidth / Constants.HOME_SCREEN_W,
           Constants.GOOGLE_PLAY_TOP * Game.screenHeight / Constants.HOME_SCREEN_H,
           Constants.GOOGLE_PLAY_W * Game.screenWidth / Constants.HOME_SCREEN_W,
           Constants.GOOGLE_PLAY_H * Game.screenHeight / Constants.HOME_SCREEN_H};
 
-  private static ShapeRenderer shapeRenderer;
-  private static GameOver gameoverBackground;
-  private static Bug[] lives;
-  private static BasicObject floor;
-  private static BasicObject googlePlay;
+  private ShapeRenderer shapeRenderer;
+  private GameOver gameoverBackground;
+  private Bug[] lives;
+  private BasicObject floor;
+  private BasicObject googlePlay;
 
   MainGameScreen(Game game)
   {

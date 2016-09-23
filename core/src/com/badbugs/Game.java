@@ -51,13 +51,8 @@ public class Game extends com.badlogic.gdx.Game
     cam.update();
     SpritesCreator.loadAllTextures();
     FontRenderers.loadAllFonts();
-
-    ShopScreen.load();
     SoundPlayer.loadAllSounds();
-//    InputMultiplexer im = new InputMultiplexer();
-//    im.addProcessor(new Inputs());
-//    im.addProcessor(new GestureDetector(new SwipeListener()));
-//    Gdx.input.setInputProcessor(im);
+
     Gdx.input.setInputProcessor(new Inputs());
     Gdx.input.setCatchBackKey(true);
     setScreen(new MainMenuScreen(this));
