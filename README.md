@@ -1,4 +1,4 @@
-Steps to setup
+### Steps to setup ###
 
 1. Go to project directory on command line
 2. Run "gradlew idea"
