@@ -47,7 +47,7 @@ public class SpritesCreator {
     private static Texture bugNoMovementTexture;
 
     public static void loadAllTextures() {
-        textureAtlas = new TextureAtlas(Gdx.files.internal("sprites/lady_bug.atlas"));
+        textureAtlas = new TextureAtlas(Gdx.files.internal("sprites/bronze_bug.atlas"));
         floorTexture = new Texture(Gdx.files.internal("floor.png"));
         lifeTexture = new Texture(Gdx.files.internal("life.png"));
         mainMenuTexture = new Texture(Gdx.files.internal("home_page.png"));

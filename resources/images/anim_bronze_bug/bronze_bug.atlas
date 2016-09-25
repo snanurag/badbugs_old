@@ -1,0 +1,292 @@
+
+bronze_bug.png
+size: 2048,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+_0000_Layer-1
+  rotate: false
+  xy: 0, 1455
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0001_Layer-2
+  rotate: false
+  xy: 0, 970
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0002_Layer-3
+  rotate: false
+  xy: 314, 1455
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0003_Layer-4
+  rotate: false
+  xy: 0, 485
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0004_Layer-5
+  rotate: false
+  xy: 314, 970
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0005_Layer-6
+  rotate: false
+  xy: 628, 1455
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0006_Layer-7
+  rotate: false
+  xy: 0, 0
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0007_Layer-8
+  rotate: false
+  xy: 314, 485
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0008_Layer-9
+  rotate: false
+  xy: 628, 970
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0009_Layer-10
+  rotate: false
+  xy: 942, 1455
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0010_Layer-11
+  rotate: false
+  xy: 314, 0
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0011_Layer-12
+  rotate: false
+  xy: 628, 485
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0012_Layer-13
+  rotate: false
+  xy: 942, 970
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0013_Layer-14
+  rotate: false
+  xy: 1256, 1455
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0014_Layer-15
+  rotate: false
+  xy: 628, 0
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0015_Layer-16
+  rotate: false
+  xy: 942, 485
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0016_Layer-17
+  rotate: false
+  xy: 1256, 970
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0017_Layer-18
+  rotate: false
+  xy: 1570, 1455
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0018_Layer-19
+  rotate: false
+  xy: 942, 0
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0019_Layer-20
+  rotate: false
+  xy: 1256, 485
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0020_Layer-21
+  rotate: false
+  xy: 1570, 970
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0021_Layer-22
+  rotate: false
+  xy: 1256, 0
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0022_Layer-23
+  rotate: false
+  xy: 1570, 485
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0023_Layer-24
+  rotate: false
+  xy: 1570, 0
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+
+bronze_bug2.png
+size: 2048,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+_0024_Layer-25
+  rotate: false
+  xy: 0, 1455
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0025_Layer-26
+  rotate: false
+  xy: 0, 970
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0026_Layer-27
+  rotate: false
+  xy: 314, 1455
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0027_Layer-28
+  rotate: false
+  xy: 0, 485
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0028_Layer-29
+  rotate: false
+  xy: 314, 970
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0029_Layer-30
+  rotate: false
+  xy: 628, 1455
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0030_Layer-31
+  rotate: false
+  xy: 0, 0
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0031_Layer-32
+  rotate: false
+  xy: 314, 485
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0032_Layer-33
+  rotate: false
+  xy: 628, 970
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0033_Layer-34
+  rotate: false
+  xy: 942, 1455
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0034_Layer-35
+  rotate: false
+  xy: 314, 0
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0035_Layer-36
+  rotate: false
+  xy: 628, 485
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0036_Layer-37
+  rotate: false
+  xy: 942, 970
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0037_Layer-38
+  rotate: false
+  xy: 1256, 1455
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0038_Layer-39
+  rotate: false
+  xy: 628, 0
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1
+_0039_Layer-40
+  rotate: false
+  xy: 942, 485
+  size: 314, 485
+  orig: 314, 485
+  offset: 0, 0
+  index: -1

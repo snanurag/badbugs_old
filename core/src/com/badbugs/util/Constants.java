@@ -34,7 +34,9 @@ public class Constants {
     public static float SILVER_KNIFE_DOUBLE_SPEED = 2 * SILVER_KNIFE_SPEED;
     public static int MAX_BUG_LEVEL = 4; //starting from 0
     public static float BUG_SPEED[] = {8, 10, 15, 20, 25};
-    public static float BUG_FRAME_RATE[] = {1 / 60f, 1 / 85f, 1 / 100f, 1 / 120f, 1 / 150f};
+    // orignal
+//    public static float BUG_FRAME_RATE[] = {1 / 60f, 1 / 85f, 1 / 100f, 1 / 120f, 1 / 150f};
+    public static float BUG_FRAME_RATE[] = {1 / 60f, 1 / 130f, 1 / 150f, 1 / 170f, 1 / 200f};
     public static int FREEZE_FRAME_COUNTS = 20;
     public static int PANEL_SPEED = 50;
 
