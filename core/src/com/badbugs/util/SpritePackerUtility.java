@@ -14,6 +14,7 @@ public class SpritePackerUtility {
     s.maxWidth = 2048;
     s.paddingY = 0;
     s.paddingX = 0;
-    TexturePacker.process(s, "D:\\Workspace\\badbugs2\\resources\\images\\steel_bug_anim", "D:\\Workspace\\badbugs2\\resources\\images\\steel_bug_anim", "steel_bug");
+    TexturePacker.process(s, "D:\\Workspace\\badbugs2\\resources\\images\\anim_lady_bug", "D:\\Workspace\\badbugs2" +
+            "\\resources\\images\\anim_lady_bug", "lady_bug");
   }
 }

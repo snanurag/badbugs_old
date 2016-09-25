@@ -1,0 +1,279 @@
+
+sprite.png
+size: 2048,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+_0000_Layer-1
+  rotate: false
+  xy: 0, 768
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0001_Layer-2
+  rotate: false
+  xy: 0, 512
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0002_Layer-3
+  rotate: false
+  xy: 201, 768
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0003_Layer-4
+  rotate: false
+  xy: 0, 256
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0004_Layer-5
+  rotate: false
+  xy: 0, 0
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0005_Layer-6
+  rotate: false
+  xy: 201, 512
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0006_Layer-7
+  rotate: false
+  xy: 402, 768
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0007_Layer-8
+  rotate: false
+  xy: 201, 256
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0008_Layer-9
+  rotate: false
+  xy: 201, 0
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0009_Layer-10
+  rotate: false
+  xy: 402, 512
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0010_Layer-11
+  rotate: false
+  xy: 603, 768
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0011_Layer-12
+  rotate: false
+  xy: 402, 256
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0012_Layer-13
+  rotate: false
+  xy: 402, 0
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0013_Layer-14
+  rotate: false
+  xy: 603, 512
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0014_Layer-15
+  rotate: false
+  xy: 804, 768
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0015_Layer-16
+  rotate: false
+  xy: 603, 256
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0016_Layer-17
+  rotate: false
+  xy: 603, 0
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0017_Layer-18
+  rotate: false
+  xy: 804, 512
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0018_Layer-19
+  rotate: false
+  xy: 1005, 768
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0019_Layer-20
+  rotate: false
+  xy: 804, 256
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0021_Layer-22
+  rotate: false
+  xy: 804, 0
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0022_Layer-23
+  rotate: false
+  xy: 1005, 512
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0023_Layer-24
+  rotate: false
+  xy: 1206, 768
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0024_Layer-25
+  rotate: false
+  xy: 1005, 256
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0025_Layer-26
+  rotate: false
+  xy: 1005, 0
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0026_Layer-27
+  rotate: false
+  xy: 1206, 512
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0027_Layer-28
+  rotate: false
+  xy: 1407, 768
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0028_Layer-29
+  rotate: false
+  xy: 1206, 256
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0029_Layer-30
+  rotate: false
+  xy: 1206, 0
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0030_Layer-31
+  rotate: false
+  xy: 1407, 512
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0031_Layer-32
+  rotate: false
+  xy: 1608, 768
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0032_Layer-33
+  rotate: false
+  xy: 1407, 256
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0033_Layer-34
+  rotate: false
+  xy: 1407, 0
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0034_Layer-35
+  rotate: false
+  xy: 1608, 512
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0035_Layer-36
+  rotate: false
+  xy: 1809, 768
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0036_Layer-37
+  rotate: false
+  xy: 1608, 256
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0037_Layer-38
+  rotate: false
+  xy: 1608, 0
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0038_Layer-39
+  rotate: false
+  xy: 1809, 512
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
+_0039_Layer-40
+  rotate: false
+  xy: 1809, 256
+  size: 201, 256
+  orig: 201, 256
+  offset: 0, 0
+  index: -1
