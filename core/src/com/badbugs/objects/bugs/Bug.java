@@ -35,4 +35,9 @@ public abstract class Bug extends AbstractBasicObject {
     return true;
   }
 
+  public abstract float getBugHeight();
+
+  public abstract float getBugWidth();
+
+  public abstract float[] getFrameRate();
 }

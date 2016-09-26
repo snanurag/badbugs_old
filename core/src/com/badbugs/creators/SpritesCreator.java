@@ -7,13 +7,11 @@ import com.badbugs.objects.AbstractBasicObject;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.BasicObjectImpl;
 import com.badbugs.objects.GameOver;
-import com.badbugs.objects.bugs.BedBug;
-import com.badbugs.objects.bugs.Bug;
+import com.badbugs.objects.bugs.*;
 import com.badbugs.objects.knives.BronzeKnife;
 import com.badbugs.objects.knives.SteelKnife;
 import com.badbugs.objects.knives.StoneKnife;
 import com.badbugs.util.Constants;
-import com.badbugs.util.ObjectsCord;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,7 +23,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  */
 public class SpritesCreator {
 
-    private static TextureAtlas textureAtlas;
+    private static TextureAtlas texAtlasBedBug;
+    private static TextureAtlas texAtlasLadyBug;
+    private static TextureAtlas texAtlasBlackBug;
+    private static TextureAtlas texAtlasBronzeBug;
+    private static TextureAtlas texAtlasSteelBug;
     private static Texture floorTexture;
     private static Texture bloodTextureLong;
     private static Texture bloodTextureMedium;
@@ -47,7 +49,11 @@ public class SpritesCreator {
     private static Texture bugNoMovementTexture;
 
     public static void loadAllTextures() {
-        textureAtlas = new TextureAtlas(Gdx.files.internal("sprites/bronze_bug.atlas"));
+        texAtlasBedBug = new TextureAtlas(Gdx.files.internal("sprites/bed_bug.atlas"));
+        texAtlasLadyBug = new TextureAtlas(Gdx.files.internal("sprites/lady_bug.atlas"));
+        texAtlasBlackBug = new TextureAtlas(Gdx.files.internal("sprites/black_bug.atlas"));
+        texAtlasBronzeBug = new TextureAtlas(Gdx.files.internal("sprites/bronze_bug.atlas"));
+        texAtlasSteelBug = new TextureAtlas(Gdx.files.internal("sprites/steel_bug.atlas"));
         floorTexture = new Texture(Gdx.files.internal("floor.png"));
         lifeTexture = new Texture(Gdx.files.internal("life.png"));
         mainMenuTexture = new Texture(Gdx.files.internal("home_page.png"));
@@ -114,15 +120,78 @@ public class SpritesCreator {
         Util.setPanelForStoneKnifeSelection();
     }
 
-    public static BedBug loadBedBug(int level) throws Exception {
-        BedBug bedBug = new BedBug(null);
-        bedBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], textureAtlas.getRegions());
+    public static Bug createBug(Constants.BUG_TYPE t, int level ) throws Exception{
+        Bug b = null;
+        TextureAtlas texAtlas = null;
 
-        bedBug.getPolygon().setPosition(0, 0);
-        bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
+        switch (t)
+        {
+            case BED : b = new BedBug(null); texAtlas = texAtlasBedBug; break;
+            case LADY : b = new LadyBug(null); texAtlas = texAtlasLadyBug; break;
+            case BLACK : b = new BlackBug(null); texAtlas = texAtlasBlackBug; break;
+            case BRONZE: b = new BronzeBug(null); texAtlas = texAtlasBronzeBug; break;
+            case STEEL: b = new SteelBug(null); texAtlas = texAtlasSteelBug; break;
+        }
 
-        return bedBug;
+        if(b != null && texAtlas != null){
+            b.animation = new Animation(b.getFrameRate()[level], texAtlas.getRegions());
+
+            b.getPolygon().setPosition(0, 0);
+            b.getPolygon().setOrigin(b.getCameraDimensions()[0] / 2, b.getCameraDimensions()[1] / 2);
+        }
+
+        return b;
     }
+
+//    public static BedBug loadBedBug(int level) throws Exception {
+//        BedBug bedBug = new BedBug(null);
+//        bedBug.animation = new Animation(bedBug.getFrameRate()[level], texAtlasBedBug.getRegions());
+//
+//        bedBug.getPolygon().setPosition(0, 0);
+//        bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
+//
+//        return bedBug;
+//    }
+//
+//    public static LadyBug loadLadyBug(int level) throws Exception {
+//        LadyBug ladyBug = new LadyBug(null);
+//        ladyBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], texAtlasLadyBug.getRegions());
+//
+//        ladyBug.getPolygon().setPosition(0, 0);
+//        ladyBug.getPolygon().setOrigin(ladyBug.getCameraDimensions()[0] / 2, ladyBug.getCameraDimensions()[1] / 2);
+//
+//        return ladyBug;
+//    }
+//
+//    public static BlackBug loadBlackBug(int level) throws Exception {
+//        BlackBug ladyBug = new BlackBug(null);
+//        ladyBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], texAtlasBlackBug.getRegions());
+//
+//        ladyBug.getPolygon().setPosition(0, 0);
+//        ladyBug.getPolygon().setOrigin(ladyBug.getCameraDimensions()[0] / 2, ladyBug.getCameraDimensions()[1] / 2);
+//
+//        return ladyBug;
+//    }
+//
+//    public static BedBug loadBedBug(int level) throws Exception {
+//        BedBug bedBug = new BedBug(null);
+//        bedBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], texAtlasBedBug.getRegions());
+//
+//        bedBug.getPolygon().setPosition(0, 0);
+//        bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
+//
+//        return bedBug;
+//    }
+//
+//    public static BedBug loadBedBug(int level) throws Exception {
+//        BedBug bedBug = new BedBug(null);
+//        bedBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], texAtlasBedBug.getRegions());
+//
+//        bedBug.getPolygon().setPosition(0, 0);
+//        bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
+//
+//        return bedBug;
+//    }
 
     /**
      * This function is for testing. In production, it doesn't have any use.
@@ -143,8 +212,8 @@ public class SpritesCreator {
 //        ObjectsCord.BED_BUG_WIDTH =  8;
 
         //bronze bug
-        ObjectsCord.BED_BUG_HEIGHT = 11;
-        ObjectsCord.BED_BUG_WIDTH =  9;
+//        ObjectsCord.BED_BUG_HEIGHT = 11;
+//        ObjectsCord.BED_BUG_WIDTH =  9;
 
         //iron bug
 //        ObjectsCord.BED_BUG_HEIGHT = 12;
@@ -321,7 +390,7 @@ public class SpritesCreator {
     }
 
     public static void disposeAll() {
-        textureAtlas.dispose();
+        texAtlasBedBug.dispose();
         ObjectsStore.dispose();
         bloodTextureLong.dispose();
         bloodTextureMedium.dispose();

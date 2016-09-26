@@ -1,10 +1,10 @@
 package com.badbugs.dynamics.movement;
 
 import com.badbugs.Game;
-import com.badbugs.util.ObjectsCord;
+import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.util.Constants;
-import com.badbugs.baseframework.elements.ObjectsStore;
+import com.badbugs.util.ObjectsCord;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
@@ -108,12 +108,16 @@ public class BugMovement
 
     float distance = Util.distanceBetweenPoints(bug1Center, bug2Center);
 
-    if (bug1Center.x < Constants.COLLISION_AVOIDING_X && bug1Center.x > -Constants.COLLISION_AVOIDING_X
-        && bug2Center.x < Constants.COLLISION_AVOIDING_X && bug2Center.x > -Constants.COLLISION_AVOIDING_X
-        && bug1Center.y < Constants.COLLISION_AVOIDING_Y && bug1Center.y > -Constants.COLLISION_AVOIDING_Y
-        && bug2Center.y < Constants.COLLISION_AVOIDING_Y && bug2Center.y > -Constants.COLLISION_AVOIDING_Y)
-    {
-      if (distance < ObjectsCord.BED_BUG_HEIGHT)
+    float boundary_limit_x_bug1 = (Game.cam_width -bug1.getBugWidth())/2;
+    float boundary_limit_x_bug2 = (Game.cam_width -bug2.getBugWidth())/2;
+    float boundary_limit_y_bug1 = (Game.cam_height -bug1.getBugHeight())/2;
+    float boundary_limit_y_bug2 = (Game.cam_height -bug2.getBugHeight())/2;
+
+    if (bug1Center.x < boundary_limit_x_bug1 && bug1Center.x > -boundary_limit_x_bug1
+            && bug2Center.x < boundary_limit_x_bug2 && bug2Center.x > -boundary_limit_x_bug2
+            && bug1Center.y < boundary_limit_y_bug1 && bug1Center.y > -boundary_limit_y_bug1
+            && bug2Center.y < boundary_limit_y_bug2 && bug2Center.y > -boundary_limit_y_bug2) {
+      if (distance < (bug1.getBugHeight() + bug2.getBugHeight())/2)
       {
         float bug1SpeedX = bug1.speed * MathUtils.cosDeg(bug1.getPolygon().getRotation() - bug1.getInitialAngle());
         float bug1SpeedY = bug1.speed * MathUtils.sinDeg(bug1.getPolygon().getRotation() - bug1.getInitialAngle());

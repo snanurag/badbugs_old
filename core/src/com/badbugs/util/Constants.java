@@ -46,6 +46,7 @@ public class Constants {
     public static enum PANEL {
         EMPTY, STONE, BRONZE, STEEL, STONE_BRONZE, BRONZE_STEEL, STONE_STEEL, STONE_BRONZE_STEEL
     }
+    public static enum BUG_TYPE{BED, LADY, BLACK, BRONZE, STEEL}
 
     // ALL X-Y and Width-Height
     public static final float HOME_SCREEN_W = 2560;
@@ -62,8 +63,8 @@ public class Constants {
     public static final float SCORE_TEXT_Y_POS = -5;
     public static final float KNIFE_BOOSTER_TEXT_X = -200;
     public static final float KNIFE_BOOSTER_TEXT_Y = 320f;
-    public static float COLLISION_AVOIDING_X = Game.cam_width / 2 - ObjectsCord.BED_BUG_WIDTH / 2;
-    public static float COLLISION_AVOIDING_Y = Game.cam_height / 2 - ObjectsCord.BED_BUG_HEIGHT / 2;
+//    public static float COLLISION_AVOIDING_X = Game.cam_width / 2 - ObjectsCord.BED_BUG_WIDTH / 2;
+//    public static float COLLISION_AVOIDING_Y = Game.cam_height / 2 - ObjectsCord.BED_BUG_HEIGHT / 2;
     public static float SCORE_X_POS = 725;
     public static float SCORE_Y_POS = 700;
     public static float LIFE_1_X_POS = 21 + 3;

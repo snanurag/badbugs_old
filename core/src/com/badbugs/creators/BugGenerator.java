@@ -43,7 +43,7 @@ public class BugGenerator extends Thread {
 
     private void createBug() throws Exception {
         int level = getLevel();
-        BedBug bug = SpritesCreator.loadBedBug(level);
+        Bug bug = SpritesCreator.createBug(Constants.BUG_TYPE.BED, level);
 //        BedBug bug = SpritesCreator.loadBugNoLegMovement(level);
         bug.id = ++bugId;
         initialize(bug);
