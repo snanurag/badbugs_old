@@ -3,10 +3,10 @@ package com.badbugs.creators;
 import com.badbugs.Game;
 import com.badbugs.MainGameScreen;
 import com.badbugs.baseframework.elements.GameStates;
-import com.badbugs.objects.bugs.BedBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.util.Constants;
 import com.badbugs.baseframework.elements.ObjectsStore;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.math.Polygon;
 
 /**
@@ -15,35 +15,77 @@ import com.badlogic.gdx.math.Polygon;
 
 public class BugGenerator extends Thread {
 
-    final int WALLS_COUNT = 4;
-    int bugId = 0;
-    int lastWall;
-    boolean running = true;
+    private final int WALLS_COUNT = 4;
+    private int bugId = 0;
+    private int lastWall;
+    private boolean running = true;
+    private final int SINGLE_BUG_RALLY = 3;
+    private final int DOUBLE_BUG_RALLY = 5;
+    private final int NORMAL_BUG_RALLY = 15;
+    private final int BRONZE_BUG_RALLY = 3;
+    private int BUG_COUNT_PER_RALLY = 3;
+    private int allBugRallyCount = 0;
+    private int bronzeBugRallyCount = 0;
+    private boolean killsUnder2Sec = false;
+    private boolean wasLastBugMetal = false;
+    private int consecutiveKillCountUnder2Sec = 0;
+    private int lastRegisteredMissedBugs = ObjectsStore.bugMissed;
 
     public void terminateBugGenerator() {
         running = false;
     }
 
     public void run() {
+        int sleepCount = 0;
         try {
-
             while (running) {
                 if (Constants.DEMO && bugId == Constants.DEMO_BUGS) {
                     GameStates.endDemo();
                     running = false;
                 }
+
                 Thread.sleep(1000);
-                if (!MainGameScreen.isPaused)
-                    createBug();
+                sleepCount++;
+                Util.globalLogger().info("Bug list size -> "+ObjectsStore.getBugList().size());
+                if(sleepCount%2 == 0){
+                    if(ObjectsStore.getBugList().isEmpty()){
+                        killsUnder2Sec = true;
+                        consecutiveKillCountUnder2Sec++;
+                        if(consecutiveKillCountUnder2Sec == 15) BUG_COUNT_PER_RALLY++;
+                    }
+                    else consecutiveKillCountUnder2Sec = 0;
+                }
+                if(sleepCount%3 == 0){
+                    sleepCount = 0;
+                    if(IsABugMissed()) BUG_COUNT_PER_RALLY = 3;
+                    if (!MainGameScreen.isPaused){
+                        if(allBugRallyCount < SINGLE_BUG_RALLY) createBug(1, getANormalBug());
+                        else if(allBugRallyCount < SINGLE_BUG_RALLY + DOUBLE_BUG_RALLY) createBug(2, getANormalBug());
+                        else if(!wasLastBugMetal && allBugRallyCount >= NORMAL_BUG_RALLY && killsUnder2Sec){
+                            if(bronzeBugRallyCount < BRONZE_BUG_RALLY){
+                                createBug(BUG_COUNT_PER_RALLY, Constants.BUG_TYPE.BRONZE);
+                                bronzeBugRallyCount++;
+                            }
+                            else createBug(BUG_COUNT_PER_RALLY, getAMetalBug());
+                            wasLastBugMetal = true;
+                        }
+                        else createBug(BUG_COUNT_PER_RALLY, getANormalBug());
+                        allBugRallyCount++;
+                    }
+                    killsUnder2Sec = false;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void createBug() throws Exception {
+    private void createBug(int bugCount, Constants.BUG_TYPE t) throws Exception{
+        for(int i=0; i<bugCount; i++) createBug(t);
+    }
+    private void createBug(Constants.BUG_TYPE t) throws Exception {
         int level = getLevel();
-        Bug bug = SpritesCreator.createBug(Constants.BUG_TYPE.BED, level);
+        Bug bug = SpritesCreator.createBug(t, level);
 //        BedBug bug = SpritesCreator.loadBugNoLegMovement(level);
         bug.id = ++bugId;
         initialize(bug);
@@ -120,4 +162,33 @@ public class BugGenerator extends Thread {
         float randomFactor = (float) Math.random();
         return (randomFactor * 2 - 1) * max;
     }
+
+    private Constants.BUG_TYPE getANormalBug(){
+        wasLastBugMetal = false;
+        int i =(int) getValFromZeroToMax(3);
+        switch (i){
+            case 0 : return Constants.BUG_TYPE.BED;
+            case 1 : return Constants.BUG_TYPE.LADY;
+            case 2 : return Constants.BUG_TYPE.BLACK;
+            default : return Constants.BUG_TYPE.BED;
+        }
+    }
+
+    private Constants.BUG_TYPE getAMetalBug(){
+        int i =(int) getValFromZeroToMax(2);
+        switch (i){
+            case 0 : return Constants.BUG_TYPE.BRONZE;
+            case 1 : return Constants.BUG_TYPE.STEEL;
+            default : return Constants.BUG_TYPE.BRONZE;
+        }
+    }
+
+    private boolean IsABugMissed(){
+        if(lastRegisteredMissedBugs != ObjectsStore.bugMissed){
+            lastRegisteredMissedBugs = ObjectsStore.bugMissed;
+            return true;
+        }
+        else return false;
+    }
+
 }

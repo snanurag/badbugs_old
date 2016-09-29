@@ -20,6 +20,7 @@ import java.util.Map;
 public class ObjectsStore {
 
   private static List<Bug> bugList = new ArrayList<Bug>();
+  private static List<Bug> deadBugList = new ArrayList<Bug>();
   private static Map<Bug, BloodSpot> bloodSpotMap = new HashMap<Bug, BloodSpot>();
   private static Map<Bug, BloodSplash> bloodSplashMap = new HashMap<Bug, BloodSplash>();
   private static Map<Constants.KNIFE_TYPE, Knife> knifeMap = new HashMap<Constants.KNIFE_TYPE, Knife>();
@@ -214,5 +215,13 @@ public class ObjectsStore {
 
   public static void setMainMenuBackGround(BasicObject mainMenuBackGround) {
     ObjectsStore.mainMenuBackGround = mainMenuBackGround;
+  }
+
+  public static List<Bug> getDeadBugList() {
+    return deadBugList;
+  }
+
+  public static void addDeadBug(Bug bug){
+      deadBugList.add(bug);
   }
 }

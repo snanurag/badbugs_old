@@ -1,6 +1,21 @@
-- Make black small bug - pretty high pace - 23 jul weekend
-- Make red bug with black dots - medium pace - 30 Jul weekend
-- Change current but to dark brown bed bug - slow pace -20 Aug weekend
+- put bugs in game, their entry logic, blood pattern - 18th sep.
+- Purchase of knives - 25th sep. - Update
+- Break metal bug rather than showing oil spill.
+- entery of 10 bugs at a time.
+- enter lines of single/multiple type bugs
+- Show throwing animation of knife on table. Give shadow to flowing and hit knife. If bug is missed, Knife should pass and hit the boundary.
+- Make wiki - 2nd Oct - Update
+- Make Good Home cover - 9th Oct - Update
+- Make knife Booster icon better - 1 weekend
+- Make description page of every kind of bug and Knives. - 1 weekend
+- Make a time bound bug generator of bugs. - 1 weekend
+- Make Cut Mark of steel and bronze - 1 weekend
+- Add shines in description images, knife trail, bug killing
+- Launch Practise mode
+- Launch Challenge mode ( 7 Levels - Anyone can challenge anyone on internet in same level.)
+- Launch GreyStudios.in
+- Remove extra bug images from assets.
+
 - Correct blood splash good.
 - Think on promotion stuff - change text font, images, Make demo to free.
 - Burning nets - 17th, 24th Sep and 1st Oct weekends

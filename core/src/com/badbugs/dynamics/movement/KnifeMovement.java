@@ -217,8 +217,8 @@ public class KnifeMovement {
     private static void setAllBugsState(Knife knife) throws Exception {
         synchronized (ObjectsStore.getBugList()) {
             for (Bug bug : ObjectsStore.getBugList()) {
-                if (bug.hit)
-                    continue;
+//                if (bug.hit)
+//                    continue;
 
                 Util.globalLogger()
                         .debug("Bug id " + bug.id + " x " + bug.getPolygon().getX() + " y " + bug.getPolygon().getY());

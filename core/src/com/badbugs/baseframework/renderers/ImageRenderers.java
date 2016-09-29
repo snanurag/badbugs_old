@@ -99,14 +99,17 @@ public class ImageRenderers {
     public static void renderBugs(SpriteBatch batch) throws Exception {
         List<Bug> bugList = ObjectsStore.getBugList();
         synchronized (bugList) {
-            for (Bug bedBug : bugList) {
-                ImageRenderers.renderBug(batch, bedBug);
+            for (Bug bug : bugList) {
+                ImageRenderers.renderBug(batch, bug);
             }
+        }
+        for(Bug bug: ObjectsStore.getDeadBugList()){
+            ImageRenderers.renderBug(batch, bug);
         }
     }
 
     public static void renderBloods(SpriteBatch batch) throws Exception {
-        List<Bug> bugList = ObjectsStore.getBugList();
+        List<Bug> bugList = ObjectsStore.getDeadBugList();
         synchronized (bugList) {
             for (Bug bedBug : bugList) {
                 if (bedBug.hit) {

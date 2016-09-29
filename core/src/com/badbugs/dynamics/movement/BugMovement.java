@@ -30,35 +30,43 @@ public class BugMovement
       Iterator<Bug> itr = bugList.iterator();
       while (itr.hasNext())
       {
-        Bug bedBug = itr.next();
+        Bug bug = itr.next();
         Util.globalLogger().debug(
-            "Bug position of bug : " + bedBug.id + " x " + bedBug.getPolygon().getX() + " and y " + bedBug.getPolygon()
+            "Bug position of bug : " + bug.id + " x " + bug.getPolygon().getX() + " and y " + bug.getPolygon()
                 .getY());
 
-        if (bedBug.dead)
+        if (bug.dead)
         {
           itr.remove();
           continue;
         }
 
-        if (!bedBug.hit && ObjectsStore.getBloodSpot(bedBug) != null)
+        if (!bug.hit && ObjectsStore.getBloodSpot(bug) != null)
         {
-          bedBug.hit = true;
+          bug.hit = true;
+          itr.remove();
+          ObjectsStore.addDeadBug(bug);
           ObjectsStore.score++;
         }
 
-        if(bedBug.hit)
+        if(bug.hit)
         {
           continue;
         }
 
-        if (bedBug.freeze_frame_count < 0 || bedBug.freeze_frame_count > Constants.FREEZE_FRAME_COUNTS)
+        if (bug.freeze_frame_count < 0 || bug.freeze_frame_count > Constants.FREEZE_FRAME_COUNTS)
         {
-          BugMovement.applyMovement(bedBug);
-          bedBug.freeze_frame_count = -1;
+          BugMovement.applyMovement(bug);
+          bug.freeze_frame_count = -1;
         } else
-          bedBug.freeze_frame_count++;
+          bug.freeze_frame_count++;
       }
+    }
+
+    Iterator<Bug> itr = ObjectsStore.getDeadBugList().iterator();
+    while(itr.hasNext()){
+      Bug bug = itr.next();
+      if(bug.dead) itr.remove();
     }
   }
 
@@ -83,8 +91,8 @@ public class BugMovement
     {
 
       bug.dead = true;
-      if (!bug.hit)
-        ObjectsStore.bugMissed++;
+//      if (!bug.hit)
+      ObjectsStore.bugMissed++;
 
       Util.globalLogger().debug("Bugs missed " + ObjectsStore.bugMissed);
     }
@@ -103,8 +111,8 @@ public class BugMovement
     Vector2 bug1Center = Util.getPolygonCenter(bug1.getPolygon());
     Vector2 bug2Center = Util.getPolygonCenter(bug2.getPolygon());
 
-    if (bug1.hit || bug2.hit || bug1.freeze_frame_count != -1)
-      return;
+//    if (bug1.hit || bug2.hit || bug1.freeze_frame_count != -1)
+    if (bug1.freeze_frame_count != -1) return;
 
     float distance = Util.distanceBetweenPoints(bug1Center, bug2Center);
 
