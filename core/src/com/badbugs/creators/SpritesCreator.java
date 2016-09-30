@@ -72,7 +72,7 @@ public class SpritesCreator {
         bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
         bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
         bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
-        bugNoMovementTexture = new Texture(Gdx.files.internal("bronze_bug.png"));
+        bugNoMovementTexture = new Texture(Gdx.files.internal("life.png"));
 
         try{
             createKnives(new Texture(Gdx.files.internal("stone_knife.png")), new Texture(Gdx.files
