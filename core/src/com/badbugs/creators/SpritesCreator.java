@@ -47,6 +47,7 @@ public class SpritesCreator {
     private static Texture knifeBoosterTexture;
     private static Texture googlePlayTexture;
     private static Texture bugNoMovementTexture;
+    private static Texture bronzeScratchTexture;
 
     public static void loadAllTextures() {
         texAtlasBedBug = new TextureAtlas(Gdx.files.internal("sprites/bed_bug.atlas"));
@@ -73,6 +74,7 @@ public class SpritesCreator {
         bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
         bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
         bugNoMovementTexture = new Texture(Gdx.files.internal("life.png"));
+        bronzeScratchTexture = new Texture(Gdx.files.internal("bronze_scratch.png"));
 
         try{
             createKnives(new Texture(Gdx.files.internal("stone_knife.png")), new Texture(Gdx.files
@@ -362,9 +364,13 @@ public class SpritesCreator {
         ObjectsStore.setGooglePlay(googlePlay);
     }
 
-    public static BasicObject loadBloodSpot(float len) {
+    public static BasicObject getBloodSpot(float len) {
         AbstractBasicObject bloodSprite = new BasicObjectImpl(getProperBloodTex(len));
         return bloodSprite;
+    }
+
+    public static BasicObject getBronzeScratch(){
+        return new BasicObjectImpl(bronzeScratchTexture);
     }
 
     public static BasicObject loadBloodDot()

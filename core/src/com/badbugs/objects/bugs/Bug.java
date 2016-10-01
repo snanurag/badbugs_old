@@ -16,6 +16,7 @@ public abstract class Bug extends AbstractBasicObject {
   public float speed;
   public boolean dead;
   public boolean hit;
+  public int hitCount;
   public int freeze_frame_count = -1;
   public Vector2 state;
   public Animation animation;

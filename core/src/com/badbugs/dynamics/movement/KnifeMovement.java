@@ -2,20 +2,25 @@ package com.badbugs.dynamics.movement;
 
 import com.badbugs.Game;
 import com.badbugs.baseframework.elements.GameStates;
+import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.baseframework.sounds.SoundPlayer;
-import com.badbugs.dynamics.blood.BloodSplash;
-import com.badbugs.dynamics.blood.BloodSpot;
+import com.badbugs.dynamics.strikes.BloodSplash;
+import com.badbugs.dynamics.strikes.BloodSpot;
+import com.badbugs.dynamics.strikes.BronzeScratch;
+import com.badbugs.objects.bugs.BronzeBug;
 import com.badbugs.objects.bugs.Bug;
+import com.badbugs.objects.bugs.SteelBug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.util.Constants;
-import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.util.TouchInfo;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+
+import java.util.Iterator;
 
 /**
  * Created by ashrinag on 3/21/2016.
@@ -66,12 +71,14 @@ public class KnifeMovement {
             lastTime = System.currentTimeMillis();
             float angle = (float) (Math.atan2(directionVector.y, directionVector.x) * 180 / Math.PI);
 
-            setAllBugsState(knife);
+            updateBugsState(knife);
 
             polygon.setRotation(knife.getInitialAngle() + angle);
 
             Util.globalLogger().debug("Angle of Knife " + angle);
             Util.globalLogger().debug("Direction vector " + directionVector);
+
+//            attemptToCutAllBugs(knife);
         }
     }
 
@@ -148,7 +155,7 @@ public class KnifeMovement {
         return false;
     }
 
-    private static void attemptToCreateBlood(Bug bug, Knife knife) throws Exception {
+    private static boolean attemptToCreateBlood(Bug bug, Knife knife) throws Exception {
 
         Polygon bugPolygon = bug.getPolygon();
         Polygon knifePolygon = knife.getPolygon();
@@ -166,15 +173,25 @@ public class KnifeMovement {
         }
 
         if (hitPoint != null) {
-            if (ObjectsStore.getBloodSpot(bug) == null) {
-                ObjectsStore.add(bug, new BloodSpot(bug, knife, hitPoint));
-                BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bug);
-                ObjectsStore.add(bug, new BloodSplash(new Vector2((bloodSpot.startPoint.x + bloodSpot.endPoint.x) / 2,
-                        (bloodSpot.startPoint.y + bloodSpot.endPoint.y) / 2),
-                        bloodSpot.getBloodSprite().getCameraDimensions()[0], knife));
+            if (ObjectsStore.getScratch(bug) == null) {
+                if(bug instanceof BronzeBug){
+                    ObjectsStore.add(bug, new BronzeScratch(bug, knife, hitPoint));
+                }
+                else if(bug instanceof SteelBug){
+
+                }
+                else {
+                    ObjectsStore.add(bug, new BloodSpot(bug, knife, hitPoint));
+                    BloodSpot bloodSpot = (BloodSpot) ObjectsStore.getScratch(bug);
+                    ObjectsStore.add(bug, new BloodSplash(new Vector2((bloodSpot.startPoint.x + bloodSpot.endPoint.x) / 2,
+                            (bloodSpot.startPoint.y + bloodSpot.endPoint.y) / 2),
+                            bloodSpot.getScratchSprite().getCameraDimensions()[0], knife));
+                }
                 SoundPlayer.playKnifeBugImpact();
             }
+            return true;
         }
+        return false;
     }
 
     private static Vector2 getHiPointInXIncreasing(Polygon bugPolygon, float x1, float y1, float a) {
@@ -214,7 +231,7 @@ public class KnifeMovement {
         return y;
     }
 
-    private static void setAllBugsState(Knife knife) throws Exception {
+    private static void updateBugsState(Knife knife) throws Exception {
         synchronized (ObjectsStore.getBugList()) {
             for (Bug bug : ObjectsStore.getBugList()) {
 //                if (bug.hit)
@@ -232,13 +249,26 @@ public class KnifeMovement {
 
     private static void attemptToCutAllBugs(Knife knife) throws Exception {
         synchronized (ObjectsStore.getBugList()) {
-            for (Bug bug : ObjectsStore.getBugList()) {
+            Iterator<Bug> itr = ObjectsStore.getBugList().iterator();
+            while(itr.hasNext()){
+                Bug bug = itr.next();
                 Vector2 bugCenter = Util.getPolygonCenter(bug.getPolygon());
 
                 Vector2 currentState = Util.getStateOfBugWRTKnife(bugCenter.x, bugCenter.y, knife.getPolygon());
 
                 if (bug.isStateChanged(currentState.x, currentState.y)) {
-                    attemptToCreateBlood(bug, knife);
+                    updateBugsState(knife);
+                    if(attemptToCreateBlood(bug, knife)){
+                        if (bug instanceof BronzeBug && bug.hitCount < 1 || bug instanceof SteelBug && bug.hitCount <
+                                2) {
+                            bug.hitCount++;
+                        } else {
+                            bug.hit = true;
+                            itr.remove();
+                            ObjectsStore.addDeadBug(bug);
+                            ObjectsStore.score++;
+                        }
+                    }
                 }
             }
         }

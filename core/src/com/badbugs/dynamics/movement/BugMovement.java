@@ -2,9 +2,10 @@ package com.badbugs.dynamics.movement;
 
 import com.badbugs.Game;
 import com.badbugs.baseframework.elements.ObjectsStore;
+import com.badbugs.objects.bugs.BronzeBug;
 import com.badbugs.objects.bugs.Bug;
+import com.badbugs.objects.bugs.SteelBug;
 import com.badbugs.util.Constants;
-import com.badbugs.util.ObjectsCord;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
@@ -41,13 +42,19 @@ public class BugMovement
           continue;
         }
 
-        if (!bug.hit && ObjectsStore.getBloodSpot(bug) != null)
-        {
-          bug.hit = true;
-          itr.remove();
-          ObjectsStore.addDeadBug(bug);
-          ObjectsStore.score++;
-        }
+//        if (!bug.hit && ObjectsStore.getScratch(bug) != null)
+//        if (!bug.hit)
+//        {
+//          if(bug instanceof BronzeBug && bug.hitCount < 2 || bug instanceof SteelBug && bug.hitCount < 3){
+//            bug.hitCount++;
+//          }
+//          else {
+//            bug.hit = true;
+//            itr.remove();
+//            ObjectsStore.addDeadBug(bug);
+//            ObjectsStore.score++;
+//          }
+//        }
 
         if(bug.hit)
         {

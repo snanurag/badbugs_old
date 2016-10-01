@@ -1,8 +1,8 @@
 package com.badbugs.baseframework.renderers;
 
 import com.badbugs.Game;
-import com.badbugs.dynamics.blood.BloodSplash;
-import com.badbugs.dynamics.blood.BloodSpot;
+import com.badbugs.dynamics.strikes.BaseScratch;
+import com.badbugs.dynamics.strikes.BloodSplash;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.Bug;
@@ -44,7 +44,7 @@ public class ImageRenderers {
 
     private static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {
 
-        BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bug);
+        BaseScratch bloodSpot = ObjectsStore.getScratch(bug);
         BloodSplash bloodSplash = ObjectsStore.getBloodSplash(bug);
         float alpha = 1f;
         if (bloodSpot != null) {
@@ -56,7 +56,7 @@ public class ImageRenderers {
                 bug.dead = true;
             }
 
-            BasicObject blood = bloodSpot.getBloodSprite();
+            BasicObject blood = bloodSpot.getScratchSprite();
             if (blood != null) {
                 Polygon polygon = blood.getPolygon();
 
@@ -122,7 +122,7 @@ public class ImageRenderers {
     private static void renderBug(SpriteBatch batch, Bug bedBug) throws Exception {
         Polygon bugPolygon = bedBug.getPolygon();
 
-        BloodSpot bloodSpot = ObjectsStore.getBloodSpot(bedBug);
+        BaseScratch bloodSpot = ObjectsStore.getScratch(bedBug);
         if (bloodSpot != null) {
             float alpha = getAlpha(bloodSpot);
             batch.setColor(1, 1, 1, alpha);
@@ -162,7 +162,7 @@ public class ImageRenderers {
 
     }
 
-    private static float getAlpha(BloodSpot bloodSpot) {
+    private static float getAlpha(BaseScratch bloodSpot) {
         float alpha;
         if (bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME < 1) {
             alpha = 1 - bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME;

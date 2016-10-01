@@ -1,8 +1,8 @@
 package com.badbugs.baseframework.elements;
 
 import com.badbugs.Game;
-import com.badbugs.dynamics.blood.BloodSplash;
-import com.badbugs.dynamics.blood.BloodSpot;
+import com.badbugs.dynamics.strikes.BaseScratch;
+import com.badbugs.dynamics.strikes.BloodSplash;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.Bug;
@@ -21,7 +21,7 @@ public class ObjectsStore {
 
   private static List<Bug> bugList = new ArrayList<Bug>();
   private static List<Bug> deadBugList = new ArrayList<Bug>();
-  private static Map<Bug, BloodSpot> bloodSpotMap = new HashMap<Bug, BloodSpot>();
+  private static Map<Bug, BaseScratch> bloodSpotMap = new HashMap<Bug, BaseScratch>();
   private static Map<Bug, BloodSplash> bloodSplashMap = new HashMap<Bug, BloodSplash>();
   private static Map<Constants.KNIFE_TYPE, Knife> knifeMap = new HashMap<Constants.KNIFE_TYPE, Knife>();
   private static Map<Constants.PANEL, BasicObject> panelMap = new HashMap<Constants.PANEL, BasicObject>();
@@ -55,12 +55,12 @@ public class ObjectsStore {
     return  bugList;
   }
 
-  public static void add(Bug bug, BloodSpot bloodSpot)
+  public static void add(Bug bug, BaseScratch scratch)
   {
-    bloodSpotMap.put(bug, bloodSpot);
+    bloodSpotMap.put(bug, scratch);
   }
 
-  public static BloodSpot getBloodSpot(Bug bug)
+  public static BaseScratch getScratch(Bug bug)
   {
     return  bloodSpotMap.get(bug);
   }

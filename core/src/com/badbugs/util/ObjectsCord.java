@@ -27,6 +27,4 @@ public class ObjectsCord {
   //Pixels
   public static int[] STONE_KNIFE_CENTER = {250, 35};
 
-  public static float BLOOD_SPOT_WIDTH = 8.4f;
-
 }

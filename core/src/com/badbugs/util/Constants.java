@@ -88,6 +88,9 @@ public class Constants {
     public static float STONE_KNIFE_HEIGHT = 3;
     public static float STONE_KNIFE_WIDTH = 17;
 
+    public static float BLOOD_SPOT_WIDTH = 8.4f;
+    public static float BRONZE_SCRATCH_WIDTH = 1f;
+
     public static int PLAY_H, PLAY_W, SHOP_H, SHOP_W, BACK_H, BACK_W, QUIT_H, QUIT_W, SOUND_H, SOUND_W, MUSIC_H, MUSIC_W,
             KNIFE_BOOSTER_H, KNIFE_BOOSTER_W, GOOGLE_PLAY_W, GOOGLE_PLAY_H;
     public static int PLAY_LEFT, PLAY_TOP, SHOP_LEFT, SHOP_TOP, BACK_LEFT, BACK_TOP, QUIT_LEFT, QUIT_TOP, SOUND_LEFT,

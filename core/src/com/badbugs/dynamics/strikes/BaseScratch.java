@@ -1,8 +1,6 @@
-package com.badbugs.dynamics.blood;
+package com.badbugs.dynamics.strikes;
 
-import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.BasicObject;
-import com.badbugs.util.ObjectsCord;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;
@@ -12,26 +10,27 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by ashrinag on 3/22/2016.
+ * Created by ashrinag on 9/30/2016.
  */
-public class BloodSpot {
+public abstract class BaseScratch {
 
-    public float elapsedTime;
-    private BasicObject bug;
-    private BasicObject knife;
-    private BasicObject bloodSprite;
     public Vector2 startPoint;
     public Vector2 endPoint;
+    private BasicObject bug;
+    protected BasicObject knife;
+    public float elapsedTime;
 
-    public BloodSpot(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
+    public BaseScratch(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
         this.bug = bug;
         this.knife = knife;
         updateBloodSpotDimensions(hitPoint);
         elapsedTime = 0;
+
     }
 
-    public void updateBloodSpotDimensions(Vector2 hitPoint) throws Exception {
+    public abstract void updateBloodSpotDimensions(Vector2 hitPoint) throws Exception ;
 
+    protected float getBloodLength(Vector2 hitPoint)throws Exception{
         if (hitPoint == null)
             throw new Exception("Knife did not hit the Bug.");
 
@@ -45,20 +44,10 @@ public class BloodSpot {
         if (bloodSpotLength > Constants.MAX_BLOOD_LENGTH)
             bloodSpotLength = Constants.MAX_BLOOD_LENGTH;
 
-        this.bloodSprite = SpritesCreator.loadBloodSpot(bloodSpotLength);
-        bloodSprite.getPolygon().setRotation(angle);
-        bloodSprite.setCameraDimensions(new float[]{bloodSpotLength, ObjectsCord.BLOOD_SPOT_WIDTH});
-
-        // Setting it only for store. Polygon is not used anywhere for calculation.
-        bloodSprite.getPolygon()
-                .setOrigin(bloodSprite.getCameraDimensions()[0] / 2, bloodSprite.getCameraDimensions()[1] / 2);
-
-        Vector2 centerAfterRotation = Util
-                .rotateVectorByGivenAngle(0, bloodSprite.getPolygon().getOriginY(), bloodSprite.getPolygon().getRotation());
-        bloodSprite.getPolygon().setPosition(startPoint.x - centerAfterRotation.x, startPoint.y - centerAfterRotation.y);
+        return bloodSpotLength;
     }
 
-    private Vector2 getPointAtPolygonBoundary(Polygon polygon, Vector2 startPoint, float angle) {
+    protected Vector2 getPointAtPolygonBoundary(Polygon polygon, Vector2 startPoint, float angle) {
 
         if (Util.insidePolygon(polygon, startPoint.x, startPoint.y))
             Util.globalLogger()
@@ -72,7 +61,6 @@ public class BloodSpot {
         return startPoint;
     }
 
-    public BasicObject getBloodSprite() {
-        return bloodSprite;
-    }
+    public abstract BasicObject getScratchSprite();
+
 }
