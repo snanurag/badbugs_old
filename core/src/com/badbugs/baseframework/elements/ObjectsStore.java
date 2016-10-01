@@ -20,8 +20,8 @@ import java.util.Map;
 public class ObjectsStore {
 
   private static List<Bug> bugList = new ArrayList<Bug>();
-  private static List<Bug> deadBugList = new ArrayList<Bug>();
-  private static Map<Bug, BaseScratch> bloodSpotMap = new HashMap<Bug, BaseScratch>();
+  private static List<Bug> hitBugList = new ArrayList<Bug>();
+  private static Map<Bug, BaseScratch[]> scratchMap = new HashMap<Bug, BaseScratch[]>();
   private static Map<Bug, BloodSplash> bloodSplashMap = new HashMap<Bug, BloodSplash>();
   private static Map<Constants.KNIFE_TYPE, Knife> knifeMap = new HashMap<Constants.KNIFE_TYPE, Knife>();
   private static Map<Constants.PANEL, BasicObject> panelMap = new HashMap<Constants.PANEL, BasicObject>();
@@ -55,14 +55,18 @@ public class ObjectsStore {
     return  bugList;
   }
 
-  public static void add(Bug bug, BaseScratch scratch)
+  public static void add(Bug bug, BaseScratch[] scratches){
+    scratchMap.put(bug, scratches);
+  }
+  public static void add(Bug bug, int index, BaseScratch scratch)
   {
-    bloodSpotMap.put(bug, scratch);
+    if(scratchMap.get(bug)!=null) scratchMap.get(bug)[index] = scratch;
+//    scratchMap.put(bug, scratch);
   }
 
-  public static BaseScratch getScratch(Bug bug)
+  public static BaseScratch[] getScratches(Bug bug)
   {
-    return  bloodSpotMap.get(bug);
+    return  scratchMap.get(bug);
   }
 
   public static void add(Bug bug, BloodSplash bloodSplash)
@@ -75,8 +79,8 @@ public class ObjectsStore {
     return  bloodSplashMap.get(bug);
   }
 
-  public static void removeAllBlood(Bug bug) {
-    bloodSpotMap.remove(bug);
+  public static void clearAllScratches(Bug bug) {
+    scratchMap.remove(bug);
     bloodSplashMap.remove(bug);
   }
 
@@ -217,11 +221,11 @@ public class ObjectsStore {
     ObjectsStore.mainMenuBackGround = mainMenuBackGround;
   }
 
-  public static List<Bug> getDeadBugList() {
-    return deadBugList;
+  public static List<Bug> getHitBugList() {
+    return hitBugList;
   }
 
-  public static void addDeadBug(Bug bug){
-      deadBugList.add(bug);
+  public static void addHitBug(Bug bug){
+      hitBugList.add(bug);
   }
 }

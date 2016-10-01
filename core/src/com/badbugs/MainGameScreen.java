@@ -9,6 +9,7 @@ import com.badbugs.baseframework.sounds.SoundPlayer;
 import com.badbugs.creators.BugGenerator;
 import com.badbugs.dynamics.movement.BugMovement;
 import com.badbugs.dynamics.movement.KnifeMovement;
+import com.badbugs.dynamics.movement.ScratchMovement;
 import com.badbugs.dynamics.panel.PanelMotion;
 import com.badbugs.listers.Inputs;
 import com.badbugs.objects.BasicObject;
@@ -109,13 +110,14 @@ public class MainGameScreen extends ScreenAdapter
     if(!PanelMotion.panelTriggered(touchInfo))
       KnifeMovement.updatePolygon(touchInfo);
     BugMovement.upgradeEveryBugState();
+    ScratchMovement.updateScratchPositions();
     PanelMotion.updatePanelState();
   }
 
   private void allRendering(TouchInfo touchInfo) throws Exception {
     ImageRenderers.renderBasicObject(Game.batch, floor);
     ImageRenderers.renderBugs(Game.batch);
-    ImageRenderers.renderBloods(Game.batch);
+    ImageRenderers.renderScratches(Game.batch);
     ImageRenderers.renderKnife(Game.batch, GameStates.getSelectedKnife());
     ImageRenderers.renderBasicObject(Game.batch, GameStates.getPanel());
     FontRenderers.renderScore(Game.batch, ObjectsStore.score);

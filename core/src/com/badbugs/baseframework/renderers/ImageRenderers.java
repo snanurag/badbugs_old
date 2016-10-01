@@ -1,14 +1,17 @@
 package com.badbugs.baseframework.renderers;
 
 import com.badbugs.Game;
+import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.dynamics.strikes.BaseScratch;
 import com.badbugs.dynamics.strikes.BloodSplash;
+import com.badbugs.dynamics.strikes.BloodSpot;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.GameOver;
+import com.badbugs.objects.bugs.BronzeBug;
 import com.badbugs.objects.bugs.Bug;
+import com.badbugs.objects.bugs.SteelBug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;
-import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -44,43 +47,50 @@ public class ImageRenderers {
 
     private static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {
 
-        BaseScratch bloodSpot = ObjectsStore.getScratch(bug);
-        BloodSplash bloodSplash = ObjectsStore.getBloodSplash(bug);
-        float alpha = 1f;
-        if (bloodSpot != null) {
+        BaseScratch[] scratches = ObjectsStore.getScratches(bug);
 
-            alpha = getAlpha(bloodSpot);
-            bloodSpot.elapsedTime += Gdx.graphics.getDeltaTime();
-            if (bloodSpot.elapsedTime > Constants.BLOOD_SPOT_FADE_TIME) {
-                ObjectsStore.removeAllBlood(bug);
-                bug.dead = true;
+        if(scratches == null) return;
+
+        float alpha = 1f;
+
+        for(BaseScratch scratch: scratches){
+            if(scratch instanceof BloodSpot){
+
+                BloodSplash bloodSplash = ObjectsStore.getBloodSplash(bug);
+                alpha = getAlpha(scratch);
+                scratch.elapsedTime += Gdx.graphics.getDeltaTime();
+
+                if (scratch.elapsedTime > Constants.BLOOD_SPOT_FADE_TIME) {
+                    ObjectsStore.clearAllScratches(bug);
+                    bug.dead = true;
+                }
+
+                if (bloodSplash != null) {
+                    List<List<BasicObject>> listList = bloodSplash.getListOfBloodSprites();
+                    for (List<BasicObject> list : listList) {
+                        for (BasicObject bloodSprite : list) {
+                            batch.setColor(1, 1, 1, alpha);
+                            batch.draw(bloodSprite.getTexture(), bloodSprite.getPolygon().getX(), bloodSprite.getPolygon().getY(),
+                                    bloodSprite.getCameraDimensions()[0], bloodSprite.getCameraDimensions()[1]);
+                            batch.setColor(1, 1, 1, 1);
+                        }
+                    }
+                }
             }
 
-            BasicObject blood = bloodSpot.getScratchSprite();
-            if (blood != null) {
-                Polygon polygon = blood.getPolygon();
+            BasicObject scratchSprite = scratch.getScratchSprite();
+
+            if (scratchSprite != null) {
+                Polygon polygon = scratchSprite.getPolygon();
 
                 batch.setColor(1, 1, 1, alpha);
-                batch.draw(blood.getTexture(), polygon.getX(), polygon.getY(), 0, 0,
-                        blood.getCameraDimensions()[0], blood.getCameraDimensions()[1], 1, 1,
-                        polygon.getRotation(), 0, 0, blood.getTexture().getWidth(),
-                        blood.getTexture().getHeight(), false, false);
+                batch.draw(scratchSprite.getTexture(), polygon.getX(), polygon.getY(), 0, 0,
+                        scratchSprite.getCameraDimensions()[0], scratchSprite.getCameraDimensions()[1], 1, 1,
+                        polygon.getRotation(), 0, 0, scratchSprite.getTexture().getWidth(),
+                        scratchSprite.getTexture().getHeight(), false, false);
                 batch.setColor(1, 1, 1, 1);
             }
         }
-
-        if (bloodSplash != null) {
-            List<List<BasicObject>> listList = bloodSplash.getListOfBloodSprites();
-            for (List<BasicObject> list : listList) {
-                for (BasicObject bloodSprite : list) {
-                    batch.setColor(1, 1, 1, alpha);
-                    batch.draw(bloodSprite.getTexture(), bloodSprite.getPolygon().getX(), bloodSprite.getPolygon().getY(),
-                            bloodSprite.getCameraDimensions()[0], bloodSprite.getCameraDimensions()[1]);
-                    batch.setColor(1, 1, 1, 1);
-                }
-            }
-        }
-
     }
 
     public static void renderLives(SpriteBatch batch, Bug[] lives) throws Exception {
@@ -103,18 +113,21 @@ public class ImageRenderers {
                 ImageRenderers.renderBug(batch, bug);
             }
         }
-        for(Bug bug: ObjectsStore.getDeadBugList()){
+        for(Bug bug: ObjectsStore.getHitBugList()){
             ImageRenderers.renderBug(batch, bug);
         }
     }
 
-    public static void renderBloods(SpriteBatch batch) throws Exception {
-        List<Bug> bugList = ObjectsStore.getDeadBugList();
+    public static void renderScratches(SpriteBatch batch) throws Exception {
+        List<Bug> bugList = ObjectsStore.getHitBugList();
         synchronized (bugList) {
-            for (Bug bedBug : bugList) {
-                if (bedBug.hit) {
-                    ImageRenderers.renderBlood(batch, bedBug);
-                }
+            for (Bug bedBug : bugList) ImageRenderers.renderBlood(batch, bedBug);
+        }
+
+        bugList = ObjectsStore.getBugList();
+        synchronized (bugList){
+            for(Bug bug: bugList){
+                if(bug instanceof BronzeBug || bug instanceof SteelBug) ImageRenderers.renderBlood(batch, bug);
             }
         }
     }
@@ -122,8 +135,9 @@ public class ImageRenderers {
     private static void renderBug(SpriteBatch batch, Bug bedBug) throws Exception {
         Polygon bugPolygon = bedBug.getPolygon();
 
-        BaseScratch bloodSpot = ObjectsStore.getScratch(bedBug);
-        if (bloodSpot != null) {
+        BaseScratch[] scratches = ObjectsStore.getScratches(bedBug);
+        if (scratches != null && scratches[0] instanceof BloodSpot) {
+            BloodSpot bloodSpot = (BloodSpot) scratches[0];
             float alpha = getAlpha(bloodSpot);
             batch.setColor(1, 1, 1, alpha);
             bedBug.elapsedTime = 0;

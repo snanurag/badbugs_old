@@ -7,10 +7,10 @@ import com.badbugs.baseframework.sounds.SoundPlayer;
 import com.badbugs.dynamics.strikes.BloodSplash;
 import com.badbugs.dynamics.strikes.BloodSpot;
 import com.badbugs.dynamics.strikes.BronzeScratch;
-import com.badbugs.objects.bugs.BronzeBug;
-import com.badbugs.objects.bugs.Bug;
-import com.badbugs.objects.bugs.SteelBug;
+import com.badbugs.objects.bugs.*;
+import com.badbugs.objects.knives.BronzeKnife;
 import com.badbugs.objects.knives.Knife;
+import com.badbugs.objects.knives.SteelKnife;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.util.Constants;
 import com.badbugs.util.TouchInfo;
@@ -50,6 +50,12 @@ public class KnifeMovement {
 
         if (directionVector != null) {
             return;
+        }
+
+        synchronized (ObjectsStore.getBugList()){
+            for(Bug bug: ObjectsStore.getBugList()){
+                bug.hitInThisThrow = false;
+            }
         }
 
         Polygon polygon = knife.getPolygon();
@@ -115,7 +121,7 @@ public class KnifeMovement {
 
             if (!checkIfPointInBoundary(polygon.getX(), polygon.getY())) {
 
-                Vector2 v = moveVectorInBoundary(polygon.getX(), polygon.getY());
+                Vector2 v = moveKnifeBackInBoundary(polygon.getX(), polygon.getY());
                 polygon.setPosition(v.x, v.y);
                 SoundPlayer.playKnifeWoodImpact();
                 directionVector = null;
@@ -127,7 +133,44 @@ public class KnifeMovement {
         }
     }
 
-    private static Vector2 moveVectorInBoundary(float x, float y) {
+    private static void attemptToCutAllBugs(Knife knife) throws Exception {
+        synchronized (ObjectsStore.getBugList()) {
+            Iterator<Bug> itr = ObjectsStore.getBugList().iterator();
+            while(itr.hasNext()){
+                Bug bug = itr.next();
+                Vector2 bugCenter = Util.getPolygonCenter(bug.getPolygon());
+
+                Vector2 currentState = Util.getStateOfBugWRTKnife(bugCenter.x, bugCenter.y, knife.getPolygon());
+
+                if (!bug.hitInThisThrow && bug.isStateChanged(currentState.x, currentState.y)) {
+                    bug.hitInThisThrow = true;
+                    Vector2 hitCoords = getKnifeAndBugHitCoords(bug, knife);
+                    if(hitCoords != null){
+                        createScratch(bug, knife, hitCoords);
+                        if (knife instanceof BronzeKnife) {
+                            bug.hitCount++;
+                            bug.hitCount++;
+                        } else if (knife instanceof SteelKnife) {
+                            bug.hitCount++;
+                            bug.hitCount++;
+                            bug.hitCount++;
+                        } else bug.hitCount++;
+                        if (bug instanceof BronzeBug && bug.hitCount >= 2 || bug instanceof SteelBug && bug.hitCount
+                                >= 3 || bug instanceof BlackBug || bug instanceof BedBug || bug instanceof LadyBug) {
+                            bug.hit = true;
+                            itr.remove();
+                            ObjectsStore.addHitBug(bug);
+                            ObjectsStore.score++;
+                            if(bug instanceof BronzeBug || bug instanceof SteelBug)
+                                ObjectsStore.clearAllScratches(bug);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static Vector2 moveKnifeBackInBoundary(float x, float y) {
 
         if (x >= XLimit || x <= -XLimit || y >= YLimit || y <= -YLimit) {
             if (x >= XLimit) {
@@ -149,13 +192,7 @@ public class KnifeMovement {
         return new Vector2(x, y);
     }
 
-    private static boolean checkIfPointInBoundary(float x, float y) {
-        if (x <= XLimit && x >= -XLimit && y <= YLimit && y >= -YLimit)
-            return true;
-        return false;
-    }
-
-    private static boolean attemptToCreateBlood(Bug bug, Knife knife) throws Exception {
+    private static Vector2 getKnifeAndBugHitCoords(Bug bug, Knife knife) throws Exception {
 
         Polygon bugPolygon = bug.getPolygon();
         Polygon knifePolygon = knife.getPolygon();
@@ -166,40 +203,51 @@ public class KnifeMovement {
         float x1 = tip.x;
         float y1 = tip.y;
 
-        Vector2 hitPoint = getHiPointInXIncreasing(bugPolygon, x1, y1, a);
+        Vector2 hitCoords = getHitCoordsInXIncreasing(bugPolygon, x1, y1, a);
 
-        if (hitPoint == null) {
-            hitPoint = getHiPointInXDecreasing(bugPolygon, x1, y1, a);
+        if (hitCoords == null) {
+            hitCoords = getHitCoordsInXDecreasing(bugPolygon, x1, y1, a);
         }
 
+        return hitCoords;
+    }
+
+    private static void createScratch(Bug bug, Knife knife, Vector2 hitPoint) throws Exception{
         if (hitPoint != null) {
-            if (ObjectsStore.getScratch(bug) == null) {
+            if (ObjectsStore.getScratches(bug) == null) {
                 if(bug instanceof BronzeBug){
-                    ObjectsStore.add(bug, new BronzeScratch(bug, knife, hitPoint));
+                    ObjectsStore.add(bug, new BronzeScratch[1]);
+                    ObjectsStore.add(bug,0, new BronzeScratch(bug, knife, hitPoint));
                 }
                 else if(bug instanceof SteelBug){
 
                 }
                 else {
-                    ObjectsStore.add(bug, new BloodSpot(bug, knife, hitPoint));
-                    BloodSpot bloodSpot = (BloodSpot) ObjectsStore.getScratch(bug);
+                    ObjectsStore.add(bug, new BloodSpot[1]);
+                    ObjectsStore.add(bug, 0, new BloodSpot(bug, knife, hitPoint));
+                    BloodSpot bloodSpot = (BloodSpot) ObjectsStore.getScratches(bug)[0];
                     ObjectsStore.add(bug, new BloodSplash(new Vector2((bloodSpot.startPoint.x + bloodSpot.endPoint.x) / 2,
                             (bloodSpot.startPoint.y + bloodSpot.endPoint.y) / 2),
                             bloodSpot.getScratchSprite().getCameraDimensions()[0], knife));
                 }
                 SoundPlayer.playKnifeBugImpact();
             }
-            return true;
         }
+
+    }
+
+    private static boolean checkIfPointInBoundary(float x, float y) {
+        if (x <= XLimit && x >= -XLimit && y <= YLimit && y >= -YLimit)
+            return true;
         return false;
     }
 
-    private static Vector2 getHiPointInXIncreasing(Polygon bugPolygon, float x1, float y1, float a) {
+    private static Vector2 getHitCoordsInXIncreasing(Polygon bugPolygon, float x1, float y1, float a) {
         return getHitPoint(bugPolygon, x1, y1, a, 0.01f);
 
     }
 
-    private static Vector2 getHiPointInXDecreasing(Polygon bugPolygon, float x1, float y1, float a) {
+    private static Vector2 getHitCoordsInXDecreasing(Polygon bugPolygon, float x1, float y1, float a) {
         return getHitPoint(bugPolygon, x1, y1, a, -0.01f);
 
     }
@@ -245,34 +293,6 @@ public class KnifeMovement {
 
             }
         }
-    }
-
-    private static void attemptToCutAllBugs(Knife knife) throws Exception {
-        synchronized (ObjectsStore.getBugList()) {
-            Iterator<Bug> itr = ObjectsStore.getBugList().iterator();
-            while(itr.hasNext()){
-                Bug bug = itr.next();
-                Vector2 bugCenter = Util.getPolygonCenter(bug.getPolygon());
-
-                Vector2 currentState = Util.getStateOfBugWRTKnife(bugCenter.x, bugCenter.y, knife.getPolygon());
-
-                if (bug.isStateChanged(currentState.x, currentState.y)) {
-                    updateBugsState(knife);
-                    if(attemptToCreateBlood(bug, knife)){
-                        if (bug instanceof BronzeBug && bug.hitCount < 1 || bug instanceof SteelBug && bug.hitCount <
-                                2) {
-                            bug.hitCount++;
-                        } else {
-                            bug.hit = true;
-                            itr.remove();
-                            ObjectsStore.addDeadBug(bug);
-                            ObjectsStore.score++;
-                        }
-                    }
-                }
-            }
-        }
-
     }
 
     public float getAngle() {
