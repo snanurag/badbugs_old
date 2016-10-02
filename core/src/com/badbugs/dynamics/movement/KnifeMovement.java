@@ -7,6 +7,7 @@ import com.badbugs.baseframework.sounds.SoundPlayer;
 import com.badbugs.dynamics.strikes.BloodSplash;
 import com.badbugs.dynamics.strikes.BloodSpot;
 import com.badbugs.dynamics.strikes.BronzeScratch;
+import com.badbugs.dynamics.strikes.SteelScratch;
 import com.badbugs.objects.bugs.*;
 import com.badbugs.objects.knives.BronzeKnife;
 import com.badbugs.objects.knives.Knife;
@@ -170,6 +171,35 @@ public class KnifeMovement {
         }
     }
 
+    private static void createScratch(Bug bug, Knife knife, Vector2 hitPoint) throws Exception{
+        if (hitPoint != null) {
+            if (ObjectsStore.getScratches(bug) == null) {
+                if(bug instanceof BronzeBug){
+                    ObjectsStore.add(bug, new BronzeScratch[1]);
+                    ObjectsStore.add(bug,0, new BronzeScratch(bug, knife, hitPoint));
+                }
+                else if(bug instanceof SteelBug){
+                    if(ObjectsStore.getScratches(bug) == null){
+                        ObjectsStore.add(bug, new SteelScratch[2]);
+                        ObjectsStore.add(bug, 0, new SteelScratch(bug, knife, hitPoint));
+                    }
+                    else {
+                        ObjectsStore.add(bug, 1, new SteelScratch(bug, knife, hitPoint));
+                    }
+                }
+                else {
+                    ObjectsStore.add(bug, new BloodSpot[1]);
+                    ObjectsStore.add(bug, 0, new BloodSpot(bug, knife, hitPoint));
+                    BloodSpot bloodSpot = (BloodSpot) ObjectsStore.getScratches(bug)[0];
+                    ObjectsStore.add(bug, new BloodSplash(new Vector2((bloodSpot.startPoint.x + bloodSpot.endPoint.x) / 2,
+                            (bloodSpot.startPoint.y + bloodSpot.endPoint.y) / 2),
+                            bloodSpot.getScratchSprite().getCameraDimensions()[0], knife));
+                }
+                SoundPlayer.playKnifeBugImpact();
+            }
+        }
+    }
+
     private static Vector2 moveKnifeBackInBoundary(float x, float y) {
 
         if (x >= XLimit || x <= -XLimit || y >= YLimit || y <= -YLimit) {
@@ -210,30 +240,6 @@ public class KnifeMovement {
         }
 
         return hitCoords;
-    }
-
-    private static void createScratch(Bug bug, Knife knife, Vector2 hitPoint) throws Exception{
-        if (hitPoint != null) {
-            if (ObjectsStore.getScratches(bug) == null) {
-                if(bug instanceof BronzeBug){
-                    ObjectsStore.add(bug, new BronzeScratch[1]);
-                    ObjectsStore.add(bug,0, new BronzeScratch(bug, knife, hitPoint));
-                }
-                else if(bug instanceof SteelBug){
-
-                }
-                else {
-                    ObjectsStore.add(bug, new BloodSpot[1]);
-                    ObjectsStore.add(bug, 0, new BloodSpot(bug, knife, hitPoint));
-                    BloodSpot bloodSpot = (BloodSpot) ObjectsStore.getScratches(bug)[0];
-                    ObjectsStore.add(bug, new BloodSplash(new Vector2((bloodSpot.startPoint.x + bloodSpot.endPoint.x) / 2,
-                            (bloodSpot.startPoint.y + bloodSpot.endPoint.y) / 2),
-                            bloodSpot.getScratchSprite().getCameraDimensions()[0], knife));
-                }
-                SoundPlayer.playKnifeBugImpact();
-            }
-        }
-
     }
 
     private static boolean checkIfPointInBoundary(float x, float y) {
