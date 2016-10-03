@@ -3,9 +3,9 @@ package com.badbugs.baseframework.renderers;
 import com.badbugs.Game;
 import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.dynamics.strikes.BaseScratch;
-import com.badbugs.dynamics.strikes.BloodSplash;
 import com.badbugs.dynamics.strikes.BloodSpot;
 import com.badbugs.dynamics.strikes.OilSpot;
+import com.badbugs.dynamics.strikes.Splash;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.BronzeBug;
@@ -50,31 +50,32 @@ public class ImageRenderers {
 
         BaseScratch[] scratches = ObjectsStore.getScratches(bug);
 
-        if(scratches == null) return;
+        if (scratches == null) return;
 
-        float alpha = 1f;
+        float elapsedTime = getElapsedTimeForScratches(scratches);
 
-        for(BaseScratch scratch: scratches){
+        if (elapsedTime > Constants.BLOOD_SPOT_FADE_TIME) {
+            ObjectsStore.clearAllScratches(bug);
+            bug.dead = true;
+        }
 
-            if(scratch == null) continue;
+        float alpha = getAlpha(elapsedTime);
 
-            if(scratch instanceof BloodSpot || scratch instanceof OilSpot){
+        for (BaseScratch scratch : scratches) {
 
-                BloodSplash bloodSplash = ObjectsStore.getBloodSplash(bug);
-                alpha = getAlpha(scratch);
-                scratch.elapsedTime += Gdx.graphics.getDeltaTime();
+            if (scratch == null) continue;
 
-                if (scratch.elapsedTime > Constants.BLOOD_SPOT_FADE_TIME) {
-                    ObjectsStore.clearAllScratches(bug);
-                    bug.dead = true;
-                }
+            if (scratch instanceof BloodSpot || scratch instanceof OilSpot) {
 
-                if (bloodSplash != null) {
-                    List<List<BasicObject>> listList = bloodSplash.getListOfBloodSprites();
+                Splash splash = ObjectsStore.getSplash(bug);
+
+                if (splash != null) {
+                    List<List<BasicObject>> listList = splash.getListOfBloodSprites();
                     for (List<BasicObject> list : listList) {
                         for (BasicObject bloodSprite : list) {
                             batch.setColor(1, 1, 1, alpha);
-                            batch.draw(bloodSprite.getTexture(), bloodSprite.getPolygon().getX(), bloodSprite.getPolygon().getY(),
+                            batch.draw(bloodSprite.getTexture(), bloodSprite.getPolygon().getX(), bloodSprite
+                                    .getPolygon().getY(),
                                     bloodSprite.getCameraDimensions()[0], bloodSprite.getCameraDimensions()[1]);
                             batch.setColor(1, 1, 1, 1);
                         }
@@ -95,6 +96,17 @@ public class ImageRenderers {
                 batch.setColor(1, 1, 1, 1);
             }
         }
+    }
+
+    private static float getElapsedTimeForScratches(BaseScratch[] scratches){
+
+        for(BaseScratch scratch:scratches){
+            if(scratch instanceof BloodSpot || scratch instanceof OilSpot){
+                scratch.elapsedTime += Gdx.graphics.getDeltaTime();
+                return scratch.elapsedTime;
+            }
+        }
+        return 0;
     }
 
     public static void renderLives(SpriteBatch batch, Bug[] lives) throws Exception {
@@ -141,9 +153,16 @@ public class ImageRenderers {
         Polygon bugPolygon = bedBug.getPolygon();
 
         BaseScratch[] scratches = ObjectsStore.getScratches(bedBug);
-        if (scratches != null && scratches[0] instanceof BloodSpot) {
-            BloodSpot bloodSpot = (BloodSpot) scratches[0];
-            float alpha = getAlpha(bloodSpot);
+
+        float elapsedTime;
+        if (scratches == null) elapsedTime = 0;
+        else elapsedTime = getElapsedTimeForScratches(scratches);
+
+        if (elapsedTime > 0) {
+
+//            BloodSpot bloodSpot = (BloodSpot) scratches[0];
+            float alpha = getAlpha(elapsedTime);
+
             batch.setColor(1, 1, 1, alpha);
             bedBug.elapsedTime = 0;
         } else {
@@ -181,10 +200,10 @@ public class ImageRenderers {
 
     }
 
-    private static float getAlpha(BaseScratch bloodSpot) {
+    private static float getAlpha(float elapsedTime) {
         float alpha;
-        if (bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME < 1) {
-            alpha = 1 - bloodSpot.elapsedTime / Constants.BLOOD_SPOT_FADE_TIME;
+        if (elapsedTime / Constants.BLOOD_SPOT_FADE_TIME < 1) {
+            alpha = 1 - elapsedTime / Constants.BLOOD_SPOT_FADE_TIME;
         } else {
             alpha = 0f;
         }

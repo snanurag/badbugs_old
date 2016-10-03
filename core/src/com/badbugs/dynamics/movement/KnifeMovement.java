@@ -144,7 +144,6 @@ public class KnifeMovement {
                     bug.hitInThisThrow = true;
                     Vector2 hitCoords = getKnifeAndBugHitCoords(bug, knife);
                     if(hitCoords != null){
-                        createScratch(bug, knife, hitCoords);
                         if (knife instanceof BronzeKnife) {
                             bug.hitCount++;
                             bug.hitCount++;
@@ -153,6 +152,9 @@ public class KnifeMovement {
                             bug.hitCount++;
                             bug.hitCount++;
                         } else bug.hitCount++;
+
+                        createScratch(bug, knife, hitCoords);
+
                         if (bug instanceof BronzeBug && bug.hitCount >= 2 || bug instanceof SteelBug && bug.hitCount
                                 >= 3 || bug instanceof BlackBug || bug instanceof BedBug || bug instanceof LadyBug) {
                             bug.hit = true;
@@ -168,39 +170,45 @@ public class KnifeMovement {
         }
     }
 
-    private static void createScratch(Bug bug, Knife knife, Vector2 hitPoint) throws Exception{
+    private static void createScratch(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
         if (hitPoint != null) {
             if (bug instanceof BronzeBug) {
-                if (ObjectsStore.getScratches(bug) == null) {
-                    ObjectsStore.add(bug, new BaseScratch[2]);
-                    ObjectsStore.add(bug, 0, new BronzeScratch(bug, knife, hitPoint));
-                } else {
-                    ObjectsStore.add(bug, 1, new OilSpot(bug, knife, hitPoint));
+                if (ObjectsStore.getScratches(bug) == null) ObjectsStore.add(bug, new BaseScratch[2]);
+                if (bug.hitCount >= 2){
+                    OilSpot spot = new OilSpot(bug, knife, hitPoint);
+                    ObjectsStore.add(bug, 1, spot);
+                    createSplash(bug, spot, knife);
                 }
+                else ObjectsStore.add(bug, 0, new BronzeScratch(bug, knife, hitPoint));
             } else if (bug instanceof SteelBug) {
-                if (ObjectsStore.getScratches(bug) == null) {
-                    ObjectsStore.add(bug, new BaseScratch[3]);
-                    ObjectsStore.add(bug, 0, new SteelScratch(bug, knife, hitPoint));
-                } else if(ObjectsStore.getScratches(bug)[1] == null){
-                    ObjectsStore.add(bug, 1, new SteelScratch(bug, knife, hitPoint));
-                } else {
-                    ObjectsStore.add(bug, 2, new OilSpot(bug, knife, hitPoint));
+                if (ObjectsStore.getScratches(bug) == null) ObjectsStore.add(bug, new BaseScratch[3]);
+                if (bug.hitCount == 2) ObjectsStore.add(bug, 1, new SteelScratch(bug, knife, hitPoint));
+                else if (bug.hitCount >= 3){
+                    OilSpot spot = new OilSpot(bug, knife, hitPoint);
+                    ObjectsStore.add(bug, 2, spot);
+                    createSplash(bug, spot, knife);
                 }
-
+                else ObjectsStore.add(bug, 0, new SteelScratch(bug, knife, hitPoint));
             } else {
                 if (ObjectsStore.getScratches(bug) == null) {
 
                     ObjectsStore.add(bug, new BloodSpot[1]);
                     ObjectsStore.add(bug, 0, new BloodSpot(bug, knife, hitPoint));
                     BloodSpot bloodSpot = (BloodSpot) ObjectsStore.getScratches(bug)[0];
-                    ObjectsStore.add(bug, new BloodSplash(new Vector2((bloodSpot.startPoint.x + bloodSpot.endPoint.x)
-                            / 2,
-                            (bloodSpot.startPoint.y + bloodSpot.endPoint.y) / 2),
-                            bloodSpot.getScratchSprite().getCameraDimensions()[0], knife));
+                   createSplash(bug, bloodSpot, knife);
                 }
             }
             SoundPlayer.playKnifeBugImpact();
         }
+    }
+
+    private static void createSplash(Bug bug, BaseScratch spot, Knife knife) throws Exception {
+        if(spot instanceof BloodSpot)
+            ObjectsStore.add(bug, new BloodSplash(new Vector2((spot.startPoint.x + spot.endPoint.x) / 2, (spot.startPoint
+                .y + spot.endPoint.y) / 2), spot.getScratchSprite().getCameraDimensions()[0], knife));
+        else
+            ObjectsStore.add(bug, new OilSplash(new Vector2((spot.startPoint.x + spot.endPoint.x) / 2, (spot.startPoint
+                    .y + spot.endPoint.y) / 2), spot.getScratchSprite().getCameraDimensions()[0], knife));
     }
 
     private static Vector2 moveKnifeBackInBoundary(float x, float y) {

@@ -3,6 +3,7 @@ package com.badbugs.baseframework.elements;
 import com.badbugs.Game;
 import com.badbugs.dynamics.strikes.BaseScratch;
 import com.badbugs.dynamics.strikes.BloodSplash;
+import com.badbugs.dynamics.strikes.Splash;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.Bug;
@@ -22,7 +23,7 @@ public class ObjectsStore {
   private static List<Bug> bugList = new ArrayList<Bug>();
   private static List<Bug> hitBugList = new ArrayList<Bug>();
   private static Map<Bug, BaseScratch[]> scratchMap = new HashMap<Bug, BaseScratch[]>();
-  private static Map<Bug, BloodSplash> bloodSplashMap = new HashMap<Bug, BloodSplash>();
+  private static Map<Bug, Splash> splashMap = new HashMap<Bug, Splash>();
   private static Map<Constants.KNIFE_TYPE, Knife> knifeMap = new HashMap<Constants.KNIFE_TYPE, Knife>();
   private static Map<Constants.PANEL, BasicObject> panelMap = new HashMap<Constants.PANEL, BasicObject>();
   private static GameOver gameoverBackground;
@@ -69,19 +70,19 @@ public class ObjectsStore {
     return  scratchMap.get(bug);
   }
 
-  public static void add(Bug bug, BloodSplash bloodSplash)
+  public static void add(Bug bug, Splash splash)
   {
-    bloodSplashMap.put(bug, bloodSplash);
+    splashMap.put(bug, splash);
   }
 
-  public static BloodSplash getBloodSplash(Bug bug)
+  public static Splash getSplash(Bug bug)
   {
-    return  bloodSplashMap.get(bug);
+    return  splashMap.get(bug);
   }
 
   public static void clearAllScratches(Bug bug) {
     scratchMap.remove(bug);
-    bloodSplashMap.remove(bug);
+    splashMap.remove(bug);
   }
 
   public static void add(Constants.KNIFE_TYPE t, Knife k) throws Exception {
