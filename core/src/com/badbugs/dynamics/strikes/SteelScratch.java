@@ -17,26 +17,37 @@ public class SteelScratch extends BaseScratch{
     public SteelScratch(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
         super(bug, knife, hitPoint);
     }
+//
+//    public void updateBloodSpotDimensions(Vector2 hitPoint) throws Exception {
+//
+//        float bloodSpotLength = getBloodLength(hitPoint);
+//        float angle = knife.getPolygon().getRotation();
+//
+//        this.bronzeScratch = SpritesCreator.getBronzeScratch();
+//        bronzeScratch.getPolygon().setRotation(angle);
+//        bronzeScratch.setCameraDimensions(new float[]{bloodSpotLength, Constants.BRONZE_SCRATCH_WIDTH});
+//
+//        // Setting it only for store. Polygon is not used anywhere for calculation.
+//        bronzeScratch.getPolygon()
+//                .setOrigin(bronzeScratch.getCameraDimensions()[0] / 2, bronzeScratch.getCameraDimensions()[1] / 2);
+//
+//        Vector2 centerAfterRotation = Util
+//                .rotateVectorByGivenAngle(0, bronzeScratch.getPolygon().getOriginY(), bronzeScratch.getPolygon().getRotation());
+//        bronzeScratch.getPolygon().setPosition(startPoint.x - centerAfterRotation.x, startPoint.y - centerAfterRotation.y);
+//    }
+//
+//    public BasicObject getScratchSprite() {
+//        return bronzeScratch;
+//    }
 
-    public void updateBloodSpotDimensions(Vector2 hitPoint) throws Exception {
-
-        float bloodSpotLength = getBloodLength(hitPoint);
-        float angle = knife.getPolygon().getRotation();
-
-        this.bronzeScratch = SpritesCreator.getBronzeScratch();
-        bronzeScratch.getPolygon().setRotation(angle);
-        bronzeScratch.setCameraDimensions(new float[]{bloodSpotLength, Constants.BRONZE_SCRATCH_WIDTH});
-
-        // Setting it only for store. Polygon is not used anywhere for calculation.
-        bronzeScratch.getPolygon()
-                .setOrigin(bronzeScratch.getCameraDimensions()[0] / 2, bronzeScratch.getCameraDimensions()[1] / 2);
-
-        Vector2 centerAfterRotation = Util
-                .rotateVectorByGivenAngle(0, bronzeScratch.getPolygon().getOriginY(), bronzeScratch.getPolygon().getRotation());
-        bronzeScratch.getPolygon().setPosition(startPoint.x - centerAfterRotation.x, startPoint.y - centerAfterRotation.y);
+    @Override
+    public BasicObject getScratchSprite(float len) {
+        return SpritesCreator.getBronzeScratch();
     }
 
-    public BasicObject getScratchSprite() {
-        return bronzeScratch;
+    @Override
+    public float getScratchLen() {
+        return Constants.BRONZE_SCRATCH_WIDTH;
     }
+
 }

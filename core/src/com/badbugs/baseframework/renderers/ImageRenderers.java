@@ -5,6 +5,7 @@ import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.dynamics.strikes.BaseScratch;
 import com.badbugs.dynamics.strikes.BloodSplash;
 import com.badbugs.dynamics.strikes.BloodSpot;
+import com.badbugs.dynamics.strikes.OilSpot;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.BronzeBug;
@@ -54,7 +55,10 @@ public class ImageRenderers {
         float alpha = 1f;
 
         for(BaseScratch scratch: scratches){
-            if(scratch instanceof BloodSpot){
+
+            if(scratch == null) continue;
+
+            if(scratch instanceof BloodSpot || scratch instanceof OilSpot){
 
                 BloodSplash bloodSplash = ObjectsStore.getBloodSplash(bug);
                 alpha = getAlpha(scratch);
@@ -133,6 +137,7 @@ public class ImageRenderers {
     }
 
     private static void renderBug(SpriteBatch batch, Bug bedBug) throws Exception {
+
         Polygon bugPolygon = bedBug.getPolygon();
 
         BaseScratch[] scratches = ObjectsStore.getScratches(bedBug);

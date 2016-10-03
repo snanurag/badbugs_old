@@ -1,5 +1,6 @@
 package com.badbugs.dynamics.strikes;
 
+import com.badbugs.creators.SpritesCreator;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
@@ -19,6 +20,7 @@ public abstract class BaseScratch {
     private BasicObject bug;
     protected BasicObject knife;
     public float elapsedTime;
+    private BasicObject bloodSprite;
 
     public BaseScratch(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
         this.bug = bug;
@@ -28,7 +30,30 @@ public abstract class BaseScratch {
 
     }
 
-    public abstract void updateBloodSpotDimensions(Vector2 hitPoint) throws Exception ;
+//    public abstract void updateBloodSpotDimensions(Vector2 hitPoint) throws Exception ;
+
+//    public abstract BasicObject getScratchSprite();
+
+    public abstract BasicObject getScratchSprite(float len);
+    public abstract float getScratchLen();
+
+    public void updateBloodSpotDimensions(Vector2 hitPoint) throws Exception {
+
+        float bloodSpotLength = getBloodLength(hitPoint);
+        float angle = knife.getPolygon().getRotation();
+
+        this.bloodSprite = getScratchSprite(bloodSpotLength);
+        bloodSprite.getPolygon().setRotation(angle);
+        bloodSprite.setCameraDimensions(new float[]{bloodSpotLength, getScratchLen()});
+
+        // Setting it only for store. Polygon is not used anywhere for calculation.
+        bloodSprite.getPolygon()
+                .setOrigin(bloodSprite.getCameraDimensions()[0] / 2, bloodSprite.getCameraDimensions()[1] / 2);
+
+        Vector2 centerAfterRotation = Util
+                .rotateVectorByGivenAngle(0, bloodSprite.getPolygon().getOriginY(), bloodSprite.getPolygon().getRotation());
+        bloodSprite.getPolygon().setPosition(startPoint.x - centerAfterRotation.x, startPoint.y - centerAfterRotation.y);
+    }
 
     protected float getBloodLength(Vector2 hitPoint)throws Exception{
         if (hitPoint == null)
@@ -61,6 +86,8 @@ public abstract class BaseScratch {
         return startPoint;
     }
 
-    public abstract BasicObject getScratchSprite();
+    public BasicObject getScratchSprite() {
+        return bloodSprite;
+    }
 
 }

@@ -29,10 +29,12 @@ public class SpritesCreator {
     private static TextureAtlas texAtlasBronzeBug;
     private static TextureAtlas texAtlasSteelBug;
     private static Texture floorTexture;
-    private static Texture bloodTextureLong;
     private static Texture bloodTextureMedium;
     private static Texture bloodTextureSmall;
     private static Texture bloodDotTexture;
+    private static Texture oilTextureMedium;
+    private static Texture oilTextureSmall;
+    private static Texture oilDotTexture;
     private static Texture lifeTexture;
     private static Texture mainMenuTexture;
     private static Texture gameOverBackgroundTexture;
@@ -70,9 +72,11 @@ public class SpritesCreator {
         knifeBoosterTexture = new Texture(Gdx.files.internal("knife_booster.png"));
         googlePlayTexture = new Texture(Gdx.files.internal("google_play.png"));
         bloodDotTexture  = new Texture(Gdx.files.internal("blood_dot.png"));
-        bloodTextureLong = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
-        bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium_1.png"));
-        bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small_1.png"));
+        bloodTextureMedium = new Texture(Gdx.files.internal("Bloodspot_medium.png"));
+        bloodTextureSmall = new Texture(Gdx.files.internal("Bloodspot_small.png"));
+        oilDotTexture  = new Texture(Gdx.files.internal("oil_dot.png"));
+        oilTextureMedium = new Texture(Gdx.files.internal("oil_medium.png"));
+        oilTextureSmall = new Texture(Gdx.files.internal("oil_small.png"));
         bugNoMovementTexture = new Texture(Gdx.files.internal("life.png"));
         bronzeScratchTexture = new Texture(Gdx.files.internal("bronze_scratch.png"));
 
@@ -365,7 +369,12 @@ public class SpritesCreator {
     }
 
     public static BasicObject getBloodSpot(float len) {
-        AbstractBasicObject bloodSprite = new BasicObjectImpl(getProperBloodTex(len));
+        AbstractBasicObject bloodSprite = new BasicObjectImpl(getRightBloodTex(len));
+        return bloodSprite;
+    }
+
+    public static BasicObject getOilSpot(float len) {
+        AbstractBasicObject bloodSprite = new BasicObjectImpl(getRightOilTex(len));
         return bloodSprite;
     }
 
@@ -373,9 +382,15 @@ public class SpritesCreator {
         return new BasicObjectImpl(bronzeScratchTexture);
     }
 
-    public static BasicObject loadBloodDot()
+    public static BasicObject getBloodDot()
     {
         AbstractBasicObject bloodSprite = new BasicObjectImpl(bloodDotTexture);
+        return bloodSprite;
+    }
+
+    public static BasicObject getOilDot()
+    {
+        AbstractBasicObject bloodSprite = new BasicObjectImpl(oilDotTexture);
         return bloodSprite;
     }
 
@@ -398,9 +413,12 @@ public class SpritesCreator {
     public static void disposeAll() {
         texAtlasBedBug.dispose();
         ObjectsStore.dispose();
-        bloodTextureLong.dispose();
         bloodTextureMedium.dispose();
         bloodTextureSmall.dispose();
+        bloodDotTexture.dispose();
+        oilTextureMedium.dispose();
+        oilTextureSmall.dispose();
+        oilDotTexture.dispose();
         lifeTexture.dispose();
         mainMenuTexture.dispose();
         gameOverBackgroundTexture.dispose();
@@ -416,16 +434,20 @@ public class SpritesCreator {
         backTexture.dispose();
         knifeBoosterTexture.dispose();
         googlePlayTexture.dispose();
-        bloodDotTexture.dispose();
+
     }
 
-    private static Texture getProperBloodTex(float bloodSpotLen) {
-        if (bloodSpotLen < 2)
-            return SpritesCreator.bloodTextureSmall;
-        else if (bloodSpotLen < 6)
-            return SpritesCreator.bloodTextureMedium;
+    private static Texture getRightBloodTex(float bloodSpotLen) {
+        if (bloodSpotLen < 6 && bloodSpotLen > 2 )
+            return bloodTextureMedium;
         else
-            return SpritesCreator.bloodTextureLong;
+            return bloodTextureSmall;
     }
 
+    private static Texture getRightOilTex(float bloodSpotLen) {
+        if (bloodSpotLen < 6 && bloodSpotLen > 2 )
+            return oilTextureMedium;
+        else
+            return oilTextureSmall;
+    }
 }

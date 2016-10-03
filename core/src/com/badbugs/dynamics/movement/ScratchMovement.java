@@ -25,11 +25,13 @@ public class ScratchMovement {
                             float elapsedTime = Gdx.graphics.getDeltaTime();
                             BasicObject basicObject = scratch.getScratchSprite();
 
-                            float x = basicObject.getPolygon().getX() + bug.speed * MathUtils.cosDeg(bug.getPolygon()
-                                    .getRotation() - bug.getInitialAngle()) * elapsedTime;
-                            float y = basicObject.getPolygon().getY() + bug.speed * MathUtils.sinDeg(bug.getPolygon()
-                                    .getRotation() - bug.getInitialAngle()) * elapsedTime;
-                            basicObject.getPolygon().setPosition(x, y);
+                            if(bug.freeze_frame_count == -1){
+                                float x = basicObject.getPolygon().getX() + bug.speed * MathUtils.cosDeg(bug.getPolygon()
+                                        .getRotation() - bug.getInitialAngle()) * elapsedTime;
+                                float y = basicObject.getPolygon().getY() + bug.speed * MathUtils.sinDeg(bug.getPolygon()
+                                        .getRotation() - bug.getInitialAngle()) * elapsedTime;
+                                basicObject.getPolygon().setPosition(x, y);
+                            }
                         }
                     }
                 }
