@@ -170,7 +170,7 @@ public class BugGenerator extends Thread {
 //            case 2 : return Constants.BUG_TYPE.BLACK;
 //            default : return Constants.BUG_TYPE.BED;
 //        }
-        return Constants.BUG_TYPE.STEEL;
+        return Constants.BUG_TYPE.BRONZE;
     }
 
     private Constants.BUG_TYPE getAMetalBug(){
