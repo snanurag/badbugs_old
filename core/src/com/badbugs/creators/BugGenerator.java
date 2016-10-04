@@ -3,9 +3,9 @@ package com.badbugs.creators;
 import com.badbugs.Game;
 import com.badbugs.MainGameScreen;
 import com.badbugs.baseframework.elements.GameStates;
+import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.util.Constants;
-import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.math.Polygon;
 
@@ -21,9 +21,9 @@ public class BugGenerator extends Thread {
     private boolean running = true;
     private final int SINGLE_BUG_RALLY = 3;
     private final int DOUBLE_BUG_RALLY = 5;
-    private final int NORMAL_BUG_RALLY = 15;
-    private final int BRONZE_BUG_RALLY = 3;
-    private int BUG_COUNT_PER_RALLY = 3;
+    private final int ONLYNORMALBUG_RALLY_LIMIT = 15;
+    private final int ONLYBRONZEBUG_RALLY_LIMIT = 3;
+    private int BUG_COUNT_PER_RALLY_LIMIT = 3;
     private int allBugRallyCount = 0;
     private int bronzeBugRallyCount = 0;
     private boolean killsUnder2Sec = false;
@@ -44,32 +44,30 @@ public class BugGenerator extends Thread {
                     running = false;
                 }
 
-                Thread.sleep(1000);
+                Thread.sleep(500);
                 sleepCount++;
-                Util.globalLogger().info("Bug list size -> "+ObjectsStore.getBugList().size());
-                if(sleepCount%2 == 0){
-                    if(ObjectsStore.getBugList().isEmpty()){
+                Util.globalLogger().info("Bug list size -> " + ObjectsStore.getBugList().size());
+                if (sleepCount % 5 == 0) {
+                    if (allBugRallyCount > ONLYNORMALBUG_RALLY_LIMIT + ONLYBRONZEBUG_RALLY_LIMIT && ObjectsStore
+                            .getBugList().isEmpty()) {
                         killsUnder2Sec = true;
                         consecutiveKillCountUnder2Sec++;
-                        if(consecutiveKillCountUnder2Sec == 15) BUG_COUNT_PER_RALLY++;
-                    }
-                    else consecutiveKillCountUnder2Sec = 0;
+                        if (consecutiveKillCountUnder2Sec == 5) BUG_COUNT_PER_RALLY_LIMIT++;
+                    } else consecutiveKillCountUnder2Sec = 0;
                 }
-                if(sleepCount%3 == 0){
+                if (sleepCount % 6 == 0) {
                     sleepCount = 0;
-                    if(IsABugMissed()) BUG_COUNT_PER_RALLY = 3;
-                    if (!MainGameScreen.isPaused){
-                        if(allBugRallyCount < SINGLE_BUG_RALLY) createBug(1, getANormalBug());
-                        else if(allBugRallyCount < SINGLE_BUG_RALLY + DOUBLE_BUG_RALLY) createBug(2, getANormalBug());
-                        else if(!wasLastBugMetal && allBugRallyCount >= NORMAL_BUG_RALLY && killsUnder2Sec){
-                            if(bronzeBugRallyCount < BRONZE_BUG_RALLY){
-                                createBug(BUG_COUNT_PER_RALLY, Constants.BUG_TYPE.BRONZE);
+                    if (IsABugMissed()) BUG_COUNT_PER_RALLY_LIMIT = 3;
+                    if (!MainGameScreen.isPaused) {
+                        if (allBugRallyCount < SINGLE_BUG_RALLY) createBug(1, getANormalBug());
+                        else if (allBugRallyCount < SINGLE_BUG_RALLY + DOUBLE_BUG_RALLY) createBug(2, getANormalBug());
+                        else if (!wasLastBugMetal && allBugRallyCount >= ONLYNORMALBUG_RALLY_LIMIT && killsUnder2Sec) {
+                            if (bronzeBugRallyCount < ONLYBRONZEBUG_RALLY_LIMIT) {
+                                createBug(BUG_COUNT_PER_RALLY_LIMIT, Constants.BUG_TYPE.BRONZE);
                                 bronzeBugRallyCount++;
-                            }
-                            else createBug(BUG_COUNT_PER_RALLY, getAMetalBug());
+                            } else createBug(BUG_COUNT_PER_RALLY_LIMIT, getAMetalBug());
                             wasLastBugMetal = true;
-                        }
-                        else createBug(BUG_COUNT_PER_RALLY, getANormalBug());
+                        } else createBug(BUG_COUNT_PER_RALLY_LIMIT, getANormalBug());
                         allBugRallyCount++;
                     }
                     killsUnder2Sec = false;
@@ -164,15 +162,15 @@ public class BugGenerator extends Thread {
     }
 
     private Constants.BUG_TYPE getANormalBug(){
-        wasLastBugMetal = false;
-        int i =(int) getValFromZeroToMax(3);
-        switch (i){
-            case 0 : return Constants.BUG_TYPE.BED;
-            case 1 : return Constants.BUG_TYPE.LADY;
-            case 2 : return Constants.BUG_TYPE.BLACK;
-            default : return Constants.BUG_TYPE.BED;
-        }
-//        return Constants.BUG_TYPE.BRONZE;
+//        wasLastBugMetal = false;
+//        int i =(int) getValFromZeroToMax(3);
+//        switch (i){
+//            case 0 : return Constants.BUG_TYPE.BED;
+//            case 1 : return Constants.BUG_TYPE.LADY;
+//            case 2 : return Constants.BUG_TYPE.BLACK;
+//            default : return Constants.BUG_TYPE.BED;
+//        }
+        return Constants.BUG_TYPE.STEEL;
     }
 
     private Constants.BUG_TYPE getAMetalBug(){

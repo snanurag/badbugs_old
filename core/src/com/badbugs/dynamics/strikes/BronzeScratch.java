@@ -5,8 +5,6 @@ import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;
-import com.badbugs.util.ObjectsCord;
-import com.badbugs.util.Util;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -27,7 +25,7 @@ public class BronzeScratch extends BaseScratch {
 //
 //        this.bronzeScratch = SpritesCreator.getBronzeScratch();
 //        bronzeScratch.getPolygon().setRotation(angle);
-//        bronzeScratch.setCameraDimensions(new float[]{bloodSpotLength, Constants.BRONZE_SCRATCH_WIDTH});
+//        bronzeScratch.setCameraDimensions(new float[]{bloodSpotLength, Constants.METAL_SCRATCH_WIDTH});
 //
 //        // Setting it only for store. Polygon is not used anywhere for calculation.
 //        bronzeScratch.getPolygon()
@@ -49,7 +47,7 @@ public class BronzeScratch extends BaseScratch {
 
     @Override
     public float getScratchLen() {
-        return Constants.BRONZE_SCRATCH_WIDTH;
+        return Constants.METAL_SCRATCH_WIDTH;
     }
 
 
