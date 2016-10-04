@@ -19,8 +19,8 @@ public class SteelBug extends Bug {
     //Pixels
     private static int[] BUG_CENTER = { 135, 160 };
 
-    private static float BUG_HEIGHT = 14;
-    private static float BUG_WIDTH = 14 * 11 / 14;
+    private static float BUG_HEIGHT = 15;
+    private static float BUG_WIDTH = 15 * 11 / 14;
 
     private static float BUG_FRAME_RATE[] = {1 / 60f, 1 / 85f, 1 / 100f, 1 / 120f, 1 / 150f};
 

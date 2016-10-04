@@ -162,15 +162,14 @@ public class BugGenerator extends Thread {
     }
 
     private Constants.BUG_TYPE getANormalBug(){
-//        wasLastBugMetal = false;
-//        int i =(int) getValFromZeroToMax(3);
-//        switch (i){
-//            case 0 : return Constants.BUG_TYPE.BED;
-//            case 1 : return Constants.BUG_TYPE.LADY;
-//            case 2 : return Constants.BUG_TYPE.BLACK;
-//            default : return Constants.BUG_TYPE.BED;
-//        }
-        return Constants.BUG_TYPE.BRONZE;
+        wasLastBugMetal = false;
+        int i =(int) getValFromZeroToMax(3);
+        switch (i){
+            case 0 : return Constants.BUG_TYPE.BED;
+            case 1 : return Constants.BUG_TYPE.LADY;
+            case 2 : return Constants.BUG_TYPE.BLACK;
+            default : return Constants.BUG_TYPE.BED;
+        }
     }
 
     private Constants.BUG_TYPE getAMetalBug(){
