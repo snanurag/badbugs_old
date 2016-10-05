@@ -170,6 +170,16 @@ public class BugGenerator extends Thread {
             case 2 : return Constants.BUG_TYPE.BLACK;
             default : return Constants.BUG_TYPE.BED;
         }
+//        if(allBugRallyCount%5==0)
+//            return Constants.BUG_TYPE.BED;
+//        else if(allBugRallyCount%5==1)
+//            return Constants.BUG_TYPE.BLACK;
+//        else if(allBugRallyCount%5==2)
+//            return Constants.BUG_TYPE.LADY;
+//        else if(allBugRallyCount%5==3)
+//            return Constants.BUG_TYPE.BRONZE;
+//            else
+//            return Constants.BUG_TYPE.STEEL;
     }
 
     private Constants.BUG_TYPE getAMetalBug(){

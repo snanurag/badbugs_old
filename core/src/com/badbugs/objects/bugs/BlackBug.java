@@ -8,23 +8,23 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class BlackBug extends Bug {
     //Pixels
-    private static int[][] BED_BUG_CORDS = { { 142, -120 + 256 }, { 129, -108 + 256 }, { 128, -83 + 256 },
-            { 116, -68 + 256 }, { 107, -60 + 256 }, { 100, -58 + 256 }, { 93, -60 + 256 }, { 84, -68 + 256 },
-            { 72, -83 + 256 }, { 71, -108 + 256 }, { 58, -120 + 256 }, { 48, -140 + 256 }, { 41, -167 + 256 },
-            { 50, -206 + 256 }, { 100, -240 + 256 }, { 150, -206 + 256 }, { 159, -167 + 256 }, { 152, -140 + 256 } };
+    private static int[][] BUG_CORDS = {{151, -326 + 354}, {171, -323 + 354}, {190, -314 + 354}, {210, -295 + 354},
+            {223, -273 + 354}, {230, -244 + 354}, {233, -191 + 354}, {232, -162 + 354}, {227, -140 + 354}, {213, -117
+            + 354}, {196, -104 + 354}, {154, -83 + 354}, {112, -103 + 354}, {90, -121 + 354}, {76, -149 + 354}, {71,
+            -175 + 354}, {70, -213 + 354}, {78, -257 + 354}, {89, -283 + 354}, {111, -308 + 354}, {134, -321 + 354}};
 
     //Pixels
-    private static int[] BED_BUG_CENTER = { 100, 128 };
+    private static int[] BUG_CENTER = { 152, 177 };
 
-    private static float BED_BUG_HEIGHT = 12;
-    private static float BED_BUG_WIDTH = 12 * 11 / 14;
+    private static float BUG_HEIGHT = 11;
+    private static float BUG_WIDTH = 9.5f;
 
     private static float BUG_FRAME_RATE[] = {1 / 60f, 1 / 85f, 1 / 100f, 1 / 120f, 1 / 150f};
 
     public BlackBug(Texture texture) {
         super(texture);
-        pixelDimensions = new int[] { BED_BUG_CENTER[0] * 2, BED_BUG_CENTER[1] * 2 };
-        cameraDimensions = new float[] { BED_BUG_WIDTH, BED_BUG_HEIGHT };
+        pixelDimensions = new int[] { BUG_CENTER[0] * 2, BUG_CENTER[1] * 2 };
+        cameraDimensions = new float[] { BUG_WIDTH, BUG_HEIGHT};
         screenDimensions = new float[] { cameraDimensions[0] * Game.screenWidth / Game.cam_width,
                 cameraDimensions[1] * Game.screenHeight / Game.cam_height };
 
@@ -32,7 +32,7 @@ public class BlackBug extends Bug {
     }
 
     @Override public int[][] getPixelCoords(){
-        return BED_BUG_CORDS;
+        return BUG_CORDS;
     }
 
     public float getInitialAngle()
@@ -42,12 +42,12 @@ public class BlackBug extends Bug {
 
     @Override
     public float getBugHeight() {
-        return BED_BUG_HEIGHT;
+        return BUG_HEIGHT;
     }
 
     @Override
     public float getBugWidth() {
-        return BED_BUG_WIDTH;
+        return BUG_WIDTH;
     }
 
     @Override
