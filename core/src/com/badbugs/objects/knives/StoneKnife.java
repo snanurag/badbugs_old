@@ -19,12 +19,18 @@ public class StoneKnife extends Knife {
         init();
     }
 
+    private float SPEED = 400;
     @Override public int[][] getPixelCoords() {
         return ObjectsCord.STONE_KNIFE_CORDS;
     }
 
     public float getInitialAngle() {
         return 180;
+    }
+
+    @Override
+    public float getSpeed() {
+        return 400;
     }
 
 }

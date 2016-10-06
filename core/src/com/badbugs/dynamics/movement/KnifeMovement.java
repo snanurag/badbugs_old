@@ -9,6 +9,7 @@ import com.badbugs.objects.bugs.*;
 import com.badbugs.objects.knives.BronzeKnife;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.objects.knives.SteelKnife;
+import com.badbugs.objects.knives.StoneKnife;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.util.Constants;
 import com.badbugs.util.TouchInfo;
@@ -93,11 +94,10 @@ public class KnifeMovement {
             Polygon polygon = knife.getPolygon();
 
             float speed;
-            if (Constants.DEMO || GamePurchaseObserver.isPurchased(Constants.double_speed)) {
-                speed = Constants.SILVER_KNIFE_DOUBLE_SPEED;
+            if (GamePurchaseObserver.isPurchased(Constants.double_speed) || Constants.DEMO) {
+                speed = Constants.BOOSTER * knife.getSpeed();
             } else {
-                speed = Constants.SILVER_KNIFE_SPEED;
-
+                speed = knife.getSpeed();
             }
             float xSpeed = directionVector.x * speed;
             float ySpeed = directionVector.y * speed;

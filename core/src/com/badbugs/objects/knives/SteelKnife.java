@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class SteelKnife extends Knife {
 
+  private float SPEED = 280;
   public SteelKnife(Texture texture) {
     super(texture);
     pixelDimensions = new int[] { ObjectsCord.STEEL_KNIFE_CENTER[0] * 2, ObjectsCord.STEEL_KNIFE_CENTER[1] * 2 };
@@ -27,6 +28,11 @@ public class SteelKnife extends Knife {
 
   public float getInitialAngle() {
     return 180;
+  }
+
+  @Override
+  public float getSpeed() {
+    return SPEED;
   }
 
 }

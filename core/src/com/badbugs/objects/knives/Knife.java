@@ -14,4 +14,6 @@ public abstract class Knife extends AbstractBasicObject {
 
   public abstract float getInitialAngle();
 
+  public abstract float getSpeed();
+
 }

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class BronzeKnife extends Knife{
 
+    private float SPEED = 340;
     public BronzeKnife(Texture texture) {
         super(texture);
         pixelDimensions = new int[] { ObjectsCord.BRONZE_KNIFE_CENTER[0] * 2, ObjectsCord.BRONZE_KNIFE_CENTER[1] * 2 };
@@ -27,4 +28,8 @@ public class BronzeKnife extends Knife{
         return 180;
     }
 
+    @Override
+    public float getSpeed() {
+        return SPEED;
+    }
 }

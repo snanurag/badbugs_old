@@ -24,8 +24,8 @@ public class BugGenerator extends Thread {
     private final int ONLYNORMALBUG_RALLY_LIMIT = 15;
     private final int ONLYBRONZEBUG_RALLY_LIMIT = 3;
     private int BUG_COUNT_PER_RALLY_LIMIT = 3;
-    private int allBugRallyCount = 0;
-    private int bronzeBugRallyCount = 0;
+    private static int allBugRallyCount = 0;
+    private static int bronzeBugRallyCount = 0;
     private boolean killsUnder2Sec = false;
     private boolean wasLastBugMetal = false;
     private int consecutiveKillCountUnder2Sec = 0;
@@ -52,7 +52,9 @@ public class BugGenerator extends Thread {
                             .getBugList().isEmpty()) {
                         killsUnder2Sec = true;
                         consecutiveKillCountUnder2Sec++;
-                        if (consecutiveKillCountUnder2Sec == 5) BUG_COUNT_PER_RALLY_LIMIT++;
+                        Util.globalLogger().info("ConsecutiveKillCountUnder2Sec -> "+consecutiveKillCountUnder2Sec);
+                        if (consecutiveKillCountUnder2Sec == 3)
+                            BUG_COUNT_PER_RALLY_LIMIT++;
                     } else consecutiveKillCountUnder2Sec = 0;
                 }
                 if (sleepCount % 6 == 0) {

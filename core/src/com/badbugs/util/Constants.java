@@ -30,8 +30,7 @@ public class Constants {
     public static float YLimit = Game.cam_height / 2 + Constants.KNIFE_BOUNDARY_PENETRATION;
 
     // All related to speeds and frame rates
-    public static float SILVER_KNIFE_SPEED = 400;
-    public static float SILVER_KNIFE_DOUBLE_SPEED = 2 * SILVER_KNIFE_SPEED;
+    public static float BOOSTER = 1.5f;
     public static int MAX_BUG_LEVEL = 4; //starting from 0
     public static float BUG_SPEED[] = {8, 10, 15, 20, 25};
     // orignal
