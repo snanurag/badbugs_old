@@ -130,7 +130,6 @@ public class SpritesCreator {
         ObjectsStore.add(Constants.PANEL.STONE_BRONZE, new SteelKnife(panelTextures[4]));
         ObjectsStore.add(Constants.PANEL.BRONZE_STEEL, new SteelKnife(panelTextures[5]));
         ObjectsStore.add(Constants.PANEL.STONE_STEEL, new SteelKnife(panelTextures[6]));
-        Util.setPanelForStoneKnifeSelection();
     }
 
     public static Bug createBug(Constants.BUG_TYPE t, int level ) throws Exception{

@@ -1,7 +1,11 @@
 package com.badbugs.baseframework.elements;
 
 import com.badbugs.objects.BasicObject;
+import com.badbugs.objects.knives.BronzeKnife;
 import com.badbugs.objects.knives.Knife;
+import com.badbugs.objects.knives.SteelKnife;
+import com.badbugs.objects.knives.StoneKnife;
+import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.util.Constants;
 
 /**
@@ -11,10 +15,7 @@ public class GameStates {
     private static boolean musicOn = true;
     private static boolean soundOn = true;
     private static Knife selectedKnife = null;
-    private static BasicObject panel = null;
     private static boolean demoOver = false;
-    private static boolean isBronzeKnifeAvailable = true;
-    private static boolean isSteelKnifeAvailable = true;
 
     public static boolean isMusicOn() {
       return musicOn;
@@ -48,11 +49,20 @@ public class GameStates {
     }
 
     public static BasicObject getPanel(){
-        return panel;
-    }
-
-    public static void setPanel(Constants.PANEL panel){
-        GameStates.panel = ObjectsStore.getPanel(panel) ;
+        if(isBronzeKnifeAvailable() && isSteelKnifeAvailable()){
+            if(selectedKnife instanceof StoneKnife) return  ObjectsStore.getPanel(Constants.PANEL.BRONZE_STEEL);
+            else if(selectedKnife instanceof BronzeKnife) return  ObjectsStore.getPanel(Constants.PANEL.STONE_STEEL);
+            else if(selectedKnife instanceof SteelKnife) return  ObjectsStore.getPanel(Constants.PANEL.STONE_BRONZE);
+        }
+        else if(isBronzeKnifeAvailable()){
+            if(selectedKnife instanceof StoneKnife)  return  ObjectsStore.getPanel(Constants.PANEL.BRONZE);
+            else if(selectedKnife instanceof BronzeKnife)  return  ObjectsStore.getPanel(Constants.PANEL.STONE);
+        }
+        else if(isSteelKnifeAvailable()){
+            if(selectedKnife instanceof StoneKnife)  return  ObjectsStore.getPanel(Constants.PANEL.STEEL);
+            else if(selectedKnife instanceof SteelKnife)  return  ObjectsStore.getPanel(Constants.PANEL.STONE);
+        }
+        return ObjectsStore.getPanel(Constants.PANEL.EMPTY);
     }
 
     public static void startDemo()
@@ -72,21 +82,12 @@ public class GameStates {
 
     public static boolean isBronzeKnifeAvailable()
     {
-        return isBronzeKnifeAvailable;
-    }
-
-    public static void setIsBronzeKnifeAvailable(boolean isBronzeKnifeAvailable)
-    {
-        GameStates.isBronzeKnifeAvailable = isBronzeKnifeAvailable;
+        return GamePurchaseObserver.isPurchased(Constants.bronze_knife);
     }
 
     public static boolean isSteelKnifeAvailable()
     {
-        return isSteelKnifeAvailable;
+        return GamePurchaseObserver.isPurchased(Constants.steel_knife);
     }
 
-    public static void setIsSteelKnifeAvailable(boolean isSteelKnifeAvailable)
-    {
-        GameStates.isSteelKnifeAvailable = isSteelKnifeAvailable;
-    }
 }

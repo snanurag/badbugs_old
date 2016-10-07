@@ -78,7 +78,7 @@ public class PanelMotion {
                 Constants.PANEL_STONE_KNIFE[1] - Constants.STONE_KNIFE_WIDTH;
         if(isTouched){
             GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STONE);
-            Util.setPanelForStoneKnifeSelection();
+            // Util.setPanelForStoneKnifeSelection();
             return true;
         }
         return false;
@@ -92,8 +92,6 @@ public class PanelMotion {
                 .PANEL_BRONZE_KNIFE[1] - Constants.BRONZE_KNIFE_WIDTH;
         if(isTouched){
             GameStates.setSelectedKnife(Constants.KNIFE_TYPE.BRONZE);
-            if (GameStates.isSteelKnifeAvailable()) GameStates.setPanel(Constants.PANEL.STONE_STEEL);
-            else GameStates.setPanel(Constants.PANEL.STONE);
             return true;
         }
         return false;
@@ -107,8 +105,6 @@ public class PanelMotion {
                 .PANEL_STEEL_KNIFE[1] - Constants.STEEL_KNIFE_WIDTH - 4;
         if(isTouched){
             GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STEEL);
-            if(GameStates.isBronzeKnifeAvailable()) GameStates.setPanel(Constants.PANEL.STONE_BRONZE);
-            else GameStates.setPanel(Constants.PANEL.STONE);
             return true;
         }
         return false;

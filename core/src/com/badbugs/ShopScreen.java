@@ -124,14 +124,14 @@ public class ShopScreen extends ScreenAdapter {
                 PlatformBuilder.getPlatformResolver().requestPurchase(Constants.double_speed);
                 return;
             } else if (bronzeKnifeBounds.contains(touchInfo.touchX, touchInfo.touchY) && !Constants
-                    .availabaleIdentifiers.contains(Constants.double_speed)) {
+                    .availabaleIdentifiers.contains(Constants.bronze_knife)) {
                 SoundPlayer.playButtonClick();
                 PlatformBuilder.getPlatformResolver().requestPurchase(Constants.bronze_knife);
                 return;
             } else if (steelKnifeBounds.contains(touchInfo.touchX, touchInfo.touchY) && !Constants
                     .availabaleIdentifiers.contains(Constants.steel_knife)) {
                 SoundPlayer.playButtonClick();
-                PlatformBuilder.getPlatformResolver().requestPurchase(Constants.double_speed);
+                PlatformBuilder.getPlatformResolver().requestPurchase(Constants.steel_knife);
                 return;
             } else if (backButtonBounds.contains(touchInfo.touchX, touchInfo.touchY)) {
                 SoundPlayer.playButtonClick();

@@ -146,12 +146,4 @@ public class Util
     return false;
   }
 
-  public static void setPanelForStoneKnifeSelection(){
-    if (GameStates.isBronzeKnifeAvailable() && GameStates.isSteelKnifeAvailable())
-      GameStates.setPanel(Constants.PANEL.BRONZE_STEEL);
-    else if (GameStates.isBronzeKnifeAvailable()) GameStates.setPanel(Constants.PANEL.BRONZE);
-    else if (GameStates.isSteelKnifeAvailable()) GameStates.setPanel(Constants.PANEL.STEEL);
-    else GameStates.setPanel(Constants.PANEL.EMPTY);
-
-  }
 }
