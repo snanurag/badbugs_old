@@ -51,6 +51,8 @@ public class SpritesCreator {
     private static Texture bugNoMovementTexture;
     private static Texture bronzeScratchTexture;
     private static Texture steelScratchTexture;
+    private static Texture bronzeKnifeTexture;
+    private static Texture steelKnifeTexture;
 
     public static void loadAllTextures() {
         texAtlasBedBug = new TextureAtlas(Gdx.files.internal("sprites/bed_bug.atlas"));
@@ -81,11 +83,11 @@ public class SpritesCreator {
         bugNoMovementTexture = new Texture(Gdx.files.internal("life.png"));
         bronzeScratchTexture = new Texture(Gdx.files.internal("bronze_scratch.png"));
         steelScratchTexture = new Texture(Gdx.files.internal("iron_scratch.png"));
-
+        bronzeKnifeTexture = new Texture(Gdx.files.internal("bronze_knife.png"));
+        steelKnifeTexture = new Texture(Gdx.files.internal("steel_knife.png"));
 
         try{
-            createKnives(new Texture(Gdx.files.internal("stone_knife.png")), new Texture(Gdx.files
-                    .internal("bronze_knife.png")), new Texture(Gdx.files.internal("steel_knife.png")));
+            createKnives(new Texture(Gdx.files.internal("stone_knife.png")), bronzeKnifeTexture, steelKnifeTexture);
             createSidePanels(new Texture(Gdx.files.internal("panels/empty.png")), new Texture(Gdx.files.internal
                     ("panels/stone.png")), new Texture(Gdx.files.internal("panels/bronze.png")), new Texture(Gdx.files
                     .internal("panels/steel.png")), new Texture(Gdx.files.internal("panels/stone_bronze.png")), new
@@ -104,6 +106,8 @@ public class SpritesCreator {
             createMusicButton();
             createPlayButton();
             createShopButton();
+            createBronzeKnifeForShop();
+            createSteelKnifeForShop();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -152,55 +156,6 @@ public class SpritesCreator {
         return b;
     }
 
-//    public static BedBug loadBedBug(int level) throws Exception {
-//        BedBug bedBug = new BedBug(null);
-//        bedBug.animation = new Animation(bedBug.getFrameRate()[level], texAtlasBedBug.getRegions());
-//
-//        bedBug.getPolygon().setPosition(0, 0);
-//        bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
-//
-//        return bedBug;
-//    }
-//
-//    public static LadyBug loadLadyBug(int level) throws Exception {
-//        LadyBug ladyBug = new LadyBug(null);
-//        ladyBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], texAtlasLadyBug.getRegions());
-//
-//        ladyBug.getPolygon().setPosition(0, 0);
-//        ladyBug.getPolygon().setOrigin(ladyBug.getCameraDimensions()[0] / 2, ladyBug.getCameraDimensions()[1] / 2);
-//
-//        return ladyBug;
-//    }
-//
-//    public static BlackBug loadBlackBug(int level) throws Exception {
-//        BlackBug ladyBug = new BlackBug(null);
-//        ladyBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], texAtlasBlackBug.getRegions());
-//
-//        ladyBug.getPolygon().setPosition(0, 0);
-//        ladyBug.getPolygon().setOrigin(ladyBug.getCameraDimensions()[0] / 2, ladyBug.getCameraDimensions()[1] / 2);
-//
-//        return ladyBug;
-//    }
-//
-//    public static BedBug loadBedBug(int level) throws Exception {
-//        BedBug bedBug = new BedBug(null);
-//        bedBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], texAtlasBedBug.getRegions());
-//
-//        bedBug.getPolygon().setPosition(0, 0);
-//        bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
-//
-//        return bedBug;
-//    }
-//
-//    public static BedBug loadBedBug(int level) throws Exception {
-//        BedBug bedBug = new BedBug(null);
-//        bedBug.animation = new Animation(Constants.BUG_FRAME_RATE[level], texAtlasBedBug.getRegions());
-//
-//        bedBug.getPolygon().setPosition(0, 0);
-//        bedBug.getPolygon().setOrigin(bedBug.getCameraDimensions()[0] / 2, bedBug.getCameraDimensions()[1] / 2);
-//
-//        return bedBug;
-//    }
 
     /**
      * This function is for testing. In production, it doesn't have any use.
@@ -358,6 +313,28 @@ public class SpritesCreator {
                 / Constants.HOME_SCREEN_H;
         m.getPolygon().setPosition(x, y);
         ObjectsStore.setKnifeBooster(m);
+    }
+
+    public static void createBronzeKnifeForShop() throws Exception {
+        AbstractBasicObject m = new BasicObjectImpl(bronzeKnifeTexture);
+        m.setCameraDimensions(new float[]{Game.cam_width * Constants.BRONZE_KNIFE_W / Constants.HOME_SCREEN_W,
+                Game.cam_height * Constants.BRONZE_KNIFE_H / Constants.HOME_SCREEN_H});
+        float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.BRONZE_KNIFE_LEFT) / Constants.HOME_SCREEN_W;
+        float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.BRONZE_KNIFE_TOP + Constants.BRONZE_KNIFE_H))
+                / Constants.HOME_SCREEN_H;
+        m.getPolygon().setPosition(x, y);
+        ObjectsStore.setBronzeKnifeForShop(m);
+    }
+
+    public static void createSteelKnifeForShop() throws Exception {
+        AbstractBasicObject m = new BasicObjectImpl(steelKnifeTexture);
+        m.setCameraDimensions(new float[]{Game.cam_width * Constants.STEEL_KNIFE_W/ Constants.HOME_SCREEN_W,
+                Game.cam_height * Constants.STEEL_KNIFE_H / Constants.HOME_SCREEN_H});
+        float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.STEEL_KNIFE_LEFT) / Constants.HOME_SCREEN_W;
+        float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.STEEL_KNIFE_TOP + Constants.STEEL_KNIFE_H))
+                / Constants.HOME_SCREEN_H;
+        m.getPolygon().setPosition(x, y);
+        ObjectsStore.setSteelKnifeForShop(m);
     }
 
     private static void createGooglePlayIcon() throws Exception {

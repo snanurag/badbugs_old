@@ -17,7 +17,9 @@ public class Constants {
     public static final String google_play_uri = "https://play.google.com/store/apps/details?id=com.badbugs2";
 
     //In-app products
-   public static String double_speed = "doublespeed";
+    public static String double_speed = "doublespeed";
+    public static String bronze_knife = "bronzeknife";
+    public static String steel_knife = "steelknife";
     public static final Set<String> availabaleIdentifiers = new HashSet<String>();
 
     // time limits
@@ -62,6 +64,10 @@ public class Constants {
     public static final float SCORE_TEXT_Y_POS = -5;
     public static final float KNIFE_BOOSTER_TEXT_X = -800* 2;
     public static final float KNIFE_BOOSTER_TEXT_Y = 270 *2;
+    public static final float BRONZE_KNIFE_TEXT_X = 300* 2;
+    public static final float BRONZE_KNIFE_TEXT_Y = 270 *2;
+    public static final float STEEL_KNIFE_TEXT_X = -800* 2;
+    public static final float STEEL_KNIFE_TEXT_Y = -270 *2;
 //    public static float COLLISION_AVOIDING_X = Game.cam_width / 2 - ObjectsCord.BED_BUG_WIDTH / 2;
 //    public static float COLLISION_AVOIDING_Y = Game.cam_height / 2 - ObjectsCord.BED_BUG_HEIGHT / 2;
     public static float SCORE_X_POS = 725;
@@ -91,9 +97,10 @@ public class Constants {
     public static float METAL_SCRATCH_WIDTH = 1f;
 
     public static int PLAY_H, PLAY_W, SHOP_H, SHOP_W, BACK_H, BACK_W, QUIT_H, QUIT_W, SOUND_H, SOUND_W, MUSIC_H, MUSIC_W,
-            KNIFE_BOOSTER_H, KNIFE_BOOSTER_W, GOOGLE_PLAY_W, GOOGLE_PLAY_H;
+            KNIFE_BOOSTER_H, KNIFE_BOOSTER_W, BRONZE_KNIFE_W, BRONZE_KNIFE_H, STEEL_KNIFE_W, STEEL_KNIFE_H, GOOGLE_PLAY_W, GOOGLE_PLAY_H;
     public static int PLAY_LEFT, PLAY_TOP, SHOP_LEFT, SHOP_TOP, BACK_LEFT, BACK_TOP, QUIT_LEFT, QUIT_TOP, SOUND_LEFT,
-            SOUND_TOP, MUSIC_LEFT, MUSIC_TOP, KNIFE_BOOSTER_LEFT, KNIFE_BOOSTER_TOP, GOOGLE_PLAY_LEFT, GOOGLE_PLAY_TOP;
+            SOUND_TOP, MUSIC_LEFT, MUSIC_TOP, KNIFE_BOOSTER_LEFT, KNIFE_BOOSTER_TOP, BRONZE_KNIFE_LEFT, BRONZE_KNIFE_TOP, STEEL_KNIFE_LEFT, STEEL_KNIFE_TOP,
+            GOOGLE_PLAY_LEFT, GOOGLE_PLAY_TOP;
 
     static {
         QUIT_H = QUIT_W = SOUND_W = SOUND_H = MUSIC_H = MUSIC_W = 150;
@@ -116,6 +123,16 @@ public class Constants {
         KNIFE_BOOSTER_H = 90;
         KNIFE_BOOSTER_LEFT = 450;
         KNIFE_BOOSTER_TOP = 290;
+
+        BRONZE_KNIFE_W = 700;
+        BRONZE_KNIFE_H = 90;
+        BRONZE_KNIFE_LEFT = 1500;
+        BRONZE_KNIFE_TOP = 290;
+
+        STEEL_KNIFE_W = 700;
+        STEEL_KNIFE_H = 90;
+        STEEL_KNIFE_LEFT = 450;
+        STEEL_KNIFE_TOP = 830;
 
         GOOGLE_PLAY_W = 566;
         GOOGLE_PLAY_H = 170;

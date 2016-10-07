@@ -39,6 +39,8 @@ public class ObjectsStore {
   private static BasicObject shopButton;
   private static BasicObject quitButton;
   private static BasicObject mainMenuBackGround;
+  private static BasicObject bronzeKnifeForShop;
+  private static BasicObject steelKnifeForShop;
 
   public static int score = 0;
   public static int bugMissed = 0;
@@ -228,5 +230,21 @@ public class ObjectsStore {
 
   public static void addHitBug(Bug bug){
       hitBugList.add(bug);
+  }
+
+  public static BasicObject getSteelKnifeForShop() {
+    return steelKnifeForShop;
+  }
+
+  public static void setSteelKnifeForShop(BasicObject steelKnifeForShop) {
+    ObjectsStore.steelKnifeForShop = steelKnifeForShop;
+  }
+
+  public static BasicObject getBronzeKnifeForShop() {
+    return bronzeKnifeForShop;
+  }
+
+  public static void setBronzeKnifeForShop(BasicObject bronzeKnifeForShop) {
+    ObjectsStore.bronzeKnifeForShop = bronzeKnifeForShop;
   }
 }
