@@ -53,7 +53,7 @@ public class ShopScreen extends ScreenAdapter {
         shop = ObjectsStore.getShop();
         back = ObjectsStore.getBack();
         knifeBooster = ObjectsStore.getKnifeBooster();
-        knifeBoosterFont = new Font("Knife booster", Constants.KNIFE_BOOSTER_TEXT_X, Constants.KNIFE_BOOSTER_TEXT_Y);
+        knifeBoosterFont = new Font("Knife booster", Constants.KNIFE_BOOSTER_TEXT_X *Game.screenWidth/Constants.HOME_SCREEN_W, Constants.KNIFE_BOOSTER_TEXT_Y * Game.screenHeight/Constants.HOME_SCREEN_H);
     }
 
     private static void IAPinit() {

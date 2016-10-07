@@ -60,8 +60,8 @@ public class Constants {
     public static final float FULL_VER_TEXT_Y_POS = 7;
     public static final float SCORE_TEXT_X_POS = -150;
     public static final float SCORE_TEXT_Y_POS = -5;
-    public static final float KNIFE_BOOSTER_TEXT_X = -200;
-    public static final float KNIFE_BOOSTER_TEXT_Y = 320f;
+    public static final float KNIFE_BOOSTER_TEXT_X = -800* 2;
+    public static final float KNIFE_BOOSTER_TEXT_Y = 270 *2;
 //    public static float COLLISION_AVOIDING_X = Game.cam_width / 2 - ObjectsCord.BED_BUG_WIDTH / 2;
 //    public static float COLLISION_AVOIDING_Y = Game.cam_height / 2 - ObjectsCord.BED_BUG_HEIGHT / 2;
     public static float SCORE_X_POS = 725;
@@ -112,10 +112,10 @@ public class Constants {
         BACK_LEFT = 2032;
         BACK_TOP = 1156;
 
-        KNIFE_BOOSTER_W = 938;
-        KNIFE_BOOSTER_H = 150;
-        KNIFE_BOOSTER_LEFT = 0;
-        KNIFE_BOOSTER_TOP = 390;
+        KNIFE_BOOSTER_W = 700;
+        KNIFE_BOOSTER_H = 90;
+        KNIFE_BOOSTER_LEFT = 450;
+        KNIFE_BOOSTER_TOP = 290;
 
         GOOGLE_PLAY_W = 566;
         GOOGLE_PLAY_H = 170;
