@@ -83,6 +83,8 @@ public class ShopScreen extends ScreenAdapter {
         // ---- IAP: define products ---------------------
         PurchaseManagerConfig purchaseManagerConfig = new PurchaseManagerConfig();
         purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(Constants.double_speed));
+        purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(Constants.bronze_knife));
+        purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(Constants.steel_knife));
         GamePurchaseObserver purchaseObserver = new GamePurchaseObserver();
         PlatformBuilder.setComponents(null, purchaseObserver, purchaseManagerConfig);
         try {
