@@ -65,7 +65,6 @@ public class ShopScreen extends ScreenAdapter {
     public ShopScreen(Game game) {
         this.game = game;
         MusicPlayer.playNatureMusic();
-        IAPinit();
         shop = ObjectsStore.getShop();
         back = ObjectsStore.getBack();
         knifeBooster = ObjectsStore.getKnifeBooster();
@@ -79,7 +78,7 @@ public class ShopScreen extends ScreenAdapter {
                 .HOME_SCREEN_W, Constants.STEEL_KNIFE_TEXT_Y * Game.screenHeight / Constants.HOME_SCREEN_H);
     }
 
-    private static void IAPinit() {
+    public static void IAPinit() {
         // ---- IAP: define products ---------------------
         PurchaseManagerConfig purchaseManagerConfig = new PurchaseManagerConfig();
         purchaseManagerConfig.addOffer(new Offer().setType(OfferType.ENTITLEMENT).setIdentifier(Constants.double_speed));
