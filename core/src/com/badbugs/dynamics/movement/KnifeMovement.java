@@ -9,7 +9,6 @@ import com.badbugs.objects.bugs.*;
 import com.badbugs.objects.knives.BronzeKnife;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.objects.knives.SteelKnife;
-import com.badbugs.objects.knives.StoneKnife;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.util.Constants;
 import com.badbugs.util.TouchInfo;
@@ -34,18 +33,19 @@ public class KnifeMovement {
     private static long lastTime;
     private static float XLimit = Constants.XLimit;
     private static float YLimit = Constants.YLimit;
+    private static boolean isPossibleBugIdentified;
 
     private static int counter;
 
     public static void updatePolygon( TouchInfo touchInfo) throws Exception {
-        Knife basicObject = GameStates.getSelectedKnife();
+
         if (!Util.checkIfGameOverConditionMet()) {
-            rotatePolygon(basicObject, touchInfo);
-            translatePolygon(basicObject);
+            rotatePolygon(touchInfo);
+            translatePolygon();
         }
     }
 
-    private static void rotatePolygon(Knife knife, TouchInfo touchInfo) throws Exception {
+    private static void rotatePolygon(TouchInfo touchInfo) throws Exception {
 
         if (directionVector != null) {
             return;
@@ -57,9 +57,12 @@ public class KnifeMovement {
             }
         }
 
-        Polygon polygon = knife.getPolygon();
+        isPossibleBugIdentified = false;
 
         if (touchInfo != null) {
+            Util.switchBackFromTilted();
+            Knife knife = GameStates.getSelectedKnife();
+            Polygon polygon = knife.getPolygon();
 
             SoundPlayer.playKnifeSlash();
             Util.globalLogger().info("Touch count " + ++counter);
@@ -67,6 +70,7 @@ public class KnifeMovement {
 
             touchPoints = Game.cam.unproject(new Vector3(touchInfo.touchX, touchInfo.touchY, 0));
             Util.moveTouchPtUpByKnifeYOrig(knife.getPolygon(), touchPoints);
+            //TODO this should be tip of the knife
             float dirX = touchPoints.x - polygon.getX();
             float dirY = touchPoints.y - polygon.getY();
 
@@ -82,13 +86,12 @@ public class KnifeMovement {
 
             Util.globalLogger().debug("Angle of Knife " + angle);
             Util.globalLogger().debug("Direction vector " + directionVector);
-
-//            attemptToCutAllBugs(knife);
         }
     }
 
-    private static void translatePolygon(Knife knife) throws Exception {
+    private static void translatePolygon() throws Exception {
 
+        Knife knife = GameStates.getSelectedKnife();
         if (directionVector != null) {
 
             Polygon polygon = knife.getPolygon();
@@ -125,13 +128,22 @@ public class KnifeMovement {
                 directionVector = null;
             }
 
-            attemptToCutAllBugs(knife);
+            if(!isPossibleBugIdentified){
+                isPossibleBugIdentified = cutThePossibleBug(knife);
+                Splash splash = getSplashOfFirstBug();
+                if(splash != null){
+                    Util.setKnifeTipToVec(knife, splash.bloodSpotCenter);
+                    Util.switchKifeToTilted();
+                    directionVector = null;
+                }
+                moveBugFromNormalToHitList();
+            }
 
             Util.globalLogger().debug("Position of Knife tip - x " + x + " y " + y);
         }
     }
 
-    private static void attemptToCutAllBugs(Knife knife) throws Exception {
+    private static boolean cutThePossibleBug(Knife knife) throws Exception {
         synchronized (ObjectsStore.getBugList()) {
             Iterator<Bug> itr = ObjectsStore.getBugList().iterator();
             while(itr.hasNext()){
@@ -155,19 +167,40 @@ public class KnifeMovement {
 
                         createScratch(bug, knife, hitCoords);
 
-                        if (bug instanceof BronzeBug && bug.hitCount >= 2 || bug instanceof SteelBug && bug.hitCount
-                                >= 3 || bug instanceof BlackBug || bug instanceof BedBug || bug instanceof LadyBug) {
-                            bug.hit = true;
-                            itr.remove();
-                            ObjectsStore.addHitBug(bug);
-                            ObjectsStore.score++;
-//                            if(bug instanceof BronzeBug || bug instanceof SteelBug)
-//                                ObjectsStore.clearAllScratches(bug);
+                        BaseScratch[] scratches = ObjectsStore.getScratches(bug);
+                        if(scratches != null){
+                            if (bug instanceof BronzeBug && scratches[1]!=null) {
+                                createSplash(bug, scratches[1], knife);
+                            }
+                            else if(bug instanceof SteelBug && scratches[2]!=null){
+                                createSplash(bug, scratches[2], knife);
+                            }
+                            else if(bug instanceof BedBug || bug instanceof BlackBug || bug instanceof LadyBug){
+                                createSplash(bug, scratches[0], knife);
+                            }
                         }
+                        if (ObjectsStore.getSplash(bug) != null)
+                            return true;
                     }
                 }
             }
         }
+        return false;
+    }
+
+    private static void moveBugFromNormalToHitList() {
+        synchronized (ObjectsStore.getBugList()) {
+            Iterator<Bug> itr = ObjectsStore.getBugList().iterator();
+            while (itr.hasNext()) {
+                Bug bug = itr.next();
+                if (ObjectsStore.getSplash(bug) != null) {
+                    bug.hit = true;
+                    itr.remove();
+                    ObjectsStore.addHitBug(bug);
+                    ObjectsStore.score++;
+                }
+            }
+       }
     }
 
     private static void createScratch(Bug bug, Knife knife, Vector2 hitPoint) throws Exception {
@@ -177,7 +210,6 @@ public class KnifeMovement {
                 if (bug.hitCount >= 2){
                     OilSpot spot = new OilSpot(bug, knife, hitPoint);
                     ObjectsStore.add(bug, 1, spot);
-                    createSplash(bug, spot, knife);
                 }
                 else ObjectsStore.add(bug, 0, new BronzeScratch(bug, knife, hitPoint));
             } else if (bug instanceof SteelBug) {
@@ -186,20 +218,21 @@ public class KnifeMovement {
                 else if (bug.hitCount >= 3){
                     OilSpot spot = new OilSpot(bug, knife, hitPoint);
                     ObjectsStore.add(bug, 2, spot);
-                    createSplash(bug, spot, knife);
                 }
                 else ObjectsStore.add(bug, 0, new SteelScratch(bug, knife, hitPoint));
             } else {
                 if (ObjectsStore.getScratches(bug) == null) {
-
                     ObjectsStore.add(bug, new BloodSpot[1]);
                     ObjectsStore.add(bug, 0, new BloodSpot(bug, knife, hitPoint));
-                    BloodSpot bloodSpot = (BloodSpot) ObjectsStore.getScratches(bug)[0];
-                   createSplash(bug, bloodSpot, knife);
                 }
             }
             SoundPlayer.playKnifeBugImpact();
         }
+    }
+
+    private static Splash getSplashOfFirstBug(){
+        for(Bug bug:ObjectsStore.getBugList()) if(ObjectsStore.getSplash(bug)!= null) return ObjectsStore.getSplash(bug);
+        return null;
     }
 
     private static void createSplash(Bug bug, BaseScratch spot, Knife knife) throws Exception {

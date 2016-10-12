@@ -2,6 +2,7 @@ package com.badbugs.baseframework.renderers;
 
 import com.badbugs.Game;
 import com.badbugs.baseframework.elements.ObjectsStore;
+import com.badbugs.creators.SpritesCreator;
 import com.badbugs.dynamics.strikes.BaseScratch;
 import com.badbugs.dynamics.strikes.BloodSpot;
 import com.badbugs.dynamics.strikes.OilSpot;
@@ -13,12 +14,14 @@ import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.bugs.SteelBug;
 import com.badbugs.objects.knives.Knife;
 import com.badbugs.util.Constants;
+import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
@@ -42,6 +45,25 @@ public class ImageRenderers {
 
         batch.draw(new TextureRegion(knifeTexture), knifePolygon.getX(), knifePolygon.getY(), 0, 0, knife.getCameraDimensions()[0],
                 knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation());
+
+//        batch.draw(new TextureRegion(knifeTexture), 0, 0, 0, 0, knife.getCameraDimensions()[0]/1.414f,
+//                knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation());
+        //        drawPolygon(knife.getPolygon().getTransformedVertices());
+    }
+
+    public static void renderKnifeShadow(SpriteBatch batch, Knife knife) throws Exception {
+
+        Polygon knifePolygon = knife.getPolygon();
+        Texture knifeTexture = SpritesCreator.stoneKnifeShadowTexture;
+
+        Vector2 knifeHandle = Util.rotateVectorByGivenAngle(knife.getCameraDimensions()[0] / 1.414f, 0, knifePolygon.getRotation());
+        Vector2 shadowHandle = new Vector2(knifeHandle.x - knife.getCameraDimensions()[0]/2, knifeHandle.y - knife.getCameraDimensions()[0]/2);
+        float a = (float) (Math.atan2(shadowHandle.y, shadowHandle.x) * 180 / Math.PI);
+        Vector2 v = Util.rotateVectorByGivenAngle(0, 1.5f, a);
+        Vector2 knifeCenterPos = Util.rotateVectorByGivenAngle(0, 1.5f, knifePolygon.getRotation());
+
+        batch.draw(new TextureRegion(knifeTexture), knifeCenterPos.x-v.x, knifeCenterPos.y-v.y, 0, 0, Util.distanceBetweenPoints(shadowHandle, new Vector2(0,0)),
+                knife.getCameraDimensions()[1], 1, 1, a);
 
         //        drawPolygon(knife.getPolygon().getTransformedVertices());
     }

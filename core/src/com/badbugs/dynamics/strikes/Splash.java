@@ -23,15 +23,15 @@ public abstract class Splash {
 
     private int bloodStrips;
     private float splashRadius;
-    private Vector2 bloodSpotCenter;
+    public Vector2 bloodSpotCenter;
     private float bloodLength;
-    private float angle;
+//    private float angle;
     private List<List<BasicObject>> listOfBloodSprites = new ArrayList<List<BasicObject>>();
 
     public Splash(Vector2 bloodSpotCenter, float bloodLength, Knife knife) throws Exception {
         this.bloodSpotCenter = bloodSpotCenter;
         this.bloodLength = bloodLength;
-        this.angle = knife.getPolygon().getRotation();
+//        this.angle = knife.getPolygon().getRotation();
         init();
     }
 
@@ -41,9 +41,9 @@ public abstract class Splash {
 
     private void init() throws Exception {
 
-        Vector2 centerAfterRotation = Util
-                .rotateVectorByGivenAngle(bloodLength / 2, 0, angle);
-        bloodSpotCenter.set(bloodSpotCenter.x , bloodSpotCenter.y );
+//        Vector2 centerAfterRotation = Util
+//                .rotateVectorByGivenAngle(bloodLength / 2, 0, angle);
+//        bloodSpotCenter.set(bloodSpotCenter.x , bloodSpotCenter.y );
 
         bloodStrips = (int) (bloodLength * MAX_BLOOD_STRIPES / Constants.MAX_BLOOD_LENGTH);
         if (bloodStrips < MIN_BLOOD_STRIPES)

@@ -3,6 +3,8 @@ package com.badbugs.util;
 import com.badbugs.baseframework.elements.GameStates;
 import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.objects.BasicObject;
+import com.badbugs.objects.knives.*;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.Logger;
 
@@ -93,13 +95,18 @@ public class Util
     return new Vector2(tipX, tipY);
   }
 
-  //Moving the touch point up because knife's initial angle is 180 degree.
   public static void moveTouchPtUpByKnifeYOrig(Polygon knifePolygon, Vector3 touchPoint)
   {
     Vector2 shift = Util.rotateVectorByGivenAngle(0, knifePolygon.getOriginY(), knifePolygon.getRotation());
     touchPoint.x = touchPoint.x + shift.x;
     touchPoint.y = touchPoint.y + shift.y;
 
+  }
+
+  public static void setKnifeTipToVec(Knife knife, Vector2 vec) throws Exception{
+    Polygon knifePolygon = knife.getPolygon();
+    Vector2 shift = Util.rotateVectorByGivenAngle(0, knifePolygon.getOriginY(), knifePolygon.getRotation());
+    knifePolygon.setPosition(vec.x -shift.x, vec.y - shift.y);
   }
 
   public static Vector2 getStateOfBugWRTKnife(float x, float y, Polygon knifePolygon)
@@ -146,4 +153,19 @@ public class Util
     return false;
   }
 
+  public static void switchKifeToTilted() throws Exception{
+    Knife knife = GameStates.getSelectedKnife();
+    if (knife instanceof StoneKnife) GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STONE_TILTED);
+    else if (knife instanceof BronzeKnife) GameStates.setSelectedKnife(Constants.KNIFE_TYPE.BRONZE_TILTED);
+    else if (knife instanceof SteelKnife) GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STEEL_TILTED);
+    GameStates.getSelectedKnife().getPolygon().setPosition(knife.getPolygon().getX(), knife.getPolygon().getY());
+    GameStates.getSelectedKnife().getPolygon().setRotation(knife.getPolygon().getRotation());
+  }
+
+  public static void switchBackFromTilted() throws Exception{
+    Knife knife = GameStates.getSelectedKnife();
+    if (knife instanceof StoneKnifeTilted) GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STONE);
+    GameStates.getSelectedKnife().getPolygon().setPosition(knife.getPolygon().getX(), knife.getPolygon().getY());
+    GameStates.getSelectedKnife().getPolygon().setRotation(knife.getPolygon().getRotation());
+  }
 }

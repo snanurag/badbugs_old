@@ -43,8 +43,8 @@ public class Constants {
 
     //Text
     public static String BUY_FULL_VERSION = "Buy full version";
-    public static enum KNIFE_TYPE{STONE, BRONZE, STEEL}
-    public static enum PANEL {
+    public enum KNIFE_TYPE{STONE, BRONZE, STEEL, STONE_TILTED, BRONZE_TILTED, STEEL_TILTED}
+    public enum PANEL {
         EMPTY, STONE, BRONZE, STEEL, STONE_BRONZE, BRONZE_STEEL, STONE_STEEL, STONE_BRONZE_STEEL
     }
     public static enum BUG_TYPE{BED, LADY, BLACK, BRONZE, STEEL}

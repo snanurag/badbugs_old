@@ -11,5 +11,10 @@ public class Test {
 
   public static void main(String[] args) {
         System.out.println((int)(2.9));
+    Object i = null;
+    while(i == null){
+      System.out.println("hi");
+      break;
+    }
   }
 }

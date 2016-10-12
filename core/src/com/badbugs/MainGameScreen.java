@@ -115,13 +115,16 @@ public class MainGameScreen extends ScreenAdapter
   }
 
   private void allRendering(TouchInfo touchInfo) throws Exception {
+
     ImageRenderers.renderBasicObject(Game.batch, floor);
     ImageRenderers.renderBugs(Game.batch);
     ImageRenderers.renderScratches(Game.batch);
+//    ImageRenderers.renderKnifeShadow(Game.batch, GameStates.getSelectedKnife());
     ImageRenderers.renderKnife(Game.batch, GameStates.getSelectedKnife());
     ImageRenderers.renderBasicObject(Game.batch, GameStates.getPanel());
     FontRenderers.renderScore(Game.batch, ObjectsStore.score);
     ImageRenderers.renderLives(Game.batch, lives);
+
     if (Util.checkIfGameOverConditionMet()) {
       if (!gameOverSoundPlayed) {
         SoundPlayer.playGameOver();
@@ -129,6 +132,7 @@ public class MainGameScreen extends ScreenAdapter
       }
       attemptGameOver();
     }
+
     if (GameStates.checkIfDemoOver()) {
       popupBuyOption(touchInfo);
     }

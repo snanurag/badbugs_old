@@ -189,14 +189,14 @@ public class BugGenerator extends Thread {
     }
 
     private Constants.BUG_TYPE getANormalBug(){
-        wasLastBugMetal = false;
-        int i =(int) getValFromZeroToMax(3);
-        switch (i){
-            case 0 : return Constants.BUG_TYPE.BED;
-            case 1 : return Constants.BUG_TYPE.LADY;
-            case 2 : return Constants.BUG_TYPE.BLACK;
-            default : return Constants.BUG_TYPE.BED;
-        }
+//        wasLastBugMetal = false;
+//        int i =(int) getValFromZeroToMax(3);
+//        switch (i){
+//            case 0 : return Constants.BUG_TYPE.BED;
+//            case 1 : return Constants.BUG_TYPE.LADY;
+//            case 2 : return Constants.BUG_TYPE.BLACK;
+//            default : return Constants.BUG_TYPE.BED;
+//        }
 //        if(allBugRallyCount%5==0)
 //            return Constants.BUG_TYPE.BED;
 //        else if(allBugRallyCount%5==1)
@@ -207,6 +207,7 @@ public class BugGenerator extends Thread {
 //            return Constants.BUG_TYPE.BRONZE;
 //            else
 //            return Constants.BUG_TYPE.STEEL;
+        return Constants.BUG_TYPE.BRONZE;
     }
 
     private Constants.BUG_TYPE getAMetalBug(){
