@@ -2,7 +2,6 @@ package com.badbugs.baseframework.elements;
 
 import com.badbugs.Game;
 import com.badbugs.dynamics.strikes.BaseScratch;
-import com.badbugs.dynamics.strikes.BloodSplash;
 import com.badbugs.dynamics.strikes.Splash;
 import com.badbugs.objects.BasicObject;
 import com.badbugs.objects.GameOver;
@@ -25,6 +24,7 @@ public class ObjectsStore {
   private static Map<Bug, BaseScratch[]> scratchMap = new HashMap<Bug, BaseScratch[]>();
   private static Map<Bug, Splash> splashMap = new HashMap<Bug, Splash>();
   private static Map<Constants.KNIFE_TYPE, Knife> knifeMap = new HashMap<Constants.KNIFE_TYPE, Knife>();
+  private static Map<Constants.KNIFE_SHADOW, Knife> knifeShadowMap = new HashMap<Constants.KNIFE_SHADOW, Knife>();
   private static Map<Constants.PANEL, BasicObject> panelMap = new HashMap<Constants.PANEL, BasicObject>();
   private static GameOver gameoverBackground;
   private static Bug[] lives;
@@ -93,9 +93,20 @@ public class ObjectsStore {
     k.getPolygon().setOrigin(0, k.getCameraDimensions()[1] / 2);
   }
 
-  public static Knife getKnife(Constants.KNIFE_TYPE t)
+  public static Knife getKnifeShadow(Constants.KNIFE_TYPE t)
   {
     return knifeMap.get(t);
+  }
+
+  public static void add(Constants.KNIFE_SHADOW t, Knife k) throws Exception {
+    knifeShadowMap.put(t, k);
+    k.getPolygon().setPosition(Constants.SHADOW_LAG, Constants.SHADOW_LAG);
+    k.getPolygon().setOrigin(0, k.getCameraDimensions()[1] / 2);
+  }
+
+  public static Knife getKnifeShadow(Constants.KNIFE_SHADOW t)
+  {
+    return knifeShadowMap.get(t);
   }
 
   public static void add(Constants.PANEL t, BasicObject k) throws Exception {
@@ -110,14 +121,9 @@ public class ObjectsStore {
   }
 
   public static void dispose() {
-    for (BasicObject t : knifeMap.values()
-            ) {
-      t.getTexture().dispose();
-    }
-    for (BasicObject t : panelMap.values()
-            ) {
-      t.getTexture().dispose();
-    }
+    for (BasicObject t : knifeMap.values()) t.getTexture().dispose();
+    for (BasicObject t : panelMap.values()) t.getTexture().dispose();
+    for (BasicObject t : knifeShadowMap.values()) t.getTexture().dispose();
   }
 
   public static GameOver getGameoverBackground() {

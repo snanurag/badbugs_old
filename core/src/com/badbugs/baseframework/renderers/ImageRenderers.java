@@ -1,8 +1,8 @@
 package com.badbugs.baseframework.renderers;
 
 import com.badbugs.Game;
+import com.badbugs.baseframework.elements.GameStates;
 import com.badbugs.baseframework.elements.ObjectsStore;
-import com.badbugs.creators.SpritesCreator;
 import com.badbugs.dynamics.strikes.BaseScratch;
 import com.badbugs.dynamics.strikes.BloodSpot;
 import com.badbugs.dynamics.strikes.OilSpot;
@@ -12,7 +12,10 @@ import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.BronzeBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.bugs.SteelBug;
+import com.badbugs.objects.knives.BronzeKnife;
 import com.badbugs.objects.knives.Knife;
+import com.badbugs.objects.knives.SteelKnife;
+import com.badbugs.objects.knives.StoneKnife;
 import com.badbugs.util.Constants;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
@@ -51,21 +54,40 @@ public class ImageRenderers {
         //        drawPolygon(knife.getPolygon().getTransformedVertices());
     }
 
-    public static void renderKnifeShadow(SpriteBatch batch, Knife knife) throws Exception {
+    public static void renderKnifeShadow(SpriteBatch batch) throws Exception {
 
-        Polygon knifePolygon = knife.getPolygon();
-        Texture knifeTexture = SpritesCreator.stoneKnifeShadowTexture;
 
-        Vector2 knifeHandle = Util.rotateVectorByGivenAngle(knife.getCameraDimensions()[0] / 1.414f, 0, knifePolygon.getRotation());
-        Vector2 shadowHandle = new Vector2(knifeHandle.x - knife.getCameraDimensions()[0]/2, knifeHandle.y - knife.getCameraDimensions()[0]/2);
-        float a = (float) (Math.atan2(shadowHandle.y, shadowHandle.x) * 180 / Math.PI);
-        Vector2 v = Util.rotateVectorByGivenAngle(0, 1.5f, a);
-        Vector2 knifeCenterPos = Util.rotateVectorByGivenAngle(0, 1.5f, knifePolygon.getRotation());
-
-        batch.draw(new TextureRegion(knifeTexture), knifeCenterPos.x-v.x, knifeCenterPos.y-v.y, 0, 0, Util.distanceBetweenPoints(shadowHandle, new Vector2(0,0)),
-                knife.getCameraDimensions()[1], 1, 1, a);
+        Knife knife = GameStates.getSelectedKnife();
+        if(knife instanceof StoneKnife || knife instanceof BronzeKnife || knife instanceof SteelKnife){
+            Polygon knifePolygon = knife.getPolygon();
+            Knife shadow = ObjectsStore.getKnifeShadow(Constants.KNIFE_SHADOW.STONE);
+            batch.draw(new TextureRegion(shadow.getTexture()), knifePolygon.getX()+Constants.SHADOW_LAG, knifePolygon.getY()+Constants.SHADOW_LAG, 0, 0, knife.getCameraDimensions()[0],
+                    knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation());
+        }
+        else {
+            Vector2 shadowHandle = getHandle(knife);
+            float handleLen = Util.distanceBetweenPoints(shadowHandle, new Vector2(0,0));
+            float a = (float) (Math.atan2(shadowHandle.y, shadowHandle.x) * 180 / Math.PI);
+            Vector2 shadowPos = getShadowPosition(knife, a);
+            Knife shadow = ObjectsStore.getKnifeShadow(Constants.KNIFE_SHADOW.STONE);
+            batch.draw(new TextureRegion(shadow.getTexture()), shadowPos.x, shadowPos.y, 0, 0, handleLen, knife
+                    .getCameraDimensions()[1], 1, 1, a);
+        }
 
         //        drawPolygon(knife.getPolygon().getTransformedVertices());
+    }
+
+    private static Vector2 getHandle(Knife knife) throws Exception{
+        Vector2 knifeHandle = Util.rotateVectorByGivenAngle(knife.getCameraDimensions()[0]  , 0, knife.getPolygon().getRotation());
+        Vector2 shadowHandle = new Vector2(knifeHandle.x - knife.getCameraDimensions()[0]/1.414f, knifeHandle.y - knife.getCameraDimensions()[0]/1.414f);
+        return shadowHandle;
+    }
+
+    private static Vector2 getShadowPosition(Knife knife, float shadowAngle) throws Exception{
+        Vector2 v = Util.rotateVectorByGivenAngle(0, 1.5f, shadowAngle);
+        Vector2 knifeCenterPos = Util.rotateVectorByGivenAngle(0, 1.5f, knife.getPolygon().getRotation());
+//        Vector2 knifeTip = Util.getKnifeTipInWorld(knife.getPolygon());
+        return  new Vector2(knife.getPolygon().getX() + knifeCenterPos.x - v.x, knife.getPolygon().getY() + knifeCenterPos.y - v.y);
     }
 
     private static void renderBlood(SpriteBatch batch, Bug bug) throws Exception {

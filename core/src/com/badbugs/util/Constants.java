@@ -43,7 +43,8 @@ public class Constants {
 
     //Text
     public static String BUY_FULL_VERSION = "Buy full version";
-    public enum KNIFE_TYPE{STONE, BRONZE, STEEL, STONE_TILTED, BRONZE_TILTED, STEEL_TILTED}
+    public enum KNIFE_TYPE {STONE, BRONZE, STEEL, STONE_TILTED, BRONZE_TILTED, STEEL_TILTED}
+    public enum KNIFE_SHADOW {STONE, BRONZE, STEEL}
     public enum PANEL {
         EMPTY, STONE, BRONZE, STEEL, STONE_BRONZE, BRONZE_STEEL, STONE_STEEL, STONE_BRONZE_STEEL
     }
@@ -92,6 +93,8 @@ public class Constants {
     public static float BRONZE_KNIFE_WIDTH = 17;
     public static float STONE_KNIFE_HEIGHT = 3;
     public static float STONE_KNIFE_WIDTH = 17;
+
+    public static float SHADOW_LAG = -.5f;
 
     public static float BLOOD_SPOT_WIDTH = 8.4f;
     public static float METAL_SCRATCH_WIDTH = 1f;

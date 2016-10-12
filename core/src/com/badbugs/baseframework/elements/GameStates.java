@@ -45,7 +45,7 @@ public class GameStates {
 
     public static void setSelectedKnife(Constants.KNIFE_TYPE k) {
 
-      GameStates.selectedKnife = ObjectsStore.getKnife(k);
+      GameStates.selectedKnife = ObjectsStore.getKnifeShadow(k);
     }
 
     public static BasicObject getPanel(){

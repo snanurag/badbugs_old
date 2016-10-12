@@ -13,7 +13,6 @@ import com.badbugs.objects.knives.SteelKnife;
 import com.badbugs.objects.knives.StoneKnife;
 import com.badbugs.objects.knives.StoneKnifeTilted;
 import com.badbugs.util.Constants;
-import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -54,7 +53,7 @@ public class SpritesCreator {
     private static Texture steelScratchTexture;
     private static Texture bronzeKnifeTexture;
     private static Texture steelKnifeTexture;
-    public static Texture stoneKnifeShadowTexture;
+//    public static Texture stoneKnifeShadowTexture;
 
     public static void loadAllTextures() {
         texAtlasBedBug = new TextureAtlas(Gdx.files.internal("sprites/bed_bug.atlas"));
@@ -87,11 +86,13 @@ public class SpritesCreator {
         steelScratchTexture = new Texture(Gdx.files.internal("iron_scratch.png"));
         bronzeKnifeTexture = new Texture(Gdx.files.internal("bronze_knife.png"));
         steelKnifeTexture = new Texture(Gdx.files.internal("steel_knife.png"));
-        stoneKnifeShadowTexture = new Texture(Gdx.files.internal("stone_knife_shadow.png"));
+//        stoneKnifeShadowTexture = new Texture(Gdx.files.internal("stone_knife_shadow.png"));
 
         try{
             createKnives(new Texture(Gdx.files.internal("stone_knife.png")), bronzeKnifeTexture, steelKnifeTexture);
-            createTiltedKnives(new Texture(Gdx.files.internal("stone_knife_tilted.png")), bronzeKnifeTexture, steelKnifeTexture);
+            createTiltedKnives(new Texture(Gdx.files.internal("stone_knife_tilted.png")), new Texture(Gdx.files
+                    .internal("stone_knife_tilted.png")), new Texture(Gdx.files.internal("stone_knife_tilted.png")));
+            createKnifeShadows(new Texture(Gdx.files.internal("stone_knife_shadow.png")), new Texture(Gdx.files.internal("stone_knife_shadow.png")), new Texture(Gdx.files.internal("stone_knife_shadow.png")));
             createSidePanels(new Texture(Gdx.files.internal("panels/empty.png")), new Texture(Gdx.files.internal
                     ("panels/stone.png")), new Texture(Gdx.files.internal("panels/bronze.png")), new Texture(Gdx.files
                     .internal("panels/steel.png")), new Texture(Gdx.files.internal("panels/stone_bronze.png")), new
@@ -129,9 +130,13 @@ public class SpritesCreator {
         ObjectsStore.add(Constants.KNIFE_TYPE.STONE_TILTED, new StoneKnifeTilted(knifeTextures[0]));
         ObjectsStore.add(Constants.KNIFE_TYPE.BRONZE_TILTED, new StoneKnifeTilted(knifeTextures[1]));
         ObjectsStore.add(Constants.KNIFE_TYPE.STEEL_TILTED, new StoneKnifeTilted(knifeTextures[2]));
-        GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STONE);
     }
 
+    private static void createKnifeShadows(Texture... knifeTextures) throws Exception {
+        ObjectsStore.add(Constants.KNIFE_SHADOW.STONE, new StoneKnife(knifeTextures[0]));
+        ObjectsStore.add(Constants.KNIFE_SHADOW.BRONZE, new BronzeKnife(knifeTextures[1]));
+        ObjectsStore.add(Constants.KNIFE_SHADOW.STEEL, new SteelKnife(knifeTextures[2]));
+    }
 
     private static void createSidePanels(Texture... panelTextures) throws Exception
     {
