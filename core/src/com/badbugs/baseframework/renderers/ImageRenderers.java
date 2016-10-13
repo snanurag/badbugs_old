@@ -113,24 +113,6 @@ public class ImageRenderers {
 
             if (scratch == null) continue;
 
-            if (scratch instanceof BloodSpot || scratch instanceof OilSpot) {
-
-                Splash splash = ObjectsStore.getSplash(bug);
-
-                if (splash != null) {
-                    List<List<BasicObject>> listList = splash.getListOfBloodSprites();
-                    for (List<BasicObject> list : listList) {
-                        for (BasicObject bloodSprite : list) {
-                            batch.setColor(1, 1, 1, alpha);
-                            batch.draw(bloodSprite.getTexture(), bloodSprite.getPolygon().getX(), bloodSprite
-                                    .getPolygon().getY(),
-                                    bloodSprite.getCameraDimensions()[0], bloodSprite.getCameraDimensions()[1]);
-                            batch.setColor(1, 1, 1, 1);
-                        }
-                    }
-                }
-            }
-
             BasicObject scratchSprite = scratch.getScratchSprite();
 
             if (scratchSprite != null) {
@@ -142,6 +124,40 @@ public class ImageRenderers {
                         polygon.getRotation(), 0, 0, scratchSprite.getTexture().getWidth(),
                         scratchSprite.getTexture().getHeight(), false, false);
                 batch.setColor(1, 1, 1, 1);
+            }
+        }
+    }
+
+    private static void renderSplash(SpriteBatch batch, Bug bug) throws Exception{
+
+        BaseScratch[] scratches = ObjectsStore.getScratches(bug);
+
+        if (scratches == null) return;
+
+        float elapsedTime = getElapsedTimeForScratches(scratches);
+
+        float alpha = getAlpha(elapsedTime);
+
+        for (BaseScratch scratch : scratches) {
+
+            if (scratch == null) continue;
+
+            if (scratch instanceof BloodSpot || scratch instanceof OilSpot) {
+
+                Splash splash = ObjectsStore.getSplash(bug);
+
+                if (splash != null) {
+                    List<List<BasicObject>> listList = splash.getListOfBloodSprites();
+                    for (List<BasicObject> list : listList) {
+                        for (BasicObject bloodSprite : list) {
+                            batch.setColor(1, 1, 1, alpha);
+                            batch.draw(bloodSprite.getTexture(), bloodSprite.getPolygon().getX(), bloodSprite
+                                            .getPolygon().getY(),
+                                    bloodSprite.getCameraDimensions()[0], bloodSprite.getCameraDimensions()[1]);
+                            batch.setColor(1, 1, 1, 1);
+                        }
+                    }
+                }
             }
         }
     }
@@ -193,6 +209,13 @@ public class ImageRenderers {
             for(Bug bug: bugList){
                 if(bug instanceof BronzeBug || bug instanceof SteelBug) ImageRenderers.renderBlood(batch, bug);
             }
+        }
+    }
+
+    public static void renderSplashes(SpriteBatch batch) throws Exception{
+        List<Bug> bugList = ObjectsStore.getHitBugList();
+        synchronized (bugList) {
+            for (Bug bedBug : bugList) ImageRenderers.renderSplash(batch, bedBug);
         }
     }
 

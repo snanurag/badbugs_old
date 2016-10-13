@@ -119,6 +119,7 @@ public class MainGameScreen extends ScreenAdapter
     ImageRenderers.renderBasicObject(Game.batch, floor);
     ImageRenderers.renderBugs(Game.batch);
     ImageRenderers.renderScratches(Game.batch);
+    ImageRenderers.renderSplashes(Game.batch);
     ImageRenderers.renderKnifeShadow(Game.batch);
     ImageRenderers.renderKnife(Game.batch, GameStates.getSelectedKnife());
     ImageRenderers.renderBasicObject(Game.batch, GameStates.getPanel());
