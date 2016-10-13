@@ -15,10 +15,9 @@ public class SteelKnifeTilted extends Knife {
     private float SPEED = 280;
     public SteelKnifeTilted(Texture texture) {
         super(texture);
-        pixelDimensions = new int[] { ObjectsCord.STEEL_KNIFE_CENTER[0] * 2, ObjectsCord.STEEL_KNIFE_CENTER[1] * 2 };
+        pixelDimensions = new int[] { 0,0};
         cameraDimensions = new float[] { Constants.STEEL_KNIFE_WIDTH/1.414f, Constants.STEEL_KNIFE_HEIGHT};
-        screenDimensions = new float[] { cameraDimensions[0] * Game.screenWidth / Game.cam_width,
-                cameraDimensions[1] * Game.screenHeight / Game.cam_height };
+        screenDimensions = new float[] { 0,0 };
         init();
     }
 

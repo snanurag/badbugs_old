@@ -13,10 +13,9 @@ public class BronzeKnifeTilted extends Knife{
     private float SPEED = 340;
     public BronzeKnifeTilted(Texture texture) {
         super(texture);
-        pixelDimensions = new int[] { ObjectsCord.BRONZE_KNIFE_CENTER[0] * 2, ObjectsCord.BRONZE_KNIFE_CENTER[1] * 2 };
+        pixelDimensions = new int[] { 0,0};
         cameraDimensions = new float[] { Constants.BRONZE_KNIFE_WIDTH/1.414f, Constants.BRONZE_KNIFE_HEIGHT};
-        screenDimensions = new float[] { cameraDimensions[0] * Game.screenWidth / Game.cam_width,
-                cameraDimensions[1] * Game.screenHeight / Game.cam_height };
+        screenDimensions = new float[] {0,0};
         init();
     }
 

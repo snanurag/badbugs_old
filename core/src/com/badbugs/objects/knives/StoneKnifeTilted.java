@@ -12,10 +12,9 @@ public class StoneKnifeTilted extends Knife {
 
     public StoneKnifeTilted(Texture texture) {
         super(texture);
-        pixelDimensions = new int[] { ObjectsCord.STONE_KNIFE_CENTER[0] * 2, ObjectsCord.STONE_KNIFE_CENTER[1] * 2 };
+        pixelDimensions = new int[] { 0, 0};
         cameraDimensions = new float[] { Constants.STONE_KNIFE_WIDTH/1.414f, Constants.STONE_KNIFE_HEIGHT};
-        screenDimensions = new float[] { cameraDimensions[0] * Game.screenWidth / Game.cam_width,
-               cameraDimensions[1] * Game.screenHeight / Game.cam_height };
+        screenDimensions = new float[] { 0, 0};
         init();
     }
 
