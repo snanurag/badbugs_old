@@ -12,10 +12,7 @@ import com.badbugs.objects.GameOver;
 import com.badbugs.objects.bugs.BronzeBug;
 import com.badbugs.objects.bugs.Bug;
 import com.badbugs.objects.bugs.SteelBug;
-import com.badbugs.objects.knives.BronzeKnife;
-import com.badbugs.objects.knives.Knife;
-import com.badbugs.objects.knives.SteelKnife;
-import com.badbugs.objects.knives.StoneKnife;
+import com.badbugs.objects.knives.*;
 import com.badbugs.util.Constants;
 import com.badbugs.util.Util;
 import com.badlogic.gdx.Gdx;
@@ -58,9 +55,17 @@ public class ImageRenderers {
 
 
         Knife knife = GameStates.getSelectedKnife();
+        Knife shadow;
+
+        if(knife instanceof StoneKnife || knife instanceof StoneKnifeTilted)
+            shadow = ObjectsStore.getKnifeShadow(Constants.KNIFE_SHADOW.STONE);
+        else if(knife instanceof BronzeKnife || knife instanceof BronzeKnifeTilted)
+            shadow = ObjectsStore.getKnifeShadow(Constants.KNIFE_SHADOW.BRONZE);
+        else
+            shadow = ObjectsStore.getKnifeShadow(Constants.KNIFE_SHADOW.STEEL);
+
         if(knife instanceof StoneKnife || knife instanceof BronzeKnife || knife instanceof SteelKnife){
             Polygon knifePolygon = knife.getPolygon();
-            Knife shadow = ObjectsStore.getKnifeShadow(Constants.KNIFE_SHADOW.STONE);
             batch.draw(new TextureRegion(shadow.getTexture()), knifePolygon.getX()+Constants.SHADOW_LAG, knifePolygon.getY()+Constants.SHADOW_LAG, 0, 0, knife.getCameraDimensions()[0],
                     knife.getCameraDimensions()[1], 1, 1, knifePolygon.getRotation());
         }
@@ -69,7 +74,6 @@ public class ImageRenderers {
             float handleLen = Util.distanceBetweenPoints(shadowHandle, new Vector2(0,0));
             float a = (float) (Math.atan2(shadowHandle.y, shadowHandle.x) * 180 / Math.PI);
             Vector2 shadowPos = getShadowPosition(knife, a);
-            Knife shadow = ObjectsStore.getKnifeShadow(Constants.KNIFE_SHADOW.STONE);
             batch.draw(new TextureRegion(shadow.getTexture()), shadowPos.x, shadowPos.y, 0, 0, handleLen, knife
                     .getCameraDimensions()[1], 1, 1, a);
         }

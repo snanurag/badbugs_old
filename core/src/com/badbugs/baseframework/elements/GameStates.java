@@ -1,10 +1,7 @@
 package com.badbugs.baseframework.elements;
 
 import com.badbugs.objects.BasicObject;
-import com.badbugs.objects.knives.BronzeKnife;
-import com.badbugs.objects.knives.Knife;
-import com.badbugs.objects.knives.SteelKnife;
-import com.badbugs.objects.knives.StoneKnife;
+import com.badbugs.objects.knives.*;
 import com.badbugs.payment.GamePurchaseObserver;
 import com.badbugs.util.Constants;
 
@@ -50,17 +47,17 @@ public class GameStates {
 
     public static BasicObject getPanel(){
         if(isBronzeKnifeAvailable() && isSteelKnifeAvailable()){
-            if(selectedKnife instanceof StoneKnife) return  ObjectsStore.getPanel(Constants.PANEL.BRONZE_STEEL);
-            else if(selectedKnife instanceof BronzeKnife) return  ObjectsStore.getPanel(Constants.PANEL.STONE_STEEL);
-            else if(selectedKnife instanceof SteelKnife) return  ObjectsStore.getPanel(Constants.PANEL.STONE_BRONZE);
+            if(selectedKnife instanceof StoneKnife || selectedKnife instanceof StoneKnifeTilted) return  ObjectsStore.getPanel(Constants.PANEL.BRONZE_STEEL);
+            else if(selectedKnife instanceof BronzeKnife || selectedKnife instanceof BronzeKnifeTilted) return  ObjectsStore.getPanel(Constants.PANEL.STONE_STEEL);
+            else if(selectedKnife instanceof SteelKnife || selectedKnife instanceof SteelKnifeTilted) return  ObjectsStore.getPanel(Constants.PANEL.STONE_BRONZE);
         }
         else if(isBronzeKnifeAvailable()){
-            if(selectedKnife instanceof StoneKnife)  return  ObjectsStore.getPanel(Constants.PANEL.BRONZE);
-            else if(selectedKnife instanceof BronzeKnife)  return  ObjectsStore.getPanel(Constants.PANEL.STONE);
+            if(selectedKnife instanceof StoneKnife || selectedKnife instanceof StoneKnifeTilted)  return  ObjectsStore.getPanel(Constants.PANEL.BRONZE);
+            else if(selectedKnife instanceof BronzeKnife || selectedKnife instanceof BronzeKnifeTilted)  return  ObjectsStore.getPanel(Constants.PANEL.STONE);
         }
         else if(isSteelKnifeAvailable()){
-            if(selectedKnife instanceof StoneKnife)  return  ObjectsStore.getPanel(Constants.PANEL.STEEL);
-            else if(selectedKnife instanceof SteelKnife)  return  ObjectsStore.getPanel(Constants.PANEL.STONE);
+            if(selectedKnife instanceof StoneKnife || selectedKnife instanceof StoneKnifeTilted)  return  ObjectsStore.getPanel(Constants.PANEL.STEEL);
+            else if(selectedKnife instanceof SteelKnife || selectedKnife instanceof SteelKnifeTilted)  return  ObjectsStore.getPanel(Constants.PANEL.STONE);
         }
         return ObjectsStore.getPanel(Constants.PANEL.EMPTY);
     }

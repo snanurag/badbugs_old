@@ -165,6 +165,8 @@ public class Util
   public static void switchBackFromTilted() throws Exception{
     Knife knife = GameStates.getSelectedKnife();
     if (knife instanceof StoneKnifeTilted) GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STONE);
+    else if (knife instanceof BronzeKnifeTilted) GameStates.setSelectedKnife(Constants.KNIFE_TYPE.BRONZE);
+    else if (knife instanceof SteelKnifeTilted) GameStates.setSelectedKnife(Constants.KNIFE_TYPE.STEEL);
     GameStates.getSelectedKnife().getPolygon().setPosition(knife.getPolygon().getX(), knife.getPolygon().getY());
     GameStates.getSelectedKnife().getPolygon().setRotation(knife.getPolygon().getRotation());
   }
