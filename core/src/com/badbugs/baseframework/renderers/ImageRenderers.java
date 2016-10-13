@@ -88,9 +88,8 @@ public class ImageRenderers {
     }
 
     private static Vector2 getShadowPosition(Knife knife, float shadowAngle) throws Exception{
-        Vector2 v = Util.rotateVectorByGivenAngle(0, 1.5f, shadowAngle);
-        Vector2 knifeCenterPos = Util.rotateVectorByGivenAngle(0, 1.5f, knife.getPolygon().getRotation());
-//        Vector2 knifeTip = Util.getKnifeTipInWorld(knife.getPolygon());
+        Vector2 v = Util.rotateVectorByGivenAngle(0, knife.getPolygon().getOriginY(), shadowAngle);
+        Vector2 knifeCenterPos = Util.rotateVectorByGivenAngle(0, knife.getPolygon().getOriginY(), knife.getPolygon().getRotation());
         return  new Vector2(knife.getPolygon().getX() + knifeCenterPos.x - v.x, knife.getPolygon().getY() + knifeCenterPos.y - v.y);
     }
 
