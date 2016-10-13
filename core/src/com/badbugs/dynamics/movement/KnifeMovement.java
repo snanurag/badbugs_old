@@ -242,6 +242,7 @@ public class KnifeMovement {
         else
             ObjectsStore.add(bug, new OilSplash(new Vector2((spot.startPoint.x + spot.endPoint.x) / 2, (spot.startPoint
                     .y + spot.endPoint.y) / 2), spot.getScratchSprite().getCameraDimensions()[0], knife));
+        SoundPlayer.playKnifeWoodImpact();
     }
 
     private static Vector2 moveKnifeBackInBoundary(float x, float y) {
