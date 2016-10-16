@@ -87,4 +87,7 @@ public class GameStates {
         return GamePurchaseObserver.isPurchased(Constants.steel_knife);
     }
 
+    public static boolean isKnifeBoosterAvailable(){
+        return GamePurchaseObserver.isPurchased(Constants.double_speed);
+    }
 }

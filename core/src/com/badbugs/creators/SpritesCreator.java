@@ -50,7 +50,9 @@ public class SpritesCreator {
     private static Texture steelScratchTexture;
     private static Texture bronzeKnifeTexture;
     private static Texture steelKnifeTexture;
-//    public static Texture stoneKnifeShadowTexture;
+    private static Texture knifeBoosterDisabled;
+    private static Texture bronzeKnifeDisabled;
+    private static Texture steelKnifeDisabled;
 
     public static void loadAllTextures() {
         texAtlasBedBug = new TextureAtlas(Gdx.files.internal("sprites/bed_bug.atlas"));
@@ -83,7 +85,9 @@ public class SpritesCreator {
         steelScratchTexture = new Texture(Gdx.files.internal("iron_scratch.png"));
         bronzeKnifeTexture = new Texture(Gdx.files.internal("bronze_knife.png"));
         steelKnifeTexture = new Texture(Gdx.files.internal("steel_knife.png"));
-//        stoneKnifeShadowTexture = new Texture(Gdx.files.internal("stone_knife_shadow.png"));
+        knifeBoosterDisabled = new Texture(Gdx.files.internal("knife_booster_disabled.png"));
+        bronzeKnifeDisabled = new Texture(Gdx.files.internal("bronze_k_disabled.png"));
+        steelKnifeDisabled = new Texture(Gdx.files.internal("steel_knife_disabled.png"));
 
         try{
             createKnives(new Texture(Gdx.files.internal("stone_knife.png")), bronzeKnifeTexture, steelKnifeTexture);
@@ -111,6 +115,9 @@ public class SpritesCreator {
             createShopButton();
             createBronzeKnifeForShop();
             createSteelKnifeForShop();
+            createKnifeBoosterDisabled();
+            createBronzeKnifeForShopDisabled();
+            createSteelKnifeForShopDisabled();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -329,6 +336,17 @@ public class SpritesCreator {
         ObjectsStore.setKnifeBooster(m);
     }
 
+    public static void createKnifeBoosterDisabled() throws Exception {
+        AbstractBasicObject m = new BasicObjectImpl(knifeBoosterDisabled);
+        m.setCameraDimensions(new float[]{Game.cam_width * Constants.KNIFE_BOOSTER_W / Constants.HOME_SCREEN_W,
+                Game.cam_height * Constants.KNIFE_BOOSTER_H / Constants.HOME_SCREEN_H});
+        float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.KNIFE_BOOSTER_LEFT) / Constants.HOME_SCREEN_W;
+        float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.KNIFE_BOOSTER_TOP + Constants.KNIFE_BOOSTER_H))
+                / Constants.HOME_SCREEN_H;
+        m.getPolygon().setPosition(x, y);
+        ObjectsStore.setKnifeBoosterDisabled(m);
+    }
+
     public static void createBronzeKnifeForShop() throws Exception {
         AbstractBasicObject m = new BasicObjectImpl(bronzeKnifeTexture);
         m.setCameraDimensions(new float[]{Game.cam_width * Constants.BRONZE_KNIFE_W / Constants.HOME_SCREEN_W,
@@ -349,6 +367,28 @@ public class SpritesCreator {
                 / Constants.HOME_SCREEN_H;
         m.getPolygon().setPosition(x, y);
         ObjectsStore.setSteelKnifeForShop(m);
+    }
+
+    public static void createBronzeKnifeForShopDisabled() throws Exception {
+        AbstractBasicObject m = new BasicObjectImpl(bronzeKnifeDisabled);
+        m.setCameraDimensions(new float[]{Game.cam_width * Constants.BRONZE_KNIFE_W / Constants.HOME_SCREEN_W,
+                Game.cam_height * Constants.BRONZE_KNIFE_H / Constants.HOME_SCREEN_H});
+        float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.BRONZE_KNIFE_LEFT) / Constants.HOME_SCREEN_W;
+        float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.BRONZE_KNIFE_TOP + Constants.BRONZE_KNIFE_H))
+                / Constants.HOME_SCREEN_H;
+        m.getPolygon().setPosition(x, y);
+        ObjectsStore.setBronzeKnifeForShopDisabled(m);
+    }
+
+    public static void createSteelKnifeForShopDisabled() throws Exception {
+        AbstractBasicObject m = new BasicObjectImpl(steelKnifeDisabled);
+        m.setCameraDimensions(new float[]{Game.cam_width * Constants.STEEL_KNIFE_W/ Constants.HOME_SCREEN_W,
+                Game.cam_height * Constants.STEEL_KNIFE_H / Constants.HOME_SCREEN_H});
+        float x = Game.cam_width * (-Constants.HOME_SCREEN_W / 2 + Constants.STEEL_KNIFE_LEFT) / Constants.HOME_SCREEN_W;
+        float y = Game.cam_height * (Constants.HOME_SCREEN_H / 2 - (Constants.STEEL_KNIFE_TOP + Constants.STEEL_KNIFE_H))
+                / Constants.HOME_SCREEN_H;
+        m.getPolygon().setPosition(x, y);
+        ObjectsStore.setSteelKnifeForShopDisabled(m);
     }
 
     private static void createGooglePlayIcon() throws Exception {

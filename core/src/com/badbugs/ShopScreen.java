@@ -1,5 +1,6 @@
 package com.badbugs;
 
+import com.badbugs.baseframework.elements.GameStates;
 import com.badbugs.baseframework.elements.ObjectsStore;
 import com.badbugs.baseframework.renderers.FontRenderers;
 import com.badbugs.baseframework.renderers.ImageRenderers;
@@ -55,6 +56,9 @@ public class ShopScreen extends ScreenAdapter {
     private BasicObject knifeBooster;
     private BasicObject bronzeKnife;
     private BasicObject steelKnife;
+    private BasicObject knifeBoosterDisabled;
+    private BasicObject bronzeKnifeDisabled;
+    private BasicObject steelKnifeDisabled;
     private BasicObject back;
     private Font knifeBoosterFont;
     private Font bronzeKnifeFont;
@@ -70,6 +74,9 @@ public class ShopScreen extends ScreenAdapter {
         knifeBooster = ObjectsStore.getKnifeBooster();
         bronzeKnife = ObjectsStore.getBronzeKnifeForShop();
         steelKnife = ObjectsStore.getSteelKnifeForShop();
+        knifeBoosterDisabled = ObjectsStore.getKnifeBoosterDisabled();
+        bronzeKnifeDisabled = ObjectsStore.getBronzeKnifeForShopDisabled();
+        steelKnifeDisabled = ObjectsStore.getSteelKnifeForShopDisabled();
         knifeBoosterFont = new Font("Knife booster", Constants.KNIFE_BOOSTER_TEXT_X * Game.screenWidth / Constants
                 .HOME_SCREEN_W, Constants.KNIFE_BOOSTER_TEXT_Y * Game.screenHeight / Constants.HOME_SCREEN_H);
         bronzeKnifeFont = new Font("Bronze Knife", Constants.BRONZE_KNIFE_TEXT_X * Game.screenWidth / Constants
@@ -106,9 +113,12 @@ public class ShopScreen extends ScreenAdapter {
         try {
             ImageRenderers.renderBasicObject(Game.batch, shop);
             ImageRenderers.renderBasicObject(Game.batch, back);
-            ImageRenderers.renderBasicObject(Game.batch, knifeBooster);
-            ImageRenderers.renderBasicObject(Game.batch, bronzeKnife);
-            ImageRenderers.renderBasicObject(Game.batch, steelKnife);
+            if(GameStates.isKnifeBoosterAvailable()) ImageRenderers.renderBasicObject(Game.batch, knifeBoosterDisabled);
+            else ImageRenderers.renderBasicObject(Game.batch, knifeBooster);
+            if(GameStates.isBronzeKnifeAvailable()) ImageRenderers.renderBasicObject(Game.batch, bronzeKnifeDisabled);
+            else ImageRenderers.renderBasicObject(Game.batch, bronzeKnife);
+            if(GameStates.isSteelKnifeAvailable()) ImageRenderers.renderBasicObject(Game.batch, steelKnifeDisabled);
+            else ImageRenderers.renderBasicObject(Game.batch, steelKnife);
         } catch (Exception e) {
             e.printStackTrace();
         }

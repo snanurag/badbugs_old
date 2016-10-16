@@ -32,6 +32,7 @@ public class ObjectsStore {
   private static BasicObject googlePlay;
   private static BasicObject shop;
   private static BasicObject knifeBooster;
+  private static BasicObject knifeBoosterDisabled;
   private static BasicObject back;
   private static BasicObject soundButton;
   private static BasicObject musicButton;
@@ -40,7 +41,9 @@ public class ObjectsStore {
   private static BasicObject quitButton;
   private static BasicObject mainMenuBackGround;
   private static BasicObject bronzeKnifeForShop;
+  private static BasicObject bronzeKnifeForShopDisabled;
   private static BasicObject steelKnifeForShop;
+  private static BasicObject steelKnifeForShopDisabled;
 
   public static int score = 0;
   public static int bugMissed = 0;
@@ -252,5 +255,29 @@ public class ObjectsStore {
 
   public static void setBronzeKnifeForShop(BasicObject bronzeKnifeForShop) {
     ObjectsStore.bronzeKnifeForShop = bronzeKnifeForShop;
+  }
+
+  public static BasicObject getKnifeBoosterDisabled() {
+    return knifeBoosterDisabled;
+  }
+
+  public static void setKnifeBoosterDisabled(BasicObject knifeBoosterDisabled) {
+    ObjectsStore.knifeBoosterDisabled = knifeBoosterDisabled;
+  }
+
+  public static BasicObject getBronzeKnifeForShopDisabled() {
+    return bronzeKnifeForShopDisabled;
+  }
+
+  public static void setBronzeKnifeForShopDisabled(BasicObject bronzeKnifeForShopDisabled) {
+    ObjectsStore.bronzeKnifeForShopDisabled = bronzeKnifeForShopDisabled;
+  }
+
+  public static BasicObject getSteelKnifeForShopDisabled() {
+    return steelKnifeForShopDisabled;
+  }
+
+  public static void setSteelKnifeForShopDisabled(BasicObject steelKnifeForShopDisabled) {
+    ObjectsStore.steelKnifeForShopDisabled = steelKnifeForShopDisabled;
   }
 }

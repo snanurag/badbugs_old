@@ -97,7 +97,7 @@ public class KnifeMovement {
             Polygon polygon = knife.getPolygon();
 
             float speed;
-            if (GamePurchaseObserver.isPurchased(Constants.double_speed) || Constants.DEMO) {
+            if (GameStates.isKnifeBoosterAvailable() || Constants.DEMO) {
                 speed = Constants.BOOSTER * knife.getSpeed();
             } else {
                 speed = knife.getSpeed();
