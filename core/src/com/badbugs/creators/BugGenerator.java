@@ -51,7 +51,7 @@ public class BugGenerator extends Thread {
                 Thread.sleep(500);
                 sleepCount++;
                 Util.globalLogger().info("Bug list size -> " + ObjectsStore.getBugList().size());
-                if (sleepCount % 5 == 0) {
+                if (sleepCount % 5 == 0 && sleepCount !=5) {
                     if (allBugRallyCount > ONLYNORMALBUG_RALLY_LIMIT + ONLYBRONZEBUG_RALLY_LIMIT && ObjectsStore
                             .getBugList().isEmpty()) {
                         killsUnder2Sec = true;
@@ -62,7 +62,6 @@ public class BugGenerator extends Thread {
                     } else consecutiveKillCountUnder2Sec = 0;
                 }
                 if (sleepCount % 6 == 0) {
-                    sleepCount = 0;
                     if (IsABugMissed()) BUG_COUNT_PER_RALLY_LIMIT = 3;
                     if (!MainGameScreen.isPaused) {
                         if (allBugRallyCount < SINGLE_BUG_RALLY) createBug(1, getANormalBug());
