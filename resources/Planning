@@ -1,26 +1,25 @@
--> Double speed pack of knife (intermittent power and paid)
 -> Awesome blood splash
--> 2-3 bugs in different speed category (Grass hopper, red bug, black bug)
+-> 2-3 bugs in different speed category (Grass hopper, ants, spiders)
 -> Oscillation of knife at boundary hit
 -> Lightening trail of knife
 -> Acrade mode only
--> Introduce a bug burning net (intermittent power and paid)
--> launch Bronze bug (2 cuts of stone knife). No. of kills should be at some record.
--> launch Bronze knife (1 cut on Bronze bug) (Intermittent power and paid)
--> launch Steel bug (3 cuts of stone knife, 2 cuts of bronze knife)
--> launch Steel knife (1 cut on Steel bug) (paid)
--> Make stages of the game. Keep the bugs preparing defence in parallel even when user is not playing.
--> User Gets notifications for bug's level of defence prepared.
--> Launch 2nd Stage at a Kills Record (Best kill per stage). With highest level of defence web and escalating spider web.
--> spiders would be building webs and knife would bounce back on colliding the webs.
--> Launch 3rd Stage with highest level of defence and escalating Ant colonies.
--> Ants would be preparing ant holes and Knife will stuck on hitting it.
--> Launch fire power. It will be a burning knife, killing some bugs around it as well -> (Intermittent and paid on stage subscription basis)
--> Launch 4th Stage.
--> Launch Steel bugs with magic coat. ( 2 cuts of Steel knife, 3 cuts of bronze knife and 4 cuts of stone knife. Plus, knife stiks to bug on unsuccessful attempts).
--> Steel bugs would be guarding ant queen. Knife reflects from steel bugs first time
--> On next 3 stages, Steel bugs would be making war formations to protect ant queen.
--> Lanch Challenge mode with 5 levels. A player can challenge any number of players on its level. The player will record
+-> Lanch Challenge mode with 7 levels. A player can challenge any number of players on its level. The player will record
  his game, for which 3 chances will be given. On loose level down. On Win Level up. Every level has its own ranking.
--> Launch bomb as well. It will blast a small area of stage. Only 1 bomb at a time.
--> Launch a Web as well. A web will hold an insect. It will hold the insect only if at least half of the insect enters into web without overstepping on another tangled insect.
+-> User gets notifications for challenges.
+-> Attach every level with some number of stages. Those stages could be opened at some minimum level of powers as well.
+-> User can make his own stages of defenses. He can challenge players to fight against his stage. Your engine can
+offer stages to players to play.
+-> Give a leager board for defence stages.
+
+Bug Defences :
+-> One spider suddenly appears with its web. spiders would be building webs and knife would bounce back on colliding
+with a thread of web at first hit and cut that thread at 2nd hit. Even when spider dies, uncut web stays.
+-> Ants would be preparing ant homes and Knife will stuck on hitting it.
+-> Develop 2 types of Guard Ants. One reflects knife in reverse direction and other reflect in random direction.
+
+Your Attacks :
+-> Launch fire tourch. It can be put at one point on stage and will burn any bug passing through it. One tourch per
+min. One tourch burns 30 sec.
+-> Introduce a bug burning net. It stays on a portion of stage for 30 sec. One net per minute (intermittent power and
+paid)
+-> Launch bomb as well. It will blast whole stage. Only 1 bomb in a minute could be launched.
