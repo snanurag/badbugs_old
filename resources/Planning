@@ -1,3 +1,10 @@
+Your Attacks :
+-> Launch fire tourch. It can be put at one point on stage and will burn any bug passing through it. One tourch per
+min. One tourch burns 30 sec.
+-> Introduce a bug burning net. It stays on a portion of stage for 30 sec. One net per minute (intermittent power and
+paid)
+-> Launch bomb as well. It will blast whole stage. Only 1 bomb in a minute could be launched.
+
 -> Awesome blood splash
 -> 2-3 bugs in different speed category (Grass hopper, ants, spiders)
 -> Oscillation of knife at boundary hit
@@ -9,7 +16,7 @@
 -> Attach every level with some number of stages. Those stages could be opened at some minimum level of powers as well.
 -> User can make his own stages of defenses. He can challenge players to fight against his stage. Your engine can
 offer stages to players to play.
--> Give a leager board for defence stages.
+-> Give a leger board for defence stages.
 
 Bug Defences :
 -> One spider suddenly appears with its web. spiders would be building webs and knife would bounce back on colliding
@@ -17,9 +24,3 @@ with a thread of web at first hit and cut that thread at 2nd hit. Even when spid
 -> Ants would be preparing ant homes and Knife will stuck on hitting it.
 -> Develop 2 types of Guard Ants. One reflects knife in reverse direction and other reflect in random direction.
 
-Your Attacks :
--> Launch fire tourch. It can be put at one point on stage and will burn any bug passing through it. One tourch per
-min. One tourch burns 30 sec.
--> Introduce a bug burning net. It stays on a portion of stage for 30 sec. One net per minute (intermittent power and
-paid)
--> Launch bomb as well. It will blast whole stage. Only 1 bomb in a minute could be launched.
