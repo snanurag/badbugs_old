@@ -10,8 +10,16 @@ paid)
 -> Oscillation of knife at boundary hit
 -> Lightening trail of knife
 -> Acrade mode only
--> Lanch Challenge mode with 7 levels. A player can challenge any number of players on its level. The player will record
- his game, for which 3 chances will be given. On loose level down. On Win Level up. Every level has its own ranking.
+-> Make 5 ages (stone, copper, iron, silver and gold age). You challenge others. Every age has a certain number of
+stages, which should open at certain bug counts. Ages will be shifted on 5 wins. A player wins if either he wins or
+10 players reject his challenge for 2 days.
+-> Stages could be (Stone Age - Basic, Copper Age - Copper Bugs, Iron Age - Iron Bugs, Silver Age - Iron Bugs, Gold Age - Iron Bugs )
+Grass hopper's strike - 1000 bugs
+Snail's strike - 2000 bugs
+Spider Webs - 4000 bugs
+Ant Colonies - 6000 bugs
+Ant Guards - 8000 bugs 
+Ant Defenders - 9000 bugs
 -> User gets notifications for challenges.
 -> Attach every level with some number of stages. Those stages could be opened at some minimum level of powers as well.
 -> User can make his own stages of defenses. He can challenge players to fight against his stage. Your engine can
@@ -22,5 +30,5 @@ Bug Defences :
 -> One spider suddenly appears with its web. spiders would be building webs and knife would bounce back on colliding
 with a thread of web at first hit and cut that thread at 2nd hit. Even when spider dies, uncut web stays.
 -> Ants would be preparing ant homes and Knife will stuck on hitting it.
--> Develop 2 types of Guard Ants. One reflects knife in reverse direction and other reflect in random direction.
+-> Develop 2 types of guarding Ants - Defending ants and Guard ants. Guarding ants reflects knife in reverse direction and other reflect in random direction.
 
