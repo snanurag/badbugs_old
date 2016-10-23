@@ -21,10 +21,6 @@ Ant Colonies - 6000 bugs
 Ant Guards - 8000 bugs 
 Ant Defenders - 9000 bugs
 -> User gets notifications for challenges.
--> Attach every level with some number of stages. Those stages could be opened at some minimum level of powers as well.
--> User can make his own stages of defenses. He can challenge players to fight against his stage. Your engine can
-offer stages to players to play.
--> Give a leger board for defence stages.
 
 Bug Defences :
 -> One spider suddenly appears with its web. spiders would be building webs and knife would bounce back on colliding
