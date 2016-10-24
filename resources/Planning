@@ -1,18 +1,12 @@
-Your Attacks :
--> Launch fire tourch. It can be put at one point on stage and will burn any bug passing through it. One tourch per
-min. One tourch burns 30 sec.
--> Introduce a bug burning net. It stays on a portion of stage for 30 sec. One net per minute (intermittent power and
-paid)
--> Launch bomb as well. It will blast whole stage. Only 1 bomb in a minute could be launched.
 
 -> Awesome blood splash
 -> 2-3 bugs in different speed category (Grass hopper, ants, spiders)
 -> Oscillation of knife at boundary hit
 -> Lightening trail of knife
 -> Acrade mode only
--> Make 5 ages (stone, copper, iron, silver and gold age). You challenge others. Every age has a certain number of
-stages, which should open at certain bug counts. Ages will be shifted on 5 wins. A player wins if either he wins or
-10 players reject his challenge for 2 days.
+-> Make 5 ages (stone, copper, iron, silver and gold age). You challenge others. All stages are accessible from every
+ age. Ages will be shifted on 5 wins. A player wins if either he wins 5 times or 10 players reject his challenge for 3
+ days.
 -> Stages could be (Stone Age - Basic, Copper Age - Copper Bugs, Iron Age - Iron Bugs, Silver Age - Iron Bugs, Gold Age - Iron Bugs )
 Grass hopper's strike - 1000 bugs
 Snail's strike - 2000 bugs
@@ -21,6 +15,18 @@ Ant Colonies - 6000 bugs
 Ant Guards - 8000 bugs 
 Ant Defenders - 9000 bugs
 -> User gets notifications for challenges.
+-> Give option to make team of 10 players. Any game play could be attempted any number of times before anyone accepts
+ challenge.
+-> Replay of games would be after both players had played their chances.
+-> Replay should be with both players screens, at diagonal ends.
+-> Localization is a must thing now.
+
+Your Attacks :
+-> Launch fire tourch. It can be put at one point on stage and will burn any bug passing through it. One tourch per
+min. One tourch burns 30 sec.
+-> Introduce a bug burning net. It stays on a portion of stage for 30 sec. One net per minute (intermittent power and
+paid)
+-> Launch bomb as well. It will blast whole stage. Only 1 bomb in a minute could be launched.
 
 Bug Defences :
 -> One spider suddenly appears with its web. spiders would be building webs and knife would bounce back on colliding

@@ -1,8 +1,21 @@
+- Add best score at top.
+- Make a pause button on the game play screen. - Update
+----- Do this first ----
 - Make wiki - 2nd Oct - Update
 - Make description page of every kind of bug and Knives. - 1 weekend
 - Add shines in description images, knife trail, bug killing
 - Get display on the screen for bronze/iron bugs/knives
-- Give different frame rates to bronze bug.
-- Launch Practise mode
-- Launch Challenge mode ( 7 Levels - Anyone can challenge anyone on internet in same level.)
+- Give display msg for metal bugs, metal knives, intermittent powers.
+- change blood spill pattern
+- fix mark changing position on bug turn.
+- Give intermittent powers of knives and booster for 30 seconds
+- Make a special splash for knife tip. Single dot
+- Take state change of both sides of bug hit points.
+- Change copper bug image with shiny like iron bug. psd in progress
+- make iron/copper bugs eyes of red shiny color.
+
 - Launch GreyStudios.in
+
+- At rally count of 20 give bust of one of these 8 normal bugs, 6 bronze bugs or 5 steel bugs
+- enter lines of single/multiple type bugs
+- Avoid two colloiding bugs at origin, even if they are from different sides.
