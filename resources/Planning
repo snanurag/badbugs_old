@@ -32,6 +32,6 @@ Bug Defences :
 -> One spider suddenly appears with its web. spiders would be building webs and knife would bounce back on colliding
 with a thread of web at first hit and cut that thread at 2nd hit. Even when spider dies, uncut web stays.
 -> Ants would be preparing ant homes and Knife will stuck on hitting it.
--> 
+-> Snails would break into two. Max upto 4.
 -> Develop 2 types of guarding Ants - Defending ants and Guard ants. Guard ants reflects knife in reverse direction and other reflect in random direction.
 
