@@ -16,6 +16,11 @@
 
 - Launch GreyStudios.in
 
-- At rally count of 20 give bust of one of these 8 normal bugs, 6 bronze bugs or 5 steel bugs
+- Remove the limit of 5 bug failure. And introduce a 2 minute game play.
+- Remove rallies of 3 bugs per 3 sec. 
+- Give initial 3 rallies of 3 bugs.
+- Then introduce rallies of 8, 10, 12, 14 bugs.
+- Introduce random entry of bugs.
 - enter lines of single/multiple type bugs
+- After bug list get empty, give break of 2 sec.
 - Avoid two colloiding bugs at origin, even if they are from different sides.
