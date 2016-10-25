@@ -1,4 +1,3 @@
-
 -> Awesome blood splash
 -> 2-3 bugs in different speed category (Grass hopper, ants, spiders)
 -> Oscillation of knife at boundary hit
@@ -21,12 +20,17 @@ Ant Defenders - 9000 bugs
 -> Replay should be with both players screens, at diagonal ends.
 -> Localization is a must thing now.
 
-Your Attacks :
--> Launch fire tourch. It can be put at one point on stage and will burn any bug passing through it. One tourch per
-min. One tourch burns 30 sec.
--> Introduce a bug burning net. It stays on a portion of stage for 30 sec. One net per minute (intermittent power and
-paid)
--> Launch bomb as well. It will blast whole stage. Only 1 bomb in a minute could be launched.
+Your Attacks : (All attack are intermittent and paid) 3 upgrades in bronze, silver and gold levels.
+-> Introduce fire torch. It can be put at one point on stage and will burn any bug passing through it. One torch per 20 sec. One torch burns for 10 sec or bug limits. (3 bug burns, upgrade for 5 and 7 bug burns).
+-> Introduce a normal net. It stays on a small portion of stage. Bugs will stick to a normal net, if its body touches the net. One net per 20 sec. It stays on for 10 sec or bug limit. ( 4 bug sticks, upgrade for 6 and 7 bug sticks).
+-> Introduce a bug burning net. Bug gets burnt if its body touches the net. One net per 20 sec. It stays on a portion of stage for 10 sec or bug limit. (4 bug burns, upgrade for 6 and 7 bug burns).
+-> Introduce a bug trap. Traps kills the bugs. One in 20 sec. Stays on for 10 sec or bug limit.( 1 bug killed, upgrade for 2 and 3 bugs killed)
+-> Introduce a burning thread. One in 20 sec. Stays on for 10 sec or bug limit. ( 3 bug burns, upgrade for 5 and 6 bug burns)
+-> Introduce a gum. A bug sticks to a gum. One in 20 sec. Stays on for 10 sec or bug limit. (2 bug sticks, upgrade for 4 and 5 bug sticks).
+-> Launch bomb as well. It will blast whole stage. Only 1 bomb in 30 minutes could be launched.
+-> For the powers that user has bought, countdown starts altogether.
+-> The powers that user has not bought, any of them could be given randomly. Only one power is given at a time. Another power is not given for the countdown period of first power.
+-> In a competition, purchased powers will follow their course. In addition to that, among free powers, both players should have exact powers at exact times, even if the order is broken because of purchased powers countdown not finished.
 
 Bug Defences :
 -> One spider suddenly appears with its web. spiders would be building webs and knife would bounce back on colliding
