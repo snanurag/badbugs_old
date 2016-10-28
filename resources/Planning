@@ -2,9 +2,9 @@
 -> 2-3 bugs in different speed category (Grass hopper, ants, spiders)
 -> Oscillation of knife at boundary hit
 -> Lightening trail of knife
--> Acrade mode only
+-> Arcade mode only
 -> Make 5 ages (stone, copper, iron, silver and gold age). You challenge others. All stages are accessible from every age. Ages will be shifted on 5 wins. A player wins if either he wins 5 times or 10 players reject his challenge for in at least 3 days.
--> If a player rejects 5 consecutive challenges (Including only those challenge, whose wins are counted by rejection), he is reduced by 1 age and ultimately thrown out of Stone age.
+-> If a player rejects 5 consecutive challenges (Include only those challenge, whose wins are counted by rejection), he is reduced by 1 age and ultimately thrown out of Stone age.
 -> Stages could be (Stone Age - Basic, Copper Age - Copper Bugs, Iron Age - Iron Bugs, Silver Age - Iron Bugs, Gold Age - Iron Bugs )
 Grass hopper's strike - 1000 bugs
 Snail's strike - 2000 bugs
@@ -17,19 +17,21 @@ Ant Defenders - 9000 bugs
 -> Replay of games would be after both players had played their chances.
 -> Replay should be with both players screens, at diagonal ends.
 -> Localization is a must thing now.
+-> Introduce the bugs only from 4 corners of the table. So that all the attacks could be used effectively. Leave a little quarter circle at corner, to avoid putting anything too close to corner.
 
-Your Attacks : (All attack are paid or win basis)
+
+Your Attacks : (All attack are paid as well. All these attacks should open at some minimum bug kill count. No attack should be open since beginning. Since beginning, only knife booster and other knives should be open for hours availability)
 -> Introduce Silver and Gold spells. They can increase power of a attack by 2nd and 3rd degree respectively. They always appear on screen, if user has them.
+-> Introduce a gum. A bug sticks to a gum. One in 20 sec. Stays on for 10 sec or bug limit. (2 bug sticks, silver - 4 and gold - 5 bug sticks).
+-> Introduce a bug trap. Traps kills the bugs. One in 20 sec. Stays on for 10 sec or bug limit.( 1 bug killed, silver - 2 and gold - 3 bugs killed)
 -> Introduce fire torch. It can be put at one point on stage and will burn any bug passing through it. One torch per 20 sec. One torch burns for 10 sec or bug limits. (3 bug burns, silver - 5 and gold - 7 bug burns).
+-> Introduce a burning thread. One in 20 sec. Stays on for 10 sec or bug limit. ( 3 bug burns, silver - 5 and gold - 6 bug burns)
 -> Introduce a normal net. It stays on a small portion of stage. Bugs will stick to a normal net, if its body touches the net. One net per 20 sec. It stays on for 10 sec or bug limit. ( 4 bug sticks, silver - 6 and gold - 7 bug sticks).
 -> Introduce a bug burning net. Bug gets burnt if its body touches the net. One net per 20 sec. It stays on a portion of stage for 10 sec or bug limit. (4 bug burns, silver - 6 and gold - 7 bug burns).
--> Introduce a bug trap. Traps kills the bugs. One in 20 sec. Stays on for 10 sec or bug limit.( 1 bug killed, silver - 2 and gold - 3 bugs killed)
--> Introduce a burning thread. One in 20 sec. Stays on for 10 sec or bug limit. ( 3 bug burns, silver - 5 and gold - 6 bug burns)
--> Introduce a gum. A bug sticks to a gum. One in 20 sec. Stays on for 10 sec or bug limit. (2 bug sticks, silver - 4 and gold - 5 bug sticks).
 -> Introduce bomb as well. It will blast whole stage. Only 1 bomb in 30 minutes could be launched.
 -> (Under Consideration) Introduce puddle. It will drown the bugs. One in 20 sec. Stays on for 10 sec or bug limit ( 4 drown, silver - 5 and gold - 6 drowns)
 -> 2 powers are given to user on win. There would be a dashboard, divided in half, recording all accumulated powers of user. Upper of dashboard has matured powers and lower of dashboard has non-matured powers. A place holder in middle, for maturing a power.
--> Knife booster, bronze and steel knives are given for 2-5days. Buy option is for 5 days, 10 days, a month.
+-> Knife booster, bronze and steel knives are given for 3-8 hrs. Buy option is for 5 days, 10 days, a month.
 -> If spells are available, they will always be on screen.
 -> Any 3 combo of matured powers will come at every 20 sec/30 sec interval and user can choose one of them.
 * powers might stay up for 15 secs instead of 10 sec. Test it.
