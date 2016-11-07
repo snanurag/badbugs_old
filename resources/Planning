@@ -5,8 +5,9 @@
 -> Arcade mode only
 -> Remove the knife booster and side panel. 
 -> Give booster speed to stone knives and give same speed to bronze and steel knives too.
--> Make 5 ages (stone, copper, iron, silver and gold age). You challenge others. All stages are accessible from every age. Ages will be shifted on 5 wins. A player wins if either he wins 5 times or 10 players reject his challenge for in at least 3 days.
--> If a player rejects 5 consecutive challenges (Include only those challenge, whose wins are counted by rejection), he is reduced by 1 age and ultimately thrown out of Stone age.
+-> Make 5 ages (stone, copper, iron, silver and gold age). You challenge others. All stages are accessible from every age. Bronze age is acheived on 5 wins, Iron and Silver age on 7 wins and Golden age on 10 wins.
+-> If a player rejects 7 consecutive challenges, he is considered dormant and won't be shown as prospective competitors during challenge. He would be available as prospective competitors only when he challenge someone else again.
+-> A dormant player is given one challenge in 10 days in auto-select opponents.
 -> Stages could be (Stone Age - Basic, Copper Age - Copper Bugs, Iron Age - Iron Bugs, Silver Age - Iron Bugs, Gold Age - Iron Bugs )
 Grass hopper's strike - 1000 bugs
 Snail's strike - 2000 bugs
