@@ -1,13 +1,16 @@
+Improvements :
 -> Awesome blood splash
 -> 2-3 bugs in different speed category (Grass hopper, ants, spiders)
 -> Oscillation of knife at boundary hit
 -> Lightening trail of knife
--> Arcade mode only
 -> Remove the knife booster and side panel. 
 -> Give booster speed to stone knives and give same speed to bronze and steel knives too.
+
+New Designs :
 -> Make 5 ages (stone, copper, iron, silver and gold age). You challenge others. All stages are accessible from every age. Bronze age is acheived on 5 wins, Iron and Silver age on 7 wins and Golden age on 10 wins.
 -> If a player rejects 7 consecutive challenges, he is considered dormant and won't be shown as prospective competitors during challenge. He would be available as prospective competitors only when he challenge someone else again.
 -> A dormant player is given one challenge in 10 days in auto-select opponents.
+-> If someone beats a Best Play, then count it as his win.
 -> Stages could be (Stone Age - Basic, Copper Age - Copper Bugs, Iron Age - Iron Bugs, Silver Age - Iron Bugs, Gold Age - Iron Bugs )
 Grass hopper's strike - 1000 bugs
 Snail's strike - 2000 bugs
@@ -15,13 +18,19 @@ Spider Webs - 4000 bugs
 Ant Colonies - 6000 bugs
 Ant Guards - 8000 bugs 
 Ant Defenders - 9000 bugs
--> User gets notifications for challenges.
--> Give option to make team of 10 players. Any game play could be attempted any number of times before anyone accepts challenge.
+-> Replay, Accept and Play Again buttons link to Activity Log board.
+-> Challenge button linked to Best Play board.
+-> Challenge/Play and Auto Select buttons link to Players and Teams board.
+-> Give option to make team of 10 players. Play Again button activates when user selects a non-challenged/accepted game from Activity Logs.
 -> Replay of games would be after both players had played their chances.
 -> Replay should be with both players screens, at diagonal ends.
 -> Localization is a must thing now.
 -> Introduce the bugs only from 4 corners of the table. So that all the attacks could be used effectively. Leave a little quarter circle at corner, to avoid putting anything too close to corner.
--> Challenge against best game plays of the age. Give 7 best game plays to play against on every age.
+-> Best Plays will list top 20 game plays of the age.
+-> User gets notifications for challenges.
+-> On clicking team button on home page, give popups of Join team or Make team. Make team asks for team name then player find/select page. Join team gives option for making team search page.
+-> If an unchallenged game exists in Activity Log, then a new less score game should go to dustbin icon and more score should go to Activity Log.
+
 
 Your Attacks : (All attack are paid as well. All these attacks should open at some minimum bug kill count. No attack should be open since beginning. Since beginning, only knife booster and other knives should be open for hours availability)
 -> Introduce Silver and Gold spells. They can increase power of a attack by 2nd and 3rd degree respectively. They always appear on screen, if user has them.
@@ -46,3 +55,23 @@ with a thread of web at first hit and cut that thread at 2nd hit. Even when spid
 -> Snails would break into two. Max upto 4.
 -> Develop 2 types of guarding Ants - Defending ants and Guard ants. Guard ants reflects knife in reverse direction and other reflect in random direction.
 
+Age Board ->
+										   	  Stone Age (i)
+					   Players    | Teams   |   Activity Log   |   Powers      |  Best Plays
+Challenge/Play
+Auto Select
+Play Agin
+Replay
+Accept
+
+
+Home Page ->
+												exit
+												sound
+												music
+												team
+												shop
+												wiki
+												
+												
+					Play 		Age
