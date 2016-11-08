@@ -13,7 +13,7 @@ New Designs :
 -> If someone beats a Best Play, then count it as his win.
 -> Stages could be (Stone Age - Basic, Copper Age - Copper Bugs, Iron Age - Iron Bugs, Silver Age - Iron Bugs, Gold Age - Iron Bugs )
 Grass hopper's strike - 1000 bugs
-Snail's strike - 2000 bugs
+Snail's trail - 2000 bugs
 Spider Webs - 4000 bugs
 Ant Colonies - 6000 bugs
 Ant Guards - 8000 bugs 
@@ -55,23 +55,15 @@ with a thread of web at first hit and cut that thread at 2nd hit. Even when spid
 -> Snails would break into two. Max upto 4.
 -> Develop 2 types of guarding Ants - Defending ants and Guard ants. Guard ants reflects knife in reverse direction and other reflect in random direction.
 
-Age Board ->
-										   	  Stone Age (i)
-					   Players    | Teams   |   Activity Log   |   Powers      |  Best Plays
-Challenge/Play
-Auto Select
-Play Agin
-Replay
-Accept
 
+Loading Page... 
 
-Home Page ->
-												exit
-												sound
-												music
-												team
-												shop
-												wiki
-												
-												
-					Play 		Age
+Main Screen ->
+
+	Basic logo																Challenge board icon
+							GrassHopper's strike logo						Power board icon
+	Snails trail logo														Best plays icon
+							Spider Web logo									Wiki icon
+	Ant Colonies logo														Shop icon
+							Ant Guards logo									settings icon
+	Ant Defenders logo
