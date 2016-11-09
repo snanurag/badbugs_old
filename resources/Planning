@@ -8,10 +8,9 @@ Improvements :
 
 New Designs :
 -> Make 5 ages (stone, copper, iron, silver and gold age). You challenge others. All stages are accessible from every age. Bronze age is acheived on 5 wins, Iron and Silver age on 7 wins and Golden age on 10 wins.
--> After the play, player is given option to fine opponent using Auto select or Search. A player can challenge only 1 player/Team.
--> A player is not assigned another challenge if he has 3 pending challenges.
--> One player can challenge another player only if has less than 3 pending challenges.
--> On challenge board, show 3 challenges in big logos and activity logs down below. Activity logs has replay button on every log.
+-> When click on the stage logo, it automatically searches for opponent. Bugs are generated from server, but both players get option as "Your Turn". Both the games recorded and played later to other player as "<Player> turn".
+-> Challenge Board will have tabs of Players and Teams. Players/Teams wth pending challenges won't list there. Players having pending challenge will see pending challenge, not board.
+-> If a player has pending challenge. Show him that when he clicks on Challenge board.
 -> Settings page will have team up option.
 -> Challenge board and Best play has Age written at top. And both should show status of this age only.
 -> Give option to make team of 10 players. When Team up button is touched, give option to Make team or Join team. Make team asks for team name then player find/select page. Join team gives option for making team search page.
@@ -59,7 +58,7 @@ Loading Page...
 
 Main Screen ->
 
-small age icon
+small age icon (win/required win)
 				Basic logo																Challenge board icon
 										GrassHopper's strike logo						Power board icon
 				Snails trail logo														Best plays icon
@@ -67,3 +66,5 @@ small age icon
 				Ant Colonies logo														Shop icon
 										Ant Guards logo									Wiki icon
 				Ant Defenders logo
+
+PS : Think of Activity Logs and revenge option later.
