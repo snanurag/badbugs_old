@@ -27,6 +27,7 @@ Ant Defenders - 9000 bugs
 -> Best Plays will list top 20 game plays of the age.
 -> User gets notifications for challenges.
 -> On loose player gets one power. On win, player gets 4 powers. Daily, player gets 2 powers. There would be max limit on accumulation of daily powers.
+-> Total play time would be 90 seconds.
 
 Your Attacks : (All attack are paid as well. All these attacks should open at some minimum bug kill count. No attack should be open since beginning. Since beginning, only knife booster and other knives should be open for hours availability)
 -> Introduce Silver and Gold spells. They can increase power of a attack by 2nd and 3rd degree respectively. They always appear on screen, if user has them.
@@ -41,7 +42,7 @@ Your Attacks : (All attack are paid as well. All these attacks should open at so
 -> There would be a dashboard, divided in half, recording all accumulated powers of user. Upper of dashboard has matured powers and lower of dashboard has non-matured powers. A place holder, attached to a queue, in middle, for maturing a power.
 -> Knife booster, bronze and steel knives are given for 3-8 hrs. Buy option is for 5 days, 10 days, a month.
 -> If spells are available, they will always be on screen.
--> Any 3 combo of matured powers will come at every 20 sec/30 sec interval and user can choose one of them.
+-> Any 3 combo of matured powers will come at every 10 sec interval and user can choose one of them. User can use maximum upto 3 powers on board, excluding spells.
 * powers might stay up for 15 secs instead of 10 sec. Test it.
 
 Bug Defences :
