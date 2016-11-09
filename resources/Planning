@@ -9,8 +9,8 @@ Improvements :
 New Designs :
 -> Make 5 ages (stone, copper, iron, silver and gold age). You challenge others. All stages are accessible from every age. Bronze age is acheived on 5 wins, Iron and Silver age on 7 wins and Golden age on 10 wins.
 -> When click on the stage logo, it automatically searches for opponent. Bugs are generated from server, but both players get option as "Your Turn". Both the games recorded and played later to other player as "<Player> turn".
--> Challenge Board will have tabs of Players and Teams. Players/Teams wth pending challenges won't list there. Players having pending challenge will see pending challenge, not board.
--> If a player has pending challenge. Show him that when he clicks on Challenge board.
+-> If no player is online, it asks user to challenge an offline player. And, challenge offline player of same Age. If no player is challengable, put challenge in waiting state.
+-> Challenge Board will have tabs of New Opponent and Pending Challenges. All Players/Teams(with team icon) will list in New Opponents. Players/Teams wth one pending challenge won't list there. In Pending Challenges, keep incoming challenge at top and outgoing challenges after that in latest last order.
 -> Settings page will have team up option.
 -> Challenge board and Best play has Age written at top. And both should show status of this age only.
 -> Give option to make team of 10 players. When Team up button is touched, give option to Make team or Join team. Make team asks for team name then player find/select page. Join team gives option for making team search page.
