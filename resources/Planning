@@ -10,7 +10,7 @@ New Designs :
 -> Make 5 ages (stone, copper, iron, silver and gold age). You challenge others. All stages are accessible from every age. Bronze age is acheived on 5 wins, Iron and Silver age on 7 wins and Golden age on 10 wins.
 -> When click on the stage logo, it automatically searches for opponent. Bugs are generated from server, but both players get option as "Your Turn". Both the games recorded and played later to other player as "<Player> turn".
 -> If no player is online, it asks user to challenge an offline player. And, challenge offline player of same Age. If no player is challengable, put challenge in waiting state.
--> Challenge Board will have tabs of New Opponent and Pending Challenges. All Players/Teams(with team icon) will list in New Opponents. Players/Teams wth one pending challenge won't list there. In Pending Challenges, keep incoming challenge at top and outgoing challenges after that in latest last order.
+-> Challenge Board will have tabs of New Players and Challenged Players. All Players/Teams(with team icon) will list in New Players. Players/Teams wth one pending challenge won't list there. In Pending Challenges, keep incoming challenge at top and outgoing challenges after that in latest last order. The played matches should have watch option for 5 days.
 -> Settings page will have team up option.
 -> Challenge board and Best play has Age written at top. And both should show status of this age only.
 -> Give option to make team of 10 players. When Team up button is touched, give option to Make team or Join team. Make team asks for team name then player find/select page. Join team gives option for making team search page.
@@ -26,7 +26,8 @@ Ant Defenders - 9000 bugs
 -> Introduce the bugs only from 4 corners of the table. So that all the attacks could be used effectively. Leave a little quarter circle at corner, to avoid putting anything too close to corner.
 -> Best Plays will list top 20 game plays of the age.
 -> User gets notifications for challenges.
--> On loose player gets one power. On win, player gets 4 powers. Daily, player gets 2 powers. There would be max limit on accumulation of daily powers.
+-> On loose player gets one power. On win, player gets 4 powers and 3 Gems. Daily, player gets 2 powers and 2 Gems.
+-> Use Gems to buy pack of powers, Superior knife hrs. And, buy gems using real money.
 -> Total play time would be 90 seconds.
 
 Your Attacks : (All attack are paid as well. All these attacks should open at some minimum bug kill count. No attack should be open since beginning. Since beginning, only knife booster and other knives should be open for hours availability)
@@ -39,7 +40,7 @@ Your Attacks : (All attack are paid as well. All these attacks should open at so
 -> Introduce a bug burning net. Bug gets burnt if its body touches the net. One net per 20 sec. It stays on a portion of stage for 10 sec or bug limit. (4 bug burns, silver - 6 and gold - 7 bug burns).
 -> Introduce bomb as well. It will blast whole stage. Only 1 bomb in 30 minutes could be launched.
 -> (Under Consideration) Introduce puddle. It will drown the bugs. One in 20 sec. Stays on for 10 sec or bug limit ( 4 drown, silver - 5 and gold - 6 drowns)
--> There would be a dashboard, divided in half, recording all accumulated powers of user. Upper of dashboard has matured powers and lower of dashboard has non-matured powers. A place holder, attached to a queue, in middle, for maturing a power.
+-> There would be a dashboard, divided in half, recording all accumulated powers of user. Upper of dashboard has matured powers and lower of dashboard has non-matured powers. A place holder, attached to a queue, in middle, for maturing a power. For 1-2 gems, powers mature instantly.
 -> Knife booster, bronze and steel knives are given for 3-8 hrs. Buy option is for 5 days, 10 days, a month.
 -> If spells are available, they will always be on screen.
 -> Any 3 combo of matured powers will come at every 10 sec interval and user can choose one of them. User can use maximum upto 3 powers on board, excluding spells.
