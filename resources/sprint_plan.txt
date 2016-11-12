@@ -1,26 +1,31 @@
-- Add best score at top.
-- Make a pause button on the game play screen. - Update
------ Do this first ----
-- Make wiki - 2nd Oct - Update
-- Make description page of every kind of bug and Knives. - 1 weekend
-- Add shines in description images, knife trail, bug killing
-- Get display on the screen for bronze/iron bugs/knives
-- Give display msg for metal bugs, metal knives, intermittent powers.
-- change blood spill pattern
-- fix mark changing position on bug turn.
-- Give intermittent powers of knives and booster for 30 seconds
-- Make a special splash for knife tip. Single dot
-- Take state change of both sides of bug hit points.
-- Change copper bug image with shiny like iron bug. psd in progress
-- make iron/copper bugs eyes of red shiny color.
+Images           Animations->
 
-- Launch GreyStudios.in
+Gum                                                                     3C Bug Defences ->
+Trap                anim 3C                                             web                 anim
+torch               anim 3C                                             ant holes           anim
+thread              anim 3C
+net  3C                                                                 Knife trails        3
+burning net         anim 3C                                             Knife hit           anim 3
+bomb                anim
+spells              anims 2C                                            Buttons and icons ->
+puddle              anim 3C                                             pause, stop, replay (1x, 2x, 4x)
+                                                                        best score
+Bugs ->
+black bug           redesign
+Bronze bug          redesign
+grass hoppers       anim                                                Code ->
+snails              anim                                                Game improvements
+ants                anim                                                Server side code
+Guard Ants          anim                                                no-sql db
+Defending Ants      anim                                                cache to avoid lag
+Spider              anim
 
-- Remove the limit of 5 bug failure. And introduce a 2 minute game play.
-- Remove rallies of 3 bugs per 3 sec. 
-- Give initial 3 rallies of 3 bugs.
-- Then introduce rallies of 8, 10, 12, 14 bugs.
-- Introduce random entry of bugs.
-- enter lines of single/multiple type bugs
-- After bug list get empty, give break of 2 sec.
-- Avoid two colloiding bugs at origin, even if they are from different sides.
+Coins               anim
+Power board         anims (sparkles, Maturing, selection, timing)
+(instant upgrade)
+Challenge board     2 tabs, list, buttons, text
+Best plays          one tab, list buttons, text
+Shop page           coin purchase options, power packs
+Settings page       1
+Main page icons     7 stages
+7 icons             left and right side
