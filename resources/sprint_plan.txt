@@ -11,16 +11,16 @@ spells              anims 2C                                            Buttons 
 puddle              anim 3C                                             pause, stop, replay (1x, 2x, 4x)
                                                                         best score
 Bugs ->
-black bug           redesign
+black bug           redesign                                            info popups everywhere.
 Bronze bug          redesign
-grass hoppers       anim                                                Code ->
-snails              anim                                                Game improvements
-ants                anim                                                Server side code
-Guard Ants          anim                                                no-sql db
-Defending Ants      anim                                                cache to avoid lag
-Spider              anim
-
-Coins               anim
+grass hoppers       anim
+snails              anim
+ants                anim
+Guard Ants          anim                                                Code ->
+Defending Ants      anim                                                Game improvements
+Spider              anim                                                Server side code
+                                                                        no-sql db
+Coins               anim                                                cache to avoid lag
 Power board         anims (sparkles, Maturing, selection, timing)
 (instant upgrade)
 Challenge board     2 tabs, list, buttons, text
