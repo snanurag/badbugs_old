@@ -1,0 +1,12 @@
+group 'server'
+version '1.0'
+
+task buildZip(type: Zip) {
+    from compileJava
+    from processResources
+//    into('lib') {
+//        from configurations.runtime
+//    }
+}
+
+build.dependsOn buildZip

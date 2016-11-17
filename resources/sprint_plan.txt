@@ -1,31 +1,27 @@
-Images           Animations->
-
-Gum                                                                     3C Bug Defences ->
-Trap                anim 3C                                             web                 anim
-torch               anim 3C                                             ant holes           anim
-thread              anim 3C
-net  3C                                                                 Knife trails        3
-burning net         anim 3C                                             Knife hit           anim 3
-bomb                anim
-spells              anims 2C                                            Buttons and icons ->
-puddle              anim 3C                                             pause, stop, replay (1x, 2x, 4x)
+Attacks ->
+Gum                 3C                                                  Bug Defences ->                                 Code ->
+Trap                anim 3C                                             web                 anim                        Game code improvements
+torch               anim 3C                                             ant holes           anim                        Server side code
+thread              anim 3C                                                                                             no-sql db
+net  3C                                                                 Improvements ->                                 cache to avoid lag
+burning net         anim 3C                                             Knife trails        3                           Google play games integration
+bomb                anim                                                Knife hit           anim 3                      Mobile Notifications
+spells              anims 2C
+puddle              anim 3C                                             Buttons and icons ->
+Bug burning         anim 9                                              pause, stop, replay (1x, 2x, 4x)
                                                                         best score
 Bugs ->
 black bug           redesign                                            info popups everywhere.
 Bronze bug          redesign
 grass hoppers       anim
-snails              anim
-ants                anim
-Guard Ants          anim                                                Code ->
-Defending Ants      anim                                                Game improvements
-Spider              anim                                                Server side code
-                                                                        no-sql db
-Coins               anim                                                cache to avoid lag
-Power board         anims (sparkles, Maturing, selection, timing)
-(instant upgrade)
-Challenge board     2 tabs, list, buttons, text
-Best plays          one tab, list buttons, text
-Shop page           coin purchase options, power packs
-Settings page       1
-Main page icons     7 stages
-7 icons             left and right side
+snails              anim                                                Feature Improvements ->
+ants                anim                                                Coins               anim
+Guard Ants          anim                                                Power board         anims (sparkles, Maturing, selection, timing)
+Defending Ants      anim                                                (instant upgrade)
+Spider              anim                                                Challenge board     2 tabs, list, buttons, text
+                                                                        Best plays          one tab, list buttons, text
+                                                                        Shop page           coin purchase options, power packs
+                                                                        Settings page       1
+                                                                        Main page icons     7 stages
+                                                                        7 icons             left and right side
+                                                                        popups of powers
