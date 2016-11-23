@@ -1,5 +1,39 @@
 Keep searching player's entry in code as per age and two live competitors in memory
-Last_Availability -> Age, last_available_time, player_id (remove entry when not available)
+Last_Availability -> Age, last_available_time (sort key), player_id (remove entry when not available)
 Players -> player's id, age, powers
 Player_Game_History -> player_id , game_id, played (updated when knife play is saved)
 Games -> game_id(timestamp_playerid_opponent_id), timestamp(sort key to avail multiple entries), game play(array of 5 sec game plays), player knife play, opponent knife play
+
+
+Codes ->
+bugs ->
+1 - bedbug
+2 - blackbug
+3 - ladybug
+4 - bronzebug
+5 - steelbug
+
+Corners
+1 - -w/2,-h/2
+2 - w/2,-h/2
+3 - w/2,h/2
+4 - -w/2,h/2
+
+
+
+Knife movement json
+{
+  "bugmissed" : 2,
+  "type" : 1,
+  "touches":[
+	{ "x" : 12,
+	  "y" : 542,
+	  "time" : "13412341"
+	},
+	{ "x" : 122,
+	  "y" : 52,
+	  "time" : "34412341"
+	}
+
+  ]
+}
