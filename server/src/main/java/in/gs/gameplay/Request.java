@@ -1,12 +1,14 @@
 package in.gs.gameplay;
 
+import in.gs.AbstractRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by ashrinag on 11/23/2016.
  */
-public class Request {
+public class Request extends AbstractRequest {
 
     private int bugsmissed;
     private int type;

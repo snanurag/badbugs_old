@@ -1,8 +1,9 @@
 Keep searching player's entry in code as per age and two live competitors in memory
 Last_Availability -> Age, last_available_time (sort key), player_id (remove entry when not available)
-Players -> player's id, age, powers
+Players -> player's id, age, powers, busy
 Player_Game_History -> player_id , game_id, played (updated when knife play is saved)
 Games -> game_id(timestamp_playerid_opponent_id), timestamp(sort key to avail multiple entries), game play(array of 5 sec game plays), player knife play, opponent knife play
+DELETION -> date(primary key), game_id (save in this if both players has played)
 
 
 Codes ->
@@ -34,6 +35,6 @@ Knife movement json
 	  "y" : 52,
 	  "time" : "34412341"
 	}
-
-  ]
+  ],
+  "resource" : "$context.resourcePath"
 }

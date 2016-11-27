@@ -38,7 +38,8 @@ public class Handler implements RequestHandler<Request, Response> {
 
         rally1.setRally(bugs);
 
-        rally2.setTime("432324234");
+//        rally2.setTime("432324234");
+        rally2.setTime(input.getResource());
 
         List<Response.Rally> rallies = new ArrayList<>();
 

@@ -15,6 +15,7 @@ public class Test implements RequestHandler<RequestClass, ResponseClass> {
     public ResponseClass handleRequest(RequestClass requestClass, Context context) {
 
 
+
         ResponseClass r = new ResponseClass();
         r.setGreetings("he he he he ha ha ha!!!");
         return r;
