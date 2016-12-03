@@ -2,16 +2,16 @@ Attacks ->
 Gum                 3C                                                  Bug Defences ->                                 Code ->
 Trap                anim 3C                                             web                 anim                        Game code improvements
 torch               anim 3C                                             ant holes           anim                        Server side code
-thread              anim 3C                                                                                             no-sql db
-net  3C                                                                 Improvements ->                                 cache to avoid lag
-burning net         anim 3C                                             Knife trails        3                           Google play games integration
-bomb                anim                                                Knife hit           anim 3                      Mobile Notifications
+thread              anim 3C                                                                                             Google play games integration
+net  3C                                                                 Improvements ->                                 Mobile Notifications
+burning net         anim 3C                                             Knife trails        3
+bomb                anim                                                Knife hit           anim 3
 spells              anims 2C
 puddle              anim 3C                                             Buttons and icons ->
 Bug burning         anim 9                                              pause, stop, replay (1x, 2x, 4x)
                                                                         best score
 Bugs ->
-black bug           redesign                                            info popups everywhere.
+black bug           redesign                                            info -> popups everywhere.
 Bronze bug          redesign
 grass hoppers       anim
 snails              anim                                                Feature Improvements ->
@@ -21,7 +21,39 @@ Defending Ants      anim                                                (instant
 Spider              anim                                                Challenge board     2 tabs, list, buttons, text
                                                                         Best plays          one tab, list buttons, text
                                                                         Shop page           coin purchase options, power packs
-                                                                        Settings page       1
+Bug burning ->      anim 8                                              Settings page       1
                                                                         Main page icons     7 stages
-                                                                        7 icons             left and right side
+                                                                        8 icons             left and right side
                                                                         popups of powers
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+:::::First Launch:::
+Attacks ->
+torch                                                                   1 week
+net                                                                     1 week
+bomb                                                                    1 week
+
+Bug burning ->      anim 3                                              1 week
+
+Feature Improvements ->
+Coins               anim                                                2 week
+Power board         anims (sparkles, Maturing, selection, timing)       2 week
+(instant upgrade)
+Challenge board     2 tabs, list, buttons, text                         1 week
+Best plays          one tab, list buttons, text                         1 week
+Shop page           coin purchase options, power packs                  .5 week
+Settings page       1                                                   .5 week
+6 icons             left and right side                                 .5 week
+popups of powers                                                        .5 week
+
+info -> popups everywhere.                                              .5 week
+
+Code ->                                                                 Dec end
+Game code improvements
+Server side code
+Google play games integration
+Mobile Notifications
+
+Realease date 15 May/17

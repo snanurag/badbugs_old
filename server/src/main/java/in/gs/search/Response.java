@@ -5,5 +5,13 @@ package in.gs.search;
  */
 public class Response {
 
+    private String playerid;
 
+    public String getPlayerid() {
+        return playerid;
+    }
+
+    public void setPlayerid(String playerid) {
+        this.playerid = playerid;
+    }
 }
