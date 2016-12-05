@@ -16,9 +16,11 @@ import java.util.Map;
  * Created by ashrinag on 12/2/2016.
  */
 public class Handler implements RequestHandler<Request, ItemCollection> {
+
+    //TODO insert or append on existing player entry.
+
     AmazonDynamoDBClient client = new AmazonDynamoDBClient();
     DynamoDB dynamoDB;
-
 
     @Override
     public ItemCollection handleRequest(Request request, Context context) {

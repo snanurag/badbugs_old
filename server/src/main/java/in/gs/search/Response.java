@@ -7,11 +7,21 @@ public class Response {
 
     private String playerid;
 
+    private int onlinePlayer;
+
     public String getPlayerid() {
         return playerid;
     }
 
     public void setPlayerid(String playerid) {
         this.playerid = playerid;
+    }
+
+    public int getOnlinePlayer() {
+        return onlinePlayer;
+    }
+
+    public void setOnlinePlayer(int onlinePlayer) {
+        this.onlinePlayer = onlinePlayer;
     }
 }

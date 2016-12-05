@@ -18,11 +18,7 @@ import java.util.Map;
  */
 public class Handler implements RequestHandler<Request, Response> {
 
-    //TODO check if only one attribute of all items can be read.
-    //TODO define read_limit of Players table.
-    //TODO Collect all the player ids from searched opponents
-    //TODO Read Players from player tables for searched opponents player ids.
-    //TODO Create a batch delete of all the busy players + the returning opponent.
+//TODO wait for online player for 5 sec if no one comes then return back offline player.
 
     private AmazonDynamoDBClient client = new AmazonDynamoDBClient();
     private DynamoDB dynamoDB;
@@ -31,10 +27,8 @@ public class Handler implements RequestHandler<Request, Response> {
     @Override
     public Response handleRequest(Request request, Context context) {
 
-
         Response r = new Response();
-//        client = new AmazonDynamoDBClient(
-//                new ProfileCredentialsProvider());
+
         client.withEndpoint("dynamodb.us-east-2.amazonaws.com");
         dynamoDB = new DynamoDB(client);
 
