@@ -12,6 +12,9 @@ public class Request extends AbstractRequest {
 
     private int bugsmissed;
     private int type;
+    private int nextRallyTime;
+    private String gameId;
+
     private List<Touch> touches = new ArrayList<>();
 
     public int getBugsmissed() {
@@ -38,4 +41,19 @@ public class Request extends AbstractRequest {
         this.touches = touches;
     }
 
+    public int getNextRallyTime() {
+        return nextRallyTime;
+    }
+
+    public void setNextRallyTime(int nextRallyTime) {
+        this.nextRallyTime = nextRallyTime;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
+    }
 }

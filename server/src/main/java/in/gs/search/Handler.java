@@ -18,7 +18,8 @@ import java.util.Map;
  */
 public class Handler implements RequestHandler<Request, Response> {
 
-//TODO wait for online player for 5 sec if no one comes then return back offline player.
+//TODO wait for online player for 7 sec if no one comes then return back offline player.
+//TODO create entry in game table with initial 10 sec play
 
     private AmazonDynamoDBClient client = new AmazonDynamoDBClient();
     private DynamoDB dynamoDB;

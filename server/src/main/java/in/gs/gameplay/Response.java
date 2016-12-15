@@ -6,7 +6,7 @@ import java.util.List;
 //      {
 //        "rallies": [
 //        {
-//        "time": "123123123",
+//        "time": "5",
 //        "rally": [
 //        {
 //        "type": 2,
@@ -32,6 +32,25 @@ public class Response {
 
     private List<Rally> rallies = new ArrayList<>();
 
+    private int hardness;
+    private boolean isHardnessIncreased;
+
+    public int getHardness() {
+        return hardness;
+    }
+
+    public void setHardness(int hardness) {
+        this.hardness = hardness;
+    }
+
+    public boolean isHardnessIncreased() {
+        return isHardnessIncreased;
+    }
+
+    public void setHardnessIncreased(boolean hardnessIncreased) {
+        isHardnessIncreased = hardnessIncreased;
+    }
+
     public List<Rally> getRallies() {
         return rallies;
     }
@@ -41,14 +60,14 @@ public class Response {
     }
 
     public class Rally {
-        private String time;
+        private float time; //0, 2.5, 5. 7.5, 10, 12.5 .... till 90.
         private List<Bug> rally = new ArrayList<>();
 
-        public String getTime() {
+        public float getTime() {
             return time;
         }
 
-        public void setTime(String time) {
+        public void setTime(float time) {
             this.time = time;
         }
 
@@ -59,6 +78,7 @@ public class Response {
         public void setRally(List<Bug> rally) {
             this.rally = rally;
         }
+
     }
 
     public class Bug {
