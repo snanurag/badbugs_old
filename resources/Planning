@@ -16,6 +16,13 @@ Improvements :
 - Add best score at top.
 - Make a pause button on the game play screen. - Update
 
+Knives :
+stone knife
+bronze knife
+iron knife
+crystal knife
+fire knife
+
 New Designs :
 -> Make 5 ages (stone, copper, iron, silver and gold age). You challenge others. All stages are accessible from every age. Bronze age is acheived on 25 wins, Iron and Silver age on 40 wins and Golden age on 50 wins.
 -> When click on the stage logo, it automatically searches for opponent. Bugs are generated from server, but both players get option as "Your Turn". Both the games recorded and played later to other player as "<Player> turn".
